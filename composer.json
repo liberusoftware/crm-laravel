@@ -70,7 +70,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
     "classmap": [
-      "modules/*/src"
+      "modules/*/src",
+      "themes/*/src"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"
