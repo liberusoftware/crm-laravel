@@ -36,7 +36,10 @@ return new class() extends Migration
             $table->json('transform')->nullable();
             $table->boolean('required')->default(false);
             $table->timestamps();
-            $table->unique(['operation_id', 'source_field', 'target_field']);
+            $table->unique(
+                ['operation_id', 'source_field', 'target_field'],
+                'crm_data_operation_mapping_fields_unique',
+            );
         });
         Schema::create('crm_data_operation_rules', function (Blueprint $table): void {
             $table->id();
