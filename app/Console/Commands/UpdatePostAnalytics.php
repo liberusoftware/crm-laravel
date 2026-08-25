@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\ConnectedAccount;
 use App\Models\SocialMediaPost;
 use App\Services\FacebookService;
-use App\Services\Zernio\ZernioClient;
+use App\Services\Zernio\ZernioTenantService;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -113,9 +113,13 @@ class UpdatePostAnalytics extends Command
             return [];
         }
 
-        $response = app(ZernioClient::class)->getAnalytics(array_filter([
+        $team = $post->team;
+        if ($team === null) {
+            return [];
+        }
+
+        $response = app(ZernioTenantService::class)->analytics($team, array_filter([
             'postId' => (string) data_get($post->platform_post_ids, 'zernio'),
-            'profileId' => config('services.zernio.profile_id'),
         ]));
 
         return $this->normalizeZernioAnalytics($response);

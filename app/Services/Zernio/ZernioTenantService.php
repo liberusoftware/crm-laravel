@@ -56,6 +56,14 @@ final class ZernioTenantService
         return $this->client->listAccounts($this->ensureProfile($team));
     }
 
+    /** @param array<string, mixed> $query @return array<string, mixed> */
+    public function analytics(Model $team, array $query = []): array
+    {
+        $query['profileId'] = $this->ensureProfile($team);
+
+        return $this->client->getAnalytics($query);
+    }
+
     public function provisionIfConfigured(Model $team): void
     {
         if ((string) config('services.zernio.api_key') === '') {

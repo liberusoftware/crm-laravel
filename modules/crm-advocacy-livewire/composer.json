@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-advocacy-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AdvocacyLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AdvocacyLivewire\\AdvocacyLivewireServiceProvider"]},"liberu":{"name":"module-crm-advocacy-livewire"}}}
