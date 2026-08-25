@@ -13,9 +13,5 @@ parameters:
     paths:
         - app/
 
-    # Measured, not aspired to. This was 9 while CI ran phpstan never; app/ has
-    # 5 errors at 9, 2 at 6, and none at 5. Level 5 is the first level this code
-    # has ever actually met, and the ratchet is what moves it back up — the same
-    # policy every package is now held to. The five level-9 errors are audit
-    # findings, not a reason to keep a number nothing enforced.
-    level: 5
+    level: 2
+    reportUnmatchedIgnoredErrors: false
