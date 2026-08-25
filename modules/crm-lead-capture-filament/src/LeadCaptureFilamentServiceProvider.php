@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Liberu\CRM\LeadCapture\Filament;
+namespace Liberu\CRM\LeadCaptureFilament;
 
 use Illuminate\Support\ServiceProvider;
 

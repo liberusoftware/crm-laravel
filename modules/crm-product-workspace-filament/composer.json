@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-product-workspace-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ProductWorkspaceFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ProductWorkspaceFilament\\ProductWorkspaceFilamentServiceProvider"]},"liberu":{"name":"module-crm-product-workspace-filament"}}}

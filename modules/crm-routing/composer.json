@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-routing","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Routing\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Routing\\RoutingServiceProvider"]},"liberu":{"name":"crm-routing"}}}

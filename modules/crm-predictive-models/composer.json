@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-predictive-models","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\PredictiveModels\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\PredictiveModels\\PredictiveModelsServiceProvider"]},"liberu":{"name":"crm-predictive-models"}}}

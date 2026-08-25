@@ -19,7 +19,7 @@ final class InstallSnapshot
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
         }
 
-return DB::transaction(function () use ($teamId, $actorId, $bundleId) {
+        return DB::transaction(function () use ($teamId, $actorId, $bundleId) {
             $bundle = SnapshotBundle::query()->where('team_id', $teamId)->where('status', 'published')->findOrFail($bundleId);
             $install = SnapshotInstall::query()->updateOrCreate(['team_id' => $teamId, 'bundle_id' => $bundle->id], ['version' => $bundle->getAttribute('version'), 'status' => 'installed', 'installed_by' => $actorId]);
             app(SnapshotAudit::class)->record($teamId, $actorId, 'snapshot_installed', ['bundle_id' => $bundle->id, 'version' => $bundle->getAttribute('version')]);

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-referrals-filament","type":"liberu-module","require":{"liberusoftware/module-crm-referrals":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Referrals\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Referrals\\Filament\\ReferralsFilamentServiceProvider"]},"liberu":{"name":"crm-referrals-filament"}}}

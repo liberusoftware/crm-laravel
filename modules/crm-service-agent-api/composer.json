@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-service-agent-api","type":"liberu-module","require":{"liberusoftware/module-crm-service-agent":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ServiceAgentApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ServiceAgentApi\\Providers\\ServiceAgentApiServiceProvider"]},"liberu":{"name":"crm-service-agent-api"}}}

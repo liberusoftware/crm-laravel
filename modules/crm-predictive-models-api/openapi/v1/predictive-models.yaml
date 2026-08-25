@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Predictive Models API
+  version: 1.0.0
+paths:
+  /api/v1/crm/predictive-models/models:
+    get: { summary: List registered predictive models }
+    post: { summary: Register a predictive model }
+  /api/v1/crm/predictive-models/predictions:
+    post: { summary: Record a scored prediction with explanation }
+  /api/v1/crm/predictive-models/drift:
+    post: { summary: Record feature drift detection }

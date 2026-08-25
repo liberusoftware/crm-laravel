@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-agent","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingAgent\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingAgent\\MarketingAgentServiceProvider"]},"liberu":{"name":"crm-marketing-agent"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-channel-sales-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ChannelSalesLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ChannelSalesLivewire\\ChannelSalesLivewireServiceProvider"]},"liberu":{"name":"module-crm-channel-sales-livewire"}}}

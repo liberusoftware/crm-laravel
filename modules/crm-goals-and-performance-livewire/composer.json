@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-goals-and-performance-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\GoalsAndPerformanceLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\GoalsAndPerformanceLivewire\\GoalsAndPerformanceLivewireServiceProvider"]},"liberu":{"name":"crm-goals-and-performance-livewire"}}}

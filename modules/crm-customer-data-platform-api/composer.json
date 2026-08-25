@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-data-platform-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerDataPlatformApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerDataPlatformApi\\CustomerDataPlatformApiServiceProvider"]},"liberu":{"name":"module-crm-customer-data-platform-api"}}}

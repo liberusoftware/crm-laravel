@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-learning-and-courses","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LearningAndCourses\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LearningAndCourses\\LearningAndCoursesServiceProvider"]},"liberu":{"name":"crm-learning-and-courses"}}}

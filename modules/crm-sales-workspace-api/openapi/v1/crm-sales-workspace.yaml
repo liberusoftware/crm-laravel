@@ -1,0 +1,8 @@
+openapi: 3.1.0
+info: {title: CRM Sales Workspace API, version: 1.0.0}
+paths:
+  /api/v1/crm/sales-workspace/feed:
+    get: {summary: List prioritized seller feed, security: [{sanctum: []}], responses: {'200': {description: Feed}}}
+  /api/v1/crm/sales-workspace/agenda:
+    get: {summary: List daily agenda, security: [{sanctum: []}], responses: {'200': {description: Agenda}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-landing-pages-and-funnels-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LandingPagesAndFunnelsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LandingPagesAndFunnelsLivewire\\LandingPagesAndFunnelsLivewireServiceProvider"]},"liberu":{"name":"crm-landing-pages-and-funnels-livewire"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-resource-planning-api","type":"liberu-module","require":{"liberusoftware/module-crm-resource-planning":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ResourcePlanningApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ResourcePlanningApi\\Providers\\ResourcePlanningApiServiceProvider"]},"liberu":{"name":"crm-resource-planning-api"}}}

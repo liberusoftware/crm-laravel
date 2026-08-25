@@ -1,0 +1,8 @@
+openapi: 3.1.0
+info: {title: CRM SaaS Packaging API, version: 1.0.0}
+paths:
+  /api/v1/crm/saas-packaging/plans:
+    get: {summary: List active plans, security: [{sanctum: []}], responses: {'200': {description: Plans}}}
+  /api/v1/crm/saas-packaging/subscription:
+    post: {summary: Provision or change a team subscription, security: [{sanctum: []}], responses: {'201': {description: Subscription}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

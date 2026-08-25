@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-communities","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Communities\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Communities\\CommunitiesServiceProvider"]},"liberu":{"name":"crm-communities"}}}

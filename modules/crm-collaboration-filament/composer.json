@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-collaboration-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CollaborationFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CollaborationFilament\\CollaborationFilamentServiceProvider"]},"liberu":{"name":"module-crm-collaboration-filament"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-agent-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingAgentLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingAgentLivewire\\MarketingAgentLivewireServiceProvider"]},"liberu":{"name":"crm-marketing-agent-livewire"}}}

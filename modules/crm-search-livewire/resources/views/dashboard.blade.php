@@ -1,0 +1,1 @@
+<section aria-labelledby="search-heading"><h2 id="search-heading">CRM Search</h2><ul>@forelse($results as $result)<li>{{ $result->title }} — {{ $result->record_type }}</li>@empty<li>No matching records.</li>@endforelse</ul><h3>Recent</h3><ul>@foreach($recents as $recent)<li>{{ $recent->title }}</li>@endforeach</ul></section>

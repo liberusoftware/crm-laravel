@@ -1,0 +1,13 @@
+openapi: 3.1.0
+info:
+  title: CRM Quotas and Incentives API
+  version: 1.0.0
+paths:
+  /api/v1/crm/quotas-and-incentives/quotas:
+    get: { summary: List quotas and attainment }
+    post: { summary: Create a quota }
+  /api/v1/crm/quotas-and-incentives/credits:
+    get: { summary: List commission credits }
+    post: { summary: Create an idempotent commission credit }
+  /api/v1/crm/quotas-and-incentives/exports:
+    post: { summary: Queue a payroll export }

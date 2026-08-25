@@ -4,37 +4,48 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\LeadCapture\Actions;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
-use Liberu\CRM\LeadCapture\Events\LeadCaptured;
+use Illuminate\Support\Facades\Validator;
+use Liberu\CRM\LeadCapture\Models\CapturedLead;
 use Liberu\CRM\LeadCapture\Models\LeadCapture;
-use Liberu\CRM\LeadCapture\Services\CaptureDeduplicator;
+use Liberu\CRM\LeadCapture\Services\LeadCapturePolicy;
 
 final class CaptureLead
 {
-    private const KINDS = ['leads_inbox', 'manual', 'import', 'api', 'form', 'survey', 'qr_code', 'chat', 'call', 'advertisement', 'event', 'referral'];
+    public function __construct(private readonly LeadCapturePolicy $policy) {}
 
-    /** @param array<string, mixed> $attributes */
-    public function execute(int $teamId, ?int $actorId, array $attributes): LeadCapture
+    public function execute(int $teamId, int $userId, array $input): CapturedLead
     {
-        $kind = (string) ($attributes['kind'] ?? 'manual');
-        if (! in_array($kind, self::KINDS, true)) {
-            throw ValidationException::withMessages(['kind' => 'Unsupported lead capture channel.']);
-        }
-        if (blank($attributes['name'] ?? null) && blank($attributes['email'] ?? null) && blank($attributes['phone'] ?? null)) {
-            throw ValidationException::withMessages(['identity' => 'A name, email, or phone number is required.']);
-        }
+        abort_unless($this->policy->canManage($teamId, $userId), 403);
+        $data = Validator::make($input, ['external_key' => ['required', 'string', 'max:255'], 'channel' => ['required', 'in:manual,import,api,form,survey,qr,chat,call,advertisement,event,referral'], 'status' => ['nullable', 'in:new,contacted,qualified,converted,archived'], 'name' => ['nullable', 'string', 'max:255'], 'email' => ['nullable', 'email', 'max:255'], 'phone' => ['nullable', 'string', 'max:50'], 'source' => ['nullable', 'string', 'max:255'], 'source_metadata' => ['nullable', 'array'], 'payload' => ['nullable', 'array']])->validate();
 
-        return DB::transaction(function () use ($teamId, $actorId, $attributes, $kind): LeadCapture {
-            $attributes['dedupe_key'] ??= app(CaptureDeduplicator::class)->key($attributes);
-            $capture = LeadCapture::query()->where('team_id', $teamId)->where('dedupe_key', $attributes['dedupe_key'])->first();
-            if ($capture !== null) {
-                return $capture;
-            }
-            $capture = LeadCapture::query()->create(array_merge($attributes, ['team_id' => $teamId, 'actor_id' => $actorId, 'kind' => $kind, 'status' => $attributes['status'] ?? 'received', 'captured_at' => $attributes['captured_at'] ?? now()]));
-            LeadCaptured::dispatch($capture);
+        return CapturedLead::query()->updateOrCreate(['team_id' => $teamId, 'external_key' => $data['external_key']], ['channel' => $data['channel'], 'status' => $data['status'] ?? 'new', 'name' => $data['name'] ?? null, 'email' => $data['email'] ?? null, 'phone' => $data['phone'] ?? null, 'source' => $data['source'] ?? null, 'source_metadata' => $data['source_metadata'] ?? null, 'payload' => $data['payload'] ?? null]);
+    }
 
-            return $capture->refresh();
-        });
+    /** @param array<string, mixed> $input */
+    public function executeLegacy(int $teamId, ?int $actorId, array $input): LeadCapture
+    {
+        $data = Validator::make($input, [
+            'kind' => ['required', 'string', 'max:100'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'source' => ['nullable', 'string', 'max:255'],
+            'payload' => ['nullable', 'array'],
+            'provenance' => ['nullable', 'array'],
+        ])->validate();
+
+        return LeadCapture::query()->create([
+            'team_id' => $teamId,
+            'actor_id' => $actorId,
+            'kind' => $data['kind'],
+            'status' => 'new',
+            'name' => $data['name'] ?? null,
+            'email' => $data['email'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'source' => $data['source'] ?? null,
+            'payload' => $data['payload'] ?? null,
+            'provenance' => $data['provenance'] ?? null,
+            'captured_at' => now(),
+        ]);
     }
 }

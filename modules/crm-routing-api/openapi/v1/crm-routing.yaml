@@ -1,0 +1,7 @@
+openapi: 3.1.0
+info: {title: CRM Routing API, version: 1.0.0}
+paths:
+  /api/v1/crm/routing/assignments:
+    get: {summary: List assignments, security: [{sanctum: []}], responses: {'200': {description: Assignments}}}
+    post: {summary: Assign a subject with fallback, security: [{sanctum: []}], responses: {'201': {description: Assignment}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

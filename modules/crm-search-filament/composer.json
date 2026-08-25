@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-search-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CrmSearchFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CrmSearchFilament\\CrmSearchFilamentServiceProvider"]},"liberu":{"name":"module-crm-search-filament"}}}

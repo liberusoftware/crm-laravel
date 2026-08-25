@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-success-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerSuccessFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerSuccessFilament\\CustomerSuccessFilamentServiceProvider"]},"liberu":{"name":"module-crm-customer-success-filament"}}}

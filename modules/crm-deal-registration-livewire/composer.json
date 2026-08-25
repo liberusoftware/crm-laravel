@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-deal-registration-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DealRegistrationLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DealRegistrationLivewire\\DealRegistrationLivewireServiceProvider"]},"liberu":{"name":"module-crm-deal-registration-livewire"}}}

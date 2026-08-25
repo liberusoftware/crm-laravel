@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-campaigns-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CampaignsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CampaignsLivewire\\CampaignsLivewireServiceProvider"]},"liberu":{"name":"module-crm-campaigns-livewire"}}}

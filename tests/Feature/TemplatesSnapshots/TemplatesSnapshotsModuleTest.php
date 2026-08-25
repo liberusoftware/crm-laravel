@@ -36,6 +36,6 @@ final class TemplatesSnapshotsModuleTest extends TestCase
         self::assertSame(1, $rolled->getAttribute('version'));
         self::assertSame($install->getAttribute('id'), SnapshotInstall::query()->where('team_id', $team->id)->firstOrFail()->getAttribute('id'));
         self::assertSame(2, SnapshotBundle::query()->where('team_id', $team->id)->count());
-        self::assertSame(0, SnapshotBundle::query()->where('team_id',$other->id)->count());
+        self::assertSame(0, SnapshotBundle::query()->where('team_id', $other->id)->count());
     }
 }

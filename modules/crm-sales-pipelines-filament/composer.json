@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sales-pipelines-filament","type":"liberu-module","require":{"liberusoftware/module-crm-sales-pipelines":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\SalesPipelines\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SalesPipelines\\Filament\\SalesPipelinesFilamentServiceProvider"]},"liberu":{"name":"crm-sales-pipelines-filament"}}}

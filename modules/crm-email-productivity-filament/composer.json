@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-email-productivity-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EmailProductivityFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EmailProductivityFilament\\EmailProductivityFilamentServiceProvider"]},"liberu":{"name":"module-crm-email-productivity-filament"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-conversation-analytics-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ConversationAnalyticsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ConversationAnalyticsLivewire\\ConversationAnalyticsLivewireServiceProvider"]},"liberu":{"name":"module-crm-conversation-analytics-livewire"}}}

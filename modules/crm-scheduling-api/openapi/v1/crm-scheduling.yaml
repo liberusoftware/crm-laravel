@@ -1,0 +1,10 @@
+openapi: 3.1.0
+info: {title: CRM Scheduling API, version: 1.0.0}
+paths:
+  /api/v1/crm/scheduling/links:
+    get: {summary: List team scheduling links, security: [{sanctum: []}], responses: {'200': {description: Links}}}
+    post: {summary: Create a scheduling link, security: [{sanctum: []}], responses: {'201': {description: Link created}}}
+  /api/v1/crm/scheduling/bookings:
+    get: {summary: List bookings, security: [{sanctum: []}], responses: {'200': {description: Bookings}}}
+    post: {summary: Create an idempotent booking, security: [{sanctum: []}], responses: {'201': {description: Booking created}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

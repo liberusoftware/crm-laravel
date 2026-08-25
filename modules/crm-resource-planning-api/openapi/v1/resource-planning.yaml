@@ -1,0 +1,14 @@
+openapi: 3.1.0
+info:
+  title: CRM Resource Planning API
+  version: 1.0.0
+paths:
+  /api/v1/crm/resource-planning/skills:
+    get: { summary: List resource skills }
+    post: { summary: Create or update a resource skill }
+  /api/v1/crm/resource-planning/capacity:
+    get: { summary: List capacity periods }
+    post: { summary: Set resource capacity }
+  /api/v1/crm/resource-planning/bookings:
+    get: { summary: List resource bookings }
+    post: { summary: Create a tentative or confirmed booking }

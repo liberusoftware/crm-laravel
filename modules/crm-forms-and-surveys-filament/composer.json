@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-forms-and-surveys-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\FormsAndSurveysFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\FormsAndSurveysFilament\\FormsAndSurveysFilamentServiceProvider"]},"liberu":{"name":"crm-forms-and-surveys-filament"}}}

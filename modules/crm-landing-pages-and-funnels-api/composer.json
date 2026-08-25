@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-landing-pages-and-funnels-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LandingPagesAndFunnelsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LandingPagesAndFunnelsApi\\Providers\\LandingPagesAndFunnelsApiServiceProvider"]},"liberu":{"name":"crm-landing-pages-and-funnels-api"}}}

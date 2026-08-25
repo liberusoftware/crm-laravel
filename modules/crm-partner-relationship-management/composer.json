@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-partner-relationship-management","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\PartnerRelationshipManagement\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\PartnerRelationshipManagement\\PartnerRelationshipManagementServiceProvider"]},"liberu":{"name":"crm-partner-relationship-management"}}}

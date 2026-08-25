@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Projects API
+  version: 1.0.0
+paths:
+  /api/v1/crm/projects:
+    get: { summary: List post-sale projects }
+    post: { summary: Create a project }
+  /api/v1/crm/projects/tasks:
+    post: { summary: Create a dependent project task }
+  /api/v1/crm/projects/{project}/handoff:
+    post: { summary: Link a project to an opportunity }

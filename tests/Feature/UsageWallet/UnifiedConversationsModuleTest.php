@@ -29,6 +29,6 @@ final class UnifiedConversationsModuleTest extends TestCase
         self::assertSame($message->id, app(SendMessage::class)->execute($team->id, $owner->id, $conversation->id, ['body' => 'changed', 'idempotency_key' => 'm1'])->id);
         self::assertSame(1, Conversation::query()->where('team_id', $team->id)->count());
         self::assertSame(1, ConversationMessage::query()->where('team_id', $team->id)->count());
-        self::assertSame(0, Conversation::query()->where('team_id',$other->id)->count());
+        self::assertSame(0, Conversation::query()->where('team_id', $other->id)->count());
     }
 }

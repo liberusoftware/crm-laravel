@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-knowledge","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Knowledge\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Knowledge\\KnowledgeServiceProvider"]},"liberu":{"name":"crm-knowledge"}}}

@@ -1,0 +1,1 @@
+{"name":"module-crm-cpq-livewire","display_name":"CRM CPQ Livewire","description":"CPQ Livewire components","version":"1.0.0","category":"presentation","provider":"Liberu\\CRM\\CPQLivewire\\CpqLivewireServiceProvider","requires":{"modules":["crm-cpq"]},"suggests":[],"default_enabled":false,"capabilities":["crm.cpq.livewire"],"features":["Quote builder"]}

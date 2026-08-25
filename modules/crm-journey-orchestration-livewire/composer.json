@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-journey-orchestration-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\JourneyOrchestrationLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\JourneyOrchestrationLivewire\\JourneyOrchestrationLivewireServiceProvider"]},"liberu":{"name":"crm-journey-orchestration-livewire"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-channel-gateway","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ChannelGateway\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ChannelGateway\\ChannelGatewayServiceProvider"]},"liberu":{"name":"crm-channel-gateway"}}}

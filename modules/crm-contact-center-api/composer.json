@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-contact-center-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ContactCenterApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ContactCenterApi\\ContactCenterApiServiceProvider"]},"liberu":{"name":"module-crm-contact-center-api"}}}

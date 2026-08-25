@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-dialer-and-outreach-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DialerAndOutreachApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DialerAndOutreachApi\\DialerAndOutreachApiServiceProvider"]},"liberu":{"name":"module-crm-dialer-and-outreach-api"}}}

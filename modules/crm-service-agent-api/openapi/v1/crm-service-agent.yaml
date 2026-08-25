@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info: {title: CRM Service Agent API, version: 1.0.0}
+paths:
+  /api/v1/crm/service-agent/cases:
+    get: {summary: List team agent cases, security: [{sanctum: []}], responses: {'200': {description: Cases}}}
+    post: {summary: Create an idempotent agent case, security: [{sanctum: []}], responses: {'201': {description: Case created}}}
+  /api/v1/crm/service-agent/knowledge:
+    get: {summary: Retrieve team knowledge, security: [{sanctum: []}], responses: {'200': {description: Knowledge results}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

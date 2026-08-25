@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-resources","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingResources\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingResources\\MarketingResourcesServiceProvider"]},"liberu":{"name":"crm-marketing-resources"}}}

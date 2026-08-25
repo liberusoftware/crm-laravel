@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Liberu\CRM\LeadQualification\Filament;
+namespace Liberu\CRM\LeadQualificationFilament;
 
 use Illuminate\Support\ServiceProvider;
 

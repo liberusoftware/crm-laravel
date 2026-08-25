@@ -1,8 +1,1 @@
-{
-    "name": "liberusoftware/module-crm-lead-capture",
-    "description": "Reusable CRM lead capture domain module",
-    "type": "liberu-module",
-    "require": {"php": "^8.5", "illuminate/database": "^13.0", "liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-core": "^1.0"},
-    "autoload": {"psr-4": {"Liberu\\CRM\\LeadCapture\\": "src/"}},
-    "extra": {"laravel": {"providers": ["Liberu\\CRM\\LeadCapture\\LeadCaptureServiceProvider"]}, "liberu": {"name": "crm-lead-capture"}}
-}
+{"name":"liberusoftware/module-crm-lead-capture","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LeadCapture\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LeadCapture\\LeadCaptureServiceProvider"]},"liberu":{"name":"crm-lead-capture"}}}

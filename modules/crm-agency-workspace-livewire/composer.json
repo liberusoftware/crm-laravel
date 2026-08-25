@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-agency-workspace-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AgencyWorkspaceLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AgencyWorkspaceLivewire\\AgencyWorkspaceLivewireServiceProvider"]},"liberu":{"name":"module-crm-agency-workspace-livewire"}}}

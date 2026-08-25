@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-journey-orchestration","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\JourneyOrchestration\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\JourneyOrchestration\\JourneyOrchestrationServiceProvider"]},"liberu":{"name":"crm-journey-orchestration"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-campaigns-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CampaignsFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CampaignsFilament\\CampaignsFilamentServiceProvider"]},"liberu":{"name":"module-crm-campaigns-filament"}}}

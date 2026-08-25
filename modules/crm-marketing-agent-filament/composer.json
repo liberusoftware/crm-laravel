@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-agent-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingAgentFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingAgentFilament\\MarketingAgentFilamentServiceProvider"]},"liberu":{"name":"crm-marketing-agent-filament"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-proposals-and-quotes","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ProposalsAndQuotes\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ProposalsAndQuotes\\ProposalsAndQuotesServiceProvider"]},"liberu":{"name":"crm-proposals-and-quotes"}}}

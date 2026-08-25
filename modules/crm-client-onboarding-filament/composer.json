@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-client-onboarding-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ClientOnboardingFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ClientOnboardingFilament\\ClientOnboardingFilamentServiceProvider"]},"liberu":{"name":"module-crm-client-onboarding-filament"}}}

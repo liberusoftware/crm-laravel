@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-mobile-messaging-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MobileMessagingFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MobileMessagingFilament\\MobileMessagingFilamentServiceProvider"]},"liberu":{"name":"crm-mobile-messaging-filament"}}}

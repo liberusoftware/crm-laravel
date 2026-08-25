@@ -1,0 +1,14 @@
+openapi: 3.1.0
+info:
+  title: CRM Reputation Management API
+  version: 1.0.0
+paths:
+  /api/v1/crm/reputation-management/connections:
+    get: { summary: List review-site connections }
+    post: { summary: Connect a review site }
+  /api/v1/crm/reputation-management/requests:
+    get: { summary: List review requests }
+    post: { summary: Create a review request }
+  /api/v1/crm/reputation-management/reviews:
+    get: { summary: List reviews }
+    post: { summary: Record a review }

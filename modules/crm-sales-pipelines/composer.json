@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sales-pipelines","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\SalesPipelines\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SalesPipelines\\SalesPipelinesServiceProvider"]},"liberu":{"name":"crm-sales-pipelines"}}}

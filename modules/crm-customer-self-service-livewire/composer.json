@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-self-service-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerSelfServiceLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerSelfServiceLivewire\\CustomerSelfServiceLivewireServiceProvider"]},"liberu":{"name":"module-crm-customer-self-service-livewire"}}}
