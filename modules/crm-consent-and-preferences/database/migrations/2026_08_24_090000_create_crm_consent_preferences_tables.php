@@ -74,7 +74,10 @@ return new class() extends Migration
             $table->json('reasons');
             $table->timestamp('evaluated_at');
             $table->timestamps();
-            $table->index(['team_id', 'subject_type', 'subject_id', 'channel']);
+            $table->index(
+                ['team_id', 'subject_type', 'subject_id', 'channel'],
+                'crm_policy_subject_channel_index',
+            );
         });
     }
 
