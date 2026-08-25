@@ -71,7 +71,6 @@
         },
     "classmap": [
       "modules/*/src",
-      "modules/*/database/factories",
       "themes/*/src"
     ],
     "files": [

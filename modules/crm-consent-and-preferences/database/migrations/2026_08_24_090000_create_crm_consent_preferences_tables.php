@@ -26,7 +26,10 @@ return new class() extends Migration
             $table->timestamp('withdrawn_at')->nullable();
             $table->unsignedBigInteger('actor_id')->nullable();
             $table->timestamps();
-            $table->index(['team_id', 'subject_type', 'subject_id', 'channel', 'topic']);
+            $table->index(
+                ['team_id', 'subject_type', 'subject_id', 'channel', 'topic'],
+                'crm_consent_subject_channel_topic_index',
+            );
         });
         Schema::create('crm_preference_records', function (Blueprint $table): void {
             $table->id();
