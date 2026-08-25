@@ -40,7 +40,10 @@ return new class() extends Migration
             $table->string('timezone')->default('UTC');
             $table->unsignedBigInteger('actor_id')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'subject_type', 'subject_id', 'channel', 'topic']);
+            $table->unique(
+                ['team_id', 'subject_type', 'subject_id', 'channel', 'topic'],
+                'crm_preferences_subject_channel_topic_unique',
+            );
         });
         Schema::create('crm_suppression_records', function (Blueprint $table): void {
             $table->id();
