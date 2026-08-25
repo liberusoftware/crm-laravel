@@ -92,17 +92,26 @@ final class ZernioClient
     }
 
     /** @return array<string, mixed> */
-    public function sendInboxMessage(string $conversationId, string $accountId, string $message): array
+    public function sendInboxMessage(string $conversationId, string $accountId, string $message, ?string $profileId = null): array
     {
-        return $this->send('post', '/inbox/conversations/'.rawurlencode($conversationId).'/messages', [
-            'accountId' => $accountId,
-            'message' => $message,
-        ]);
+        return $this->send(
+            'post',
+            '/inbox/conversations/'.rawurlencode($conversationId).'/messages',
+            [
+                'accountId' => $accountId,
+                'message' => $message,
+            ],
+            array_filter(['profileId' => $profileId]),
+        );
     }
 
     /** @param array<string, mixed> $payload @return array<string, mixed> */
-    private function send(string $method, string $uri, array $payload = []): array
+    private function send(string $method, string $uri, array $payload = [], array $query = []): array
     {
+        if ($query !== []) {
+            $uri .= '?'.http_build_query($query);
+        }
+
         $response = $method === 'get'
             ? $this->request()->get($uri, $payload)
             : $this->request()->{$method}($uri, $payload);

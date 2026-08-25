@@ -7,6 +7,7 @@ namespace Tests\Unit;
 use App\Models\SocialMediaPost;
 use App\Models\Team;
 use App\Services\Zernio\ZernioAdvertisingService;
+use App\Services\Zernio\ZernioClient;
 use App\Services\Zernio\ZernioException;
 use App\Services\Zernio\ZernioPublisher;
 use App\Services\Zernio\ZernioTenantService;
@@ -105,5 +106,15 @@ final class ZernioClientTest extends TestCase
         Http::assertSentCount(2);
         Http::assertSent(fn ($request): bool => str_contains($request->url(), 'profileId=team-profile'));
         Http::assertNotSent(fn ($request): bool => str_contains($request->url(), 'global-profile') || str_contains($request->url(), 'caller-profile'));
+    }
+
+    public function test_inbox_reply_uses_the_team_profile_query(): void
+    {
+        config()->set('services.zernio.api_key', 'sk_'.str_repeat('a', 64));
+        Http::fake(['https://zernio.com/api/v1/inbox/conversations/*' => Http::response(['message' => ['id' => 'message_1']], 201)]);
+
+        app(ZernioClient::class)->sendInboxMessage('conversation_1', 'account_1', 'Reply', 'team-profile');
+
+        Http::assertSent(fn ($request): bool => str_contains($request->url(), 'profileId=team-profile'));
     }
 }
