@@ -18,9 +18,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files
 COPY composer.json composer.lock ./
-# Local path repositories must be present before Composer resolves the lock file.
-COPY modules/analytics-contracts ./modules/analytics-contracts
-COPY modules/localization-contracts ./modules/localization-contracts
+# Local module sources must be present before Composer resolves and generates its classmap.
+COPY modules ./modules
 COPY themes ./themes
 
 # Install composer dependencies (no autoloader yet, will optimize in final stage)

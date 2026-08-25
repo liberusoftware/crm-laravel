@@ -67,11 +67,14 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Liberu\\Themes\\Base\\": "themes/base/src/",
+            "Liberu\\Themes\\ClearSignal\\": "themes/clear-signal/src/",
+            "Liberu\\Themes\\Dark\\": "themes/dark/src/",
+            "Liberu\\Themes\\DefaultTheme\\": "themes/default/src/"
         },
     "classmap": [
-      "modules/*/src",
-      "themes/*/src"
+      "modules/*/src"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"
