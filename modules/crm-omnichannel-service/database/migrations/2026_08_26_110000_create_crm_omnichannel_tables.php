@@ -35,7 +35,10 @@ return new class() extends Migration
             $t->json('metadata')->nullable();
             $t->timestamp('occurred_at');
             $t->timestamps();
-            $t->index(['team_id', 'conversation_id', 'occurred_at']);
+            $t->index(
+                ['team_id', 'conversation_id', 'occurred_at'],
+                'crm_omnichannel_interaction_time_index',
+            );
         });
         Schema::create('crm_omnichannel_macros', function (Blueprint $t): void {
             $t->id();
@@ -56,7 +59,10 @@ return new class() extends Migration
             $t->text('payload')->nullable();
             $t->timestamp('expires_at')->nullable();
             $t->timestamps();
-            $t->index(['team_id', 'conversation_id', 'kind', 'status']);
+            $t->index(
+                ['team_id', 'conversation_id', 'kind', 'status'],
+                'crm_omnichannel_workspace_event_index',
+            );
         });
     }
 

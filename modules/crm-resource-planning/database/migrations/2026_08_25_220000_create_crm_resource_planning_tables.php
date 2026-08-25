@@ -30,7 +30,10 @@ return new class() extends Migration
             $table->decimal('allocated_hours', 10, 2)->default(0);
             $table->json('metadata')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'resource_id', 'period_start', 'period_end']);
+            $table->unique(
+                ['team_id', 'resource_id', 'period_start', 'period_end'],
+                'crm_resource_capacity_period_unique',
+            );
         });
         Schema::create('crm_resource_bookings', function (Blueprint $table): void {
             $table->id();
@@ -45,7 +48,10 @@ return new class() extends Migration
             $table->decimal('rate', 12, 2)->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
-            $table->index(['team_id', 'resource_id', 'starts_at', 'ends_at']);
+            $table->index(
+                ['team_id', 'resource_id', 'starts_at', 'ends_at'],
+                'crm_resource_booking_window_index',
+            );
         });
         Schema::create('crm_resource_rates', function (Blueprint $table): void {
             $table->id();

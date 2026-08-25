@@ -45,7 +45,10 @@ return new class() extends Migration
             $table->json('metadata')->nullable();
             $table->timestamps();
             $table->unique(['team_id', 'subject_type', 'subject_id']);
-            $table->index(['team_id', 'lifecycle_stage', 'qualification_status']);
+            $table->index(
+                ['team_id', 'lifecycle_stage', 'qualification_status'],
+                'crm_lead_qualification_stage_status_index',
+            );
         });
 
         Schema::create('crm_lead_qualification_stage_history', function (Blueprint $table): void {
@@ -57,7 +60,7 @@ return new class() extends Migration
             $table->string('to_stage', 48);
             $table->string('reason', 255)->nullable();
             $table->timestamps();
-            $table->index(['team_id', 'qualification_id']);
+            $table->index(['team_id', 'qualification_id'], 'crm_lead_qualification_history_index');
         });
 
         Schema::create('crm_lead_qualification_nurtures', function (Blueprint $table): void {

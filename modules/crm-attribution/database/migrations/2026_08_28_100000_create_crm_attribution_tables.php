@@ -38,7 +38,10 @@ return new class() extends Migration
             $table->json('allocations')->nullable();
             $table->timestamp('converted_at')->index();
             $table->timestamps();
-            $table->unique(['team_id', 'visitor_key', 'conversion_key']);
+            $table->unique(
+                ['team_id', 'visitor_key', 'conversion_key'],
+                'crm_attribution_conversion_key_unique',
+            );
         });
     }
 

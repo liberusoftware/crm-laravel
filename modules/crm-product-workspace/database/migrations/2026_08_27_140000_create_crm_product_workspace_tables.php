@@ -42,7 +42,10 @@ return new class() extends Migration
             $table->timestamp('ends_at')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
-            $table->index(['team_id', 'customer_id', 'status']);
+            $table->index(
+                ['team_id', 'customer_id', 'status'],
+                'crm_product_entitlement_customer_index',
+            );
         });
         Schema::create('crm_product_workspace_syncs', function (Blueprint $table): void {
             $table->id();

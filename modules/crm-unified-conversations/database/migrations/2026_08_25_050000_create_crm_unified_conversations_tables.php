@@ -41,7 +41,10 @@ return new class() extends Migration
             $t->timestamp('read_at')->nullable();
             $t->string('idempotency_key')->nullable();
             $t->timestamps();
-            $t->unique(['team_id', 'conversation_id', 'idempotency_key']);
+            $t->unique(
+                ['team_id', 'conversation_id', 'idempotency_key'],
+                'crm_conversation_message_idempotency_unique',
+            );
         });
         Schema::create('crm_conversation_audits', function (Blueprint $t): void {
             $t->id();

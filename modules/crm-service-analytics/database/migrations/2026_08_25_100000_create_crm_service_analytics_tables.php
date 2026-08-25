@@ -22,8 +22,11 @@ return new class() extends Migration
             $t->unsignedBigInteger('recorded_by')->nullable();
             $t->timestamp('generated_at')->nullable();
             $t->timestamps();
-            $t->unique(['team_id', 'metric', 'period_start', 'period_end', 'dimensions_hash']);
-            $t->index(['team_id', 'metric', 'period_start']);
+            $t->unique(
+                ['team_id', 'metric', 'period_start', 'period_end', 'dimensions_hash'],
+                'crm_service_analytics_snapshot_key_unique',
+            );
+            $t->index(['team_id', 'metric', 'period_start'], 'crm_service_analytics_metric_period_index');
         });
         Schema::create('crm_service_analytics_audits', function (Blueprint $t): void {
             $t->id();

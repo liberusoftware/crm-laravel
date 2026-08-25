@@ -67,7 +67,10 @@ return new class() extends Migration
             $table->decimal('average_rating', 4, 2)->default(0);
             $table->json('sentiment')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'location', 'period_start', 'period_end']);
+            $table->unique(
+                ['team_id', 'location', 'period_start', 'period_end'],
+                'crm_reputation_rollup_period_unique',
+            );
         });
     }
 

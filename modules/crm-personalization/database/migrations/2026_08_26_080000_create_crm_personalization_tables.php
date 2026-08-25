@@ -35,7 +35,10 @@ return new class() extends Migration
             $table->boolean('holdout')->default(false);
             $table->timestamp('decided_at');
             $table->timestamps();
-            $table->index(['team_id', 'subject_type', 'subject_id']);
+            $table->index(
+                ['team_id', 'subject_type', 'subject_id'],
+                'crm_personalization_decision_subject_index',
+            );
         });
         Schema::create('crm_personalization_outcomes', function (Blueprint $table): void {
             $table->id();
