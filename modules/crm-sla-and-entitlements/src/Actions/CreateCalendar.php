@@ -13,7 +13,7 @@ final class CreateCalendar
     public function execute(int $teamId, int $actorId, array $data): SlaCalendar
     {
         $this->authorize($teamId, $actorId);
-        validator($data, ['name' => ['required', 'string', 'max:255'], 'timezone' => ['required', 'timezone'], 'weekly_schedule' => ['nullable', 'array'], 'holidays' => ['nullable', 'array']])->validate();
+        $data = validator($data, ['name' => ['required', 'string', 'max:255'], 'timezone' => ['required', 'timezone'], 'weekly_schedule' => ['nullable', 'array'], 'holidays' => ['nullable', 'array']])->validate();
 
         return SlaCalendar::query()->create(['team_id' => $teamId, 'name' => $data['name'], 'timezone' => $data['timezone'], 'weekly_schedule' => $data['weekly_schedule'] ?? [], 'holidays' => $data['holidays'] ?? [], 'active' => true]);
     }

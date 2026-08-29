@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\SlaAndEntitlements\Services;
 
-use App\Models\Team;
+use Illuminate\Support\Facades\DB;
 
 final class SlaPolicy
 {
     public function canManage(int $teamId, int $userId): bool
     {
-        $team = Team::query()->find($teamId);
+        $owner = DB::table('teams')->where('id', $teamId)->value('user_id');
 
-        return $team !== null && ((int) $team->user_id === $userId || $team->users()->whereKey($userId)->wherePivotIn('role', ['admin', 'manager'])->exists());
+        return $owner !== null && ((int) $owner === $userId || DB::table('team_user')
+            ->where('team_id', $teamId)
+            ->where('user_id', $userId)
+            ->whereIn('role', ['admin', 'manager'])
+            ->where(function ($query): void {
+                $query->whereNull('status')->orWhere('status', 'active');
+            })
+            ->exists());
     }
 }

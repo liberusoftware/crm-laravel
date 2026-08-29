@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Liberu\CRM\SlaAndEntitlementsApi\Http\Controllers\SlaController;
 
-Route::middleware('auth:sanctum')->prefix('api/v1/crm/sla-and-entitlements')->group(function (): void {
+Route::middleware(['auth:sanctum', 'throttle:api'])->prefix('api/v1/crm/sla-and-entitlements')->group(function (): void {
     Route::get('/contracts', [SlaController::class, 'contracts']);
     Route::post('/contracts', [SlaController::class, 'storeContract']);
     Route::get('/calendars', [SlaController::class, 'calendars']);

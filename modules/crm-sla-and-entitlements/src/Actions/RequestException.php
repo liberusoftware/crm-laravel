@@ -15,7 +15,8 @@ final class RequestException
     {
         if (! app(SlaPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } validator($data, ['case_id' => ['required', 'integer', 'exists:crm_sla_cases,id'], 'reason' => ['required', 'string', 'max:1000'], 'expires_at' => ['nullable', 'date', 'after:now']])->validate();
+        }
+        $data = validator($data, ['case_id' => ['required', 'integer', 'exists:crm_sla_cases,id'], 'reason' => ['required', 'string', 'max:1000'], 'expires_at' => ['nullable', 'date', 'after:now']])->validate();
         if (! SlaCase::query()->where('team_id', $teamId)->whereKey($data['case_id'])->exists()) {
             throw ValidationException::withMessages(['case_id' => 'Case does not belong to this team.']);
         }

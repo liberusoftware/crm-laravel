@@ -7,6 +7,7 @@ namespace Tests\Feature\SlaAndEntitlements;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Validation\ValidationException;
 use Liberu\CRM\SlaAndEntitlements\Actions\CreateCalendar;
 use Liberu\CRM\SlaAndEntitlements\Actions\CreateContract;
 use Liberu\CRM\SlaAndEntitlements\Actions\EvaluateCase;
@@ -41,5 +42,22 @@ final class SlaAndEntitlementsModuleTest extends TestCase
         self::assertSame(1, SlaCase::query()->where('team_id', $team->id)->count());
         self::assertSame(1, SlaException::query()->where('team_id', $team->id)->count());
         self::assertSame(0, SlaEscalation::query()->where('team_id', $other->id)->count());
+    }
+
+    public function test_foreign_contracts_are_rejected_and_control_fields_cannot_change_team_scope(): void
+    {
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $otherOwner = User::factory()->create();
+        $other = Team::factory()->create(['user_id' => $otherOwner->id]);
+        $foreignCalendar = app(CreateCalendar::class)->execute($other->id, $otherOwner->id, ['name' => 'Other hours', 'timezone' => 'UTC']);
+        $foreignContract = app(CreateContract::class)->execute($other->id, $otherOwner->id, ['name' => 'Other contract', 'calendar_id' => $foreignCalendar->id]);
+
+        $calendar = app(CreateCalendar::class)->execute($team->id, $owner->id, ['name' => 'Team hours', 'timezone' => 'UTC', 'team_id' => $other->id]);
+
+        self::assertSame($team->id, $calendar->team_id);
+        $this->expectException(ValidationException::class);
+
+        app(OpenCase::class)->execute($team->id, $owner->id, ['subject' => 'Foreign contract', 'contract_id' => $foreignContract->id]);
     }
 }

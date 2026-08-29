@@ -15,7 +15,8 @@ final class SetEntitlement
     {
         if (! app(SlaPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } validator($data, ['contract_id' => ['required', 'integer', 'exists:crm_sla_contracts,id'], 'name' => ['required', 'string', 'max:255'], 'priority' => ['required', 'in:low,normal,high,urgent'], 'response_minutes' => ['required', 'integer', 'min:1'], 'resolution_minutes' => ['required', 'integer', 'gt:response_minutes'], 'warning_minutes' => ['nullable', 'integer', 'min:0']])->validate();
+        }
+        $data = validator($data, ['contract_id' => ['required', 'integer', 'exists:crm_sla_contracts,id'], 'name' => ['required', 'string', 'max:255'], 'priority' => ['required', 'in:low,normal,high,urgent'], 'response_minutes' => ['required', 'integer', 'min:1'], 'resolution_minutes' => ['required', 'integer', 'gt:response_minutes'], 'warning_minutes' => ['nullable', 'integer', 'min:0'], 'coverage' => ['nullable', 'array']])->validate();
 
         if (! SlaContract::query()->where('team_id', $teamId)->whereKey($data['contract_id'])->exists()) {
             throw ValidationException::withMessages(['contract_id' => 'Contract does not belong to this team.']);

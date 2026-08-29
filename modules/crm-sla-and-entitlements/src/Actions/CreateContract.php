@@ -15,7 +15,8 @@ final class CreateContract
     {
         if (! app(SlaPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } validator($data, ['name' => ['required', 'string', 'max:255'], 'status' => ['nullable', 'in:draft,active,suspended,expired,terminated'], 'customer_id' => ['nullable', 'integer'], 'calendar_id' => ['nullable', 'integer', 'exists:crm_sla_calendars,id'], 'starts_on' => ['nullable', 'date'], 'ends_on' => ['nullable', 'date', 'after_or_equal:starts_on']])->validate();
+        }
+        $data = validator($data, ['name' => ['required', 'string', 'max:255'], 'status' => ['nullable', 'in:draft,active,suspended,expired,terminated'], 'customer_id' => ['nullable', 'integer'], 'calendar_id' => ['nullable', 'integer', 'exists:crm_sla_calendars,id'], 'starts_on' => ['nullable', 'date'], 'ends_on' => ['nullable', 'date', 'after_or_equal:starts_on'], 'metadata' => ['nullable', 'array']])->validate();
 
         if (isset($data['calendar_id']) && ! SlaCalendar::query()->where('team_id', $teamId)->whereKey($data['calendar_id'])->exists()) {
             throw ValidationException::withMessages(['calendar_id' => 'Calendar does not belong to this team.']);

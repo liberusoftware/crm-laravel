@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\SlaAndEntitlementsApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\SlaAndEntitlements\Actions\CreateCalendar;
 use Liberu\CRM\SlaAndEntitlements\Actions\CreateContract;
 use Liberu\CRM\SlaAndEntitlements\Actions\EvaluateCase;
@@ -24,57 +25,57 @@ final class SlaController extends Controller
         return (int) $r->user()->current_team_id;
     }
 
-    public function contracts(Request $r, SlaQuery $q)
+    public function contracts(Request $r, SlaQuery $q): JsonResponse
     {
-        return response()->json(['data' => $q->contracts($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->contracts($this->team($r))->paginate(min(max($r->integer('per_page', 25), 1), 100))]);
     }
 
-    public function calendars(Request $r, SlaQuery $q)
+    public function calendars(Request $r, SlaQuery $q): JsonResponse
     {
         return response()->json(['data' => $q->calendars($this->team($r))->get()]);
     }
 
-    public function entitlements(Request $r, SlaQuery $q)
+    public function entitlements(Request $r, SlaQuery $q): JsonResponse
     {
         return response()->json(['data' => $q->entitlements($this->team($r))->get()]);
     }
 
-    public function cases(Request $r, SlaQuery $q)
+    public function cases(Request $r, SlaQuery $q): JsonResponse
     {
-        return response()->json(['data' => $q->cases($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->cases($this->team($r))->paginate(min(max($r->integer('per_page', 25), 1), 100))]);
     }
 
-    public function storeContract(Request $r, CreateContract $a)
-    {
-        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
-    }
-
-    public function storeCalendar(Request $r, CreateCalendar $a)
+    public function storeContract(Request $r, CreateContract $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
     }
 
-    public function storeEntitlement(Request $r, SetEntitlement $a)
+    public function storeCalendar(Request $r, CreateCalendar $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
     }
 
-    public function storeCase(Request $r, OpenCase $a)
+    public function storeEntitlement(Request $r, SetEntitlement $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
     }
 
-    public function transition(Request $r, int $case, string $transition, TransitionCase $a)
+    public function storeCase(Request $r, OpenCase $a): JsonResponse
+    {
+        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
+    }
+
+    public function transition(Request $r, int $case, string $transition, TransitionCase $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $case, $transition, $r->all())]);
     }
 
-    public function evaluate(Request $r, int $case, EvaluateCase $a)
+    public function evaluate(Request $r, int $case, EvaluateCase $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $case)]);
     }
 
-    public function exception(Request $r, RequestException $a)
+    public function exception(Request $r, RequestException $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
     }
