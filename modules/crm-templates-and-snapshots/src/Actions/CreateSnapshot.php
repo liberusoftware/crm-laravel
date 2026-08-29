@@ -16,9 +16,11 @@ final class CreateSnapshot
     {
         if (! app(SnapshotPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        }validator($data, ['name' => ['required', 'string', 'max:255'], 'payload' => ['required', 'array'], 'status' => ['in:draft,published']])->validate();
+        }
 
-        return DB::transaction(function () use ($teamId, $actorId, $data) {
+        $data = validator($data, ['name' => ['required', 'string', 'max:255'], 'payload' => ['required', 'array'], 'status' => ['sometimes', 'in:draft,published']])->validate();
+
+        return DB::transaction(function () use ($teamId, $actorId, $data): SnapshotBundle {
             $version = ((int) SnapshotBundle::query()->where('team_id', $teamId)->where('name', $data['name'])->max('version')) + 1;
             $payload = $data['payload'];
             $bundle = SnapshotBundle::query()->create(['team_id' => $teamId, 'name' => $data['name'], 'version' => $version, 'status' => $data['status'] ?? 'draft', 'payload' => $payload, 'checksum' => hash('sha256', (string) json_encode($payload, JSON_THROW_ON_ERROR)), 'created_by' => $actorId]);
