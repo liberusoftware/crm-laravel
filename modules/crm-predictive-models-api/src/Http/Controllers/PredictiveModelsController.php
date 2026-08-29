@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\PredictiveModelsApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\PredictiveModels\Actions\DetectDrift;
 use Liberu\CRM\PredictiveModels\Actions\RecordEvaluation;
 use Liberu\CRM\PredictiveModels\Actions\RecordPrediction;

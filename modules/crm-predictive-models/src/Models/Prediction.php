@@ -6,6 +6,9 @@ namespace Liberu\CRM\PredictiveModels\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ */
 final class Prediction extends Model
 {
     protected $table = 'crm_predictive_predictions';
