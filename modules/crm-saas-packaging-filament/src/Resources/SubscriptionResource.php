@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Liberu\CRM\SaasPackaging\Filament\Resources;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\SaasPackaging\Filament\Resources\SubscriptionResource\Pages\CreateSubscription;
+use Liberu\CRM\SaasPackaging\Filament\Resources\SubscriptionResource\Pages\EditSubscription;
 use Liberu\CRM\SaasPackaging\Filament\Resources\SubscriptionResource\Pages\ListSubscriptions;
 use Liberu\CRM\SaasPackaging\Models\SaasSubscription;
 
@@ -19,7 +22,12 @@ final class SubscriptionResource extends Resource
 
     public static function form(Schema $s): Schema
     {
-        return $s->components([Select::make('status')->options(['trialing' => 'Trialing', 'active' => 'Active', 'suspended' => 'Suspended', 'cancelled' => 'Cancelled'])->required(), Select::make('plan_id')->relationship('plan', 'name')->required()]);
+        return $s->components([
+            Select::make('plan_id')->relationship('plan', 'name')->required(),
+            Select::make('status')->options(['trialing' => 'Trialing', 'active' => 'Active', 'suspended' => 'Suspended', 'cancelled' => 'Cancelled'])->required(),
+            TextInput::make('billing_provider')->maxLength(100),
+            TextInput::make('billing_reference')->maxLength(255),
+        ]);
     }
 
     public static function table(Table $t): Table
@@ -37,6 +45,6 @@ final class SubscriptionResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListSubscriptions::route('/')];
+        return ['index' => ListSubscriptions::route('/'), 'create' => CreateSubscription::route('/create'), 'edit' => EditSubscription::route('/{record}/edit')];
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
+ * @property int $team_id
  * @property string $status
  * @property int $plan_id
  * @property Carbon|null $cancelled_at
