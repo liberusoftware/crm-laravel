@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WorkManagement\Filament\Resources;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\WorkManagement\Filament\Resources\WorkQueueResource\Pages\CreateWorkQueue;
+use Liberu\CRM\WorkManagement\Filament\Resources\WorkQueueResource\Pages\EditWorkQueue;
 use Liberu\CRM\WorkManagement\Filament\Resources\WorkQueueResource\Pages\ListWorkQueues;
 use Liberu\CRM\WorkManagement\Models\WorkQueue;
 
@@ -23,7 +25,7 @@ final class WorkQueueResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('name')->required()->maxLength(160), Textarea::make('description')->maxLength(500)]);
+        return $schema->components([TextInput::make('name')->required()->maxLength(160), Textarea::make('description')->maxLength(500), Select::make('status')->options(['active' => 'Active', 'paused' => 'Paused', 'archived' => 'Archived'])->required(), Textarea::make('rules')->json()]);
     }
 
     public static function table(Table $table): Table
@@ -41,6 +43,6 @@ final class WorkQueueResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListWorkQueues::route('/'), 'create' => CreateWorkQueue::route('/create')];
+        return ['index' => ListWorkQueues::route('/'), 'create' => CreateWorkQueue::route('/create'), 'edit' => EditWorkQueue::route('/{record}/edit')];
     }
 }

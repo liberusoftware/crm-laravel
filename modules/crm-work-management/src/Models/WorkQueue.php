@@ -7,7 +7,10 @@ namespace Liberu\CRM\WorkManagement\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/** @property int $team_id */
+/**
+ * @property int $team_id
+ * @property string $status
+ */
 final class WorkQueue extends Model
 {
     protected $table = 'crm_work_queues';
