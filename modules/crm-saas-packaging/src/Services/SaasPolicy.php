@@ -4,14 +4,27 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\SaasPackaging\Services;
 
-use App\Models\Team;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 final class SaasPolicy
 {
     public function canManage(int $teamId, int $userId): bool
     {
-        $team = Team::query()->find($teamId);
-
-        return $team !== null && ((int) $team->user_id === $userId || $team->users()->whereKey($userId)->wherePivotIn('role', ['admin', 'manager'])->exists());
+        return DB::table('teams')
+            ->where('teams.id', $teamId)
+            ->where(function (Builder $query) use ($userId): void {
+                $query
+                    ->where('teams.user_id', $userId)
+                    ->orWhereExists(function (Builder $membership) use ($userId): void {
+                        $membership
+                            ->selectRaw('1')
+                            ->from('team_user')
+                            ->whereColumn('team_user.team_id', 'teams.id')
+                            ->where('team_user.user_id', $userId)
+                            ->whereIn('team_user.role', ['admin', 'manager']);
+                    });
+            })
+            ->exists();
     }
 }
