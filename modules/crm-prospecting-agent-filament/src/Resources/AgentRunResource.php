@@ -11,6 +11,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\ProspectingAgent\Filament\Resources\AgentRunResource\Pages\CreateAgentRun;
+use Liberu\CRM\ProspectingAgent\Filament\Resources\AgentRunResource\Pages\EditAgentRun;
 use Liberu\CRM\ProspectingAgent\Filament\Resources\AgentRunResource\Pages\ListAgentRuns;
 use Liberu\CRM\ProspectingAgent\Models\AgentRun;
 
@@ -20,7 +22,7 @@ final class AgentRunResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('name')->required(), Textarea::make('targeting')->required(), Textarea::make('policy')->required()]);
+        return $schema->components([TextInput::make('name')->required(), Textarea::make('targeting')->json()->required(), Textarea::make('policy')->json()->required()]);
     }
 
     public static function table(Table $table): Table
@@ -38,6 +40,6 @@ final class AgentRunResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListAgentRuns::route('/')];
+        return ['index' => ListAgentRuns::route('/'), 'create' => CreateAgentRun::route('/create'), 'edit' => EditAgentRun::route('/{record}/edit')];
     }
 }

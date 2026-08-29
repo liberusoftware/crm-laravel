@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ProspectingAgentApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\ProspectingAgent\Actions\ApproveAgentRun;
 use Liberu\CRM\ProspectingAgent\Actions\CreateAgentRun;
 use Liberu\CRM\ProspectingAgent\Actions\DispatchSequence;

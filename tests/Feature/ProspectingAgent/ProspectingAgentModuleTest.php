@@ -11,12 +11,18 @@ use Liberu\CRM\ProspectingAgent\Actions\ApproveAgentRun;
 use Liberu\CRM\ProspectingAgent\Actions\CreateAgentRun;
 use Liberu\CRM\ProspectingAgent\Actions\PrepareSequence;
 use Liberu\CRM\ProspectingAgent\Actions\SelectTarget;
+use Liberu\CRM\ProspectingAgent\Filament\Resources\AgentRunResource;
 use Liberu\CRM\ProspectingAgent\Models\AgentRun;
 use Tests\TestCase;
 
 final class ProspectingAgentModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_agent_run_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(AgentRunResource::getPages()));
+    }
 
     public function test_approval_required_agent_run_controls_target_and_sequence_workflow(): void
     {
