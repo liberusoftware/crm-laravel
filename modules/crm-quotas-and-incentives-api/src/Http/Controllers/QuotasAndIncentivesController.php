@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\QuotasAndIncentivesApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\QuotasAndIncentives\Actions\CreateCommissionPlan;
 use Liberu\CRM\QuotasAndIncentives\Actions\CreateQuota;
 use Liberu\CRM\QuotasAndIncentives\Actions\CreditCommission;

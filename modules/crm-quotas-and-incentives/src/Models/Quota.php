@@ -6,6 +6,9 @@ namespace Liberu\CRM\QuotasAndIncentives\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ */
 final class Quota extends Model
 {
     protected $table = 'crm_quotas';

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\QuotasAndIncentives\Actions\CreateCommissionPlan;
 use Liberu\CRM\QuotasAndIncentives\Actions\CreateQuota;
 use Liberu\CRM\QuotasAndIncentives\Actions\CreditCommission;
+use Liberu\CRM\QuotasAndIncentives\Filament\Resources\QuotaResource;
 use Liberu\CRM\QuotasAndIncentives\Models\CommissionCredit;
 use Liberu\CRM\QuotasAndIncentives\Models\Quota;
 use Tests\TestCase;
@@ -17,6 +18,11 @@ use Tests\TestCase;
 final class QuotasAndIncentivesModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_quota_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(QuotaResource::getPages()));
+    }
 
     public function test_quota_and_idempotent_commission_credit_are_team_scoped(): void
     {

@@ -11,6 +11,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\QuotasAndIncentives\Filament\Resources\QuotaResource\Pages\CreateQuota;
+use Liberu\CRM\QuotasAndIncentives\Filament\Resources\QuotaResource\Pages\EditQuota;
 use Liberu\CRM\QuotasAndIncentives\Filament\Resources\QuotaResource\Pages\ListQuotas;
 use Liberu\CRM\QuotasAndIncentives\Models\Quota;
 
@@ -38,6 +40,6 @@ final class QuotaResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListQuotas::route('/')];
+        return ['index' => ListQuotas::route('/'), 'create' => CreateQuota::route('/create'), 'edit' => EditQuota::route('/{record}/edit')];
     }
 }
