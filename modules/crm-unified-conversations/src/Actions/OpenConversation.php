@@ -16,7 +16,8 @@ final class OpenConversation
     {
         if (! app(ConversationPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        }validator($data, ['channel' => ['required', 'string', 'max:50'], 'external_id' => ['nullable', 'string', 'max:255'], 'subject' => ['nullable', 'string', 'max:255']])->validate();
+        }
+        $data = validator($data, ['channel' => ['required', 'string', 'max:50'], 'external_id' => ['nullable', 'string', 'max:255'], 'subject' => ['nullable', 'string', 'max:255']])->validate();
 
         return DB::transaction(function () use ($teamId, $actorId, $data) {
             $c = Conversation::query()->firstOrCreate(['team_id' => $teamId, 'channel' => $data['channel'], 'external_id' => $data['external_id'] ?? null], ['subject' => $data['subject'] ?? null, 'status' => 'open']);

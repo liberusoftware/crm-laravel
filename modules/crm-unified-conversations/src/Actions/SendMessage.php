@@ -15,7 +15,8 @@ final class SendMessage
     {
         if (! app(ConversationPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        }validator($data, ['body' => ['required', 'string', 'max:10000'], 'internal' => ['boolean'], 'idempotency_key' => ['nullable', 'string', 'max:255']])->validate();
+        }
+        $data = validator($data, ['body' => ['required', 'string', 'max:10000'], 'internal' => ['boolean'], 'idempotency_key' => ['nullable', 'string', 'max:255']])->validate();
         Conversation::query()->where('team_id', $teamId)->findOrFail($conversationId);
 
         return ConversationMessage::query()->firstOrCreate(['team_id' => $teamId, 'conversation_id' => $conversationId, 'idempotency_key' => $data['idempotency_key'] ?? null], ['sender_id' => $actorId, 'body' => $data['body'], 'internal' => $data['internal'] ?? false, 'delivery_status' => 'sent']);
