@@ -28,4 +28,26 @@ final class LeadQualificationModuleTest extends TestCase
         $this->assertDatabaseHas('crm_lead_qualification_events', ['team_id' => $team->id, 'kind' => 'conversion']);
         $this->assertDatabaseMissing('crm_lead_qualification_leads', ['team_id' => $other->id, 'external_key' => 'lead-1']);
     }
+
+    public function test_qualification_events_update_the_lead_as_one_transactional_operation(): void
+    {
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $lead = app(UpsertLead::class)->execute($team->id, $owner->id, ['external_key' => 'lead-events']);
+
+        app(RecordQualificationEvent::class)->execute($team->id, $owner->id, $lead, [
+            'kind' => 'nurture',
+            'reason' => 'Needs more product education',
+        ]);
+        $this->assertSame('nurture', $lead->refresh()->stage);
+        $this->assertTrue($lead->nurture);
+
+        app(RecordQualificationEvent::class)->execute($team->id, $owner->id, $lead, [
+            'kind' => 'disqualification',
+            'reason' => 'Outside target market',
+        ]);
+        $this->assertSame('disqualified', $lead->refresh()->stage);
+        $this->assertSame('Outside target market', $lead->disqualification_reason);
+        $this->assertSame(2, $lead->events()->count());
+    }
 }

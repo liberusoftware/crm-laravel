@@ -12,6 +12,11 @@ final class QualificationDashboard extends Component
 {
     public function render(): View
     {
-        return app('view')->make('module-crm-lead-qualification::dashboard', ['leads' => app(LeadQualificationQuery::class)->forTeam((int) auth()->user()->current_team_id)->paginate(25)]);
+        $teamId = auth()->user()?->current_team_id;
+        abort_unless($teamId !== null, 403);
+
+        return view('crm-lead-qualification-livewire::dashboard', [
+            'leads' => app(LeadQualificationQuery::class)->forTeam((int) $teamId)->paginate(25),
+        ]);
     }
 }

@@ -10,6 +10,6 @@ final class LeadQualificationLivewireServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'module-crm-lead-qualification');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'crm-lead-qualification-livewire');
     }
 }
