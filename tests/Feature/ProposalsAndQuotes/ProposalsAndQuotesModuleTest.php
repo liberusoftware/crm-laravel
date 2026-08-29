@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\ProposalsAndQuotes\Actions\ChangeProposalStatus;
 use Liberu\CRM\ProposalsAndQuotes\Actions\CreateProposal;
 use Liberu\CRM\ProposalsAndQuotes\Actions\CreateProposalVersion;
+use Liberu\CRM\ProposalsAndQuotes\Filament\Resources\ProposalResource;
 use Liberu\CRM\ProposalsAndQuotes\Models\Proposal;
 use Liberu\CRM\ProposalsAndQuotes\Models\ProposalVersion;
 use Tests\TestCase;
@@ -17,6 +18,11 @@ use Tests\TestCase;
 final class ProposalsAndQuotesModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_proposal_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(ProposalResource::getPages()));
+    }
 
     public function test_versioned_quote_acceptance_and_expiry_are_team_scoped(): void
     {

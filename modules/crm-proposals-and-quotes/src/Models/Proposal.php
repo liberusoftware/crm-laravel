@@ -6,6 +6,9 @@ namespace Liberu\CRM\ProposalsAndQuotes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ */
 final class Proposal extends Model
 {
     protected $table = 'crm_proposals';

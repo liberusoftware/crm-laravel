@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ProposalsAndQuotesApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\ProposalsAndQuotes\Actions\AddProposalComment;
 use Liberu\CRM\ProposalsAndQuotes\Actions\ChangeProposalStatus;
 use Liberu\CRM\ProposalsAndQuotes\Actions\CreateProposal;
