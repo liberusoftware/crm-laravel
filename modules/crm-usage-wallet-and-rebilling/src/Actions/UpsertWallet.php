@@ -16,7 +16,8 @@ final class UpsertWallet
     {
         if (! app(UsagePolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } validator($data, ['currency' => ['required', 'regex:/^[A-Z]{3}$/'], 'threshold' => ['required', 'numeric', 'min:0'], 'reload_amount' => ['required', 'numeric', 'min:0']])->validate();
+        }
+        $data = validator($data, ['currency' => ['required', 'regex:/^[A-Z]{3}$/'], 'threshold' => ['required', 'numeric', 'min:0'], 'reload_amount' => ['required', 'numeric', 'min:0']])->validate();
 
         return DB::transaction(function () use ($teamId, $actorId, $data) {
             $wallet = UsageWallet::query()->lockForUpdate()->firstOrNew(['team_id' => $teamId]);

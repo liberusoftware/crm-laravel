@@ -16,7 +16,8 @@ final class ImportProviderUsage
     {
         if (! app(UsagePolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } validator($data, ['provider' => ['required', 'string', 'max:100'], 'external_id' => ['required', 'string', 'max:255'], 'amount' => ['required', 'numeric', 'min:0'], 'currency' => ['required', 'regex:/^[A-Z]{3}$/'], 'payload' => ['nullable', 'array']])->validate();
+        }
+        $data = validator($data, ['provider' => ['required', 'string', 'max:100'], 'external_id' => ['required', 'string', 'max:255'], 'amount' => ['required', 'numeric', 'min:0'], 'currency' => ['required', 'regex:/^[A-Z]{3}$/'], 'payload' => ['nullable', 'array']])->validate();
 
         return DB::transaction(function () use ($teamId, $actorId, $data) {
             $import = UsageImport::query()->firstOrCreate(['team_id' => $teamId, 'provider' => $data['provider'], 'external_id' => $data['external_id']], array_merge($data, ['status' => 'imported']));

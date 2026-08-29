@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Liberu\CRM\UsageWalletAndRebillingApi\Http\Controllers\UsageWalletController;
 
-Route::middleware('auth:sanctum')->prefix('api/v1/crm/usage-wallet-and-rebilling')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->prefix('api/v1/crm/usage-wallet-and-rebilling')->group(function () {
     Route::get('/summary', [UsageWalletController::class, 'summary']);
     Route::get('/imports', [UsageWalletController::class, 'imports']);
     Route::post('/imports', [UsageWalletController::class, 'import']);
