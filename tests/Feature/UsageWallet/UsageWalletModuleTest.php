@@ -34,4 +34,17 @@ final class UsageWalletModuleTest extends TestCase
         self::assertSame(0, UsageImport::query()->where('team_id', $other->id)->count());
         self::assertSame(1, UsageCharge::query()->where('team_id', $team->id)->count());
     }
+
+    public function test_wallet_mutations_ignore_unvalidated_control_fields(): void
+    {
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $wallet = app(UpsertWallet::class)->execute($team->id, $owner->id, ['currency' => 'USD', 'threshold' => 10, 'reload_amount' => 50, 'team_id' => 999, 'balance' => 900]);
+
+        self::assertSame($team->id, $wallet->team_id);
+        self::assertSame(0.0, (float) $wallet->balance);
+
+        $import = app(ImportProviderUsage::class)->execute($team->id, $owner->id, ['provider' => 'provider', 'external_id' => 'usage-control', 'amount' => 10, 'currency' => 'USD', 'status' => 'failed']);
+        self::assertSame('imported', $import->status);
+    }
 }

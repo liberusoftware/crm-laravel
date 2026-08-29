@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\UsageWalletAndRebillingApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\UsageWalletAndRebilling\Actions\CreateCharge;
 use Liberu\CRM\UsageWalletAndRebilling\Actions\ImportProviderUsage;
 use Liberu\CRM\UsageWalletAndRebilling\Actions\UpsertWallet;
@@ -20,32 +21,32 @@ final class UsageWalletController extends Controller
         return (int) $r->user()->current_team_id;
     }
 
-    public function summary(Request $r, UsageWalletQuery $q)
+    public function summary(Request $r, UsageWalletQuery $q): JsonResponse
     {
         return response()->json(['data' => $q->summary($this->team($r))]);
     }
 
-    public function imports(Request $r, UsageWalletQuery $q)
+    public function imports(Request $r, UsageWalletQuery $q): JsonResponse
     {
         return response()->json($q->imports($this->team($r)));
     }
 
-    public function charges(Request $r, UsageWalletQuery $q)
+    public function charges(Request $r, UsageWalletQuery $q): JsonResponse
     {
         return response()->json($q->charges($this->team($r)));
     }
 
-    public function import(Request $r, ImportProviderUsage $a)
+    public function import(Request $r, ImportProviderUsage $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
     }
 
-    public function charge(Request $r, CreateCharge $a)
+    public function charge(Request $r, CreateCharge $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
     }
 
-    public function wallet(Request $r, UpsertWallet $a)
+    public function wallet(Request $r, UpsertWallet $a): JsonResponse
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())]);
     }

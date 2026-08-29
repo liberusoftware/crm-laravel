@@ -18,7 +18,8 @@ final class CreateCharge
     {
         if (! app(UsagePolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } validator($data, ['usage_import_id' => ['required', 'integer'], 'markup_percent' => ['required', 'numeric', 'min:0', 'max:1000'], 'client_reference' => ['nullable', 'string', 'max:255']])->validate();
+        }
+        $data = validator($data, ['usage_import_id' => ['required', 'integer'], 'markup_percent' => ['required', 'numeric', 'min:0', 'max:1000'], 'client_reference' => ['nullable', 'string', 'max:255']])->validate();
 
         return DB::transaction(function () use ($teamId, $actorId, $data) {
             $import = UsageImport::query()->where('team_id', $teamId)->findOrFail($data['usage_import_id']);
