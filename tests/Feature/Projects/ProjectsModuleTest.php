@@ -12,6 +12,7 @@ use Liberu\CRM\Projects\Actions\CreateProject;
 use Liberu\CRM\Projects\Actions\CreateProjectTask;
 use Liberu\CRM\Projects\Actions\LogProjectTime;
 use Liberu\CRM\Projects\Actions\RecordProjectRisk;
+use Liberu\CRM\Projects\Filament\Resources\ProjectResource;
 use Liberu\CRM\Projects\Models\Project;
 use Liberu\CRM\Projects\Models\ProjectTask;
 use Tests\TestCase;
@@ -19,6 +20,11 @@ use Tests\TestCase;
 final class ProjectsModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_project_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(ProjectResource::getPages()));
+    }
 
     public function test_project_delivery_status_tasks_time_and_risks_are_team_scoped(): void
     {
