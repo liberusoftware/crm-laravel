@@ -39,7 +39,7 @@ jobs:
       - name: 'Run php-insight'
         run: |
           sudo composer install
-          sudo php artisan insights --min-quality=90 --min-complexity=90 --min-architecture=80 --min-style=90 --no-interaction
+          sudo composer analyse -- --no-progress
 
   security:
     runs-on: ubuntu-22.04
