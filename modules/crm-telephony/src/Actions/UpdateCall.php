@@ -15,8 +15,9 @@ final class UpdateCall
     {
         if (! app(TelephonyPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        } $call = TelephonyCall::query()->where('team_id', $teamId)->findOrFail($callId);
-        validator($data, ['disposition' => ['nullable', 'string', 'max:100'], 'recording_url' => ['nullable', 'url', 'max:2048'], 'voicemail_url' => ['nullable', 'url', 'max:2048'], 'transfer_to' => ['nullable', 'string', 'max:32']])->validate();
+        }
+        $call = TelephonyCall::query()->where('team_id', $teamId)->findOrFail($callId);
+        $data = validator($data, ['disposition' => ['nullable', 'string', 'max:100'], 'recording_url' => ['nullable', 'url', 'max:2048'], 'voicemail_url' => ['nullable', 'url', 'max:2048'], 'transfer_to' => ['nullable', 'string', 'max:32']])->validate();
         $call->fill($data)->save();
         app(TelephonyAudit::class)->record($teamId, $actorId, 'call_updated', ['call_id' => $call->id, 'fields' => array_keys($data)]);
 

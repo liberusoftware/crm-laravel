@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Liberu\CRM\TelephonyApi\Http\Controllers\TelephonyController;
 
-Route::middleware('auth:sanctum')->prefix('api/v1/crm/telephony')->group(function (): void {
+Route::middleware(['auth:sanctum', 'throttle:api'])->prefix('api/v1/crm/telephony')->group(function (): void {
     Route::get('/numbers', [TelephonyController::class, 'numbers']);
     Route::post('/numbers', [TelephonyController::class, 'number']);
     Route::get('/queues', [TelephonyController::class, 'queues']);
