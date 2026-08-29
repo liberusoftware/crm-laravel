@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-orders-and-payments-workspace-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\OrdersAndPaymentsWorkspaceFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\OrdersAndPaymentsWorkspaceFilament\\OrdersAndPaymentsWorkspaceFilamentServiceProvider"]},"liberu":{"name":"crm-orders-and-payments-workspace-filament"}}}

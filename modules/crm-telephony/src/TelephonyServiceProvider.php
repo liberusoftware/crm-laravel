@@ -9,6 +9,13 @@ use Liberu\CRM\Telephony\Services\TelephonyAudit;
 
 final class TelephonyServiceProvider extends ServiceProvider
 {
-    public function register(): void { $this->app->singleton(TelephonyAudit::class); }
-    public function boot(): void { $this->loadMigrationsFrom(__DIR__.'/../database/migrations'); }
+    public function register(): void
+    {
+        $this->app->singleton(TelephonyAudit::class);
+    }
+
+    public function boot(): void
+    {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
 }

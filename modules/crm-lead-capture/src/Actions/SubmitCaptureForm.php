@@ -27,7 +27,7 @@ final class SubmitCaptureForm
         }
 
         return DB::transaction(function () use ($form, $actorId, $payload): LeadCapture {
-            $capture = app(CaptureLead::class)->execute($form->team_id, $actorId, ['kind' => $form->kind, 'name' => $payload['name'] ?? null, 'email' => $payload['email'] ?? null, 'phone' => $payload['phone'] ?? null, 'source' => 'capture_form', 'payload' => $payload, 'provenance' => ['form_id' => $form->getKey()]]);
+            $capture = app(CaptureLead::class)->executeLegacy($form->team_id, $actorId, ['kind' => $form->kind, 'name' => $payload['name'] ?? null, 'email' => $payload['email'] ?? null, 'phone' => $payload['phone'] ?? null, 'source' => 'capture_form', 'payload' => $payload, 'provenance' => ['form_id' => $form->getKey()]]);
             $form->increment('submissions_count');
             CaptureFormSubmitted::dispatch($capture);
 

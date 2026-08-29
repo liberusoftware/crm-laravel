@@ -39,6 +39,6 @@ final class QualificationForm extends Component
 
     public function render(): View
     {
-        return app('view')->make('crm-lead-qualification-livewire::qualification-form');
+        return view('crm-lead-qualification-livewire::qualification-form');
     }
 }

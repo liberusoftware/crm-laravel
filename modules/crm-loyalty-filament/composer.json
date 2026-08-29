@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-loyalty-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LoyaltyFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LoyaltyFilament\\LoyaltyFilamentServiceProvider"]},"liberu":{"name":"crm-loyalty-filament"}}}

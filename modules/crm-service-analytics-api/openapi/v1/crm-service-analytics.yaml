@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info: {title: CRM Service Analytics API, version: 1.0.0}
+paths:
+  /api/v1/crm/service-analytics/summary:
+    get: {summary: Get team service summary, security: [{sanctum: []}], responses: {'200': {description: Summary}}}
+  /api/v1/crm/service-analytics/snapshots:
+    get: {summary: List metric snapshots, security: [{sanctum: []}], responses: {'200': {description: Snapshots}}}
+    post: {summary: Record a metric snapshot, security: [{sanctum: []}], responses: {'201': {description: Recorded}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-reputation-management","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ReputationManagement\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ReputationManagement\\ReputationManagementServiceProvider"]},"liberu":{"name":"crm-reputation-management"}}}

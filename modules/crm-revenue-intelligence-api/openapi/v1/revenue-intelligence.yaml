@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: CRM Revenue Intelligence API
+  version: 1.0.0
+paths:
+  /api/v1/crm/revenue-intelligence/insights:
+    get: { summary: List revenue insights }
+    post: { summary: Record a revenue insight }
+  /api/v1/crm/revenue-intelligence/alerts:
+    get: { summary: List open revenue alerts }
+    post: { summary: Create a revenue alert }

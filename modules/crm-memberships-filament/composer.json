@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-memberships-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MembershipsFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MembershipsFilament\\MembershipsFilamentServiceProvider"]},"liberu":{"name":"crm-memberships-filament"}}}

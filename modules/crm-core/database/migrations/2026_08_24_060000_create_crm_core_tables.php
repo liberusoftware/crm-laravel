@@ -79,7 +79,10 @@ return new class() extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->morphs('favoritable');
             $table->timestamps();
-            $table->unique(['team_id', 'user_id', 'favoritable_id', 'favoritable_type']);
+            $table->unique(
+                ['team_id', 'user_id', 'favoritable_id', 'favoritable_type'],
+                'crm_core_favorites_team_user_favoritable_unique',
+            );
         });
 
         Schema::create('crm_core_relationships', function (Blueprint $table): void {

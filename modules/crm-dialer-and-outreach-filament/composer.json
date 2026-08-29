@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-dialer-and-outreach-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DialerAndOutreachFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DialerAndOutreachFilament\\DialerAndOutreachFilamentServiceProvider"]},"liberu":{"name":"module-crm-dialer-and-outreach-filament"}}}

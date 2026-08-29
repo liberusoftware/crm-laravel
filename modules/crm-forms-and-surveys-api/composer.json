@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-forms-and-surveys-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\FormsAndSurveysApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\FormsAndSurveysApi\\Providers\\FormsAndSurveysApiServiceProvider"]},"liberu":{"name":"crm-forms-and-surveys-api"}}}

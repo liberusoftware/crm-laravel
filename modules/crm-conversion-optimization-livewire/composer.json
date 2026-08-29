@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-conversion-optimization-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ConversionOptimizationLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ConversionOptimizationLivewire\\ConversionOptimizationLivewireServiceProvider"]},"liberu":{"name":"module-crm-conversion-optimization-livewire"}}}

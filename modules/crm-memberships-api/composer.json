@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-memberships-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MembershipsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MembershipsApi\\Providers\\MembershipsApiServiceProvider"]},"liberu":{"name":"crm-memberships-api"}}}

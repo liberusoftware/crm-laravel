@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-projects-api","type":"liberu-module","require":{"liberusoftware/module-crm-projects":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ProjectsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ProjectsApi\\Providers\\ProjectsApiServiceProvider"]},"liberu":{"name":"crm-projects-api"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-forms-and-surveys-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\FormsAndSurveysLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\FormsAndSurveysLivewire\\FormsAndSurveysLivewireServiceProvider"]},"liberu":{"name":"crm-forms-and-surveys-livewire"}}}

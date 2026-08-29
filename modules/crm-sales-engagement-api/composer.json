@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sales-engagement-api","type":"liberu-module","require":{"liberusoftware/module-crm-sales-engagement":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\SalesEngagementApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SalesEngagementApi\\Providers\\SalesEngagementApiServiceProvider"]},"liberu":{"name":"crm-sales-engagement-api"}}}

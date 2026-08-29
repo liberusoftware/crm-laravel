@@ -6,6 +6,8 @@ namespace Tests\Unit;
 
 use App\Models\SocialMediaPost;
 use App\Models\Team;
+use App\Services\Zernio\ZernioAdvertisingService;
+use App\Services\Zernio\ZernioClient;
 use App\Services\Zernio\ZernioException;
 use App\Services\Zernio\ZernioPublisher;
 use App\Services\Zernio\ZernioTenantService;
@@ -86,5 +88,33 @@ final class ZernioClientTest extends TestCase
 
         $this->expectException(ZernioException::class);
         app(ZernioPublisher::class)->publish($post, $post->platforms);
+    }
+
+    public function test_team_analytics_and_advertising_always_override_global_profile(): void
+    {
+        config()->set('services.zernio.api_key', 'sk_'.str_repeat('a', 64));
+        config()->set('services.zernio.profile_id', 'global-profile');
+        $team = Team::factory()->create(['zernio_profile_id' => 'team-profile']);
+        Http::fake([
+            'https://zernio.com/api/v1/analytics*' => Http::response(['analytics' => []]),
+            'https://zernio.com/api/v1/ads*' => Http::response(['ads' => []]),
+        ]);
+
+        app(ZernioTenantService::class)->analytics($team, ['profileId' => 'caller-profile']);
+        app(ZernioAdvertisingService::class)->listAds($team, ['profileId' => 'caller-profile']);
+
+        Http::assertSentCount(2);
+        Http::assertSent(fn ($request): bool => str_contains($request->url(), 'profileId=team-profile'));
+        Http::assertNotSent(fn ($request): bool => str_contains($request->url(), 'global-profile') || str_contains($request->url(), 'caller-profile'));
+    }
+
+    public function test_inbox_reply_uses_the_team_profile_query(): void
+    {
+        config()->set('services.zernio.api_key', 'sk_'.str_repeat('a', 64));
+        Http::fake(['https://zernio.com/api/v1/inbox/conversations/*' => Http::response(['message' => ['id' => 'message_1']], 201)]);
+
+        app(ZernioClient::class)->sendInboxMessage('conversation_1', 'account_1', 'Reply', 'team-profile');
+
+        Http::assertSent(fn ($request): bool => str_contains($request->url(), 'profileId=team-profile'));
     }
 }

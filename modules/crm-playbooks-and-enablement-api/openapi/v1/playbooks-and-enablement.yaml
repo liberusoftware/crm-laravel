@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Playbooks and Enablement API
+  version: 1.0.0
+paths:
+  /api/v1/crm/playbooks-and-enablement/playbooks:
+    get: { summary: List enablement playbooks }
+    post: { summary: Create a playbook }
+  /api/v1/crm/playbooks-and-enablement/assignments/{assignment}/complete:
+    post: { summary: Complete a playbook assignment with evidence }
+  /api/v1/crm/playbooks-and-enablement/recommendations:
+    post: { summary: Recommend content for a subject }

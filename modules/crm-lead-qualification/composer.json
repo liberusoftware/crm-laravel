@@ -1,8 +1,1 @@
-{
-    "name": "liberusoftware/module-crm-lead-qualification",
-    "description": "Reusable CRM lead qualification domain module",
-    "type": "liberu-module",
-    "require": {"php": "^8.5", "illuminate/database": "^13.0", "liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-core": "^1.0"},
-    "autoload": {"psr-4": {"Liberu\\CRM\\LeadQualification\\": "src/"}},
-    "extra": {"laravel": {"providers": ["Liberu\\CRM\\LeadQualification\\LeadQualificationServiceProvider"]}, "liberu": {"name": "crm-lead-qualification"}}
-}
+{"name":"liberusoftware/module-crm-lead-qualification","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LeadQualification\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LeadQualification\\LeadQualificationServiceProvider"]},"liberu":{"name":"crm-lead-qualification"}}}

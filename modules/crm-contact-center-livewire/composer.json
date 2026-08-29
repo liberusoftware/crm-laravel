@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-contact-center-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ContactCenterLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ContactCenterLivewire\\ContactCenterLivewireServiceProvider"]},"liberu":{"name":"module-crm-contact-center-livewire"}}}

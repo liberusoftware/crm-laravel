@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-personalization-api","type":"liberu-module","require":{"liberusoftware/module-crm-personalization":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\PersonalizationApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\PersonalizationApi\\Providers\\PersonalizationApiServiceProvider"]},"liberu":{"name":"crm-personalization-api"}}}

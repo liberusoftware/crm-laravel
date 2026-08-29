@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-documents-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DocumentsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DocumentsApi\\DocumentsApiServiceProvider"]},"liberu":{"name":"module-crm-documents-api"}}}

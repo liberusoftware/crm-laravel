@@ -1,0 +1,1 @@
+<section aria-labelledby="products-heading"><h2 id="products-heading">Product workspace</h2><ul>@forelse($products as $product)<li>{{ $product->sku }} — {{ $product->name }} — {{ $product->price }}</li>@empty<li>No eligible products.</li>@endforelse</ul></section>

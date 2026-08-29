@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-segmentation-filament","type":"liberu-module","require":{"liberusoftware/module-crm-segmentation":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Segmentation\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Segmentation\\Filament\\SegmentationFilamentServiceProvider"]},"liberu":{"name":"crm-segmentation-filament"}}}

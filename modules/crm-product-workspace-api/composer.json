@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-product-workspace-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ProductWorkspaceApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ProductWorkspaceApi\\ProductWorkspaceApiServiceProvider"]},"liberu":{"name":"module-crm-product-workspace-api"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-telephony-filament","type":"liberu-module","require":{"liberusoftware/module-crm-telephony":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Telephony\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Telephony\\Filament\\TelephonyFilamentServiceProvider"]},"liberu":{"name":"crm-telephony-filament"}}}

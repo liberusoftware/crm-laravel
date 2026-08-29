@@ -20,7 +20,7 @@ class LeadController extends Controller
         $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
 
         $query = Lead::query()
-            ->byTeam($request->user()?->currentTeam?->id)
+            ->byTeam($this->teamId($request))
             ->when($search !== '', function (Builder $query) use ($search): void {
                 $like = '%'.addcslashes($search, '\\%_').'%';
                 $query->where(function (Builder $searchQuery) use ($like): void {
@@ -47,7 +47,7 @@ class LeadController extends Controller
 
     public function store(Request $request)
     {
-        $teamId = $request->user()?->currentTeam?->id;
+        $teamId = $this->teamId($request);
 
         $validated = $request->validate([
             'status' => 'nullable|string|in:new,contacted,qualified,lost',
@@ -61,7 +61,8 @@ class LeadController extends Controller
         ]);
 
         $validated['team_id'] = $teamId;
-        $lead = Lead::create($validated);
+        $lead = new Lead($validated);
+        $lead->save();
         $lead->calculateScore();
 
         return response()->json($lead->refresh(), 201);
@@ -69,14 +70,14 @@ class LeadController extends Controller
 
     public function show(Request $request, Lead $lead): Lead
     {
-        abort_unless($lead->belongsToTeam($request->user()?->currentTeam?->id), 403);
+        abort_unless($lead->belongsToTeam($this->teamId($request)), 403);
 
         return $lead;
     }
 
     public function update(Request $request, Lead $lead)
     {
-        $teamId = $request->user()?->currentTeam?->id;
+        $teamId = $this->teamId($request);
         abort_unless($lead->belongsToTeam($teamId), 403);
 
         $validated = $request->validate([
@@ -98,10 +99,23 @@ class LeadController extends Controller
 
     public function destroy(Request $request, Lead $lead)
     {
-        abort_unless($lead->belongsToTeam($request->user()?->currentTeam?->id), 403);
+        abort_unless($lead->belongsToTeam($this->teamId($request)), 403);
 
         $lead->delete();
 
         return response()->json(null, 204);
+    }
+
+    private function teamId(Request $request): ?int
+    {
+        $team = $request->user()?->currentTeam;
+
+        if ($team === null) {
+            return null;
+        }
+
+        $key = $team->getKey();
+
+        return is_numeric($key) ? (int) $key : null;
     }
 }

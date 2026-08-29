@@ -1,0 +1,14 @@
+openapi: 3.1.0
+info:
+  title: CRM Referrals API
+  version: 1.0.0
+paths:
+  /api/v1/crm/referrals/programs:
+    get: { summary: List referral programs }
+    post: { summary: Create a referral program }
+  /api/v1/crm/referrals/referrals:
+    get: { summary: List attributed referrals }
+    post: { summary: Create an attributed referral }
+  /api/v1/crm/referrals/rewards:
+    get: { summary: List referral rewards }
+    post: { summary: Issue an idempotent referral reward }

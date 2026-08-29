@@ -67,12 +67,15 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Liberu\\Themes\\Base\\": "themes/base/src/",
+            "Liberu\\Themes\\ClearSignal\\": "themes/clear-signal/src/",
+            "Liberu\\Themes\\Dark\\": "themes/dark/src/",
+            "Liberu\\Themes\\DefaultTheme\\": "themes/default/src/"
         },
     "classmap": [
       "modules/*/src",
-      "modules/*/database/factories",
-      "themes/*/src"
+      "modules/*/database/factories"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"
@@ -92,8 +95,7 @@
         "analyse": "php -d memory_limit=1G vendor/bin/phpstan analyse",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"

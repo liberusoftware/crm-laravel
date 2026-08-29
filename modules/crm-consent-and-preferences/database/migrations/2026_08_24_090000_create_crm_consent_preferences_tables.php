@@ -26,7 +26,10 @@ return new class() extends Migration
             $table->timestamp('withdrawn_at')->nullable();
             $table->unsignedBigInteger('actor_id')->nullable();
             $table->timestamps();
-            $table->index(['team_id', 'subject_type', 'subject_id', 'channel', 'topic']);
+            $table->index(
+                ['team_id', 'subject_type', 'subject_id', 'channel', 'topic'],
+                'crm_consent_subject_channel_topic_index',
+            );
         });
         Schema::create('crm_preference_records', function (Blueprint $table): void {
             $table->id();
@@ -40,7 +43,10 @@ return new class() extends Migration
             $table->string('timezone')->default('UTC');
             $table->unsignedBigInteger('actor_id')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'subject_type', 'subject_id', 'channel', 'topic']);
+            $table->unique(
+                ['team_id', 'subject_type', 'subject_id', 'channel', 'topic'],
+                'crm_preferences_subject_channel_topic_unique',
+            );
         });
         Schema::create('crm_suppression_records', function (Blueprint $table): void {
             $table->id();
@@ -68,7 +74,10 @@ return new class() extends Migration
             $table->json('reasons');
             $table->timestamp('evaluated_at');
             $table->timestamps();
-            $table->index(['team_id', 'subject_type', 'subject_id', 'channel']);
+            $table->index(
+                ['team_id', 'subject_type', 'subject_id', 'channel'],
+                'crm_policy_subject_channel_index',
+            );
         });
     }
 

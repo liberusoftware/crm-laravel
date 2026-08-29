@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-self-service","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerSelfService\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerSelfService\\CustomerSelfServiceServiceProvider"]},"liberu":{"name":"crm-customer-self-service"}}}

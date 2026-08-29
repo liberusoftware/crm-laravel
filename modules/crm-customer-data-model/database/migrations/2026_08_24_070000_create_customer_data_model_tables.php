@@ -48,7 +48,10 @@ return new class() extends Migration
             $table->string('cardinality', 20);
             $table->json('config')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'from_object_id', 'to_object_id', 'key']);
+            $table->unique(
+                ['team_id', 'from_object_id', 'to_object_id', 'key'],
+                'crm_customer_data_relationships_object_key_unique',
+            );
         });
         Schema::create('crm_customer_data_layouts', function (Blueprint $table): void {
             $table->id();

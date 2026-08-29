@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-agency-workspace-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AgencyWorkspaceFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AgencyWorkspaceFilament\\AgencyWorkspaceFilamentServiceProvider"]},"liberu":{"name":"module-crm-agency-workspace-filament"}}}

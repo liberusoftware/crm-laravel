@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-agency-workspace-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AgencyWorkspaceApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AgencyWorkspaceApi\\AgencyWorkspaceApiServiceProvider"]},"liberu":{"name":"module-crm-agency-workspace-api"}}}

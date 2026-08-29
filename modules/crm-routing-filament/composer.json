@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-routing-filament","type":"liberu-module","require":{"liberusoftware/module-crm-routing":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Routing\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Routing\\Filament\\RoutingFilamentServiceProvider"]},"liberu":{"name":"crm-routing-filament"}}}

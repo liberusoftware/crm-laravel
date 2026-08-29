@@ -1,0 +1,1 @@
+{"name":"module-crm-cpq-filament","display_name":"CRM CPQ Filament","description":"CPQ Filament resources","version":"1.0.0","category":"presentation","provider":"Liberu\\CRM\\CPQFilament\\CpqFilamentServiceProvider","requires":{"modules":["crm-cpq"]},"suggests":[],"default_enabled":false,"capabilities":["crm.cpq.filament"],"features":["Quote resource"]}

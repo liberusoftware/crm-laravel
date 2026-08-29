@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-saas-packaging","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\SaasPackaging\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SaasPackaging\\SaasPackagingServiceProvider"]},"liberu":{"name":"crm-saas-packaging"}}}

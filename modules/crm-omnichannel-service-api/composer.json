@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-omnichannel-service-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\OmnichannelServiceApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\OmnichannelServiceApi\\Providers\\OmnichannelServiceApiServiceProvider"]},"liberu":{"name":"crm-omnichannel-service-api"}}}

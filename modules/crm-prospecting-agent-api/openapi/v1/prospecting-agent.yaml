@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Prospecting Agent API
+  version: 1.0.0
+paths:
+  /api/v1/crm/prospecting-agent/runs:
+    get: { summary: List policy-controlled agent runs }
+    post: { summary: Create an approval-required agent run }
+  /api/v1/crm/prospecting-agent/runs/{run}/approve:
+    post: { summary: Approve an agent run }
+  /api/v1/crm/prospecting-agent/sequences/{sequence}/dispatch:
+    post: { summary: Dispatch a prepared sequence step }

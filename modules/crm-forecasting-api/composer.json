@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-forecasting-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ForecastingApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ForecastingApi\\ForecastingApiServiceProvider"]},"liberu":{"name":"module-crm-forecasting-api"}}}

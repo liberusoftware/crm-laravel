@@ -60,7 +60,7 @@ return new class() extends Migration
             $table->string('status', 32)->default('pending');
             $table->json('metadata')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'visitor_key', 'adapter']);
+            $table->unique(['team_id', 'visitor_key', 'adapter'], 'crm_web_intent_identification_unique');
         });
 
         Schema::create('crm_web_intent_signals', function (Blueprint $table): void {
@@ -116,7 +116,10 @@ return new class() extends Migration
             $table->string('status', 32)->default('completed');
             $table->json('metadata')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'visitor_key', 'target_type', 'target_id']);
+            $table->unique(
+                ['team_id', 'visitor_key', 'target_type', 'target_id'],
+                'crm_web_intent_conversion_target_unique',
+            );
         });
 
         Schema::create('crm_web_intent_audits', function (Blueprint $table): void {

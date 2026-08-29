@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-enrichment-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EnrichmentFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EnrichmentFilament\\EnrichmentFilamentServiceProvider"]},"liberu":{"name":"module-crm-enrichment-filament"}}}

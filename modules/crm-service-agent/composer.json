@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-service-agent","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ServiceAgent\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ServiceAgent\\ServiceAgentServiceProvider"]},"liberu":{"name":"crm-service-agent"}}}

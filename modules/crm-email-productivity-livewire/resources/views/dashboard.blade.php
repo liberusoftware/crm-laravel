@@ -1,0 +1,1 @@
+<section aria-labelledby="email-heading"><h2 id="email-heading">Email productivity</h2><p>{{ $mailboxes->count() }} connected mailboxes</p><ul>@forelse($messages as $message)<li>{{ $message->to_address }} — {{ $message->subject }} — {{ $message->status }}</li>@empty<li>No messages.</li>@endforelse</ul></section>

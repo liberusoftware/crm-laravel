@@ -36,7 +36,10 @@ return new class() extends Migration
             $table->json('transform')->nullable();
             $table->boolean('required')->default(false);
             $table->timestamps();
-            $table->unique(['operation_id', 'source_field', 'target_field']);
+            $table->unique(
+                ['operation_id', 'source_field', 'target_field'],
+                'crm_data_operation_mapping_fields_unique',
+            );
         });
         Schema::create('crm_data_operation_rules', function (Blueprint $table): void {
             $table->id();
@@ -80,7 +83,10 @@ return new class() extends Migration
             $table->decimal('confidence', 5, 4);
             $table->string('status', 24)->default('pending');
             $table->timestamps();
-            $table->unique(['operation_id', 'left_record_id', 'right_record_id']);
+            $table->unique(
+                ['operation_id', 'left_record_id', 'right_record_id'],
+                'crm_data_operation_duplicate_records_unique',
+            );
         });
         Schema::create('crm_data_operation_audits', function (Blueprint $table): void {
             $table->id();

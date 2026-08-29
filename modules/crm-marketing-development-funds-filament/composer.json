@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-development-funds-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingDevelopmentFundsFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingDevelopmentFundsFilament\\MarketingDevelopmentFundsFilamentServiceProvider"]},"liberu":{"name":"crm-marketing-development-funds-filament"}}}

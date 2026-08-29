@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sla-and-entitlements","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\SlaAndEntitlements\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SlaAndEntitlements\\SlaAndEntitlementsServiceProvider"]},"liberu":{"name":"crm-sla-and-entitlements"}}}

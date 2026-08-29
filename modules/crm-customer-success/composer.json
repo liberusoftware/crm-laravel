@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-success","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerSuccess\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerSuccess\\CustomerSuccessServiceProvider"]},"liberu":{"name":"crm-customer-success"}}}

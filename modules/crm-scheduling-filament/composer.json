@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-scheduling-filament","type":"liberu-module","require":{"liberusoftware/module-crm-scheduling":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Scheduling\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Scheduling\\Filament\\SchedulingFilamentServiceProvider"]},"liberu":{"name":"crm-scheduling-filament"}}}

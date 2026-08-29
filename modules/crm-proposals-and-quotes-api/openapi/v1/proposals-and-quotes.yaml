@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Proposals and Quotes API
+  version: 1.0.0
+paths:
+  /api/v1/crm/proposals-and-quotes/proposals:
+    get: { summary: List proposals and quotes }
+    post: { summary: Create a proposal }
+  /api/v1/crm/proposals-and-quotes/versions:
+    post: { summary: Create a versioned quote }
+  /api/v1/crm/proposals-and-quotes/proposals/{proposal}/{status}:
+    post: { summary: Change approval, delivery, acceptance or expiry status }

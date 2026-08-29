@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-quotas-and-incentives","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\QuotasAndIncentives\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\QuotasAndIncentives\\QuotasAndIncentivesServiceProvider"]},"liberu":{"name":"crm-quotas-and-incentives"}}}

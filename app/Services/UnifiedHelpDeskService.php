@@ -7,7 +7,9 @@ use App\Events\NewMessageReceived;
 use App\Models\ConnectedAccount;
 use App\Models\OAuthConfiguration;
 use App\Services\Zernio\ZernioClient;
+use App\Services\Zernio\ZernioTenantService;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -18,9 +20,9 @@ class UnifiedHelpDeskService
 {
     protected $cacheTimeout = 300; // 5 minutes
 
-    public function __construct(protected WhatsAppBusinessService $whatsAppService, protected FacebookMessengerService $facebookMessengerService, protected GmailService $gmailService, protected OutlookService $outlookService, protected ImapService $imapService, protected Pop3Service $pop3Service, protected ?ZernioClient $zernioClient = null) {}
+    public function __construct(protected WhatsAppBusinessService $whatsAppService, protected FacebookMessengerService $facebookMessengerService, protected GmailService $gmailService, protected OutlookService $outlookService, protected ImapService $imapService, protected Pop3Service $pop3Service, protected ?ZernioClient $zernioClient = null, protected ?ZernioTenantService $zernioTenants = null) {}
 
-    public function getAllMessages($accountId = null, $useCache = true)
+    public function getAllMessages($accountId = null, $useCache = true, ?Model $team = null)
     {
         $cacheKey = 'messages_'.($accountId ?? 'all');
 
@@ -32,7 +34,7 @@ class UnifiedHelpDeskService
         $errors = collect();
 
         try {
-            $messages = $this->fetchMessagesFromAllPlatforms($accountId, $errors);
+            $messages = $this->fetchMessagesFromAllPlatforms($accountId, $errors, $team);
         } catch (Throwable $e) {
             Log::error('Critical error fetching unified messages: '.$e->getMessage());
             throw $e;
@@ -51,7 +53,7 @@ class UnifiedHelpDeskService
         return $sortedMessages;
     }
 
-    protected function fetchMessagesFromAllPlatforms($accountId, &$errors)
+    protected function fetchMessagesFromAllPlatforms($accountId, &$errors, ?Model $team = null)
     {
         $messages = collect();
 
@@ -102,10 +104,10 @@ class UnifiedHelpDeskService
             }
         }
 
-        if ($this->zernioClient !== null && (string) config('services.zernio.api_key') !== '') {
+        if ($this->zernioClient !== null && $this->zernioTenants !== null && $team !== null && (string) config('services.zernio.api_key') !== '') {
             try {
                 $response = $this->zernioClient->listConversations(array_filter([
-                    'profileId' => config('services.zernio.profile_id'),
+                    'profileId' => $this->zernioTenants->ensureProfile($team),
                     'limit' => 100,
                     'sortOrder' => 'desc',
                 ]));
@@ -136,14 +138,15 @@ class UnifiedHelpDeskService
             ->get();
     }
 
-    public function sendReply($messageId, $content, $channel, string $accountId)
+    public function sendReply($messageId, $content, $channel, string $accountId, ?Model $team = null)
     {
         if ($channel === 'zernio') {
-            if ($this->zernioClient === null || (string) config('services.zernio.api_key') === '') {
+            if ($this->zernioClient === null || $this->zernioTenants === null || $team === null || (string) config('services.zernio.api_key') === '') {
                 throw new InvalidArgumentException('Zernio is not configured.');
             }
 
-            $result = $this->zernioClient->sendInboxMessage((string) $messageId, $accountId, (string) $content);
+            $profileId = $this->zernioTenants->ensureProfile($team);
+            $result = $this->zernioClient->sendInboxMessage((string) $messageId, $accountId, (string) $content, $profileId);
             Cache::forget('messages_all');
             Event::dispatch(new MessageReplySent($messageId, $content, $channel, $accountId));
 

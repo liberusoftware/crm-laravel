@@ -1,0 +1,1 @@
+<section aria-labelledby="events-heading"><h2 id="events-heading">Events and webinars</h2><ul>@forelse($events as $event)<li>{{ $event->name }} — {{ $event->format }} — {{ $event->starts_at }}</li>@empty<li>No events scheduled.</li>@endforelse</ul></section>

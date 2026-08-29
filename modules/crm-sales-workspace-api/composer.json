@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sales-workspace-api","type":"liberu-module","require":{"liberusoftware/module-crm-sales-workspace":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\SalesWorkspaceApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SalesWorkspaceApi\\Providers\\SalesWorkspaceApiServiceProvider"]},"liberu":{"name":"crm-sales-workspace-api"}}}

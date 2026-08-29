@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-projects","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Projects\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Projects\\ProjectsServiceProvider"]},"liberu":{"name":"crm-projects"}}}

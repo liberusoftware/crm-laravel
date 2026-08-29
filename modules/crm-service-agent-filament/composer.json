@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-service-agent-filament","type":"liberu-module","require":{"liberusoftware/module-crm-service-agent":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ServiceAgent\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ServiceAgent\\Filament\\ServiceAgentFilamentServiceProvider"]},"liberu":{"name":"crm-service-agent-filament"}}}

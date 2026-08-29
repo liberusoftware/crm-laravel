@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-service-analytics-api","type":"liberu-module","require":{"liberusoftware/module-crm-service-analytics":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ServiceAnalyticsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ServiceAnalyticsApi\\Providers\\ServiceAnalyticsApiServiceProvider"]},"liberu":{"name":"crm-service-analytics-api"}}}
