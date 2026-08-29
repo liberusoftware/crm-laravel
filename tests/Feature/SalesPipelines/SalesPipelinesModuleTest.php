@@ -12,6 +12,7 @@ use Liberu\CRM\SalesPipelines\Actions\CreateOpportunity;
 use Liberu\CRM\SalesPipelines\Actions\CreatePipeline;
 use Liberu\CRM\SalesPipelines\Actions\CreateStage;
 use Liberu\CRM\SalesPipelines\Actions\MoveOpportunity;
+use Liberu\CRM\SalesPipelines\Filament\Resources\OpportunityResource;
 use Liberu\CRM\SalesPipelines\Models\Opportunity;
 use Liberu\CRM\SalesPipelines\Models\StageHistory;
 use Tests\TestCase;
@@ -35,5 +36,10 @@ final class SalesPipelinesModuleTest extends TestCase
         self::assertSame('Budget deferred', $opportunity->fresh()->loss_reason);
         self::assertSame(1, StageHistory::query()->where('opportunity_id', $opportunity->id)->count());
         self::assertSame(1, Opportunity::query()->where('team_id', $team->id)->count());
+    }
+
+    public function test_opportunity_filament_resource_exposes_create_edit_and_list_pages(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(OpportunityResource::getPages()));
     }
 }
