@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Prospecting\Filament\Resources;
 
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\Prospecting\Filament\Resources\ProspectResource\Pages\CreateProspect;
+use Liberu\CRM\Prospecting\Filament\Resources\ProspectResource\Pages\EditProspect;
 use Liberu\CRM\Prospecting\Filament\Resources\ProspectResource\Pages\ListProspects;
 use Liberu\CRM\Prospecting\Models\Prospect;
 
@@ -20,7 +22,15 @@ final class ProspectResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('provider')->required(), TextInput::make('provider_id'), TextInput::make('name')->required(), TextInput::make('company'), TextInput::make('email')->email(), Select::make('status')->options(['new' => 'New', 'researched' => 'Researched', 'contacted' => 'Contacted'])]);
+        return $schema->components([
+            TextInput::make('provider')->required(),
+            TextInput::make('provider_id'),
+            TextInput::make('name')->required(),
+            TextInput::make('company'),
+            TextInput::make('email')->email(),
+            Textarea::make('provenance')->json()->required(),
+            Textarea::make('metadata')->json(),
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -38,6 +48,6 @@ final class ProspectResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListProspects::route('/')];
+        return ['index' => ListProspects::route('/'), 'create' => CreateProspect::route('/create'), 'edit' => EditProspect::route('/{record}/edit')];
     }
 }

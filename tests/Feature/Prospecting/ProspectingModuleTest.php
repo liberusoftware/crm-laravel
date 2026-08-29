@@ -12,6 +12,7 @@ use Liberu\CRM\Prospecting\Actions\CreateProspectSearch;
 use Liberu\CRM\Prospecting\Actions\ImportProspect;
 use Liberu\CRM\Prospecting\Actions\QueueResearch;
 use Liberu\CRM\Prospecting\Actions\RevealContact;
+use Liberu\CRM\Prospecting\Filament\Resources\ProspectResource;
 use Liberu\CRM\Prospecting\Models\Prospect;
 use Liberu\CRM\Prospecting\Models\ProspectCredit;
 use Tests\TestCase;
@@ -19,6 +20,11 @@ use Tests\TestCase;
 final class ProspectingModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_prospect_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(ProspectResource::getPages()));
+    }
 
     public function test_provenance_research_and_idempotent_reveal_are_team_scoped(): void
     {

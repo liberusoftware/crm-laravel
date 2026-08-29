@@ -6,6 +6,9 @@ namespace Liberu\CRM\Prospecting\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ */
 final class Prospect extends Model
 {
     protected $table = 'crm_prospects';
