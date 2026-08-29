@@ -12,6 +12,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\ResourcePlanning\Filament\Resources\PlanningResource\Pages\CreateBooking;
 use Liberu\CRM\ResourcePlanning\Filament\Resources\PlanningResource\Pages\ListBookings;
 use Liberu\CRM\ResourcePlanning\Models\ResourceBooking;
 
@@ -39,6 +40,6 @@ final class PlanningResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListBookings::route('/')];
+        return ['index' => ListBookings::route('/'), 'create' => CreateBooking::route('/create')];
     }
 }

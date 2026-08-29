@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ResourcePlanningApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\ResourcePlanning\Actions\CreateBooking;
 use Liberu\CRM\ResourcePlanning\Actions\RecordForecast;
 use Liberu\CRM\ResourcePlanning\Actions\SetCapacity;

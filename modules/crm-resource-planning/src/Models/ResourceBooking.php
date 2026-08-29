@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
+ * @property int $team_id
  * @property Carbon $starts_at
  * @property Carbon $ends_at
  */

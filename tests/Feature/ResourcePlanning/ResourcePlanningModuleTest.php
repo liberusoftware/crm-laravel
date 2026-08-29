@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\ResourcePlanning\Actions\CreateBooking;
 use Liberu\CRM\ResourcePlanning\Actions\SetCapacity;
 use Liberu\CRM\ResourcePlanning\Actions\UpsertSkill;
+use Liberu\CRM\ResourcePlanning\Filament\Resources\PlanningResource;
 use Liberu\CRM\ResourcePlanning\Models\ResourceBooking;
 use Liberu\CRM\ResourcePlanning\Models\ResourceCapacity;
 use Liberu\CRM\ResourcePlanning\Models\ResourceSkill;
@@ -19,6 +20,11 @@ use Tests\TestCase;
 final class ResourcePlanningModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_planning_resource_exposes_booking_creation(): void
+    {
+        self::assertSame(['index', 'create'], array_keys(PlanningResource::getPages()));
+    }
 
     public function test_skills_capacity_and_booking_conflicts_are_team_scoped(): void
     {
