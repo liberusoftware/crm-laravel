@@ -10,6 +10,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\Routing\Filament\Resources\AssignmentResource\Pages\CreateAssignment;
 use Liberu\CRM\Routing\Filament\Resources\AssignmentResource\Pages\ListAssignments;
 use Liberu\CRM\Routing\Models\RoutingAssignment;
 
@@ -19,7 +20,10 @@ final class AssignmentResource extends Resource
 
     public static function form(Schema $s): Schema
     {
-        return $s->components([Select::make('status')->options(['pending' => 'Pending', 'accepted' => 'Accepted', 'rejected' => 'Rejected', 'expired' => 'Expired'])]);
+        return $s->components([
+            Select::make('subject_type')->options(['lead' => 'Lead', 'contact' => 'Contact', 'opportunity' => 'Opportunity'])->required(),
+            Select::make('subject_id')->required()->native(false),
+        ]);
     }
 
     public static function table(Table $t): Table
@@ -37,6 +41,6 @@ final class AssignmentResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListAssignments::route('/')];
+        return ['index' => ListAssignments::route('/'), 'create' => CreateAssignment::route('/create')];
     }
 }

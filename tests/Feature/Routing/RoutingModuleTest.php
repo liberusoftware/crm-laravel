@@ -11,12 +11,18 @@ use Liberu\CRM\Routing\Actions\AcceptAssignment;
 use Liberu\CRM\Routing\Actions\AssignSubject;
 use Liberu\CRM\Routing\Actions\CreateRoutingRule;
 use Liberu\CRM\Routing\Actions\UpsertRoutingAgent;
+use Liberu\CRM\Routing\Filament\Resources\AssignmentResource;
 use Liberu\CRM\Routing\Models\RoutingAssignment;
 use Tests\TestCase;
 
 final class RoutingModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_assignment_resource_exposes_creation_workflow(): void
+    {
+        self::assertSame(['index', 'create'], array_keys(AssignmentResource::getPages()));
+    }
 
     public function test_assignment_matches_capacity_and_acceptance_timer_lifecycle(): void
     {
