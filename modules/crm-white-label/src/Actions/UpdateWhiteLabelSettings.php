@@ -20,7 +20,7 @@ final class UpdateWhiteLabelSettings
             throw ValidationException::withMessages(['authorization' => 'You cannot manage white-label settings for this team.']);
         }
 
-        validator($attributes, [
+        $data = validator($attributes, [
             'brand_name' => ['nullable', 'string', 'max:255'],
             'custom_domain' => ['nullable', 'string', 'max:255', 'regex:/^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i'],
             'theme' => ['required', 'string', 'max:100'],
@@ -31,14 +31,14 @@ final class UpdateWhiteLabelSettings
             'show_platform_attribution' => ['required', 'boolean'],
         ])->validate();
 
-        return DB::transaction(function () use ($teamId, $actorId, $attributes, $expectedVersion): WhiteLabelSettings {
+        return DB::transaction(function () use ($teamId, $actorId, $data, $expectedVersion): WhiteLabelSettings {
             $settings = WhiteLabelSettings::query()->lockForUpdate()->firstOrNew(['team_id' => $teamId]);
             if ($expectedVersion !== null && $settings->exists && $settings->version !== $expectedVersion) {
                 throw ValidationException::withMessages(['version' => 'The white-label settings changed since they were loaded.']);
             }
 
             $before = $settings->getOriginal();
-            $settings->fill($attributes);
+            $settings->fill($data);
             $settings->version = $settings->exists ? $settings->version + 1 : 1;
             $settings->save();
             DB::afterCommit(fn (): bool => event(new WhiteLabelSettingsUpdated($settings->fresh(), $actorId)) === null);

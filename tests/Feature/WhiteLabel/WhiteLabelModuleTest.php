@@ -9,12 +9,18 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
 use Liberu\CRM\WhiteLabel\Actions\UpdateWhiteLabelSettings;
+use Liberu\CRM\WhiteLabel\Filament\Resources\WhiteLabelSettingsResource;
 use Liberu\CRM\WhiteLabel\Models\WhiteLabelSettings;
 use Tests\TestCase;
 
 final class WhiteLabelModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_white_label_resource_exposes_read_and_edit_surfaces(): void
+    {
+        self::assertSame(['index', 'edit'], array_keys(WhiteLabelSettingsResource::getPages()));
+    }
 
     public function test_owner_can_update_settings_and_audit_is_redacted_and_versioned(): void
     {
@@ -53,5 +59,22 @@ final class WhiteLabelModuleTest extends TestCase
 
         self::assertSame($first->id, WhiteLabelSettings::query()->where('team_id', 101)->firstOrFail()->id);
         self::assertNull(WhiteLabelSettings::query()->where('team_id', 303)->first());
+    }
+
+    public function test_settings_update_cannot_override_tenant_or_version_fields(): void
+    {
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+
+        $settings = app(UpdateWhiteLabelSettings::class)->execute($team->id, $owner->id, [
+            'theme' => 'dark',
+            'provider' => 'platform',
+            'show_platform_attribution' => true,
+            'team_id' => 999,
+            'version' => 99,
+        ]);
+
+        self::assertSame($team->id, $settings->team_id);
+        self::assertSame(1, $settings->version);
     }
 }
