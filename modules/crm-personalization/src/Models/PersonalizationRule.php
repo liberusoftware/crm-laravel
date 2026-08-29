@@ -7,6 +7,7 @@ namespace Liberu\CRM\Personalization\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property int $team_id
  * @property int $holdout_percent
  * @property array<string, mixed> $variants
  */
