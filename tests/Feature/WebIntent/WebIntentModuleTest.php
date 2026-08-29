@@ -70,4 +70,29 @@ final class WebIntentModuleTest extends TestCase
         self::assertSame($first->id, $second->id);
         self::assertSame('resolved', $alert->fresh()->status);
     }
+
+    public function test_mutations_reject_foreign_visits_and_ignore_control_fields(): void
+    {
+        $visit = app(RecordVisit::class)->execute(7, 'visitor-a', ['consent_status' => 'granted', 'team_id' => 99, 'status' => 'ended']);
+        $foreignVisit = app(RecordVisit::class)->execute(8, 'visitor-b', ['consent_status' => 'granted']);
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $policy = app(WebIntentPolicy::class);
+
+        self::assertSame(7, $visit->team_id);
+        self::assertSame('active', $visit->status);
+
+        $this->expectException(ValidationException::class);
+        app(CreateAlert::class)->execute($team->id, $owner->id, 'visitor-b', 'Foreign visit', 'high', $foreignVisit->id, null, $policy);
+    }
+
+    public function test_conversion_rejects_a_foreign_visit(): void
+    {
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $foreignVisit = app(RecordVisit::class)->execute(8, 'visitor-b', ['consent_status' => 'granted']);
+
+        $this->expectException(ValidationException::class);
+        app(ConvertIntent::class)->execute($team->id, $owner->id, 'visitor-b', 'lead', 42, $foreignVisit->id, [], app(WebIntentPolicy::class));
+    }
 }
