@@ -11,6 +11,7 @@ use Liberu\CRM\Referrals\Actions\CreateProgram;
 use Liberu\CRM\Referrals\Actions\CreateReferral;
 use Liberu\CRM\Referrals\Actions\IssueReward;
 use Liberu\CRM\Referrals\Actions\QualifyReferral;
+use Liberu\CRM\Referrals\Filament\Resources\ReferralResource;
 use Liberu\CRM\Referrals\Models\Referral;
 use Liberu\CRM\Referrals\Models\ReferralReward;
 use Tests\TestCase;
@@ -18,6 +19,11 @@ use Tests\TestCase;
 final class ReferralsModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_referral_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(ReferralResource::getPages()));
+    }
 
     public function test_referral_attribution_qualification_and_idempotent_reward_are_team_scoped(): void
     {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
+ * @property int $team_id
  * @property int $program_id
  * @property Carbon|null $qualified_at
  */

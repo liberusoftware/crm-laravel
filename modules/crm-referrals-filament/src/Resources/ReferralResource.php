@@ -11,6 +11,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\Referrals\Filament\Resources\ReferralResource\Pages\CreateReferral;
+use Liberu\CRM\Referrals\Filament\Resources\ReferralResource\Pages\EditReferral;
 use Liberu\CRM\Referrals\Filament\Resources\ReferralResource\Pages\ListReferrals;
 use Liberu\CRM\Referrals\Models\Referral;
 
@@ -38,6 +40,6 @@ final class ReferralResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListReferrals::route('/')];
+        return ['index' => ListReferrals::route('/'), 'create' => CreateReferral::route('/create'), 'edit' => EditReferral::route('/{record}/edit')];
     }
 }

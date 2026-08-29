@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ReferralsApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\Referrals\Actions\CreateProgram;
 use Liberu\CRM\Referrals\Actions\CreateReferral;
 use Liberu\CRM\Referrals\Actions\IssueReward;
