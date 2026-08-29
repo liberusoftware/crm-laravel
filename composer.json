@@ -74,7 +74,8 @@
             "Liberu\\Themes\\DefaultTheme\\": "themes/default/src/"
         },
     "classmap": [
-      "modules/*/src"
+      "modules/*/src",
+      "modules/*/database/factories"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"

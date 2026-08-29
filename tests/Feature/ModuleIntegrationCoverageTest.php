@@ -339,7 +339,7 @@ it('runs module theme and foundation operational commands', function () {
 
 it('invites accepts resolves and transfers team membership', function () {
     $owner = User::factory()->create();
-    $member = User::factory()->create();
+    $member = User::factory()->create(['email' => 'member@example.test']);
     $team = Team::forceCreate(['user_id' => $owner->id, 'name' => 'Coverage', 'personal_team' => false, 'status' => 'active']);
     $token = (new InviteMember())->handle($team->id, ' MEMBER@EXAMPLE.TEST ', 'member', $owner->id);
     (new AcceptInvitation())->handle($token, $member, 'member@example.test');
@@ -351,4 +351,15 @@ it('invites accepts resolves and transfers team membership', function () {
     expect(fn () => (new TransferOwnership())->handle($team, $owner->id, 999, false))->toThrow(RuntimeException::class);
 
     expect(fn () => (new AcceptInvitation())->handle('bad-token', $member, 'member@example.test'))->toThrow(RuntimeException::class);
+});
+
+it('binds modular team invitation acceptance to the authenticated email', function () {
+    $owner = User::factory()->withPersonalTeam()->create();
+    $member = User::factory()->create(['email' => 'member@example.test']);
+    $attacker = User::factory()->create(['email' => 'attacker@example.test']);
+    $token = (new InviteMember())->handle($owner->currentTeam->id, $member->email, 'member', $owner->id);
+
+    expect(fn () => (new AcceptInvitation())->handle($token, $attacker, $member->email))
+        ->toThrow(RuntimeException::class);
+    expect(DB::table('team_user')->where('team_id', $owner->currentTeam->id)->where('user_id', $attacker->id)->exists())->toBeFalse();
 });

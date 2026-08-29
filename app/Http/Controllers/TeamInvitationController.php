@@ -8,6 +8,7 @@ use App\Models\TeamInvitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Jetstream\Events\TeamMemberAdded;
 
 class TeamInvitationController extends Controller
 {
@@ -54,6 +55,7 @@ class TeamInvitationController extends Controller
             $team->users()->syncWithoutDetaching([
                 $user->getKey() => ['role' => $invitation->role],
             ]);
+            TeamMemberAdded::dispatch($team, $user);
             $user->switchTeam($team);
             $invitation->delete();
         });

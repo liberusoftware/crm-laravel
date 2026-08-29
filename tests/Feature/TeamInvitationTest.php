@@ -124,5 +124,10 @@ class TeamInvitationTest extends TestCase
         $this->assertCount(1, $team->fresh()->users);
 
         $this->assertEquals($invitedUser->id, $team->fresh()->users->first()->id);
+
+        setPermissionsTeamId($team->getKey());
+        $invitedUser->unsetRelation('roles');
+        $this->assertTrue($invitedUser->fresh()->hasRole('sales_rep'));
+        setPermissionsTeamId(null);
     }
 }
