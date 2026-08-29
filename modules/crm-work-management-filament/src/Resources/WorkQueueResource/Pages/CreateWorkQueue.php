@@ -6,8 +6,8 @@ namespace Liberu\CRM\WorkManagement\Filament\Resources\WorkQueueResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
+use Liberu\CRM\WorkManagement\Actions\CreateWorkQueue as CreateWorkQueueAction;
 use Liberu\CRM\WorkManagement\Filament\Resources\WorkQueueResource;
-use Liberu\CRM\WorkManagement\Models\WorkQueue;
 
 final class CreateWorkQueue extends CreateRecord
 {
@@ -18,6 +18,6 @@ final class CreateWorkQueue extends CreateRecord
         $teamId = auth()->user()?->current_team_id;
         abort_unless($teamId !== null, 403);
 
-        return WorkQueue::query()->create(array_merge($data, ['team_id' => $teamId, 'actor_id' => auth()->id()]));
+        return app(CreateWorkQueueAction::class)->execute((int) $teamId, auth()->id(), $data);
     }
 }

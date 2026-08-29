@@ -10,14 +10,27 @@ use Liberu\CRM\WorkManagement\Actions\AddChecklistItem;
 use Liberu\CRM\WorkManagement\Actions\AddDependency;
 use Liberu\CRM\WorkManagement\Actions\CompleteWorkItem;
 use Liberu\CRM\WorkManagement\Actions\CreateWorkItem;
+use Liberu\CRM\WorkManagement\Actions\CreateWorkQueue;
 use Liberu\CRM\WorkManagement\Actions\ReviewApproval;
 use Liberu\CRM\WorkManagement\Actions\UpdateWorkItem;
+use Liberu\CRM\WorkManagement\Filament\Resources\WorkQueueResource;
 use Liberu\CRM\WorkManagement\Models\WorkItem;
+use Liberu\CRM\WorkManagement\Models\WorkQueue;
 use Tests\TestCase;
 
 final class WorkManagementModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_work_queue_has_domain_owned_lifecycle_and_filament_pages(): void
+    {
+        $queue = app(CreateWorkQueue::class)->execute(7, 11, ['name' => 'Review queue', 'rules' => ['priority' => 'high']]);
+        $queue->update(['status' => 'paused']);
+
+        self::assertSame(['index', 'create', 'edit'], array_keys(WorkQueueResource::getPages()));
+        self::assertSame('paused', WorkQueue::query()->findOrFail($queue->id)->status);
+        self::assertSame(1, $queue->getConnection()->table('crm_work_audits')->where('event', 'work_queue.created')->count());
+    }
 
     public function test_work_item_lifecycle_checklist_approval_and_dependency_are_team_scoped(): void
     {

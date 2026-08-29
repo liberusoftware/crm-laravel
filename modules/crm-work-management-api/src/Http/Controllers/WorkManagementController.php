@@ -11,6 +11,7 @@ use Liberu\CRM\WorkManagement\Actions\AddChecklistItem;
 use Liberu\CRM\WorkManagement\Actions\AddDependency;
 use Liberu\CRM\WorkManagement\Actions\CompleteWorkItem;
 use Liberu\CRM\WorkManagement\Actions\CreateWorkItem;
+use Liberu\CRM\WorkManagement\Actions\CreateWorkQueue;
 use Liberu\CRM\WorkManagement\Actions\ReviewApproval;
 use Liberu\CRM\WorkManagement\Actions\UpdateWorkItem;
 use Liberu\CRM\WorkManagement\Models\WorkItem;
@@ -98,14 +99,14 @@ final class WorkManagementController extends Controller
         return response()->json(['data' => WorkQueue::query()->where('team_id', $this->teamId($request))->latest()->get()->map(fn (WorkQueue $queue): array => ['id' => (string) $queue->getKey(), 'type' => 'crm-work-queue', 'attributes' => $queue->only(['name', 'description', 'status', 'rules'])])]);
     }
 
-    public function storeQueue(Request $request, IdempotencyStore $idempotency): JsonResponse
+    public function storeQueue(Request $request, CreateWorkQueue $create, IdempotencyStore $idempotency): JsonResponse
     {
         $replay = $this->replayIdempotent($request, $idempotency);
         if ($replay !== null) {
             return $replay;
         }
         $data = $request->validate(['name' => ['required', 'string', 'max:160'], 'description' => ['nullable', 'string', 'max:500'], 'rules' => ['nullable', 'array']]);
-        $queue = WorkQueue::query()->create(array_merge($data, ['team_id' => $this->teamId($request), 'actor_id' => $request->user()->getKey()]));
+        $queue = $create->execute($this->teamId($request), $request->user()->getKey(), $data);
 
         return $this->completeIdempotent($request, $idempotency, response()->json(['data' => ['id' => (string) $queue->getKey(), 'type' => 'crm-work-queue', 'attributes' => $queue->only(['name', 'description', 'status', 'rules'])]], 201));
     }
