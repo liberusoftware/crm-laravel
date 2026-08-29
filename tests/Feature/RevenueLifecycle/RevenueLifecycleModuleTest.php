@@ -11,6 +11,7 @@ use Liberu\CRM\RevenueLifecycle\Actions\CreateOrder;
 use Liberu\CRM\RevenueLifecycle\Actions\ManageAsset;
 use Liberu\CRM\RevenueLifecycle\Actions\RecordUsageSignal;
 use Liberu\CRM\RevenueLifecycle\Actions\ResolveFallout;
+use Liberu\CRM\RevenueLifecycle\Filament\Resources\AssetResource;
 use Liberu\CRM\RevenueLifecycle\Models\RevenueAsset;
 use Liberu\CRM\RevenueLifecycle\Models\RevenueFallout;
 use Liberu\CRM\RevenueLifecycle\Models\RevenueOrder;
@@ -19,6 +20,11 @@ use Tests\TestCase;
 final class RevenueLifecycleModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_asset_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(AssetResource::getPages()));
+    }
 
     public function test_asset_order_usage_and_fallout_lifecycle_is_team_scoped(): void
     {

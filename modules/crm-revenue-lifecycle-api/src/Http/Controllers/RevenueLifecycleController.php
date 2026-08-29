@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\RevenueLifecycleApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\RevenueLifecycle\Actions\CreateOrder;
 use Liberu\CRM\RevenueLifecycle\Actions\ManageAsset;
 use Liberu\CRM\RevenueLifecycle\Actions\RecordUsageSignal;

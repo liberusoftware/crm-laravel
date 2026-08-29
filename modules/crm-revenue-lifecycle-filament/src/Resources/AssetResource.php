@@ -12,6 +12,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\RevenueLifecycle\Filament\Resources\AssetResource\Pages\CreateAsset;
+use Liberu\CRM\RevenueLifecycle\Filament\Resources\AssetResource\Pages\EditAsset;
 use Liberu\CRM\RevenueLifecycle\Filament\Resources\AssetResource\Pages\ListAssets;
 use Liberu\CRM\RevenueLifecycle\Models\RevenueAsset;
 
@@ -39,6 +41,6 @@ final class AssetResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListAssets::route('/')];
+        return ['index' => ListAssets::route('/'), 'create' => CreateAsset::route('/create'), 'edit' => EditAsset::route('/{record}/edit')];
     }
 }
