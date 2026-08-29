@@ -11,6 +11,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\SalesEngagement\Filament\Resources\SequenceResource\Pages\CreateSequence;
+use Liberu\CRM\SalesEngagement\Filament\Resources\SequenceResource\Pages\EditSequence;
 use Liberu\CRM\SalesEngagement\Filament\Resources\SequenceResource\Pages\ListSequences;
 use Liberu\CRM\SalesEngagement\Models\EngagementSequence;
 
@@ -38,6 +40,6 @@ final class SequenceResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListSequences::route('/')];
+        return ['index' => ListSequences::route('/'), 'create' => CreateSequence::route('/create'), 'edit' => EditSequence::route('/{record}/edit')];
     }
 }

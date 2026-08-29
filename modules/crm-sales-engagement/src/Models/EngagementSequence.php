@@ -6,6 +6,9 @@ namespace Liberu\CRM\SalesEngagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ */
 final class EngagementSequence extends Model
 {
     protected $table = 'crm_engagement_sequences';

@@ -14,12 +14,18 @@ use Liberu\CRM\SalesEngagement\Actions\CreateSequence;
 use Liberu\CRM\SalesEngagement\Actions\EnrollContact;
 use Liberu\CRM\SalesEngagement\Actions\RecordEngagementEvent;
 use Liberu\CRM\SalesEngagement\Actions\StopEnrollment;
+use Liberu\CRM\SalesEngagement\Filament\Resources\SequenceResource;
 use Liberu\CRM\SalesEngagement\Models\Enrollment;
 use Tests\TestCase;
 
 final class SalesEngagementModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_sequence_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(SequenceResource::getPages()));
+    }
 
     public function test_sequence_steps_enrollment_reentry_and_stop_rules_are_scoped(): void
     {
