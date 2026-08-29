@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $custom_domain
  * @property string $theme
  * @property string $provider
+ * @property array<string, mixed>|null $email_settings
+ * @property array<string, mixed>|null $application_settings
+ * @property array<string, mixed>|null $client_experience
  * @property bool $show_platform_attribution
  * @property int $version
  */
