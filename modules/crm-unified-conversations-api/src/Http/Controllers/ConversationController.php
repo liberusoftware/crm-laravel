@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\UnifiedConversationsApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\UnifiedConversations\Actions\OpenConversation;
 use Liberu\CRM\UnifiedConversations\Actions\SendMessage;
 use Liberu\CRM\UnifiedConversations\Queries\ConversationQuery;
@@ -19,18 +20,22 @@ final class ConversationController extends Controller
         return (int) $r->user()->current_team_id;
     }
 
-    public function index(Request $r, ConversationQuery $q)
+    public function index(Request $r, ConversationQuery $q): JsonResponse
     {
         return response()->json($q->list($this->team($r)));
     }
 
-    public function store(Request $r, OpenConversation $a)
+    public function store(Request $r, OpenConversation $a): JsonResponse
     {
-        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
+        $data = $r->validate(['channel' => ['required', 'string', 'max:50'], 'external_id' => ['nullable', 'string', 'max:255'], 'subject' => ['nullable', 'string', 'max:255']]);
+
+        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $data)], 201);
     }
 
-    public function message(Request $r, int $conversation, SendMessage $a)
+    public function message(Request $r, int $conversation, SendMessage $a): JsonResponse
     {
-        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $conversation, $r->all())], 201);
+        $data = $r->validate(['body' => ['required', 'string', 'max:10000'], 'internal' => ['boolean'], 'idempotency_key' => ['nullable', 'string', 'max:255']]);
+
+        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $conversation, $data)], 201);
     }
 }
