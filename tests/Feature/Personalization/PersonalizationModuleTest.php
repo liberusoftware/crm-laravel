@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\Personalization\Actions\CreatePersonalizationRule;
 use Liberu\CRM\Personalization\Actions\DecidePersonalization;
 use Liberu\CRM\Personalization\Actions\RecordPersonalizationOutcome;
+use Liberu\CRM\Personalization\Filament\Resources\PersonalizationRuleResource;
 use Liberu\CRM\Personalization\Models\PersonalizationDecision;
 use Liberu\CRM\Personalization\Models\PersonalizationOutcome;
 use Tests\TestCase;
@@ -17,6 +18,11 @@ use Tests\TestCase;
 final class PersonalizationModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_personalization_rule_resource_exposes_full_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(PersonalizationRuleResource::getPages()));
+    }
 
     public function test_consent_aware_holdout_decision_and_outcome_are_team_scoped(): void
     {

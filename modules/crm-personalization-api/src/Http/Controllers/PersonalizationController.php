@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\PersonalizationApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\Personalization\Actions\CreatePersonalizationRule;
 use Liberu\CRM\Personalization\Actions\DecidePersonalization;
 use Liberu\CRM\Personalization\Actions\RecordPersonalizationOutcome;

@@ -12,6 +12,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\Personalization\Filament\Resources\PersonalizationRuleResource\Pages\CreatePersonalizationRule;
+use Liberu\CRM\Personalization\Filament\Resources\PersonalizationRuleResource\Pages\EditPersonalizationRule;
 use Liberu\CRM\Personalization\Filament\Resources\PersonalizationRuleResource\Pages\ListPersonalizationRules;
 use Liberu\CRM\Personalization\Models\PersonalizationRule;
 
@@ -21,7 +23,7 @@ final class PersonalizationRuleResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('name')->required(), Select::make('kind')->options(['content' => 'Content', 'offer' => 'Offer', 'channel' => 'Channel', 'send_time' => 'Send time', 'locale' => 'Locale', 'lifecycle' => 'Lifecycle'])->required(), Textarea::make('conditions')->required(), Textarea::make('variants')->required(), TextInput::make('holdout_percent')->numeric()->required()]);
+        return $schema->components([TextInput::make('name')->required(), Select::make('kind')->options(['content' => 'Content', 'offer' => 'Offer', 'channel' => 'Channel', 'send_time' => 'Send time', 'locale' => 'Locale', 'lifecycle' => 'Lifecycle'])->required(), Textarea::make('conditions')->json()->required(), Textarea::make('variants')->json()->required(), Textarea::make('fallback')->json()->required(), TextInput::make('holdout_percent')->numeric()->required()]);
     }
 
     public static function table(Table $table): Table
@@ -39,6 +41,6 @@ final class PersonalizationRuleResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListPersonalizationRules::route('/')];
+        return ['index' => ListPersonalizationRules::route('/'), 'create' => CreatePersonalizationRule::route('/create'), 'edit' => EditPersonalizationRule::route('/{record}/edit')];
     }
 }

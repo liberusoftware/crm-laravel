@@ -130,4 +130,26 @@ class TeamInvitationTest extends TestCase
         $this->assertTrue($invitedUser->fresh()->hasRole('sales_rep'));
         setPermissionsTeamId(null);
     }
+
+    public function test_invitation_cannot_grant_a_non_assignable_role(): void
+    {
+        $team = Team::factory()->create();
+        $invitedUser = User::factory()->create();
+
+        $invitation = $team->teamInvitations()->create([
+            'email' => $invitedUser->email,
+            'role' => 'super_admin',
+            'token' => Str::random(40),
+        ]);
+
+        $this->actingAs($invitedUser)
+            ->post('/team-invitations/'.$invitation->id.'/accept')
+            ->assertForbidden();
+
+        $this->assertDatabaseMissing('team_user', [
+            'team_id' => $team->id,
+            'user_id' => $invitedUser->id,
+        ]);
+        $this->assertDatabaseHas('team_invitations', ['id' => $invitation->id]);
+    }
 }

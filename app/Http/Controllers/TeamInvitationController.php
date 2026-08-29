@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Jetstream\InviteTeamMember;
+use App\Enums\Role;
 use App\Models\Team;
 use App\Models\TeamInvitation;
+use App\Services\TeamManagementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -51,9 +53,12 @@ class TeamInvitationController extends Controller
                 __('You are not authorized to accept this invitation.')
             );
 
+            $role = Role::tryFrom((string) $invitation->role);
+            abort_unless($role !== null && in_array($role, TeamManagementService::TEAM_ROLES, true), 403);
+
             $team = $invitation->team;
             $team->users()->syncWithoutDetaching([
-                $user->getKey() => ['role' => $invitation->role],
+                $user->getKey() => ['role' => $role->value],
             ]);
             TeamMemberAdded::dispatch($team, $user);
             $user->switchTeam($team);
