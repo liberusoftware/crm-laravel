@@ -12,6 +12,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\ReputationManagement\Filament\Resources\ReputationResource\Pages\CreateReview;
+use Liberu\CRM\ReputationManagement\Filament\Resources\ReputationResource\Pages\EditReview;
 use Liberu\CRM\ReputationManagement\Filament\Resources\ReputationResource\Pages\ListReviews;
 use Liberu\CRM\ReputationManagement\Models\ReputationReview;
 
@@ -39,6 +41,6 @@ final class ReputationResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListReviews::route('/')];
+        return ['index' => ListReviews::route('/'), 'create' => CreateReview::route('/create'), 'edit' => EditReview::route('/{record}/edit')];
     }
 }

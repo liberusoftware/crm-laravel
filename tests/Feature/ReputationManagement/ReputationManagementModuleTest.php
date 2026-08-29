@@ -11,6 +11,7 @@ use Liberu\CRM\ReputationManagement\Actions\ConnectReviewSite;
 use Liberu\CRM\ReputationManagement\Actions\CreateReviewRequest;
 use Liberu\CRM\ReputationManagement\Actions\RecordReview;
 use Liberu\CRM\ReputationManagement\Actions\RespondToReview;
+use Liberu\CRM\ReputationManagement\Filament\Resources\ReputationResource;
 use Liberu\CRM\ReputationManagement\Models\ReputationConnection;
 use Liberu\CRM\ReputationManagement\Models\ReputationRequest;
 use Liberu\CRM\ReputationManagement\Models\ReputationReview;
@@ -19,6 +20,11 @@ use Tests\TestCase;
 final class ReputationManagementModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_reputation_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(ReputationResource::getPages()));
+    }
 
     public function test_review_connection_request_sentiment_and_response_are_team_scoped(): void
     {
