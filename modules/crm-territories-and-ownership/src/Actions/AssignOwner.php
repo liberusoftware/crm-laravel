@@ -15,8 +15,14 @@ final class AssignOwner
     {
         if (! app(TerritoryPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        }validator(compact('subjectType', 'subjectId', 'ownerId', 'reason'), ['subjectType' => ['required', 'string', 'max:100'], 'subjectId' => ['required', 'integer'], 'ownerId' => ['required', 'integer'], 'reason' => ['required', 'string', 'max:255']])->validate();
+        }
 
-        return DB::transaction(fn () => OwnershipHistory::query()->create(['team_id' => $teamId, 'subject_type' => $subjectType, 'subject_id' => $subjectId, 'previous_owner_id' => $previousOwnerId, 'owner_id' => $ownerId, 'reason' => $reason, 'actor_id' => $actorId]));
+        $data = validator(compact('subjectType', 'subjectId', 'ownerId', 'reason'), ['subjectType' => ['required', 'string', 'max:100'], 'subjectId' => ['required', 'integer', 'min:1'], 'ownerId' => ['required', 'integer', 'min:1'], 'reason' => ['required', 'string', 'max:255']])->validate();
+
+        if (! app(TerritoryPolicy::class)->isTeamMember($teamId, (int) $data['ownerId'], [], true)) {
+            throw ValidationException::withMessages(['ownerId' => 'The owner must belong to this team.']);
+        }
+
+        return DB::transaction(fn (): OwnershipHistory => OwnershipHistory::query()->create(['team_id' => $teamId, 'subject_type' => $data['subjectType'], 'subject_id' => $data['subjectId'], 'previous_owner_id' => $previousOwnerId, 'owner_id' => $data['ownerId'], 'reason' => $data['reason'], 'actor_id' => $actorId]));
     }
 }
