@@ -32,4 +32,19 @@ final class RoutingModuleTest extends TestCase
         self::assertSame('accepted', RoutingAssignment::query()->findOrFail($assignment->id)->status);
         self::assertNotNull($assignment->acceptance_due_at);
     }
+
+    public function test_assignment_requires_all_requested_skills_when_language_is_omitted(): void
+    {
+        $owner = User::factory()->create();
+        $wrongAgent = User::factory()->create();
+        $matchingAgent = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $team->users()->attach([$wrongAgent->id, $matchingAgent->id], ['role' => 'sales rep']);
+        app(UpsertRoutingAgent::class)->execute($team->id, $owner->id, ['user_id' => $wrongAgent->id, 'skills' => ['basic'], 'sla_minutes' => 15]);
+        app(UpsertRoutingAgent::class)->execute($team->id, $owner->id, ['user_id' => $matchingAgent->id, 'skills' => ['enterprise'], 'sla_minutes' => 15]);
+
+        $assignment = app(AssignSubject::class)->execute($team->id, $owner->id, ['subject_type' => 'lead', 'subject_id' => 43, 'skills' => ['enterprise']]);
+
+        self::assertSame($matchingAgent->id, $assignment->agent()->value('user_id'));
+    }
 }

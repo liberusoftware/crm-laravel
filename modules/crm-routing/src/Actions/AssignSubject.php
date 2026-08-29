@@ -20,7 +20,13 @@ final class AssignSubject
 
         return DB::transaction(function () use ($teamId, $data) {
             $agents = RoutingAgent::query()->where('team_id', $teamId)->where('active', true)->orderBy('workload')->orderBy('last_assigned_at')->lockForUpdate()->get();
-            $agent = $agents->first(fn ($agent) => $this->matches($agent, $data));
+            $agent = null;
+            foreach ($agents as $candidate) {
+                if ($this->matches($candidate, $data)) {
+                    $agent = $candidate;
+                    break;
+                }
+            }
             if ($agent === null) {
                 $agent = $agents->first();
             }if ($agent === null) {
@@ -37,6 +43,7 @@ final class AssignSubject
         $skills = $data['skills'] ?? [];
         $agentSkills = $agent->skills ?? [];
 
-        return ($data['language'] ?? null) === null || in_array($data['language'], $agent->languages ?? [], true) && count(array_diff($skills, $agentSkills)) === 0;
+        return (($data['language'] ?? null) === null || in_array($data['language'], $agent->languages ?? [], true))
+            && count(array_diff($skills, $agentSkills)) === 0;
     }
 }
