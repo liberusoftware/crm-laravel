@@ -12,6 +12,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\PlaybooksAndEnablement\Filament\Resources\PlaybookResource\Pages\CreatePlaybook;
+use Liberu\CRM\PlaybooksAndEnablement\Filament\Resources\PlaybookResource\Pages\EditPlaybook;
 use Liberu\CRM\PlaybooksAndEnablement\Filament\Resources\PlaybookResource\Pages\ListPlaybooks;
 use Liberu\CRM\PlaybooksAndEnablement\Models\Playbook;
 
@@ -21,7 +23,7 @@ final class PlaybookResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('name')->required(), Select::make('kind')->options(['script' => 'Guided script', 'qualification' => 'Qualification card', 'battlecard' => 'Battlecard', 'onboarding' => 'Onboarding', 'coaching' => 'Coaching'])->required(), Textarea::make('description'), Textarea::make('steps')->required()]);
+        return $schema->components([TextInput::make('name')->required(), Select::make('kind')->options(['script' => 'Guided script', 'qualification' => 'Qualification card', 'battlecard' => 'Battlecard', 'onboarding' => 'Onboarding', 'coaching' => 'Coaching'])->required(), Textarea::make('description'), Textarea::make('steps')->json()->required()]);
     }
 
     public static function table(Table $table): Table
@@ -39,6 +41,6 @@ final class PlaybookResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListPlaybooks::route('/')];
+        return ['index' => ListPlaybooks::route('/'), 'create' => CreatePlaybook::route('/create'), 'edit' => EditPlaybook::route('/{record}/edit')];
     }
 }

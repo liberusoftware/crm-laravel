@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\PlaybooksAndEnablement\Actions\AssignPlaybook;
 use Liberu\CRM\PlaybooksAndEnablement\Actions\CompletePlaybook;
 use Liberu\CRM\PlaybooksAndEnablement\Actions\CreatePlaybook;
+use Liberu\CRM\PlaybooksAndEnablement\Filament\Resources\PlaybookResource;
 use Liberu\CRM\PlaybooksAndEnablement\Models\PlaybookAssignment;
 use Liberu\CRM\PlaybooksAndEnablement\Models\PlaybookUsage;
 use Tests\TestCase;
@@ -17,6 +18,11 @@ use Tests\TestCase;
 final class PlaybooksAndEnablementModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_playbook_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(PlaybookResource::getPages()));
+    }
 
     public function test_assigned_playbook_evidence_completion_is_team_scoped(): void
     {
