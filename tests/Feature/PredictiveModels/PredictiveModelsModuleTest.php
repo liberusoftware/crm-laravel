@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\PredictiveModels\Actions\DetectDrift;
 use Liberu\CRM\PredictiveModels\Actions\RecordPrediction;
 use Liberu\CRM\PredictiveModels\Actions\RegisterPredictiveModel;
+use Liberu\CRM\PredictiveModels\Filament\Resources\PredictionResource;
 use Liberu\CRM\PredictiveModels\Models\ModelDrift;
 use Liberu\CRM\PredictiveModels\Models\Prediction;
 use Tests\TestCase;
@@ -17,6 +18,11 @@ use Tests\TestCase;
 final class PredictiveModelsModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_prediction_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(PredictionResource::getPages()));
+    }
 
     public function test_explained_predictions_and_drift_are_team_scoped(): void
     {
