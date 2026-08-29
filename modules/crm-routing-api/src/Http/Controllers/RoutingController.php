@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\RoutingApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\Routing\Actions\AcceptAssignment;
 use Liberu\CRM\Routing\Actions\AssignSubject;
 use Liberu\CRM\Routing\Actions\CreateRoutingRule;
