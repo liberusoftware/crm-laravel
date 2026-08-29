@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\SalesEngagement\Actions;
 
-use App\Models\Contact;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Liberu\CRM\SalesEngagement\Models\EngagementSequence;
 use Liberu\CRM\SalesEngagement\Models\Enrollment;
@@ -18,7 +18,7 @@ final class EnrollContact
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
         }validator($data, ['sequence_id' => ['required', 'integer'], 'contact_id' => ['required', 'integer'], 'reentry' => ['nullable', 'boolean']])->validate();
         $sequence = EngagementSequence::query()->where('team_id', $teamId)->whereKey($data['sequence_id'])->firstOrFail();
-        if (! Contact::query()->where('team_id', $teamId)->whereKey($data['contact_id'])->exists()) {
+        if (! DB::table('contacts')->where('team_id', $teamId)->where('id', $data['contact_id'])->exists()) {
             throw ValidationException::withMessages(['contact_id' => 'Contact does not belong to this team.']);
         }
         $enrollment = Enrollment::query()->where('team_id', $teamId)->where('sequence_id', $sequence->id)->where('contact_id', $data['contact_id'])->first();
