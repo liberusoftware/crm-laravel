@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\CRM\RevenueIntelligence\Actions\CreateAlert;
 use Liberu\CRM\RevenueIntelligence\Actions\RecordInsight;
 use Liberu\CRM\RevenueIntelligence\Actions\ResolveAlert;
+use Liberu\CRM\RevenueIntelligence\Filament\Resources\InsightResource;
 use Liberu\CRM\RevenueIntelligence\Models\RevenueInsight;
 use Liberu\CRM\RevenueIntelligence\Models\RevenueIntelligenceAlert;
 use Tests\TestCase;
@@ -17,6 +18,11 @@ use Tests\TestCase;
 final class RevenueIntelligenceModuleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_insight_resource_exposes_the_complete_filament_lifecycle(): void
+    {
+        self::assertSame(['index', 'create', 'edit'], array_keys(InsightResource::getPages()));
+    }
 
     public function test_insights_and_alerts_are_team_scoped_and_recoverable(): void
     {

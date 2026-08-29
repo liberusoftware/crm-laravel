@@ -6,6 +6,9 @@ namespace Liberu\CRM\RevenueIntelligence\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ */
 final class RevenueInsight extends Model
 {
     protected $table = 'crm_revenue_insights';

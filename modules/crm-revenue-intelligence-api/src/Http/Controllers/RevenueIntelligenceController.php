@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\RevenueIntelligenceApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\RevenueIntelligence\Actions\CreateAlert;
 use Liberu\CRM\RevenueIntelligence\Actions\RecordInsight;
 use Liberu\CRM\RevenueIntelligence\Actions\ResolveAlert;
