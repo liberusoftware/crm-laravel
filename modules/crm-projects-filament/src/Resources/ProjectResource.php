@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Liberu\CRM\Projects\Filament\Resources;
 
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -13,6 +12,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Liberu\CRM\Projects\Filament\Resources\ProjectResource\Pages\CreateProject;
+use Liberu\CRM\Projects\Filament\Resources\ProjectResource\Pages\EditProject;
 use Liberu\CRM\Projects\Filament\Resources\ProjectResource\Pages\ListProjects;
 use Liberu\CRM\Projects\Models\Project;
 
@@ -22,7 +23,7 @@ final class ProjectResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('name')->required(), Textarea::make('description'), TextInput::make('customer_id')->numeric(), TextInput::make('owner_id')->numeric(), Select::make('status')->options(['planning' => 'Planning', 'active' => 'Active', 'at_risk' => 'At risk', 'on_hold' => 'On hold', 'completed' => 'Completed', 'cancelled' => 'Cancelled']), DatePicker::make('starts_at'), DatePicker::make('ends_at')]);
+        return $schema->components([TextInput::make('template_id')->numeric(), TextInput::make('name')->required(), Textarea::make('description'), TextInput::make('customer_id')->numeric(), TextInput::make('opportunity_id')->numeric(), TextInput::make('owner_id')->numeric(), DatePicker::make('starts_at'), DatePicker::make('ends_at')]);
     }
 
     public static function table(Table $table): Table
@@ -40,6 +41,6 @@ final class ProjectResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => ListProjects::route('/')];
+        return ['index' => ListProjects::route('/'), 'create' => CreateProject::route('/create'), 'edit' => EditProject::route('/{record}/edit')];
     }
 }
