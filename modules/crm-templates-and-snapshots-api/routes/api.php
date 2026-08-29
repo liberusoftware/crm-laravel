@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Liberu\CRM\TemplatesAndSnapshotsApi\Http\Controllers\SnapshotController;
 
-Route::middleware('auth:sanctum')->prefix('api/v1/crm/templates-and-snapshots')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->prefix('api/v1/crm/templates-and-snapshots')->group(function () {
     Route::get('/', [SnapshotController::class, 'index']);
     Route::post('/', [SnapshotController::class, 'store']);
     Route::get('/{snapshot}', [SnapshotController::class, 'show']);

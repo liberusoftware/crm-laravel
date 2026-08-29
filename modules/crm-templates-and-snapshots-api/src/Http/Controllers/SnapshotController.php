@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\TemplatesAndSnapshotsApi\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Liberu\CRM\TemplatesAndSnapshots\Actions\CreateSnapshot;
 use Liberu\CRM\TemplatesAndSnapshots\Actions\InstallSnapshot;
 use Liberu\CRM\TemplatesAndSnapshots\Actions\ShareSnapshot;
@@ -20,28 +21,28 @@ final class SnapshotController extends Controller
         return (int) $r->user()->current_team_id;
     }
 
-    public function index(Request $r, SnapshotQuery $q)
+    public function index(Request $r, SnapshotQuery $q): JsonResponse
     {
         return response()->json($q->list($this->team($r)));
     }
 
-    public function show(Request $r, int $snapshot, SnapshotQuery $q)
+    public function show(Request $r, int $snapshot, SnapshotQuery $q): JsonResponse
     {
         return response()->json(['data' => $q->find($this->team($r), $snapshot)]);
     }
 
-    public function store(Request $r, CreateSnapshot $a)
+    public function store(Request $r, CreateSnapshot $a): JsonResponse
     {
-        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $r->all())], 201);
+        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->getAuthIdentifier(), $r->validate(['name' => ['required', 'string', 'max:255'], 'payload' => ['required', 'array'], 'status' => ['sometimes', 'in:draft,published']]))], 201);
     }
 
-    public function install(Request $r, int $snapshot, InstallSnapshot $a)
+    public function install(Request $r, int $snapshot, InstallSnapshot $a): JsonResponse
     {
-        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $snapshot)]);
+        return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->getAuthIdentifier(), $snapshot)]);
     }
 
-    public function share(Request $r, int $snapshot, ShareSnapshot $a)
+    public function share(Request $r, int $snapshot, ShareSnapshot $a): JsonResponse
     {
-        return response()->json(['data' => ['token' => $a->execute($this->team($r), (int) $r->user()->id, $snapshot)]]);
+        return response()->json(['data' => ['token' => $a->execute($this->team($r), (int) $r->user()->getAuthIdentifier(), $snapshot)]]);
     }
 }
