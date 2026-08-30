@@ -28,6 +28,20 @@ final class ZernioAdvertisingService
         return $this->client->getAdAnalytics($adId, $this->withProfile($team, $filters));
     }
 
+    /** @param array<string, mixed> $payload @return array<string, mixed> */
+    public function createCampaign(Model $team, array $payload): array
+    {
+        return $this->client->createCampaign(array_merge($payload, ['profileId' => app(ZernioTenantService::class)->ensureProfile($team)]));
+    }
+
+    /** @param array<string, mixed> $payload @return array<string, mixed> */
+    public function updateCampaign(Model $team, string $campaignId, array $payload): array
+    {
+        $payload['profileId'] = app(ZernioTenantService::class)->ensureProfile($team);
+
+        return $this->client->updateCampaign($campaignId, $payload);
+    }
+
     /** @param array<string, mixed> $filters @return array<string, mixed> */
     private function withProfile(Model $team, array $filters): array
     {

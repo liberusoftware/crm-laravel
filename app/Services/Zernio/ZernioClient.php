@@ -47,6 +47,24 @@ final class ZernioClient
     }
 
     /** @return array<string, mixed> */
+    public function listPosts(array $query = []): array
+    {
+        return $this->send('get', '/posts', $query);
+    }
+
+    /** @param array<string, mixed> $payload @return array<string, mixed> */
+    public function updatePost(string $postId, array $payload): array
+    {
+        return $this->send('patch', '/posts/'.rawurlencode($postId), $payload);
+    }
+
+    /** @return array<string, mixed> */
+    public function validatePost(array $payload): array
+    {
+        return $this->send('post', '/posts/validate', $payload);
+    }
+
+    /** @return array<string, mixed> */
     public function listAccounts(?string $profileId = null): array
     {
         return $this->send('get', '/accounts', array_filter(['profileId' => $profileId]));
@@ -68,6 +86,12 @@ final class ZernioClient
     }
 
     /** @return array<string, mixed> */
+    public function getInboxAnalytics(array $query = []): array
+    {
+        return $this->send('get', '/inbox/analytics', $query);
+    }
+
+    /** @return array<string, mixed> */
     public function getCampaignAnalytics(string $campaignId, array $query = []): array
     {
         return $this->send('get', '/ads/campaigns/'.rawurlencode($campaignId).'/analytics', $query);
@@ -85,10 +109,49 @@ final class ZernioClient
         return $this->send('get', '/ads', $query);
     }
 
+    /** @param array<string, mixed> $payload @return array<string, mixed> */
+    public function createCampaign(array $payload): array
+    {
+        return $this->send('post', '/ads/campaigns', $payload);
+    }
+
+    /** @param array<string, mixed> $payload @return array<string, mixed> */
+    public function updateCampaign(string $campaignId, array $payload): array
+    {
+        return $this->send('patch', '/ads/campaigns/'.rawurlencode($campaignId), $payload);
+    }
+
     /** @return array<string, mixed> */
     public function listConversations(array $query = []): array
     {
         return $this->send('get', '/inbox/conversations', $query);
+    }
+
+    /** @return array<string, mixed> */
+    public function getConversation(string $conversationId, array $query = []): array
+    {
+        return $this->send('get', '/inbox/conversations/'.rawurlencode($conversationId), [], $query);
+    }
+
+    /** @return array<string, mixed> */
+    public function listComments(array $query = []): array
+    {
+        return $this->send('get', '/inbox/comments', $query);
+    }
+
+    /** @return array<string, mixed> */
+    public function listReviews(array $query = []): array
+    {
+        return $this->send('get', '/inbox/reviews', $query);
+    }
+
+    /** @return array<string, mixed> */
+    public function replyToComment(string $commentId, string $accountId, string $message, ?string $profileId = null): array
+    {
+        return $this->send('post', '/inbox/comments/'.rawurlencode($commentId).'/reply', [
+            'accountId' => $accountId,
+            'message' => $message,
+        ], array_filter(['profileId' => $profileId]));
     }
 
     /** @return array<string, mixed> */

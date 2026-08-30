@@ -29,7 +29,11 @@ final class ZernioTenantService
             'crm_team_'.$team->getKey(),
             'Liberu CRM team '.$team->getKey(),
         );
-        $profileId = (string) data_get($response, 'profile._id');
+        $profileId = (string) (data_get($response, 'profile._id')
+            ?? data_get($response, 'profile.id')
+            ?? data_get($response, 'data._id')
+            ?? data_get($response, 'data.id')
+            ?? data_get($response, '_id'));
 
         if ($profileId === '') {
             throw new ZernioException('Zernio did not return a profile identifier.');
@@ -62,6 +66,44 @@ final class ZernioTenantService
         $query['profileId'] = $this->ensureProfile($team);
 
         return $this->client->getAnalytics($query);
+    }
+
+    /** @return array<string, mixed> */
+    public function inbox(Model $team, array $query = []): array
+    {
+        $query['profileId'] = $this->ensureProfile($team);
+
+        return $this->client->listConversations($query);
+    }
+
+    /** @return array<string, mixed> */
+    public function comments(Model $team, array $query = []): array
+    {
+        $query['profileId'] = $this->ensureProfile($team);
+
+        return $this->client->listComments($query);
+    }
+
+    /** @return array<string, mixed> */
+    public function reviews(Model $team, array $query = []): array
+    {
+        $query['profileId'] = $this->ensureProfile($team);
+
+        return $this->client->listReviews($query);
+    }
+
+    /** @return array<string, mixed> */
+    public function inboxAnalytics(Model $team, array $query = []): array
+    {
+        $query['profileId'] = $this->ensureProfile($team);
+
+        return $this->client->getInboxAnalytics($query);
+    }
+
+    /** @return array<string, mixed> */
+    public function replyToComment(Model $team, string $commentId, string $accountId, string $message): array
+    {
+        return $this->client->replyToComment($commentId, $accountId, $message, $this->ensureProfile($team));
     }
 
     public function provisionIfConfigured(Model $team): void

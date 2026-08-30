@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ExecuteWorkflowAction;
+use App\Models\Campaign;
 use App\Models\Contact;
 use App\Models\Lead;
 use App\Models\LeadForm;
@@ -18,13 +19,25 @@ class LeadFormController extends Controller
     {
         $validatedData = $request->validate($this->getValidationRules($leadForm));
 
-        $contact = $this->createOrUpdateContact($validatedData);
+        $teamId = $leadForm->getAttribute('team_id');
+        $landingPage = $leadForm->landingPage()->first();
+        $campaign = null;
+        if (! is_numeric($teamId)) {
+            $teamId = $landingPage?->getAttribute('team_id');
+        }
+        if (! is_numeric($teamId)) {
+            $campaign = Campaign::query()->find($landingPage?->getAttribute('campaign_id'));
+            $teamId = $campaign?->getAttribute('team_id');
+        }
+        abort_unless(is_numeric($teamId), 422, 'The lead form is not attached to a team.');
+        $contact = $this->createOrUpdateContact($validatedData, (int) $teamId);
 
         $lead = Lead::create([
             'status' => 'new',
             'source' => 'landing_page',
             'contact_id' => $contact->id,
-            'user_id' => $leadForm->landingPage?->campaign?->user_id,
+            'user_id' => $campaign?->getAttribute('user_id'),
+            'team_id' => (int) $teamId,
             'potential_value' => $validatedData['potential_value'] ?? null,
             'expected_close_date' => $validatedData['expected_close_date'] ?? null,
             'lifecycle_stage' => 'lead',
@@ -59,18 +72,13 @@ class LeadFormController extends Controller
         return $rules;
     }
 
-    private function createOrUpdateContact(array $data)
+    private function createOrUpdateContact(array $data, int $teamId): Contact
     {
-        return Contact::updateOrCreate(
-            ['email' => $data['email']],
-            [
-                'name' => $data['name'] ?? null,
-                'last_name' => $data['last_name'] ?? null,
-                'phone_number' => $data['phone_number'] ?? null,
-                'company_size' => $data['company_size'] ?? null,
-                'industry' => $data['industry'] ?? null,
-            ]
-        );
+        $email = strtolower(trim((string) ($data['email'] ?? '')));
+        $contact = Contact::withoutGlobalScopes()->where('team_id', $teamId)->where('email_hash', Contact::hashEmail($email))->first() ?? new Contact();
+        $contact->fill(['team_id' => $teamId, 'email' => $email, 'name' => $data['name'] ?? null, 'last_name' => $data['last_name'] ?? null, 'phone_number' => $data['phone_number'] ?? null, 'company_size' => $data['company_size'] ?? null, 'industry' => $data['industry'] ?? null])->save();
+
+        return $contact;
     }
 
     private function triggerWorkflow(Lead $lead): void

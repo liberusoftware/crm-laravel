@@ -36,6 +36,7 @@ class Lead extends Model implements OwnsRecords
         'custom_fields',
         'score',
         'team_id',
+        'import_key',
     ];
 
     protected $casts = [

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
+use Liberu\CRM\UnifiedConversations\Actions\SyncExternalConversation;
 use Throwable;
 
 class UnifiedHelpDeskService
@@ -119,6 +120,25 @@ class UnifiedHelpDeskService
 
                     $message = $this->formatZernioConversation($conversation);
                     $messages->push($message);
+                    app(SyncExternalConversation::class)->execute((int) $team->getKey(), [
+                        'channel' => 'zernio.'.($conversation['platform'] ?? 'social'),
+                        'external_id' => (string) $conversation['id'],
+                        'subject' => $conversation['participantName'] ?? 'Social conversation',
+                        'status' => $conversation['status'] ?? 'open',
+                        'priority' => $message['priority'],
+                        'last_message_at' => $message['timestamp'],
+                        'metadata' => ['account_id' => $conversation['accountId'], 'profile_id' => $this->zernioTenants->ensureProfile($team)],
+                        'participant' => [
+                            'identity' => $conversation['participantId'] ?? $conversation['id'],
+                            'name' => $conversation['participantName'] ?? null,
+                        ],
+                        'message' => [
+                            'external_id' => $conversation['lastMessageId'] ?? $conversation['id'],
+                            'body' => $conversation['lastMessage'] ?? '',
+                            'direction' => 'inbound',
+                            'metadata' => ['platform' => $conversation['platform'] ?? null],
+                        ],
+                    ]);
                     Event::dispatch(new NewMessageReceived($message));
                 }
             } catch (Throwable $e) {

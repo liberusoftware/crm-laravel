@@ -28,6 +28,10 @@ final class ZernioPublisher
                 $accountId = $platform['account_id'] ?? null;
             }
 
+            if (! in_array($platformName, ZernioTenantService::PLATFORMS, true)) {
+                throw new ZernioException("Unsupported Zernio platform: {$platformName}.");
+            }
+
             if ($allowedAccounts !== null) {
                 $accountId = $accountId ?: ($allowedAccounts[$platformName] ?? null);
                 if (! is_string($accountId) || ($allowedAccounts[$platformName] ?? null) !== $accountId) {

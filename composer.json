@@ -198,7 +198,9 @@
             "Liberu\\Themes\\ClearSignal\\": "themes/clear-signal/src/",
             "Liberu\\Themes\\Dark\\": "themes/dark/src/",
             "Liberu\\Themes\\DefaultTheme\\": "themes/default/src/",
-            "Liberu\\Themes\\Crm\\": "themes/theme-crm/src/"
+            "Liberu\\Themes\\Crm\\": "themes/theme-crm/src/",
+            "Liberu\\CRM\\UnifiedConversations\\": "modules/crm-unified-conversations/src/",
+            "Liberu\\CRM\\AIReceptionAndConversation\\": "modules/crm-ai-reception-and-conversation/src/"
         },
     "classmap": [
       "modules/*/src",

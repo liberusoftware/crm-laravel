@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DealController;
 use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\LeadImportController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\WebhookController;
 use App\Http\Controllers\WorkflowController;
@@ -27,6 +28,8 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:api'])->group(functio
     // Core resources
     Route::apiResource('contacts', ContactController::class);
     Route::apiResource('deals', DealController::class);
+    Route::get('leads/import/template', [LeadImportController::class, 'template']);
+    Route::post('leads/import', [LeadImportController::class, 'store']);
     Route::apiResource('leads', LeadController::class);
     Route::apiResource('tasks', TaskController::class);
 
