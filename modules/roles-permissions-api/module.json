@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "roles-permissions-api",
+  "display_name": "Roles and Permissions Api",
+  "description": "Roles and Permissions api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\RolesPermissionsApi\\RolesPermissionsApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/roles-permissions": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.roles-permissions.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Roles and Permissions",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

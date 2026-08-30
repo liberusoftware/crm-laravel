@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "two-factor-authentication-filament",
+  "display_name": "Two-Factor Authentication Filament",
+  "description": "Two-Factor Authentication filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\TwoFactorAuthenticationFilament\\TwoFactorAuthenticationFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/two-factor-authentication": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.two-factor-authentication.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Two-Factor Authentication",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\TwoFactorAuthenticationFilament\\TwoFactorAuthenticationFilamentPlugin"
+      ]
+    }
+  }
+}

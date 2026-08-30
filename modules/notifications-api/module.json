@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "notifications-api",
+  "display_name": "Notifications Api",
+  "description": "Notifications api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\NotificationsApi\\NotificationsApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/notifications": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.notifications.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Notifications",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

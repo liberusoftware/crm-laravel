@@ -1,17 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-(--breakpoint-xl) mx-auto px-4 py-8">
-    <section class="mb-8 rounded-2xl bg-slate-950 px-6 py-12 text-white shadow-xl sm:px-10" aria-labelledby="welcome-heading">
-        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">Clear Signal</p>
-        <h1 id="welcome-heading" class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">A foundation you can build on.</h1>
-        <p class="mt-4 max-w-2xl text-lg text-slate-300">Liberu CRM brings customer relationships, sales activity, and team operations together in one Laravel application.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-            <a href="{{ route('register') }}" class="rounded-lg bg-teal-400 px-5 py-3 font-semibold text-slate-950">Get started free</a>
-            <a href="{{ route('login') }}" class="rounded-lg border border-slate-600 px-5 py-3 font-semibold text-white">Sign in</a>
-        </div>
-        <a class="mt-6 inline-block text-sm text-slate-400 underline decoration-slate-600 underline-offset-4" href="https://github.com/liberusoftware/boilerplate-laravel">Built on Liberu Laravel Boilerplate</a>
-    </section>
+<div class="crm-container py-8">
+    @if(config('saas.enabled'))
+        <section class="crm-card mb-8 overflow-hidden bg-slate-950 px-6 py-14 text-white sm:px-12" aria-labelledby="welcome-heading">
+            <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-300">Liberu CRM for growing teams</p>
+            <h1 id="welcome-heading" class="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl">Every relationship. One clear workspace.</h1>
+            <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-300">Bring contacts, pipeline, conversations, email, WhatsApp, and calling together so your team can move faster and give every customer a better experience.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="{{ route('register') }}" class="crm-button inline-flex items-center bg-indigo-500 text-white">Start your 14-day trial</a>
+                <a href="{{ route('login') }}" class="crm-button inline-flex items-center border border-slate-600 text-white">Sign in</a>
+            </div>
+            <p class="mt-5 text-sm text-slate-400">Card required for uninterrupted access. Choose £19.99 monthly or £199.99 yearly after your trial.</p>
+        </section>
+        <section class="mb-8" aria-labelledby="saas-benefits-heading">
+            <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+                <div><p class="text-sm font-semibold uppercase tracking-wide text-indigo-600">Built for momentum</p><h2 id="saas-benefits-heading" class="mt-1 text-2xl font-semibold">The tools your team needs, connected</h2></div>
+                <a href="{{ route('billing.index') }}" class="font-semibold text-indigo-600 hover:text-indigo-800">View plans →</a>
+            </div>
+            <div class="crm-grid">
+                @foreach([
+                    ['title' => 'One customer view', 'text' => 'Keep context, activity, tasks, and deals together from first touch to renewal.'],
+                    ['title' => 'Conversations that convert', 'text' => 'Coordinate email, WhatsApp, SMS, and Twilio calling from one reliable workflow.'],
+                    ['title' => 'Ready for your team', 'text' => 'Use roles, approvals, automations, reporting, and integrations without stitching tools together.'],
+                ] as $benefit)
+                    <article class="crm-card p-6"><h3 class="text-lg font-semibold">{{ $benefit['title'] }}</h3><p class="mt-2 text-sm leading-6 text-slate-600">{{ $benefit['text'] }}</p></article>
+                @endforeach
+            </div>
+        </section>
+    @else
+        <section class="crm-card mb-8 bg-slate-950 px-6 py-12 text-white sm:px-10" aria-labelledby="welcome-heading">
+            <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">Liberu CRM · Free self-hosted edition</p>
+            <h1 id="welcome-heading" class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">A foundation you can build on.</h1>
+            <p class="mt-4 max-w-2xl text-lg text-slate-300">Run a capable CRM on your own infrastructure with customer relationships, sales activity, team operations, and integrations in one Laravel application.</p>
+            <div class="mt-8 flex flex-wrap gap-3"><a href="{{ route('register') }}" class="crm-button inline-flex items-center bg-teal-400 text-slate-950">Get started free</a><a href="{{ route('login') }}" class="crm-button inline-flex items-center border border-slate-600 text-white">Sign in</a></div>
+            <p class="mt-5 text-sm text-slate-400">Free mode is enabled for local and self-hosted deployments. No payment details are required.</p>
+        </section>
+    @endif
 
     @auth
         @if(session('success'))
@@ -21,12 +46,9 @@
         @endif
     @endauth
 
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-            Welcome to {{ \App\Helpers\SiteSettingsHelper::get('name') }}
-        </h1>
-        <p class="mt-2 text-gray-600 dark:text-gray-400">Manage your account and access your dashboard.</p>
-    </div>
+    @auth
+        <div class="crm-card mb-6 p-6"><h2 class="text-2xl font-bold">Welcome back to {{ \App\Helpers\SiteSettingsHelper::get('name') }}</h2><p class="mt-2 text-slate-600">Manage your account and access your dashboard.</p></div>
+    @endauth
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         @auth
@@ -123,5 +145,9 @@
             </p>
         </div>
     @endauth
+
+    @unless(config('saas.enabled'))
+        <p class="mt-8 text-center text-sm text-slate-500">Clear Signal gives this self-hosted CRM its focused, accessible foundation. <a class="underline hover:text-slate-700" href="https://github.com/liberusoftware/boilerplate-laravel">Explore the foundation</a>.</p>
+    @endunless
 </div>
 @endsection

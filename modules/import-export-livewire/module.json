@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "import-export-livewire",
+  "display_name": "Import and Export Livewire",
+  "description": "Import and Export livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ImportExportLivewire\\ImportExportLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/import-export": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.import-export.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Import and Export",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

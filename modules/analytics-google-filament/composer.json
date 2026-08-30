@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/analytics-google-filament",
+  "description": "Google Analytics filament presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "filament/filament": "^5.1",
+    "liberusoftware/analytics-google": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\AnalyticsGoogleFilament\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "analytics-google-filament"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-analytics-google-filament"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\AnalyticsGoogleFilament\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

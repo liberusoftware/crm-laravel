@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Google Analytics API
+  version: 1.0.0
+paths:
+  /api/v1/analytics-google/status:
+    get:
+      operationId: analytics_google_status
+      responses:
+        '200':
+          description: Adapter availability
+

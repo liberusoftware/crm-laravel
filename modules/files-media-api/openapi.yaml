@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Files and Media API
+  version: 1.0.0
+paths:
+  /api/v1/files-media/status:
+    get:
+      operationId: files_media_status
+      responses:
+        '200':
+          description: Adapter availability
+

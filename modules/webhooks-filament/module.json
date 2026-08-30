@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "webhooks-filament",
+  "display_name": "Webhooks Filament",
+  "description": "Webhooks filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\WebhooksFilament\\WebhooksFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/webhooks": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.webhooks.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Webhooks",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\WebhooksFilament\\WebhooksFilamentPlugin"
+      ]
+    }
+  }
+}

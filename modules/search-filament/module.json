@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "search-filament",
+  "display_name": "Search Filament",
+  "description": "Search filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SearchFilament\\SearchFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/search": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.search.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Search",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\SearchFilament\\SearchFilamentPlugin"
+      ]
+    }
+  }
+}

@@ -12,6 +12,7 @@ final class TelephonyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(TelephonyAudit::class);
+        $this->app->singleton(TenantTwilioService::class);
     }
 
     public function boot(): void

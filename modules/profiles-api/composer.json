@@ -1,0 +1,44 @@
+{
+  "name": "liberusoftware/profiles-api",
+  "description": "Profiles api presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "illuminate/http": "^13.0",
+    "illuminate/routing": "^13.0",
+    "liberusoftware/profiles": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\ProfilesApi\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "profiles-api"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-profiles-api"
+    }
+  },
+  "version": "1.0.0",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\ProfilesApi\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
+

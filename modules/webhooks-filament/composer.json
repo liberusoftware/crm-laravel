@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/webhooks-filament",
+  "description": "Webhooks filament presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "filament/filament": "^5.1",
+    "liberusoftware/webhooks": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\WebhooksFilament\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "webhooks-filament"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-webhooks-filament"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\WebhooksFilament\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

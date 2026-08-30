@@ -1291,12 +1291,6 @@ parameters:
 			path: app/Services/ReportingService.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Team\:\:\$stripe_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Services/StripeService.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
 			identifier: property.notFound
 			count: 1

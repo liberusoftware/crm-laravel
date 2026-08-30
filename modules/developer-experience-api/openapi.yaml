@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Developer Experience API
+  version: 1.0.0
+paths:
+  /api/v1/developer-experience/status:
+    get:
+      operationId: developer_experience_status
+      responses:
+        '200':
+          description: Adapter availability
+

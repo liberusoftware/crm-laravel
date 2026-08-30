@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "settings-livewire",
+  "display_name": "Settings Livewire",
+  "description": "Settings livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SettingsLivewire\\SettingsLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/settings": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.settings.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Settings",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

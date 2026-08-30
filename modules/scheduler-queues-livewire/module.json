@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "scheduler-queues-livewire",
+  "display_name": "Scheduler and Queues Livewire",
+  "description": "Scheduler and Queues livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SchedulerQueuesLivewire\\SchedulerQueuesLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/scheduler-queues": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.scheduler-queues.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Scheduler and Queues",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

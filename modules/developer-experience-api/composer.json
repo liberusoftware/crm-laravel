@@ -1,0 +1,44 @@
+{
+  "name": "liberusoftware/developer-experience-api",
+  "description": "Developer Experience api presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "illuminate/http": "^13.0",
+    "illuminate/routing": "^13.0",
+    "liberusoftware/developer-experience": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\DeveloperExperienceApi\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "developer-experience-api"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-developer-experience-api"
+    }
+  },
+  "version": "1.0.0",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\DeveloperExperienceApi\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
+

@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/files-media-livewire",
+  "description": "Files and Media livewire presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "livewire/livewire": "^4.0",
+    "liberusoftware/files-media": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\FilesMediaLivewire\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "files-media-livewire"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-files-media-livewire"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\FilesMediaLivewire\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "analytics-google-filament",
+  "display_name": "Google Analytics Filament",
+  "description": "Google Analytics filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\AnalyticsGoogleFilament\\AnalyticsGoogleFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/analytics-google": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.analytics-google.filament"
+  ],
+  "default_enabled": false,
+  "features": [
+    "Bounded filament presentation for Google Analytics",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\AnalyticsGoogleFilament\\AnalyticsGoogleFilamentPlugin"
+      ]
+    }
+  }
+}

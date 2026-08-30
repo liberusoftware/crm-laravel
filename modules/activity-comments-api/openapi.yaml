@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Activity and Comments API
+  version: 1.0.0
+paths:
+  /api/v1/activity-comments/status:
+    get:
+      operationId: activity_comments_status
+      responses:
+        '200':
+          description: Adapter availability
+

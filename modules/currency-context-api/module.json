@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "currency-context-api",
+  "display_name": "Currency Context Api",
+  "description": "Currency Context api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\CurrencyContextApi\\CurrencyContextApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/currency-context": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.currency-context.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Currency Context",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

@@ -1,0 +1,44 @@
+{
+  "name": "liberusoftware/application-api",
+  "description": "Application Core api presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "illuminate/http": "^13.0",
+    "illuminate/routing": "^13.0",
+    "liberusoftware/application": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\ApplicationApi\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "application-api"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-application-api"
+    }
+  },
+  "version": "1.0.0",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\ApplicationApi\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
+

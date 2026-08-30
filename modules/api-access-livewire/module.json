@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "api-access-livewire",
+  "display_name": "API Access Livewire",
+  "description": "API Access livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ApiAccessLivewire\\ApiAccessLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/api-access": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.api-access.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for API Access",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

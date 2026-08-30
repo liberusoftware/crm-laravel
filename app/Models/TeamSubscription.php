@@ -16,14 +16,19 @@ class TeamSubscription extends Model
         'stripe_id',
         'stripe_status',
         'stripe_price',
+        'plan_key',
         'quantity',
         'trial_ends_at',
+        'current_period_ends_at',
         'ends_at',
+        'cancelled_at',
     ];
 
     protected $casts = [
         'trial_ends_at' => 'datetime',
+        'current_period_ends_at' => 'datetime',
         'ends_at' => 'datetime',
+        'cancelled_at' => 'datetime',
     ];
 
     public function team(): BelongsTo
@@ -43,7 +48,7 @@ class TeamSubscription extends Model
 
     public function isActive(): bool
     {
-        return $this->stripe_status === 'active' && ! $this->hasExpired();
+        return in_array($this->stripe_status, ['active', 'trialing'], true) && ! $this->hasExpired();
     }
 
     public function cancelAt(): bool

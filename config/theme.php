@@ -19,7 +19,7 @@ return [
 
     'surfaces' => [
         'public' => env('THEME_PUBLIC', 'clear-signal'),
-        'portal' => env('THEME_PORTAL', 'default'),
+        'portal' => env('THEME_PORTAL', 'theme-crm'),
         'admin' => env('THEME_ADMIN', 'default'),
     ],
 

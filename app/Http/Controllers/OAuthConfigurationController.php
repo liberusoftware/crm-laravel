@@ -27,6 +27,7 @@ class OAuthConfigurationController extends Controller
         'gmail' => 'google',
         'whatsapp' => 'whatsapp',
         'outlook' => 'microsoft',
+        'microsoft365' => 'microsoft',
     ];
 
     protected $serviceScopes = [
@@ -63,7 +64,11 @@ class OAuthConfigurationController extends Controller
             'https://www.googleapis.com/auth/youtube',
         ],
         'google' => [
-            'https://www.googleapis.com/auth/gmail.readonly',
+            'https://www.googleapis.com/auth/gmail.modify',
+            'https://www.googleapis.com/auth/calendar',
+        ],
+        'gmail' => [
+            'https://www.googleapis.com/auth/gmail.modify',
             'https://www.googleapis.com/auth/calendar',
         ],
     ];
@@ -83,7 +88,7 @@ class OAuthConfigurationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'service_name' => 'required|string',
+            'service_name' => 'required|string|in:facebook,twitter,instagram,linkedin,youtube,google,gmail,whatsapp,outlook,microsoft365',
             'account_name' => 'required|string',
             'additional_settings' => 'nullable|array',
         ]);
@@ -128,7 +133,7 @@ class OAuthConfigurationController extends Controller
     {
         try {
             $configId = session('oauth_config_id');
-            $config = OAuthConfiguration::findOrFail($configId);
+            $config = OAuthConfiguration::query()->whereKey($configId)->where('user_id', Auth::id())->firstOrFail();
 
             $driver = $this->serviceToDriver[$service] ?? $service;
             $socialiteUser = Socialite::driver($driver)->user();
@@ -172,6 +177,7 @@ class OAuthConfigurationController extends Controller
 
     public function destroy(OAuthConfiguration $configuration)
     {
+        abort_unless($configuration->user_id === Auth::id(), 403);
         $configuration->delete();
 
         return redirect()->route('oauth.configurations.index')

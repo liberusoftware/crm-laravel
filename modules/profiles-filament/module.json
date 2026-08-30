@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "profiles-filament",
+  "display_name": "Profiles Filament",
+  "description": "Profiles filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ProfilesFilament\\ProfilesFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/profiles": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.profiles.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Profiles",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\ProfilesFilament\\ProfilesFilamentPlugin"
+      ]
+    }
+  }
+}

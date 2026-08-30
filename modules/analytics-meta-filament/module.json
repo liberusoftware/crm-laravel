@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "analytics-meta-filament",
+  "display_name": "Meta Server-Side Tracking Filament",
+  "description": "Meta Server-Side Tracking filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\AnalyticsMetaFilament\\AnalyticsMetaFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/analytics-meta": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.analytics-meta.filament"
+  ],
+  "default_enabled": false,
+  "features": [
+    "Bounded filament presentation for Meta Server-Side Tracking",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\AnalyticsMetaFilament\\AnalyticsMetaFilamentPlugin"
+      ]
+    }
+  }
+}

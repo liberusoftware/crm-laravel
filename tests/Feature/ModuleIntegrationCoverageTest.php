@@ -353,6 +353,21 @@ it('invites accepts resolves and transfers team membership', function () {
     expect(fn () => (new AcceptInvitation())->handle('bad-token', $member, 'member@example.test'))->toThrow(RuntimeException::class);
 });
 
+it('rejects privileged roles at the modular invitation boundary', function () {
+    $owner = User::factory()->withPersonalTeam()->create();
+    $member = User::factory()->create();
+
+    expect(fn () => (new InviteMember())->handle($owner->currentTeam->id, $member->email, 'super_admin', $owner->id))
+        ->toThrow(InvalidArgumentException::class);
+
+    $token = (new InviteMember())->handle($owner->currentTeam->id, $member->email, 'member', $owner->id);
+    DB::table('team_invitations')->where('token_hash', hash('sha256', $token))->update(['role' => 'super_admin']);
+
+    expect(fn () => (new AcceptInvitation())->handle($token, $member, $member->email))
+        ->toThrow(RuntimeException::class);
+    expect(DB::table('team_user')->where('team_id', $owner->currentTeam->id)->where('user_id', $member->id)->exists())->toBeFalse();
+});
+
 it('binds modular team invitation acceptance to the authenticated email', function () {
     $owner = User::factory()->withPersonalTeam()->create();
     $member = User::factory()->create(['email' => 'member@example.test']);

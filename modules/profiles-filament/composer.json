@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/profiles-filament",
+  "description": "Profiles filament presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "filament/filament": "^5.1",
+    "liberusoftware/profiles": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\ProfilesFilament\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "profiles-filament"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-profiles-filament"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\ProfilesFilament\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

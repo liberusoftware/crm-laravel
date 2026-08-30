@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "feature-flags-api",
+  "display_name": "Feature Flags Api",
+  "description": "Feature Flags api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\FeatureFlagsApi\\FeatureFlagsApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/feature-flags": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.feature-flags.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Feature Flags",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

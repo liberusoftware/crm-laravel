@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "identity-core-livewire",
+  "display_name": "Identity Livewire",
+  "description": "Identity livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\IdentityCoreLivewire\\IdentityCoreLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/identity-core": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.identity-core.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Identity",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

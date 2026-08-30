@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "jetstream-bridge-filament",
+  "display_name": "Jetstream Bridge Filament",
+  "description": "Jetstream Bridge filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\JetstreamBridgeFilament\\JetstreamBridgeFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/jetstream-bridge": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.jetstream-bridge.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Jetstream Bridge",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\JetstreamBridgeFilament\\JetstreamBridgeFilamentPlugin"
+      ]
+    }
+  }
+}

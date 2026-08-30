@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "currency-context-filament",
+  "display_name": "Currency Context Filament",
+  "description": "Currency Context filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\CurrencyContextFilament\\CurrencyContextFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/currency-context": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.currency-context.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Currency Context",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\CurrencyContextFilament\\CurrencyContextFilamentPlugin"
+      ]
+    }
+  }
+}

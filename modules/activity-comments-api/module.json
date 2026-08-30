@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "activity-comments-api",
+  "display_name": "Activity and Comments Api",
+  "description": "Activity and Comments api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ActivityCommentsApi\\ActivityCommentsApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/activity-comments": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.activity-comments.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Activity and Comments",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

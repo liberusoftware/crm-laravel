@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "files-media-livewire",
+  "display_name": "Files and Media Livewire",
+  "description": "Files and Media livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\FilesMediaLivewire\\FilesMediaLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/files-media": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.files-media.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Files and Media",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

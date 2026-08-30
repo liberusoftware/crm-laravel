@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Module Manager API
+  version: 1.0.0
+paths:
+  /api/v1/module-manager/status:
+    get:
+      operationId: module_manager_status
+      responses:
+        '200':
+          description: Adapter availability
+

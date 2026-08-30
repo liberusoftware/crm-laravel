@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureBillingAccess;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetPermissionsTeamContext;
@@ -31,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => Authenticate::class,
             'guest' => RedirectIfAuthenticated::class,
             'twilio.verify' => VerifyTwilioRequest::class,
+            'billing.access' => EnsureBillingAccess::class,
         ]);
 
         $middleware->trimStrings(except: [
@@ -51,6 +53,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // Scope Spatie permissions to the user's current team so per-team
             // roles resolve. Appended so the session guard is available.
             SetPermissionsTeamContext::class,
+            EnsureBillingAccess::class,
         ]);
 
         // Establish the tenant from the Sanctum user before route-model

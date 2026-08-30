@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Organizations and Teams API
+  version: 1.0.0
+paths:
+  /api/v1/organizations-teams/status:
+    get:
+      operationId: organizations_teams_status
+      responses:
+        '200':
+          description: Adapter availability
+

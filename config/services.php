@@ -49,6 +49,16 @@ return [
         'webhook_url' => env('TWILIO_WEBHOOK_URL'),
     ],
 
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+        'subscriptions_enabled' => (bool) env('STRIPE_SUBSCRIPTIONS_ENABLED', false),
+        'trial_days' => (int) env('STRIPE_TRIAL_DAYS', 14),
+        'max_team_users' => (int) env('STRIPE_MAX_TEAM_USERS', 5),
+        'price_id' => env('STRIPE_PRICE_ID'),
+    ],
+
     // Facebook: unified config for both Socialite (OAuth login/connect) and Graph API (posting)
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID', env('FACEBOOK_APP_ID')),

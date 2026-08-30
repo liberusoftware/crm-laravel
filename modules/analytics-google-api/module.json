@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "analytics-google-api",
+  "display_name": "Google Analytics Api",
+  "description": "Google Analytics api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\AnalyticsGoogleApi\\AnalyticsGoogleApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/analytics-google": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.analytics-google.api"
+  ],
+  "default_enabled": false,
+  "features": [
+    "Bounded api presentation for Google Analytics",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

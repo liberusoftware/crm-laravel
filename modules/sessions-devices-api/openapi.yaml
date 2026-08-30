@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Sessions and Devices API
+  version: 1.0.0
+paths:
+  /api/v1/sessions-devices/status:
+    get:
+      operationId: sessions_devices_status
+      responses:
+        '200':
+          description: Adapter availability
+

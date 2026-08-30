@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "analytics-meta-api",
+  "display_name": "Meta Server-Side Tracking Api",
+  "description": "Meta Server-Side Tracking api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\AnalyticsMetaApi\\AnalyticsMetaApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/analytics-meta": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.analytics-meta.api"
+  ],
+  "default_enabled": false,
+  "features": [
+    "Bounded api presentation for Meta Server-Side Tracking",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "audit-api",
+  "display_name": "Audit Api",
+  "description": "Audit api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\AuditApi\\AuditApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/audit": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.audit.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Audit",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

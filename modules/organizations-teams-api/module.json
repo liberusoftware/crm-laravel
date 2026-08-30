@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "organizations-teams-api",
+  "display_name": "Organizations and Teams Api",
+  "description": "Organizations and Teams api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\OrganizationsTeamsApi\\OrganizationsTeamsApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/organizations-teams": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.organizations-teams.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Organizations and Teams",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

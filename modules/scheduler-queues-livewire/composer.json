@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/scheduler-queues-livewire",
+  "description": "Scheduler and Queues livewire presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "livewire/livewire": "^4.0",
+    "liberusoftware/scheduler-queues": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\SchedulerQueuesLivewire\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "scheduler-queues-livewire"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-scheduler-queues-livewire"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\SchedulerQueuesLivewire\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

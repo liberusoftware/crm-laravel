@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "analytics-google-livewire",
+  "display_name": "Google Analytics Livewire",
+  "description": "Google Analytics livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\AnalyticsGoogleLivewire\\AnalyticsGoogleLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/analytics-google": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.analytics-google.livewire"
+  ],
+  "default_enabled": false,
+  "features": [
+    "Bounded livewire presentation for Google Analytics",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

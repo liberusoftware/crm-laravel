@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Jetstream Bridge API
+  version: 1.0.0
+paths:
+  /api/v1/jetstream-bridge/status:
+    get:
+      operationId: jetstream_bridge_status
+      responses:
+        '200':
+          description: Adapter availability
+

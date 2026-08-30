@@ -21,10 +21,16 @@ class OAuthConfiguration extends Model
         'additional_settings',
         'is_active',
         'account_name',
+        'access_token',
+        'refresh_token',
+        'token_expires_at',
     ];
 
     protected $casts = [
         'client_secret' => 'encrypted',
+        'access_token' => 'encrypted',
+        'refresh_token' => 'encrypted',
+        'token_expires_at' => 'datetime',
         'additional_settings' => 'array',
         'is_active' => 'boolean',
     ];

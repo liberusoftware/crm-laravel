@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BG-r0U1Y.css",
+    "file": "assets/app-dpaCUf-A.css",
     "name": "app",
     "names": [
       "app.css"
@@ -9,7 +9,7 @@
     "isEntry": true
   },
   "resources/css/filament/admin/theme.css": {
-    "file": "assets/theme-MYV0k_Wq.css",
+    "file": "assets/theme-p_5gYHXd.css",
     "name": "theme",
     "names": [
       "theme.css"
@@ -21,6 +21,83 @@
     "file": "assets/app-BqfRjI0o.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "themes/base/resources/css/app.css": {
+    "file": "assets/app-CQnoXMN8.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "themes/base/resources/css/app.css",
+    "isEntry": true
+  },
+  "themes/base/resources/js/app.js": {
+    "file": "assets/app-DdrdLe8N.js",
+    "name": "app",
+    "src": "themes/base/resources/js/app.js",
+    "isEntry": true
+  },
+  "themes/clear-signal/resources/css/app.css": {
+    "file": "assets/app-BKTo9jQH.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "themes/clear-signal/resources/css/app.css",
+    "isEntry": true
+  },
+  "themes/dark/resources/css/app.css": {
+    "file": "assets/app-7Q9CK-nm.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "themes/dark/resources/css/app.css",
+    "isEntry": true
+  },
+  "themes/dark/resources/js/app.js": {
+    "file": "assets/app-XjnxzIQF.js",
+    "name": "app",
+    "src": "themes/dark/resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "themes/base/resources/js/app.js",
+      "themes/base/resources/js/app.js"
+    ]
+  },
+  "themes/default/resources/css/app.css": {
+    "file": "assets/app-DUVxxd9J.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "themes/default/resources/css/app.css",
+    "isEntry": true
+  },
+  "themes/default/resources/js/app.js": {
+    "file": "assets/app-7TjRuczn.js",
+    "name": "app",
+    "src": "themes/default/resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "themes/base/resources/js/app.js",
+      "themes/base/resources/js/app.js"
+    ]
+  },
+  "themes/theme-crm/resources/css/app.css": {
+    "file": "assets/app-DczR5beM.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "themes/theme-crm/resources/css/app.css",
+    "isEntry": true
+  },
+  "themes/theme-crm/resources/js/app.js": {
+    "file": "assets/app-sXS9kXzM.js",
+    "name": "app",
+    "src": "themes/theme-crm/resources/js/app.js",
     "isEntry": true
   }
 }

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "settings-api",
+  "display_name": "Settings Api",
+  "description": "Settings api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SettingsApi\\SettingsApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/settings": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.settings.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Settings",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

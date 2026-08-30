@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "developer-experience-livewire",
+  "display_name": "Developer Experience Livewire",
+  "description": "Developer Experience livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\DeveloperExperienceLivewire\\DeveloperExperienceLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/developer-experience": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.developer-experience.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Developer Experience",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

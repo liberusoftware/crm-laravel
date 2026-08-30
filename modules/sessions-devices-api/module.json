@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "sessions-devices-api",
+  "display_name": "Sessions and Devices Api",
+  "description": "Sessions and Devices api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SessionsDevicesApi\\SessionsDevicesApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/sessions-devices": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.sessions-devices.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Sessions and Devices",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

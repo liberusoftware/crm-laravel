@@ -15,6 +15,6 @@ final class TelephonySettings extends Model
 
     protected function casts(): array
     {
-        return ['business_hours' => 'array', 'ivr' => 'array', 'skills' => 'array'];
+        return ['business_hours' => 'array', 'ivr' => 'array', 'skills' => 'array', 'auth_token' => 'encrypted', 'credentials_verified_at' => 'datetime'];
     }
 }

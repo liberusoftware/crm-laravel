@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "files-media-api",
+  "display_name": "Files and Media Api",
+  "description": "Files and Media api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\FilesMediaApi\\FilesMediaApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/files-media": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.files-media.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Files and Media",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

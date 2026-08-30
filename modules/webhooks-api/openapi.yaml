@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Webhooks API
+  version: 1.0.0
+paths:
+  /api/v1/webhooks/status:
+    get:
+      operationId: webhooks_status
+      responses:
+        '200':
+          description: Adapter availability
+

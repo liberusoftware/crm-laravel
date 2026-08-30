@@ -14,6 +14,8 @@ final class OrganizationsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/organizations-teams.php', 'organizations-teams');
+
         Jetstream::useTeamModel(Team::class);
         Jetstream::useMembershipModel(Membership::class);
         Jetstream::useTeamInvitationModel(TeamInvitation::class);

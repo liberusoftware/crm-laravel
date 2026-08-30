@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "scheduler-queues-filament",
+  "display_name": "Scheduler and Queues Filament",
+  "description": "Scheduler and Queues filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SchedulerQueuesFilament\\SchedulerQueuesFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/scheduler-queues": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.scheduler-queues.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Scheduler and Queues",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\SchedulerQueuesFilament\\SchedulerQueuesFilamentPlugin"
+      ]
+    }
+  }
+}
