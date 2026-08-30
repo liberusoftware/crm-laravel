@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-ai-reception-and-conversation","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AIReceptionAndConversation\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AIReceptionAndConversation\\AIReceptionAndConversationServiceProvider"]},"liberu":{"name":"crm-ai-reception-and-conversation"}}}

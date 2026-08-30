@@ -15,9 +15,7 @@ class MeetingScheduled
 {
     use Dispatchable;
 
-    public function __construct(public Activity $activity)
-    {
-    }
+    public function __construct(public Activity $activity) {}
 
     /** Team this event belongs to — used to scope notifications (anti cross-tenant leak). */
     public function team(): ?Team

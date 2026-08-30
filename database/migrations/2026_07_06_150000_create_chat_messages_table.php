@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
  * different domain (channel/thread/ticket/unified-inbox), so live chat gets its
  * own table keyed on chat_id — matching LiveChat::messages().
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-white-label-livewire",
+  "display_name": "CRM White Label Livewire",
+  "description": "Livewire presentation package for CRM White Label.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\WhiteLabel\\Livewire\\WhiteLabelLivewireServiceProvider",
+  "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-white-label": "^1.0" } },
+  "suggests": [],
+  "capabilities": ["crm.white-label.livewire"],
+  "default_enabled": false,
+  "features": ["Interactive white-label settings"]
+}

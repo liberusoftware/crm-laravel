@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class OAuthManager
 {
-    protected \GuzzleHttp\Client $client;
+    protected Client $client;
 
     protected $providers = [
         'mailchimp' => [

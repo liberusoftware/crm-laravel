@@ -15,9 +15,7 @@ class TaskOverdue
 {
     use Dispatchable;
 
-    public function __construct(public Task $task)
-    {
-    }
+    public function __construct(public Task $task) {}
 
     /** Team this event belongs to — used to scope notifications (anti cross-tenant leak). */
     public function team(): ?Team

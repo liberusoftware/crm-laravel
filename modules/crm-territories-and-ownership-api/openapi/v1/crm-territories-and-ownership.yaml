@@ -1,0 +1,6 @@
+openapi: 3.1.0
+info: {title: CRM Territories and Ownership API, version: 1.0.0}
+paths:
+  /api/v1/crm/territories-and-ownership/rules: {get: {operationId: crm.territories.and.ownership.rules.list, responses: {'200': {description: Rules}}}, post: {operationId: crm.territories.and.ownership.rules.create, responses: {'201': {description: Rule}}}}
+  /api/v1/crm/territories-and-ownership/ownership: {post: {operationId: crm.territories.and.ownership.assign, responses: {'201': {description: Assignment}}}}
+  /api/v1/crm/territories-and-ownership/history: {get: {operationId: crm.territories.and.ownership.history.list, responses: {'200': {description: History}}}}

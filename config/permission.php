@@ -1,8 +1,8 @@
 <?php
 
+use Liberu\Foundation\RolesPermissions\Models\Permission;
+use Liberu\Foundation\RolesPermissions\Models\Role;
 use Spatie\Permission\DefaultTeamResolver;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 return [
 

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-knowledge-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\KnowledgeFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\KnowledgeFilament\\KnowledgeFilamentServiceProvider"]},"liberu":{"name":"crm-knowledge-filament"}}}

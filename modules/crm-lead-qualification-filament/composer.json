@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-lead-qualification-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LeadQualificationFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LeadQualificationFilament\\LeadQualificationFilamentServiceProvider"]},"liberu":{"name":"crm-lead-qualification-filament"}}}

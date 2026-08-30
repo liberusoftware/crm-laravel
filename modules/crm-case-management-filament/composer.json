@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-case-management-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CaseManagementFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CaseManagementFilament\\CaseManagementFilamentServiceProvider"]},"liberu":{"name":"module-crm-case-management-filament"}}}

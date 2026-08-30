@@ -1,0 +1,1 @@
+<section aria-label="Territories"><h2>Territories</h2>@forelse($rules as $rule)<article><strong>{{ $rule->name }}</strong> {{ $rule->book_of_business }}</article>@empty<p>No territory rules.</p>@endforelse</section>

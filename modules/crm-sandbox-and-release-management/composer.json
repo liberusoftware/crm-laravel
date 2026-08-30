@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sandbox-and-release-management","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\SandboxAndReleaseManagement\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SandboxAndReleaseManagement\\SandboxAndReleaseManagementServiceProvider"]},"liberu":{"name":"crm-sandbox-and-release-management"}}}

@@ -17,7 +17,7 @@ class SiteSettingsServiceTest extends TestCase
 
         $this->assertTrue(Cache::has($cacheKey));
 
-        $service = new SiteSettingsService;
+        $service = new SiteSettingsService();
         $service->clear();
 
         $this->assertFalse(Cache::has($cacheKey));
@@ -25,7 +25,7 @@ class SiteSettingsServiceTest extends TestCase
 
     public function test_service_can_be_instantiated(): void
     {
-        $service = new SiteSettingsService;
+        $service = new SiteSettingsService();
 
         $this->assertInstanceOf(SiteSettingsService::class, $service);
     }

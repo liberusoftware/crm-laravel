@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountingIntegrationController extends Controller
 {
-    public function __construct(protected \App\Services\AccountingService $accountingService)
-    {
-    }
+    public function __construct(protected AccountingService $accountingService) {}
 
     public function connect(Request $request)
     {

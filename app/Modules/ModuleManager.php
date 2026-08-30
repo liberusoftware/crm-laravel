@@ -229,7 +229,7 @@ class ModuleManager
         $moduleClass = "{$namespace}\\{$moduleName}Module";
 
         if (class_exists($moduleClass)) {
-            $module = new $moduleClass;
+            $module = new $moduleClass();
             if ($module instanceof ModuleInterface) {
                 $this->register($module);
             }

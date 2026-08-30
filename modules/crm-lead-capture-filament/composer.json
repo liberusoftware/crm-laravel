@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-lead-capture-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LeadCaptureFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LeadCaptureFilament\\LeadCaptureFilamentServiceProvider"]},"liberu":{"name":"crm-lead-capture-filament"}}}

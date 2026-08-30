@@ -102,7 +102,7 @@ class ImapService
             default => false,
         };
 
-        $cm = new ClientManager;
+        $cm = new ClientManager();
         $client = $cm->make([
             'host' => $host,
             'port' => $port,

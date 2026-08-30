@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-revenue-lifecycle","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\RevenueLifecycle\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\RevenueLifecycle\\RevenueLifecycleServiceProvider"]},"liberu":{"name":"crm-revenue-lifecycle"}}}

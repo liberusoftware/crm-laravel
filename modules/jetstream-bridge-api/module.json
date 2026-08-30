@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "jetstream-bridge-api",
+  "display_name": "Jetstream Bridge Api",
+  "description": "Jetstream Bridge api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\JetstreamBridgeApi\\JetstreamBridgeApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/jetstream-bridge": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.jetstream-bridge.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Jetstream Bridge",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

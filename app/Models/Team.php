@@ -12,6 +12,7 @@ use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
 
+/** @property string|null $stripe_id */
 class Team extends JetstreamTeam
 {
     use HasFactory;
@@ -37,11 +38,13 @@ class Team extends JetstreamTeam
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',
         'personal_team',
+        'zernio_profile_id',
+        'user_id',
         'portal_brand_name',
         'portal_logo_url',
         'portal_logo_path',
@@ -113,7 +116,7 @@ class Team extends JetstreamTeam
         $this->save();
 
         foreach (User::query()->where('current_team_id', $this->id)->get() as $user) {
-            $user->forceFill(['current_team_id' => $user->personalTeam()?->id])->save();
+            $user->forceFill(['current_team_id' => $user->personalTeam()->id])->save();
         }
     }
 
@@ -123,6 +126,7 @@ class Team extends JetstreamTeam
         $this->save();
     }
 
+    /** @return HasMany<Contact, $this> */
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class);
@@ -130,7 +134,7 @@ class Team extends JetstreamTeam
 
     public function hasActiveSubscription(): bool
     {
-        if (! config('services.stripe.subscriptions_enabled')) {
+        if (! config('saas.enabled', false)) {
             return true;
         }
 

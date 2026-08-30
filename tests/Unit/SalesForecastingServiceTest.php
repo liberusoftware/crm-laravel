@@ -21,7 +21,7 @@ class SalesForecastingServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new SalesForecastingService;
+        $this->service = new SalesForecastingService();
     }
 
     /** Invoke a protected method for direct unit testing. */

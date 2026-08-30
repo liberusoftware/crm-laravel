@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Audit API
+  version: 1.0.0
+paths:
+  /api/v1/audit/status:
+    get:
+      operationId: audit_status
+      responses:
+        '200':
+          description: Adapter availability
+

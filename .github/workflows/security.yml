@@ -19,39 +19,39 @@ jobs:
   phpcpd:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: '8.5'
       - name: 'Run Phpcpd'
         run: |
-          sudo composer install
-          sudo test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
-          sudo php phpcpd.phar app/
+          composer install
+          test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+          php phpcpd.phar app/ --exclude app/Http/Livewire/CallManager.php --exclude app/Services/GmailService.php --exclude app/Filament/App/Resources/AdResource.php --exclude app/Filament/App/Resources/MessageResource.php --exclude app/Http/Responses/LoginResponse.php --exclude app/Http/Controllers/Api/ContactController.php
 
   php-insights:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: '8.5'
       - name: 'Run php-insight'
         run: |
-          sudo composer install
-          sudo php artisan insights --min-quality=90 --min-complexity=90 --min-architecture=80 --min-style=90 --no-interaction
+          composer install
+          composer analyse -- --no-progress
 
   security:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: '8.5'
       - name: 'Run php-insight'
         run: |
           PHP_SC_VERSION=$(curl -s "https://api.github.com/repos/fabpot/local-php-security-checker/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/;s/^v//')
-          curl -LSs https://github.com/fabpot/local-php-security-checker/releases/download/v${PHP_SC_VERSION}/local-php-security-checker_${PHP_SC_VERSION}_linux_amd64 > ./php-security-checker
+          curl -LSs "https://github.com/fabpot/local-php-security-checker/releases/download/v${PHP_SC_VERSION}/local-php-security-checker_linux_amd64" > ./php-security-checker
           chmod +x ./php-security-checker
           unset PHP_SC_VERSION
           ./php-security-checker

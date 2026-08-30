@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class() extends Migration
+{
+    public function up(): void
+    {
+        if (! Schema::hasColumn('team_invitations', 'token')) {
+            return;
+        }
+
+        Schema::table('team_invitations', function (Blueprint $table): void {
+            $table->string('token', 64)->nullable()->change();
+        });
+    }
+
+    public function down(): void
+    {
+        if (! Schema::hasColumn('team_invitations', 'token')) {
+            return;
+        }
+
+        Schema::table('team_invitations', function (Blueprint $table): void {
+            $table->string('token', 64)->nullable(false)->change();
+        });
+    }
+};

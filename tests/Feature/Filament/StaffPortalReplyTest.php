@@ -125,7 +125,7 @@ class StaffPortalReplyTest extends TestCase
         $customer = User::factory()->create();
         $ticket = $this->portalTicket($customer);
 
-        $message = (new ReplyToPortalTicket)($ticket, 'Direct invoke.', $this->staff);
+        $message = (new ReplyToPortalTicket())($ticket, 'Direct invoke.', $this->staff);
 
         $this->assertSame('portal', $message->getAttribute('channel'));
         $this->assertSame($this->team->id, $message->getAttribute('team_id'));

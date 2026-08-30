@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-client-onboarding-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ClientOnboardingLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ClientOnboardingLivewire\\ClientOnboardingLivewireServiceProvider"]},"liberu":{"name":"module-crm-client-onboarding-livewire"}}}

@@ -1,0 +1,1 @@
+<section aria-label="Usage wallet"><h2>Usage wallet</h2><p>Imports: {{ $summary['imports'] }}</p><p>Charges: {{ $summary['charges'] }}</p><p>Balance: {{ $summary['wallet']?->balance ?? '0.000000' }}</p></section>

@@ -22,6 +22,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class MessageResource extends Resource
@@ -39,7 +40,7 @@ class MessageResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('status', 'unread')->count();
+        return (string) static::getModel()::where('status', 'unread')->count();
     }
 
     #[\Override]
@@ -150,7 +151,8 @@ class MessageResource extends Resource
                                 $record->id,
                                 $data['reply_content'],
                                 $record->channel,
-                                $record->account_id
+                                $record->account_id,
+                                Auth::user()?->currentTeam
                             );
 
                             $record->update(['status' => 'replied']);

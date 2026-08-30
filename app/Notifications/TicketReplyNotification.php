@@ -24,7 +24,7 @@ class TicketReplyNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('New reply on your support ticket')
             ->line('A support agent has replied to your ticket: '.$this->ticket->getAttribute('subject'))
             // Fixed portal path (panel path 'portal', tickets slug); avoids

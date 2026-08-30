@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/sessions-devices-livewire",
+  "description": "Sessions and Devices livewire presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "livewire/livewire": "^4.0",
+    "liberusoftware/sessions-devices": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\SessionsDevicesLivewire\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "sessions-devices-livewire"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-sessions-devices-livewire"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\SessionsDevicesLivewire\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

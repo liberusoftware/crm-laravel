@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
  * CallManager::saveNotes() writes call_logs.notes, but the column never
  * existed — every Save from the call-notes textarea fataled.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

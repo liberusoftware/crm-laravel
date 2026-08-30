@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-prospecting-agent-api","type":"liberu-module","require":{"liberusoftware/module-crm-prospecting-agent":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ProspectingAgentApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ProspectingAgentApi\\Providers\\ProspectingAgentApiServiceProvider"]},"liberu":{"name":"crm-prospecting-agent-api"}}}

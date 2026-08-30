@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-loyalty-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LoyaltyApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LoyaltyApi\\Providers\\LoyaltyApiServiceProvider"]},"liberu":{"name":"crm-loyalty-api"}}}

@@ -1,0 +1,17 @@
+openapi: 3.1.0
+info:
+  title: CRM Telephony API
+  version: 1.0.0
+paths:
+  /api/v1/crm/telephony/calls:
+    get:
+      summary: List team calls
+      security: [{sanctum: []}]
+      responses: {'200': {description: Calls}}
+    post:
+      summary: Log a call
+      security: [{sanctum: []}]
+      responses: {'201': {description: Call logged}}
+components:
+  securitySchemes:
+    sanctum: {type: http, scheme: bearer}

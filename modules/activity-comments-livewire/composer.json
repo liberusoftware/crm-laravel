@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/activity-comments-livewire",
+  "description": "Activity and Comments livewire presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "livewire/livewire": "^4.0",
+    "liberusoftware/activity-comments": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\ActivityCommentsLivewire\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "activity-comments-livewire"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-activity-comments-livewire"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\ActivityCommentsLivewire\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

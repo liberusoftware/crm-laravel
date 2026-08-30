@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Concerns\TenantAware;
+use App\Models\Lead;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -13,7 +14,7 @@ class ExecuteWorkflowAction implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, TenantAware;
 
-    public function __construct(protected array $action, protected \App\Models\Lead $lead)
+    public function __construct(protected array $action, protected Lead $lead)
     {
         // Lead/Contact are tenant-scoped; remember the dispatching team so the
         // relation read below stays scoped inside the worker.

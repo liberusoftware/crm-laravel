@@ -50,7 +50,7 @@ class CrossTenantLeakageTest extends TestCase
     #[DataProvider('tenantModels')]
     public function test_model_is_team_scoped(string $class): void
     {
-        $table = (new $class)->getTable();
+        $table = (new $class())->getTable();
 
         if (! Schema::hasTable($table)) {
             // Tenant-scoped model with no table = dead/pending code; it holds

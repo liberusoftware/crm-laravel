@@ -18,7 +18,7 @@ class LanguageServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new LanguageService;
+        $this->service = new LanguageService();
     }
 
     public function test_set_locale_changes_app_locale_and_persists_to_session(): void

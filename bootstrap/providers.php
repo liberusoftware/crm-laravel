@@ -1,16 +1,29 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\AuthServiceProvider;
+use App\Providers\EventServiceProvider;
+use App\Providers\Filament\AdminPanelProvider;
+use App\Providers\Filament\AppPanelProvider;
+use App\Providers\Filament\PortalPanelProvider;
+use App\Providers\FortifyServiceProvider;
+use App\Providers\HorizonServiceProvider;
+use App\Providers\JetstreamServiceProvider;
+use App\Providers\RouteServiceProvider;
+use App\Providers\SocialstreamServiceProvider;
+use App\Providers\TeamServiceProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\AuthServiceProvider::class,
-    App\Providers\EventServiceProvider::class,
-    App\Providers\Filament\AdminPanelProvider::class,
-    App\Providers\Filament\AppPanelProvider::class,
-    App\Providers\Filament\PortalPanelProvider::class,
-    App\Providers\FortifyServiceProvider::class,
-    App\Providers\HorizonServiceProvider::class,
-    App\Providers\JetstreamServiceProvider::class,
-    App\Providers\RouteServiceProvider::class,
-    App\Providers\SocialstreamServiceProvider::class,
-    App\Providers\TeamServiceProvider::class,
+    AppServiceProvider::class,
+    AuthServiceProvider::class,
+    EventServiceProvider::class,
+    AdminPanelProvider::class,
+    AppPanelProvider::class,
+    PortalPanelProvider::class,
+    FortifyServiceProvider::class,
+    HorizonServiceProvider::class,
+    JetstreamServiceProvider::class,
+    RouteServiceProvider::class,
+    SocialstreamServiceProvider::class,
+    TeamServiceProvider::class,
 ];

@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Lead;
 use App\Models\Task;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -44,7 +46,7 @@ class TaskList extends Component
         Task::findOrFail($id)->delete();
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         $tasks = Task::query()
             ->when($this->search, function ($query): void {

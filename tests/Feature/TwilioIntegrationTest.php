@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\CallLog;
 use App\Models\Contact;
 use App\Services\TwilioService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,6 +12,7 @@ use Tests\TestCase;
 class TwilioIntegrationTest extends TestCase
 {
     public $twilioService;
+
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -30,7 +32,7 @@ class TwilioIntegrationTest extends TestCase
 
         $this->twilioService->shouldReceive('logCall')
             ->once()
-            ->andReturn(new \App\Models\CallLog);
+            ->andReturn(new CallLog());
 
         $call = app(TwilioService::class)->initiateCall($contact->phone_number);
         app(TwilioService::class)->logCall($call->sid, $contact->id, 'outbound', null, 'initiated');

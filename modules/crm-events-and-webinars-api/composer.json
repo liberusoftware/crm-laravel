@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-events-and-webinars-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EventsAndWebinarsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EventsAndWebinarsApi\\EventsAndWebinarsApiServiceProvider"]},"liberu":{"name":"module-crm-events-and-webinars-api"}}}

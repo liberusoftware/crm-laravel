@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Feature Flags API
+  version: 1.0.0
+paths:
+  /api/v1/feature-flags/status:
+    get:
+      operationId: feature_flags_status
+      responses:
+        '200':
+          description: Adapter availability
+

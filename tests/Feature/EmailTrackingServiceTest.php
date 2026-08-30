@@ -20,7 +20,7 @@ class EmailTrackingServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new EmailTrackingService;
+        $this->service = new EmailTrackingService();
     }
 
     public function test_create_tracking_persists_row_linked_to_email_and_contact(): void

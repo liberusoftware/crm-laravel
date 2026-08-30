@@ -8,7 +8,7 @@ use Filament\Models\Contracts\HasDefaultTenant;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,11 +25,15 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Models\Role as SpatieRole;
+use Liberu\Foundation\Observability\Contracts\ObservabilityActor;
+use Liberu\Foundation\Organizations\Contracts\OrganizationActor;
+use Liberu\Foundation\Search\Concerns\Searchable;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, HasDefaultTenant, HasTenants
+class User extends Authenticatable implements FilamentUser, HasDefaultTenant, HasTenants, ObservabilityActor, OrganizationActor
 {
     use HasApiTokens;
     use HasConnectedAccounts;
@@ -37,9 +41,15 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
     use HasProfilePhoto {
         HasProfilePhoto::profilePhotoUrl as getPhotoUrl;
     }
-    use HasRoles;
-    use HasTeams;
+    use HasRoles {
+        HasRoles::teams as permissionTeams;
+    }
+    use HasTeams {
+        HasTeams::teams insteadof HasRoles;
+    }
+    use LogsActivity;
     use Notifiable;
+    use Searchable;
     use SetsProfilePhotoFromUrl;
     use TwoFactorAuthenticatable;
 
@@ -48,6 +58,8 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
         'email',
         'password',
         'google_calendar_token',
+        'theme_preference',
+        'locale',
     ];
 
     protected $hidden = [
@@ -90,11 +102,11 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
             : $this->getPhotoUrl();
     }
 
-    public function getTenants(Panel $panel): array|Collection
+    public function getTenants(Panel $panel): array|EloquentCollection
     {
         // Archived teams are excluded by Team's global 'archived' scope, which
         // filters the ownedTeams/teams relations allTeams() re-queries.
-        return $this->allTeams();
+        return new EloquentCollection($this->allTeams()->all());
     }
 
     public function canAccessTenant(Model $tenant): bool
@@ -110,7 +122,7 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
     {
         return match ($panel->getId()) {
             'super_admin' => $this->hasRole(Role::SuperAdmin),
-            'admin' => $this->hasRole(Role::Admin) || $this->hasRole(Role::SuperAdmin),
+            'admin' => $this->hasAdminAccess(),
             'portal' => $this->hasRole(Role::Customer),
             // app + any future panel: staff only. A customer (external end user)
             // must never reach the staff surfaces, so fence them out explicitly
@@ -123,6 +135,51 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
     {
         return $this->hasVerifiedEmail()
             && $this->hasAnyRole(Role::values());
+    }
+
+    public function isAdmin(): bool
+    {
+        $adminEmails = config('app.admin_emails', []);
+
+        return in_array(strtolower((string) $this->email), array_map('strtolower', $adminEmails), true)
+            || $this->hasRoleInAnyTeam(Role::SuperAdmin->value);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRoleInAnyTeam(Role::SuperAdmin->value);
+    }
+
+    public function hasAdminAccess(): bool
+    {
+        return $this->isAdmin()
+            || $this->hasRoleInAnyTeam(Role::Admin->value);
+    }
+
+    protected function hasRoleInAnyTeam(string $roleName): bool
+    {
+        if ($this->getKey() === null) {
+            return false;
+        }
+
+        $tables = config('permission.table_names');
+        $morphKey = config('permission.column_names.model_morph_key');
+        $roleKey = app(PermissionRegistrar::class)->pivotRole;
+
+        return DB::table($tables['model_has_roles'])
+            ->join($tables['roles'], $tables['roles'].'.id', '=', $tables['model_has_roles'].'.'.$roleKey)
+            ->where($tables['model_has_roles'].'.model_type', $this->getMorphClass())
+            ->where($tables['model_has_roles'].'.'.$morphKey, $this->getKey())
+            ->whereRaw('LOWER('.$tables['roles'].'.name) = ?', [strtolower($roleName)])
+            ->exists();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email'])
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges();
     }
 
     public function getDefaultTenant(Panel $panel): ?Model
@@ -164,7 +221,7 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
 
         $roleName = $role instanceof Role ? $role->value : strtolower((string) $role);
 
-        if ($this->roles->contains(fn (SpatieRole $r): bool => strtolower($r->name) === $roleName)) {
+        if ($this->getRoleNames()->contains(fn (string $name): bool => strtolower($name) === $roleName)) {
             return true;
         }
 

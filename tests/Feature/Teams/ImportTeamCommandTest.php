@@ -23,7 +23,7 @@ class ImportTeamCommandTest extends TestCase
         $source = Team::factory()->create();
         Contact::factory()->create(['team_id' => $source->id]);
 
-        $result = (new TeamBackupService)->backup($source, 'local');
+        $result = (new TeamBackupService())->backup($source, 'local');
         Contact::withoutGlobalScope('tenant')->where('team_id', $source->id)->delete();
         $path = Storage::disk('local')->path($result['path']);
 

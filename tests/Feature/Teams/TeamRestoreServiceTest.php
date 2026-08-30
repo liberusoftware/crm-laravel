@@ -26,7 +26,7 @@ class TeamRestoreServiceTest extends TestCase
     /** Back up a team and return its completed TeamBackup row. */
     private function backupOf(Team $team): TeamBackup
     {
-        $result = (new TeamBackupService)->backup($team, 'local');
+        $result = (new TeamBackupService())->backup($team, 'local');
 
         return TeamBackup::factory()->create([
             'team_id' => $team->id,
@@ -50,7 +50,7 @@ class TeamRestoreServiceTest extends TestCase
         Contact::withoutGlobalScope('tenant')->where('team_id', $team->id)->delete();
         $this->assertDatabaseMissing('contacts', ['id' => $contact->id]);
 
-        $restored = (new TeamRestoreService)->restore($backup);
+        $restored = (new TeamRestoreService())->restore($backup);
 
         $this->assertDatabaseHas('contacts', ['id' => $contact->id, 'name' => 'RoundTrip Co', 'team_id' => $team->id]);
         $this->assertDatabaseHas('tasks', ['id' => $task->id, 'contact_id' => $contact->id]);
@@ -66,7 +66,7 @@ class TeamRestoreServiceTest extends TestCase
 
         // team still populated -> must refuse
         $this->expectException(TeamNotEmptyException::class);
-        (new TeamRestoreService)->restore($backup);
+        (new TeamRestoreService())->restore($backup);
     }
 
     public function test_rejects_a_non_completed_backup(): void
@@ -75,7 +75,7 @@ class TeamRestoreServiceTest extends TestCase
         $backup = TeamBackup::factory()->create(['team_id' => $team->id, 'status' => 'pending']);
 
         $this->expectException(TeamRestoreException::class);
-        (new TeamRestoreService)->restore($backup);
+        (new TeamRestoreService())->restore($backup);
     }
 
     public function test_rejects_when_the_backup_file_is_missing(): void
@@ -90,7 +90,7 @@ class TeamRestoreServiceTest extends TestCase
         ]);
 
         $this->expectException(TeamRestoreException::class);
-        (new TeamRestoreService)->restore($backup);
+        (new TeamRestoreService())->restore($backup);
     }
 
     public function test_restore_is_atomic_on_failure(): void
@@ -103,7 +103,7 @@ class TeamRestoreServiceTest extends TestCase
         // Corrupt a later model's entry (Lead sorts after Contact) with an
         // unknown column so its insert throws mid-restore.
         $full = Storage::disk('local')->path((string) $backup->path);
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         $zip->open($full);
         $zip->addFromString('models/Lead.json', (string) json_encode([['team_id' => $team->id, 'bogus_col' => 1]]));
         $zip->close();
@@ -111,7 +111,7 @@ class TeamRestoreServiceTest extends TestCase
         Contact::withoutGlobalScope('tenant')->where('team_id', $team->id)->delete();
 
         try {
-            (new TeamRestoreService)->restore($backup);
+            (new TeamRestoreService())->restore($backup);
             $this->fail('expected the restore to throw');
         } catch (Throwable) {
             // expected

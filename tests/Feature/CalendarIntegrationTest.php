@@ -13,7 +13,9 @@ use Tests\TestCase;
 class CalendarIntegrationTest extends TestCase
 {
     public $mockGoogleCalendarService;
+
     public $mockOutlookCalendarService;
+
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -38,7 +40,7 @@ class CalendarIntegrationTest extends TestCase
         $task = Task::factory()->create([
             'name' => 'Test Google Task',
             'calendar_type' => 'google',
-            'google_event_id' => app(GoogleCalendarService::class)->createEvent(new Task),
+            'google_event_id' => app(GoogleCalendarService::class)->createEvent(new Task()),
         ]);
 
         $this->assertDatabaseHas('tasks', [
@@ -59,7 +61,7 @@ class CalendarIntegrationTest extends TestCase
         $task = Task::factory()->create([
             'name' => 'Test Outlook Task',
             'calendar_type' => 'outlook',
-            'outlook_event_id' => app(OutlookCalendarService::class)->createEvent(new Task),
+            'outlook_event_id' => app(OutlookCalendarService::class)->createEvent(new Task()),
         ]);
 
         $this->assertDatabaseHas('tasks', [

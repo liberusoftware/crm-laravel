@@ -16,9 +16,9 @@ class Pop3ServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->pop3Service = new Pop3Service;
+        $this->pop3Service = new Pop3Service();
 
-        $this->mockConfig = new OAuthConfiguration;
+        $this->mockConfig = new OAuthConfiguration();
         $this->mockConfig->forceFill([
             'id' => 1,
             'client_id' => 'test@example.com',
@@ -46,7 +46,7 @@ class Pop3ServiceTest extends TestCase
 
     public function test_pop3_service_requires_configuration(): void
     {
-        $configWithoutSettings = new OAuthConfiguration;
+        $configWithoutSettings = new OAuthConfiguration();
         $configWithoutSettings->forceFill([
             'id' => 1,
             'client_id' => 'test@example.com',

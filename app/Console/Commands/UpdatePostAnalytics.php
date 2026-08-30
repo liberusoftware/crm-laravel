@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\ConnectedAccount;
 use App\Models\SocialMediaPost;
 use App\Services\FacebookService;
+use App\Services\Zernio\ZernioTenantService;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -26,10 +27,15 @@ class UpdatePostAnalytics extends Command
             try {
                 $analytics = [];
 
-                foreach ($post->platforms as $platform) {
-                    $platformAnalytics = $this->fetchPlatformAnalytics($platform, $post);
-                    foreach ($platformAnalytics as $key => $value) {
-                        $analytics[$key] = ($analytics[$key] ?? 0) + $value;
+                if (isset($post->platform_post_ids['zernio'])) {
+                    $analytics = $this->fetchZernioAnalytics($post);
+                } else {
+                    foreach ($post->platforms as $platform) {
+                        $platformName = is_string($platform) ? $platform : (string) ($platform['platform'] ?? '');
+                        $platformAnalytics = $this->fetchPlatformAnalytics($platformName, $post);
+                        foreach ($platformAnalytics as $key => $value) {
+                            $analytics[$key] = ($analytics[$key] ?? 0) + $value;
+                        }
                     }
                 }
 
@@ -98,5 +104,41 @@ class UpdatePostAnalytics extends Command
         }
 
         return [];
+    }
+
+    /** @return array<string, int> */
+    private function fetchZernioAnalytics(SocialMediaPost $post): array
+    {
+        if ((string) config('services.zernio.api_key') === '') {
+            return [];
+        }
+
+        $team = $post->team;
+        if ($team === null) {
+            return [];
+        }
+
+        $response = app(ZernioTenantService::class)->analytics($team, array_filter([
+            'postId' => (string) data_get($post->platform_post_ids, 'zernio'),
+        ]));
+
+        return $this->normalizeZernioAnalytics($response);
+    }
+
+    /** @param array<string, mixed> $response @return array<string, int> */
+    private function normalizeZernioAnalytics(array $response): array
+    {
+        $analytics = data_get($response, 'analytics', []);
+
+        if (! is_array($analytics)) {
+            return [];
+        }
+
+        return array_map(
+            static fn (mixed $value): int => is_numeric($value) ? (int) $value : 0,
+            array_intersect_key($analytics, array_flip([
+                'likes', 'shares', 'comments', 'clicks', 'reach', 'impressions',
+            ]))
+        );
     }
 }

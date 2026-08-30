@@ -30,14 +30,14 @@ class CustomFieldsTest extends TestCase
         CustomField::factory()->create([
             'name' => 'Test Field',
             'type' => 'text',
-            'model_type' => \App\Models\Contact::class,
+            'model_type' => Contact::class,
             'team_id' => $this->team->id,
         ]);
 
         $this->assertDatabaseHas('custom_fields', [
             'name' => 'Test Field',
             'type' => 'text',
-            'model_type' => \App\Models\Contact::class,
+            'model_type' => Contact::class,
         ]);
     }
 
@@ -65,7 +65,7 @@ class CustomFieldsTest extends TestCase
         $customField = CustomField::factory()->create([
             'name' => 'Old Name',
             'type' => 'text',
-            'model_type' => \App\Models\Contact::class,
+            'model_type' => Contact::class,
             'team_id' => $this->team->id,
         ]);
 

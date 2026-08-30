@@ -7,9 +7,7 @@ use App\Models\AccountingIntegration;
 
 class AccountingService
 {
-    public function __construct(protected \App\Services\QuickBooksService $quickbooksService, protected \App\Services\XeroService $xeroService)
-    {
-    }
+    public function __construct(protected QuickBooksService $quickbooksService, protected XeroService $xeroService) {}
 
     public function syncInvoice(AccountingIntegration $integration, $invoice)
     {

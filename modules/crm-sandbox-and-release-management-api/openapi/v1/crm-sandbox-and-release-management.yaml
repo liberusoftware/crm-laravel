@@ -1,0 +1,8 @@
+openapi: 3.1.0
+info: {title: CRM Sandbox and Release Management API, version: 1.0.0}
+paths:
+  /api/v1/crm/sandbox-and-release-management/changesets/{set}/promote:
+    post: {summary: Promote a validated changeset, security: [{sanctum: []}], responses: {'200': {description: Promoted}}}
+  /api/v1/crm/sandbox-and-release-management/changesets/{set}/rollback:
+    post: {summary: Roll back a changeset, security: [{sanctum: []}], responses: {'200': {description: Rolled back}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

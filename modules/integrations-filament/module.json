@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "integrations-filament",
+  "display_name": "Integrations Filament",
+  "description": "Integrations filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\IntegrationsFilament\\IntegrationsFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/integrations": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.integrations.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Integrations",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\IntegrationsFilament\\IntegrationsFilamentPlugin"
+      ]
+    }
+  }
+}

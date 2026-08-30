@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\Role;
 use App\Filament\Resources\TeamBackupResource\Pages\ListTeamBackups;
+use App\Http\Middleware\SetFilamentDefaultTenant;
 use App\Jobs\RestoreTeamBackup;
 use App\Models\Team;
 use App\Models\TeamBackup;
@@ -13,6 +13,7 @@ use App\Services\TeamRestoreService;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Notifications\Notification;
+use Filament\Panel;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -28,11 +29,21 @@ class TeamBackupResource extends Resource
 {
     protected static ?string $model = TeamBackup::class;
 
+    public static function isScopedToTenant(): bool
+    {
+        return false;
+    }
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-archive-box-arrow-down';
 
     public static function canAccess(): bool
     {
-        return (bool) auth()->user()?->hasRole(Role::SuperAdmin);
+        return (bool) auth()->user()?->isAdmin();
+    }
+
+    public static function getRouteMiddleware(Panel $panel): string|array
+    {
+        return [SetFilamentDefaultTenant::class];
     }
 
     #[\Override]

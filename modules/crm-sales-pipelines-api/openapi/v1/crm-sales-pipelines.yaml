@@ -1,0 +1,7 @@
+openapi: 3.1.0
+info: {title: CRM Sales Pipelines API, version: 1.0.0}
+paths:
+  /api/v1/crm/sales-pipelines/opportunities:
+    get: {summary: List team opportunities, security: [{sanctum: []}], responses: {'200': {description: Opportunities}}}
+    post: {summary: Create an opportunity, security: [{sanctum: []}], responses: {'201': {description: Created}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

@@ -49,7 +49,7 @@ class TenantAwareJobTest extends TestCase
     {
         // Dispatch happens inside a tenant context...
         TenantContext::set(42);
-        $job = new RecordingTenantJob;
+        $job = new RecordingTenantJob();
 
         // ...but the worker runs in a fresh, un-scoped process.
         TenantContext::clear();
@@ -64,7 +64,7 @@ class TenantAwareJobTest extends TestCase
 
     public function test_job_dispatched_with_no_tenant_captures_and_restores_null(): void
     {
-        $job = new RecordingTenantJob; // no context set
+        $job = new RecordingTenantJob(); // no context set
         $this->assertNull($job->tenantId);
 
         $this->runThroughMiddleware($job);

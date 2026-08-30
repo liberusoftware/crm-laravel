@@ -7,9 +7,7 @@ use App\Services\GoogleCalendarService;
 
 class TaskObserver
 {
-    public function __construct(protected \App\Services\GoogleCalendarService $googleCalendarService)
-    {
-    }
+    public function __construct(protected GoogleCalendarService $googleCalendarService) {}
 
     public function created(Task $task): void
     {

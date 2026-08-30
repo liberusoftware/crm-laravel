@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Log;
 
 class GmailService
 {
-    protected \Google_Client $client;
+    protected Google_Client $client;
 
     protected $service;
 
     public function __construct()
     {
-        $this->client = new Google_Client;
+        $this->client = new Google_Client();
     }
 
     protected function initializeService(?OAuthConfiguration $config = null)
@@ -168,12 +168,12 @@ class GmailService
         return '';
     }
 
-    protected function createReplyMessage($originalMessageId, $replyBody): \Google_Service_Gmail_Message
+    protected function createReplyMessage($originalMessageId, $replyBody): Google_Service_Gmail_Message
     {
         $originalMessage = $this->service->users_messages->get('me', $originalMessageId);
         $headers = $this->parseHeaders($originalMessage->getPayload()->getHeaders());
 
-        $replyMessage = new Google_Service_Gmail_Message;
+        $replyMessage = new Google_Service_Gmail_Message();
         $rawMessageString = "From: me\r\n";
         $rawMessageString .= "To: {$headers['From']}\r\n";
         $rawMessageString .= 'Subject: Re: '.($headers['Subject'] ?? '')."\r\n";

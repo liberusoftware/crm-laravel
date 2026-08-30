@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-telephony-api","type":"liberu-module","require":{"liberusoftware/module-crm-telephony":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\TelephonyApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\TelephonyApi\\Providers\\TelephonyApiServiceProvider"]},"liberu":{"name":"crm-telephony-api"}}}

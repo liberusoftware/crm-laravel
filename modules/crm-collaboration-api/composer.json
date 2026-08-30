@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-collaboration-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CollaborationApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CollaborationApi\\CollaborationApiServiceProvider"]},"liberu":{"name":"module-crm-collaboration-api"}}}

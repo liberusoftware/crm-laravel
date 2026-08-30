@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController as AuthAuthenticatedSessionController;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -11,7 +13,7 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends AuthAuthenticatedSessionController
 {
-    public function showResetForm(Request $request, $token = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function showResetForm(Request $request, $token = null): Factory|View
     {
         return view('admin.auth.reset-password', ['token' => $token, 'email' => $request->email]);
     }

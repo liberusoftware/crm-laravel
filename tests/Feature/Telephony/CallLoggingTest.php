@@ -15,7 +15,7 @@ class CallLoggingTest extends TestCase
 
     public function test_log_call_persists_a_call_log(): void
     {
-        $callLog = (new TwilioService)->logCall('CA123', 42, 'outbound', null, 'initiated');
+        $callLog = (new TwilioService())->logCall('CA123', 42, 'outbound', null, 'initiated');
 
         $this->assertInstanceOf(CallLog::class, $callLog);
         $this->assertDatabaseHas('call_logs', [
@@ -51,7 +51,7 @@ class CallLoggingTest extends TestCase
             ->with('CA999')
             ->andReturn($callContext);
 
-        $service = new TwilioService;
+        $service = new TwilioService();
         $service->setClient($client);
 
         $result = $service->endCall('CA999');

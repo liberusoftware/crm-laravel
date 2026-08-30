@@ -13,6 +13,7 @@ use Tests\TestCase;
 class AccountingIntegrationTest extends TestCase
 {
     public $mockAccountingService;
+
     use RefreshDatabase, WithFaker;
 
     protected function setUp(): void

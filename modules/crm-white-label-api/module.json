@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-white-label-api",
+  "display_name": "CRM White Label API",
+  "description": "HTTP presentation package for CRM White Label.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\WhiteLabel\\Api\\WhiteLabelApiServiceProvider",
+  "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-white-label": "^1.0" } },
+  "suggests": [],
+  "capabilities": ["crm.white-label.api"],
+  "default_enabled": false,
+  "features": ["Scoped settings read and update"]
+}

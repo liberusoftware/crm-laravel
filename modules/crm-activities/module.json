@@ -1,0 +1,12 @@
+{
+    "name": "crm-activities",
+    "display_name": "CRM Activities",
+    "description": "Tasks, calls, meetings, emails, deadlines, recurrence, queues, reminders, outcomes, goals, and activity reporting.",
+    "version": "1.0.0",
+    "category": "capability",
+    "provider": "Liberu\\CRM\\Activities\\ActivitiesServiceProvider",
+    "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-core": "^1.0"}, "capabilities": {"crm.core.records": "^1.0"}},
+    "capabilities": ["crm.activities"],
+    "features": ["Tasks", "Calls", "Meetings", "Emails", "Deadlines", "Recurrence", "Queues", "Bulk completion", "Reminders", "Outcomes", "Goals", "Activity reporting"],
+    "default_enabled": true
+}

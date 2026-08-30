@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-loyalty-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LoyaltyLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LoyaltyLivewire\\LoyaltyLivewireServiceProvider"]},"liberu":{"name":"crm-loyalty-livewire"}}}

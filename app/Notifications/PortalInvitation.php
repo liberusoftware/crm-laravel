@@ -23,7 +23,7 @@ class PortalInvitation extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('You have been invited to the customer portal')
             ->line('An account has been created for you on the customer portal.')
             ->action('Set your password', $this->url)

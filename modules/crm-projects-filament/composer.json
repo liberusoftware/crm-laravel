@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-projects-filament","type":"liberu-module","require":{"liberusoftware/module-crm-projects":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Projects\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Projects\\Filament\\ProjectsFilamentServiceProvider"]},"liberu":{"name":"crm-projects-filament"}}}

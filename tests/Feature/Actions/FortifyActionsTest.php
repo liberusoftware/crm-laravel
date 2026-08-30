@@ -26,8 +26,8 @@ class FortifyActionsTest extends TestCase
         $user = app(CreateNewUserWithTeams::class)->create([
             'name' => 'Ada Lovelace',
             'email' => 'ada@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123!@#',
+            'password_confirmation' => 'Password123!@#',
             'terms' => true,
         ]);
 
@@ -37,8 +37,8 @@ class FortifyActionsTest extends TestCase
         ]);
 
         // Password is stored hashed (not plaintext, not double-hashed) and verifies.
-        $this->assertNotSame('password123', $user->password);
-        $this->assertTrue(Hash::check('password123', $user->fresh()->password));
+        $this->assertNotSame('Password123!@#', $user->password);
+        $this->assertTrue(Hash::check('Password123!@#', $user->fresh()->password));
 
         // Registration gives the creator an owned personal team + a current team.
         $this->assertNotNull($user->current_team_id);
@@ -60,8 +60,8 @@ class FortifyActionsTest extends TestCase
         $this->assertRegistrationFails([
             'name' => 'Grace',
             'email' => 'dupe@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123!@#',
+            'password_confirmation' => 'Password123!@#',
         ], 'email');
 
         // Only the pre-existing user exists; registration did not add a second.
@@ -73,7 +73,7 @@ class FortifyActionsTest extends TestCase
         $this->assertRegistrationFails([
             'name' => 'Grace',
             'email' => 'mismatch@example.com',
-            'password' => 'password123',
+            'password' => 'Password123!@#',
             'password_confirmation' => 'different123',
         ], 'password');
 
@@ -109,11 +109,11 @@ class FortifyActionsTest extends TestCase
         $user = User::factory()->create();
 
         app(ResetUserPassword::class)->reset($user, [
-            'password' => 'new-password-1',
-            'password_confirmation' => 'new-password-1',
+            'password' => 'NewPassword123!@#',
+            'password_confirmation' => 'NewPassword123!@#',
         ]);
 
-        $this->assertTrue(Hash::check('new-password-1', $user->fresh()->password));
+        $this->assertTrue(Hash::check('NewPassword123!@#', $user->fresh()->password));
     }
 
     // --- UpdateUserPassword ---------------------------------------------------
@@ -126,11 +126,11 @@ class FortifyActionsTest extends TestCase
 
         app(UpdateUserPassword::class)->update($user, [
             'current_password' => 'password',
-            'password' => 'brand-new-1',
-            'password_confirmation' => 'brand-new-1',
+            'password' => 'BrandNew123!@#',
+            'password_confirmation' => 'BrandNew123!@#',
         ]);
 
-        $this->assertTrue(Hash::check('brand-new-1', $user->fresh()->password));
+        $this->assertTrue(Hash::check('BrandNew123!@#', $user->fresh()->password));
     }
 
     public function test_update_password_rejects_wrong_current_password(): void
@@ -141,8 +141,8 @@ class FortifyActionsTest extends TestCase
         try {
             app(UpdateUserPassword::class)->update($user, [
                 'current_password' => 'not-the-password',
-                'password' => 'brand-new-1',
-                'password_confirmation' => 'brand-new-1',
+                'password' => 'BrandNew123!@#',
+                'password_confirmation' => 'BrandNew123!@#',
             ]);
             $this->fail('Expected validation to fail for a wrong current password.');
         } catch (ValidationException $e) {

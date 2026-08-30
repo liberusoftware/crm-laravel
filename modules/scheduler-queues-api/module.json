@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "scheduler-queues-api",
+  "display_name": "Scheduler and Queues Api",
+  "description": "Scheduler and Queues api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\SchedulerQueuesApi\\SchedulerQueuesApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/scheduler-queues": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.scheduler-queues.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Scheduler and Queues",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

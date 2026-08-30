@@ -19,7 +19,7 @@ class SalesForecastingService
             ->where('stage', '!=', 'lost')
             ->get();
 
-        $predictedRevenue = $deals->sum(fn($deal) => $deal->value * ($deal->probability / 100));
+        $predictedRevenue = $deals->sum(fn ($deal) => $deal->value * ($deal->probability / 100));
 
         return SalesForecast::create([
             'name' => "Pipeline Forecast: {$pipeline->name}",
@@ -244,7 +244,7 @@ class SalesForecastingService
             ];
         }
 
-        $byType = $forecasts->groupBy('forecast_type')->map(fn($group) => [
+        $byType = $forecasts->groupBy('forecast_type')->map(fn ($group) => [
             'count' => $group->count(),
             'average_accuracy' => round($group->avg('accuracy'), 2),
         ]);

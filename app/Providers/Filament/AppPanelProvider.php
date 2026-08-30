@@ -11,6 +11,7 @@ use App\Http\Middleware\TeamsPermission;
 use App\Listeners\CreatePersonalTeam;
 use App\Listeners\SwitchTeam;
 use App\Models\Team;
+use App\Support\ThemeColors;
 use Filament\Events\Auth\Registered;
 use Filament\Events\TenantSet;
 use Filament\Facades\Filament;
@@ -21,7 +22,6 @@ use Filament\Navigation\MenuItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -32,10 +32,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Jetstream;
+use Liberu\Foundation\Localization\Http\Middleware\SetLocale;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -50,9 +50,7 @@ class AppPanelProvider extends PanelProvider
             // ->passwordReset()
             // ->emailVerification()
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->colors([
-                'primary' => Color::Gray,
-            ])
+            ->colors(app(ThemeColors::class)->forSite())
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Profile')
@@ -82,6 +80,7 @@ class AppPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetLocale::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
@@ -120,11 +119,6 @@ class AppPanelProvider extends PanelProvider
 
     public function boot(): void
     {
-        /**
-         * Disable Fortify routes (using Filament for auth instead).
-         */
-        Fortify::$registersRoutes = false;
-
         /**
          * Keep Jetstream routes enabled for team management features.
          */

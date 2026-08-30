@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-events-and-webinars-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EventsAndWebinarsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EventsAndWebinarsLivewire\\EventsAndWebinarsLivewireServiceProvider"]},"liberu":{"name":"module-crm-events-and-webinars-livewire"}}}

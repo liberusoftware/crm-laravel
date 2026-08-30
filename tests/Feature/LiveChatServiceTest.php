@@ -21,7 +21,7 @@ class LiveChatServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new LiveChatService;
+        $this->service = new LiveChatService();
     }
 
     public function test_start_chat_creates_a_waiting_chat_with_visitor_data(): void

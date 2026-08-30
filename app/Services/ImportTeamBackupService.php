@@ -30,7 +30,7 @@ class ImportTeamBackupService
 
     public function import(string $localZipPath, ?string $name, User $importer): Team
     {
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         if ($zip->open($localZipPath) !== true) {
             throw new TeamImportException('Could not open the backup archive.');
         }
@@ -49,7 +49,7 @@ class ImportTeamBackupService
             // collision on the target env) rolls it back — no orphan team.
             return Schema::withoutForeignKeyConstraints(
                 fn (): Team => DB::transaction(function () use ($zip, $teamName, $importer): Team {
-                    $team = new Team;
+                    $team = new Team();
                     $team->name = $teamName;
                     $team->user_id = $importer->id;
                     $team->personal_team = false;
@@ -74,7 +74,7 @@ class ImportTeamBackupService
         $idMap = [];
 
         foreach (TenantModels::all() as $class) {
-            $table = (new $class)->getTable();
+            $table = (new $class())->getTable();
             if (! Schema::hasTable($table)) {
                 continue;
             }

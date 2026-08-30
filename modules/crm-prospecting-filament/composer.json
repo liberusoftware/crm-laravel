@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-prospecting-filament","type":"liberu-module","require":{"liberusoftware/module-crm-prospecting":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\Prospecting\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Prospecting\\Filament\\ProspectingFilamentServiceProvider"]},"liberu":{"name":"crm-prospecting-filament"}}}

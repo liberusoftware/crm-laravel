@@ -1,24 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to method assignUserToDefaultTeam\(\) on an unknown class App\\Actions\\Fortify\\TeamManagementService\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Actions/Fortify/CreateNewUserWithTeams.php
-
-		-
-			message: '#^Call to method createPersonalTeamForUser\(\) on an unknown class App\\Actions\\Fortify\\TeamManagementService\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Actions/Fortify/CreateNewUserWithTeams.php
-
-		-
-			message: '#^Class App\\Actions\\Fortify\\TeamManagementService not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Actions/Fortify/CreateNewUserWithTeams.php
-
-		-
 			message: '#^Class Laravel\\Jetstream\\Mail\\TeamInvitation constructor invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -1307,12 +1289,6 @@ parameters:
 			identifier: property.notFound
 			count: 3
 			path: app/Services/ReportingService.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Team\:\:\$stripe_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Services/StripeService.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-development-funds-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingDevelopmentFundsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingDevelopmentFundsLivewire\\MarketingDevelopmentFundsLivewireServiceProvider"]},"liberu":{"name":"crm-marketing-development-funds-livewire"}}}

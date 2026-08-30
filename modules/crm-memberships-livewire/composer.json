@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-memberships-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MembershipsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MembershipsLivewire\\MembershipsLivewireServiceProvider"]},"liberu":{"name":"crm-memberships-livewire"}}}

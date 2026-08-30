@@ -47,7 +47,7 @@ class TeamCloneServiceTest extends TestCase
         [$source, $sourcePipelineId] = $this->seedSource();
         $owner = User::factory()->create();
 
-        $new = (new TeamCloneService)->clone($source, 'Cloned Team', $owner);
+        $new = (new TeamCloneService())->clone($source, 'Cloned Team', $owner);
 
         $this->assertSame('Cloned Team', $new->name);
         $this->assertSame($owner->id, $new->user_id);
@@ -76,7 +76,7 @@ class TeamCloneServiceTest extends TestCase
         Contact::factory()->create(['team_id' => $source->id]);
         $owner = User::factory()->create();
 
-        $new = (new TeamCloneService)->clone($source, 'No Data', $owner);
+        $new = (new TeamCloneService())->clone($source, 'No Data', $owner);
 
         $this->assertSame(0, DB::table('contacts')->where('team_id', $new->id)->count());
     }
@@ -86,7 +86,7 @@ class TeamCloneServiceTest extends TestCase
         [$source, $pipelineId, $stageId] = $this->seedSource();
         $owner = User::factory()->create();
 
-        (new TeamCloneService)->clone($source, 'Clone', $owner);
+        (new TeamCloneService())->clone($source, 'Clone', $owner);
 
         $this->assertSame(1, DB::table('pipelines')->where('team_id', $source->id)->count());
         $this->assertSame($pipelineId, (int) DB::table('stages')->where('id', $stageId)->first()->pipeline_id);

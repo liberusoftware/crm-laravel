@@ -40,7 +40,7 @@ class GenerateTeamBackupJobTest extends TestCase
         $team = Team::factory()->create();
         $backup = TeamBackup::factory()->create(['team_id' => $team->id, 'disk' => 'local']);
 
-        $service = new class extends TeamBackupService
+        $service = new class() extends TeamBackupService
         {
             public function backup(Team $team, ?string $disk = null): array
             {

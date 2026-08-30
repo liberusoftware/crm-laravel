@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Activity;
+use App\Models\Contact;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivityFactory extends Factory
@@ -19,7 +20,7 @@ class ActivityFactory extends Factory
             'description' => $this->faker->sentence(),
             'outcome' => $this->faker->optional()->sentence(),
             'activitable_id' => 1,
-            'activitable_type' => \App\Models\Contact::class,
+            'activitable_type' => Contact::class,
         ];
     }
 }

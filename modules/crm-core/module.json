@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-core",
+  "display_name": "CRM Core",
+  "description": "Customer records, organizations, relationships, ownership, notes, tags, attachments, favorites, lifecycle, and timeline.",
+  "version": "1.0.0",
+  "category": "capability",
+  "provider": "Liberu\\CRM\\Core\\CRMCoreServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {"liberusoftware/module-manager": "^1.0"},
+    "capabilities": {"foundation.teams": "^1.0"}
+  },
+  "suggests": {
+    "liberusoftware/module-crm-core-api": "^1.0",
+    "liberusoftware/module-crm-core-filament": "^1.0",
+    "liberusoftware/module-crm-core-livewire": "^1.0"
+  },
+  "capabilities": ["crm.core.records", "crm.core.timeline"],
+  "default_enabled": true,
+  "features": ["Contacts", "Organizations", "Households", "Relationships", "Owners", "Teams", "Tags", "Notes", "Attachments", "Favorites", "Record lifecycle", "Unified timeline"]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "liberusoftware/module-crm-consent-and-preferences",
+    "description": "CRM consent and preferences domain module",
+    "type": "liberu-module",
+    "require": {"php": "^8.5", "illuminate/database": "^13.0", "liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-core": "^1.0"},
+    "autoload": {"psr-4": {"Liberu\\CRM\\ConsentAndPreferences\\": "src/"}},
+    "extra": {"laravel": {"providers": ["Liberu\\CRM\\ConsentAndPreferences\\ConsentAndPreferencesServiceProvider"]}, "liberu": {"name": "crm-consent-and-preferences"}}
+}

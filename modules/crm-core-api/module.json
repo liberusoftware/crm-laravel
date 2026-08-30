@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-core-api",
+  "display_name": "CRM Core API",
+  "description": "Versioned HTTP API adapter for CRM Core.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\Core\\Api\\CRMCoreApiServiceProvider",
+  "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-crm-core": "^1.0"}, "capabilities": {"crm.core.records": "^1.0"}},
+  "capabilities": ["crm.core.api"],
+  "default_enabled": false,
+  "features": ["CRM Core REST resources", "RFC 9457 errors", "OpenAPI contract"]
+}

@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\CallLog;
 use App\Models\Contact;
 use App\Services\TwilioService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class CallManager extends Component
@@ -118,7 +120,7 @@ class CallManager extends Component
         $this->status = $status;
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         return view('livewire.call-manager');
     }

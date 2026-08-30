@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Personalization API
+  version: 1.0.0
+paths:
+  /api/v1/crm/personalization/rules:
+    get: { summary: List personalization rules }
+    post: { summary: Create a personalization rule }
+  /api/v1/crm/personalization/decisions:
+    post: { summary: Evaluate a consent-aware personalization decision }
+  /api/v1/crm/personalization/outcomes:
+    post: { summary: Record a personalization outcome }

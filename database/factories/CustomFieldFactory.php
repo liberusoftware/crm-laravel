@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Contact;
 use App\Models\CustomField;
+use App\Models\Deal;
+use App\Models\Lead;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +22,7 @@ class CustomFieldFactory extends Factory
             'name' => $this->faker->word,
             'label' => $this->faker->words(2, true),
             'type' => $this->faker->randomElement(['text', 'number', 'date', 'select', 'checkbox']),
-            'model_type' => $this->faker->randomElement([\App\Models\Contact::class, \App\Models\Lead::class, \App\Models\Deal::class]),
+            'model_type' => $this->faker->randomElement([Contact::class, Lead::class, Deal::class]),
             'options' => json_encode($this->faker->randomElement([
                 ['option1', 'option2', 'option3'],
                 null,

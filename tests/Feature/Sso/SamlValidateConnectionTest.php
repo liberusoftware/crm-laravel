@@ -35,8 +35,8 @@ class SamlValidateConnectionTest extends TestCase
     private function validCertPem(): string
     {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA]);
-        $csr = openssl_csr_new(['commonName' => 'idp.example.com'], $key);
-        $x509 = openssl_csr_sign($csr, null, $key, 365);
+        $csr = openssl_csr_new(['commonName' => 'idp.example.com'], $key, ['digest_alg' => 'sha256']);
+        $x509 = openssl_csr_sign($csr, null, $key, 365, ['digest_alg' => 'sha256']);
         openssl_x509_export($x509, $pem);
 
         return (string) $pem;

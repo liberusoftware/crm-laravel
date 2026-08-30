@@ -70,7 +70,7 @@ class ResourceEditPageMountTest extends TestCase
             }
 
             $attrs = [];
-            if (Schema::hasColumn((new $model)->getTable(), 'team_id')) {
+            if (Schema::hasColumn((new $model())->getTable(), 'team_id')) {
                 $attrs['team_id'] = $team->id;
             }
 

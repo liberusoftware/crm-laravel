@@ -27,7 +27,7 @@ class RestoreTeamBackupJobTest extends TestCase
         $team = Team::factory()->create();
         $contact = Contact::factory()->create(['team_id' => $team->id]);
 
-        $result = (new TeamBackupService)->backup($team, 'local');
+        $result = (new TeamBackupService())->backup($team, 'local');
         $backup = TeamBackup::factory()->create([
             'team_id' => $team->id, 'disk' => 'local', 'path' => $result['path'], 'status' => 'completed',
         ]);

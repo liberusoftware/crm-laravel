@@ -28,7 +28,7 @@ trait TenantAware
      */
     public function middleware(): array
     {
-        return [new RestoreTenantContext];
+        return [new RestoreTenantContext()];
     }
 
     protected function captureTenant(): void

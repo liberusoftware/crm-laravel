@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info: {title: CRM Activities API, version: 1.0.0}
+paths:
+  /api/v1/crm/activities:
+    get: {operationId: crm.activities.list, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/PageSize'}, {'$ref': '#/components/parameters/Kind'}, {'$ref': '#/components/parameters/Status'}], responses: {'200': {$ref: '#/components/responses/Collection'}}}
+    post: {operationId: crm.activities.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/ActivityInput'}}}}, responses: {'201': {$ref: '#/components/responses/Activity'}, '422': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/activities/{id}:
+    parameters: [{'$ref': '#/components/parameters/Id'}]
+    get: {operationId: crm.activities.get, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Activity'}}}
+    patch: {operationId: crm.activities.update, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IfMatch'}], requestBody: {content: {application/json: {schema: {$ref: '#/components/schemas/ActivityPatch'}}}}, responses: {'200': {$ref: '#/components/responses/Activity'}, '409': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/activities/complete: {post: {operationId: crm.activities.complete.bulk, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/BulkCompletion'}}}}, responses: {'200': {description: Completion result}}}}
+  /api/v1/crm/activities/report: {get: {operationId: crm.activities.report, security: [{sanctum: []}], parameters: [{name: from, in: query, required: true, schema: {type: string, format: date-time}}, {name: until, in: query, required: true, schema: {type: string, format: date-time}}], responses: {'200': {description: Activity summary}}}}
+  /api/v1/crm/activities/{id}/cancel: {post: {operationId: crm.activities.cancel, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Id'}, {'$ref': '#/components/parameters/IdempotencyKey'}], responses: {'200': {$ref: '#/components/responses/Activity'}}}}
+components:
+  parameters:
+    Id: {name: id, in: path, required: true, schema: {type: string}}
+    PageSize: {name: page[size], in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+    Kind: {name: kind, in: query, schema: {type: string, enum: [task, call, meeting, email]}}
+    Status: {name: status, in: query, schema: {type: string}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, schema: {type: string}}
+    IfMatch: {name: If-Match, in: header, schema: {type: string}}
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    ActivityInput: {type: object, required: [kind, title], properties: {kind: {type: string, enum: [task, call, meeting, email]}, title: {type: string}, description: {type: string, nullable: true}, subject_type: {type: string, nullable: true}, subject_id: {type: integer, nullable: true}, assigned_to: {type: integer, nullable: true}, starts_at: {type: string, format: date-time, nullable: true}, due_at: {type: string, format: date-time, nullable: true}, ends_at: {type: string, format: date-time, nullable: true}, recurrence: {type: string, enum: [daily, weekly, monthly], nullable: true}, reminder_at: {type: string, format: date-time, nullable: true}, metadata: {type: object}}}
+    ActivityPatch: {type: object, properties: {title: {type: string}, description: {type: string, nullable: true}, due_at: {type: string, format: date-time, nullable: true}, reminder_at: {type: string, format: date-time, nullable: true}, assigned_to: {type: integer, nullable: true}, metadata: {type: object, nullable: true}}}
+    BulkCompletion: {type: object, required: [activity_ids], properties: {activity_ids: {type: array, maxItems: 100, items: {type: string}}, outcome: {type: string, nullable: true}, outcome_notes: {type: string, nullable: true}}}
+    Activity: {type: object, required: [id, type, attributes], properties: {id: {type: string}, type: {const: crm-activities}, attributes: {type: object, additionalProperties: true}}}
+    Problem: {type: object, required: [type, title, status], properties: {type: {type: string}, title: {type: string}, status: {type: integer}, detail: {type: string}}}
+  responses:
+    Activity: {description: Activity resource, content: {application/json: {schema: {type: object, properties: {data: {$ref: '#/components/schemas/Activity'}}}}}}
+    Collection: {description: Paginated activities, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/Activity'}}, meta: {type: object}, links: {type: object}}}}}}
+    Problem: {description: RFC 9457 problem, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}

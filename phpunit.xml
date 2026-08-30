@@ -18,6 +18,8 @@
         </include>
     </source>
     <php>
+        <ini name="memory_limit" value="1G"/>
+        <env name="APP_KEY" value="base64:9J4f6x2X8vQ0sN3mL7kP1aB5cD8eF2gH4jK6mN0pQ2r="/>
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>

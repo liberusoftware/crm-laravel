@@ -3,7 +3,9 @@
 namespace App\Filament\App\Resources\TaskResource\Pages;
 
 use App\Filament\App\Resources\TaskResource;
+use App\Models\Task;
 use App\Services\GoogleCalendarService;
+use App\Services\TaskAssignmentService;
 use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Toggle;
@@ -14,12 +16,23 @@ class EditTask extends EditRecord
 {
     protected static string $resource = TaskResource::class;
 
+    protected ?int $previousAssigneeId = null;
+
     #[\Override]
     protected function getHeaderActions(): array
     {
         return [
             DeleteAction::make(),
         ];
+    }
+
+    protected function beforeSave(): void
+    {
+        if (! $this->record instanceof Task) {
+            return;
+        }
+
+        $this->previousAssigneeId = $this->record->assigned_to;
     }
 
     #[\Override]
@@ -38,7 +51,13 @@ class EditTask extends EditRecord
 
     protected function afterSave(): void
     {
-        if ($this->record->sync_to_google_calendar) {
+        if (! $this->record instanceof Task) {
+            return;
+        }
+
+        app(TaskAssignmentService::class)->notify($this->record, $this->previousAssigneeId);
+
+        if ($this->record->getAttribute('sync_to_google_calendar')) {
             $googleCalendarService = app(GoogleCalendarService::class);
             $googleCalendarService->updateEvent($this->record);
         }

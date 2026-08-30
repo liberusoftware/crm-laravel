@@ -28,7 +28,7 @@ class ImportTeamBackupServiceTest extends TestCase
      */
     private function backupThenClear(Team $source): string
     {
-        $result = (new TeamBackupService)->backup($source, 'local');
+        $result = (new TeamBackupService())->backup($source, 'local');
 
         Task::withoutGlobalScope('tenant')->where('team_id', $source->id)->delete();
         Contact::withoutGlobalScope('tenant')->where('team_id', $source->id)->delete();
@@ -50,7 +50,7 @@ class ImportTeamBackupServiceTest extends TestCase
 
         $localZip = $this->backupThenClear($source);
 
-        $new = (new ImportTeamBackupService)->import($localZip, 'Imported Team', $importer);
+        $new = (new ImportTeamBackupService())->import($localZip, 'Imported Team', $importer);
 
         $this->assertNotSame($source->id, $new->id);
         $this->assertSame($importer->id, $new->user_id);
@@ -76,13 +76,19 @@ class ImportTeamBackupServiceTest extends TestCase
         $source = Team::factory()->create();
         Contact::factory()->create(['team_id' => $source->id, 'email' => 'dupe@example.com']);
 
-        // Do NOT clear the source: the imported contact's unique email collides,
-        // so the insert fails mid-import.
-        $result = (new TeamBackupService)->backup($source, 'local');
+        // Corrupt one row so the insert fails after the team transaction starts.
+        $result = (new TeamBackupService())->backup($source, 'local');
+        $zip = new ZipArchive();
+        $zip->open(Storage::disk('local')->path($result['path']));
+        $contacts = json_decode((string) $zip->getFromName('models/Contact.json'), true, flags: JSON_THROW_ON_ERROR);
+        $contacts[0]['invalid_column'] = 'forces rollback';
+        $zip->deleteName('models/Contact.json');
+        $zip->addFromString('models/Contact.json', json_encode($contacts, JSON_THROW_ON_ERROR));
+        $zip->close();
         $teamsBefore = DB::table('teams')->count();
 
         try {
-            (new ImportTeamBackupService)->import(Storage::disk('local')->path($result['path']), 'X', $importer);
+            (new ImportTeamBackupService())->import(Storage::disk('local')->path($result['path']), 'X', $importer);
             $this->fail('expected a unique-collision failure');
         } catch (\Throwable) {
             // expected
@@ -99,7 +105,7 @@ class ImportTeamBackupServiceTest extends TestCase
         $importer = User::factory()->create();
 
         $this->expectException(TeamImportException::class);
-        (new ImportTeamBackupService)->import(Storage::disk('local')->path('bad.zip'), 'X', $importer);
+        (new ImportTeamBackupService())->import(Storage::disk('local')->path('bad.zip'), 'X', $importer);
     }
 
     public function test_rejects_wrong_format_version(): void
@@ -107,12 +113,12 @@ class ImportTeamBackupServiceTest extends TestCase
         Storage::fake('local');
         $importer = User::factory()->create();
         $path = Storage::disk('local')->path('v2.zip');
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         $zip->open($path, ZipArchive::CREATE);
         $zip->addFromString('manifest.json', (string) json_encode(['format_version' => 99, 'team' => ['id' => 1, 'name' => 'x']]));
         $zip->close();
 
         $this->expectException(TeamImportException::class);
-        (new ImportTeamBackupService)->import($path, 'X', $importer);
+        (new ImportTeamBackupService())->import($path, 'X', $importer);
     }
 }

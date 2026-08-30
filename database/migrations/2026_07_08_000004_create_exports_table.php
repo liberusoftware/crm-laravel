@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
  * backs both that export and the new Contact CSV export. Schema mirrors the
  * vendor create_exports_table stub exactly (ImportAction's tables not needed).
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

@@ -4,10 +4,9 @@ namespace Tests\Unit\Models;
 
 use App\Models\Contact;
 use App\Models\Deal;
-use App\Models\Pipeline;
-use App\Models\Stage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class DealTest extends TestCase
@@ -54,7 +53,7 @@ class DealTest extends TestCase
             'close_date' => '2025-12-31',
         ]);
 
-        $this->assertInstanceOf(\Illuminate\Support\Carbon::class, $deal->close_date);
+        $this->assertInstanceOf(Carbon::class, $deal->close_date);
     }
 
     public function test_deal_has_many_activities(): void

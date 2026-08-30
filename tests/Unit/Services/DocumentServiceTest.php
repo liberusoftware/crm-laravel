@@ -20,7 +20,7 @@ class DocumentServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new DocumentService;
+        $this->service = new DocumentService();
         Storage::fake('local');
 
         // Allow the MIME types that Finfo will actually detect for test files

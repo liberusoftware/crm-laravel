@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Events\NewComment;
 use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ class Note extends Model
 
     /** Note is the app's comment model; fire NewComment on create. */
     protected $dispatchesEvents = [
-        'created' => \App\Events\NewComment::class,
+        'created' => NewComment::class,
     ];
 
     public function contact()

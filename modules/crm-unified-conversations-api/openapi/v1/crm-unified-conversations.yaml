@@ -1,0 +1,5 @@
+openapi: 3.1.0
+info: {title: CRM Unified Conversations API, version: 1.0.0}
+paths:
+  /api/v1/crm/unified-conversations: {get: {operationId: crm.unified.conversations.list, responses: {'200': {description: Conversations}}}, post: {operationId: crm.unified.conversations.create, responses: {'201': {description: Conversation}}}}
+  /api/v1/crm/unified-conversations/{conversation}/messages: {post: {operationId: crm.unified.conversations.messages.create, responses: {'201': {description: Message}}}}

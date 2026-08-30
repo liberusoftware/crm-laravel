@@ -12,9 +12,7 @@ class TaskReminderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(protected \App\Models\Task $task, protected string $type)
-    {
-    }
+    public function __construct(protected Task $task, protected string $type) {}
 
     public function via($notifiable): array
     {
@@ -23,7 +21,7 @@ class TaskReminderNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        $message = (new MailMessage)
+        $message = (new MailMessage())
             ->line('Reminder: You have a task due soon.')
             ->line('Task: '.$this->task->name)
             ->line('Due Date: '.$this->task->due_date->format('Y-m-d H:i'));

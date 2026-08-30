@@ -57,7 +57,7 @@ class UserTest extends TestCase
 
     public function test_user_casts_are_configured_correctly(): void
     {
-        $user = new User;
+        $user = new User();
         $casts = $user->getCasts();
 
         $this->assertArrayHasKey('password', $casts);

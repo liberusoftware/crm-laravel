@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\CallLog;
 use App\Models\Contact;
 use App\Services\TwilioService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -32,6 +34,7 @@ class CallManager extends Component
 
         if (! $contact) {
             $this->addError('call', 'Contact not found');
+
             return;
         }
 
@@ -51,6 +54,7 @@ class CallManager extends Component
     {
         if (! $this->callSid) {
             $this->addError('recording', 'No active call to record');
+
             return;
         }
 
@@ -68,6 +72,7 @@ class CallManager extends Component
     {
         if (! $this->callSid || $this->recordingStatus !== 'recording') {
             $this->addError('recording', 'No active recording to stop');
+
             return;
         }
 
@@ -85,6 +90,7 @@ class CallManager extends Component
     {
         if (! $this->callSid) {
             $this->addError('call', 'No active call to end');
+
             return;
         }
 
@@ -111,7 +117,7 @@ class CallManager extends Component
         $this->status = $status;
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         return view('livewire.call-manager');
     }

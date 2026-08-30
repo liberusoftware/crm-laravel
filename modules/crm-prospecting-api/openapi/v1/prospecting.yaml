@@ -1,0 +1,13 @@
+openapi: 3.1.0
+info:
+  title: CRM Prospecting API
+  version: 1.0.0
+paths:
+  /api/v1/crm/prospecting/profiles:
+    get: { summary: List ideal-customer profiles }
+    post: { summary: Create an ideal-customer profile }
+  /api/v1/crm/prospecting/prospects:
+    get: { summary: List provider-attributed prospects }
+    post: { summary: Import a prospect with provenance }
+  /api/v1/crm/prospecting/reveal:
+    post: { summary: Reveal a contact using an idempotent credit operation }

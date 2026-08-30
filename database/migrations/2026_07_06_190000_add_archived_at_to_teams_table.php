@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
  * Team lifecycle: a nullable timestamp marks a team as archived (frozen,
  * hidden, data preserved) vs the existing hard-delete. Presence = archived.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

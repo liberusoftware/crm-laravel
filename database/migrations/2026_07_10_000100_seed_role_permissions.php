@@ -11,7 +11,7 @@ use Illuminate\Database\Migrations\Migration;
  * holds its permissions BEFORE any enforcement (slices 3b/3c) checks can().
  * Idempotent; safe to re-run.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

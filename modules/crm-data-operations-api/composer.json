@@ -1,0 +1,8 @@
+{
+    "name": "liberusoftware/module-crm-data-operations-api",
+    "description": "CRM data operations API presentation package",
+    "type": "liberu-module",
+    "require": {"php": "^8.5", "illuminate/routing": "^13.0", "liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-data-operations": "^1.0"},
+    "autoload": {"psr-4": {"Liberu\\CRM\\DataOperations\\Api\\": "src/"}},
+    "extra": {"liberu": {"name": "crm-data-operations-api"}}
+}

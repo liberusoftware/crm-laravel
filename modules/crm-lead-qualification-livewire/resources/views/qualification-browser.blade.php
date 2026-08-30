@@ -1,0 +1,7 @@
+<div>
+    <input wire:model.live="search" type="search" placeholder="Search subject types">
+    <select wire:model.live="status"><option value="">All statuses</option><option value="unqualified">Unqualified</option><option value="marketing_qualified">MQL</option><option value="product_qualified">PQL</option><option value="sales_qualified">SQL</option><option value="service_qualified">Service qualified</option><option value="nurturing">Nurturing</option><option value="disqualified">Disqualified</option><option value="converted">Converted</option></select>
+    <select wire:model.live="stage"><option value="">All stages</option><option value="subscriber">Subscriber</option><option value="lead">Lead</option><option value="marketing_qualified">Marketing qualified</option><option value="product_qualified">Product qualified</option><option value="sales_qualified">Sales qualified</option><option value="service_qualified">Service qualified</option><option value="opportunity">Opportunity</option><option value="customer">Customer</option></select>
+    @foreach ($qualifications as $qualification)<article wire:key="qualification-{{ $qualification->id }}"><strong>{{ $qualification->subject_type }} #{{ $qualification->subject_id }}</strong><span>{{ $qualification->lifecycle_stage }} · {{ $qualification->qualification_status }} · {{ $qualification->total_score }}</span></article>@endforeach
+    {{ $qualifications->links() }}
+</div>

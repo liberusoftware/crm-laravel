@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-channel-sales-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ChannelSalesFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ChannelSalesFilament\\ChannelSalesFilamentServiceProvider"]},"liberu":{"name":"module-crm-channel-sales-filament"}}}

@@ -12,10 +12,10 @@ use App\Listeners\NotifyTeamMembers;
 use App\Listeners\SendCRMEventNotification;
 use App\Listeners\SwitchTeam;
 use App\Models\Contact;
+use App\Models\Lead;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\CRMEventNotification;
-use App\Services\TeamManagementService;
 use Database\Seeders\RolesSeeder;
 use Filament\Events\TenantSet;
 use Illuminate\Auth\Events\Registered;
@@ -114,7 +114,7 @@ class ListenersTest extends TestCase
         // getUsersToNotify is team-scoped: only the lead's team is notified,
         // for the truthy config/crm.php key "new_lead" (snake of NewLead).
         $team = Team::factory()->create();
-        $lead = \App\Models\Lead::factory()->create(['team_id' => $team->id]);
+        $lead = Lead::factory()->create(['team_id' => $team->id]);
 
         (new SendCRMEventNotification())->handle(new \App\Events\NewLead($lead));
 

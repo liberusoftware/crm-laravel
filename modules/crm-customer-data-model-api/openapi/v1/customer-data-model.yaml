@@ -1,0 +1,18 @@
+openapi: 3.1.0
+info: {title: CRM Customer Data Model API, version: 1.0.0}
+paths:
+  /api/v1/crm/customer-data-model:
+    get: {operationId: crm.customer.data.model.list, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Collection'}}}
+    post: {operationId: crm.customer.data.model.create, security: [{sanctum: []}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/CreateObject'}}}}, responses: {'201': {$ref: '#/components/responses/Resource'}}}
+  /api/v1/crm/customer-data-model/{id}:
+    parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+    get: {operationId: crm.customer.data.model.get, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Resource'}}}
+    patch: {operationId: crm.customer.data.model.update, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Resource'}}}
+  /api/v1/crm/customer-data-model/{id}/publish:
+    post: {operationId: crm.customer.data.model.publish, security: [{sanctum: []}], responses: {'201': {$ref: '#/components/responses/Resource'}}}
+components:
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    CreateObject: {type: object, required: [key, label], properties: {key: {type: string, pattern: '^[A-Za-z0-9_-]+$'}, label: {type: string}, description: {type: string, nullable: true}, is_standard: {type: boolean}}}
+    Resource: {type: object, required: [data], properties: {data: {type: object}}}
+    Collection: {type: object, required: [data], properties: {data: {type: array, items: {type: object}}, meta: {type: object}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-attribution-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AttributionApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AttributionApi\\AttributionApiServiceProvider"]},"liberu":{"name":"module-crm-attribution-api"}}}

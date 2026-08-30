@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-copilot-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CopilotLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CopilotLivewire\\CopilotLivewireServiceProvider"]},"liberu":{"name":"module-crm-copilot-livewire"}}}

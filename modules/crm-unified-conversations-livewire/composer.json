@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-unified-conversations-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UnifiedConversations\\Livewire\\":"src/"}},"extra":{"liberu":{"name":"crm-unified-conversations-livewire"}}}

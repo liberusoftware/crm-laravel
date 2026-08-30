@@ -1,0 +1,6 @@
+openapi: 3.1.0
+info: {title: CRM Templates and Snapshots API, version: 1.0.0}
+paths:
+  /api/v1/crm/templates-and-snapshots: {get: {operationId: crm.templates.and.snapshots.list, responses: {'200': {description: Snapshots}}}, post: {operationId: crm.templates.and.snapshots.create, parameters: [{name: Idempotency-Key, in: header, schema: {type: string}}], responses: {'201': {description: Snapshot}}}}
+  /api/v1/crm/templates-and-snapshots/{snapshot}/install: {post: {operationId: crm.templates.and.snapshots.install, responses: {'200': {description: Installed}}}}
+  /api/v1/crm/templates-and-snapshots/{snapshot}/share: {post: {operationId: crm.templates.and.snapshots.share, responses: {'200': {description: Protected token}}}}

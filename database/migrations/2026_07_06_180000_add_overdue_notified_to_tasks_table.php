@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
  * Dedup flag so tasks:notify-overdue fires the TaskOverdue event once per task
  * rather than every scheduled run.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

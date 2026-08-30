@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Concerns\TenantAware;
+use App\Models\MarketingCampaign;
 use App\Services\MailChimpService;
 use App\Services\TwilioService;
 use App\Services\WhatsAppBusinessService;
@@ -18,7 +19,7 @@ class SendMarketingCampaign implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, TenantAware;
 
-    public function __construct(protected \App\Models\MarketingCampaign $campaign)
+    public function __construct(protected MarketingCampaign $campaign)
     {
         // Campaign + recipients are tenant-scoped; remember the dispatching team
         // so the recipient update below can't leak across teams in the worker.

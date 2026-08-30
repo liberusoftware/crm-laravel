@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-white-label",
+  "display_name": "CRM White Label",
+  "description": "Team-scoped brand, domain, theme, client experience, provider, and attribution settings.",
+  "version": "1.0.0",
+  "category": "capability",
+  "provider": "Liberu\\CRM\\WhiteLabel\\WhiteLabelServiceProvider",
+  "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-manager": "^1.0" } },
+  "suggests": { "liberusoftware/module-crm-white-label-api": "^1.0", "liberusoftware/module-crm-white-label-filament": "^1.0", "liberusoftware/module-crm-white-label-livewire": "^1.0" },
+  "capabilities": ["crm.white-label"],
+  "default_enabled": true,
+  "features": ["Brand and domain settings", "Theme selection", "Custom client experience", "Provider abstraction", "Safe platform attribution policy"]
+}

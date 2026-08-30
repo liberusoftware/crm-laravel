@@ -9,8 +9,10 @@ use App\Services\InstagramService;
 use App\Services\LinkedInService;
 use App\Services\TwitterService;
 use App\Services\YouTubeService;
+use App\Services\Zernio\ZernioPublisher;
 use Exception;
 use Illuminate\Console\Command;
+use InvalidArgumentException;
 
 class PublishScheduledPosts extends Command
 {
@@ -27,12 +29,45 @@ class PublishScheduledPosts extends Command
         foreach ($posts as $post) {
             $this->info("Publishing post ID: {$post->id}");
 
+            $zernio = app(ZernioPublisher::class);
+            $mode = (string) config('services.zernio.mode', 'fallback');
+            if (in_array($mode, ['preferred', 'zernio'], true) && $zernio->canPublishForPost($post)) {
+                try {
+                    $result = $zernio->publish($post, $post->platforms ?? []);
+                    $ids = $post->platform_post_ids ?? [];
+                    $ids['zernio'] = data_get($result, 'post._id');
+                    $post->update(['platform_post_ids' => $ids, 'status' => SocialMediaPost::STATUS_PUBLISHED]);
+                    $this->info("Post ID: {$post->id} published through Zernio");
+
+                    continue;
+                } catch (Exception $e) {
+                    if ($mode === 'zernio') {
+                        $post->markAsFailed();
+                        $this->error("Failed to publish post ID: {$post->id} through Zernio. Error: {$e->getMessage()}");
+
+                        continue;
+                    }
+                    $this->warn("Zernio publication failed for post ID: {$post->id}; using direct providers.");
+                }
+            }
+
+            if ($mode === 'zernio') {
+                $post->markAsFailed();
+                $this->error("Post ID: {$post->id} has no complete Zernio account configuration.");
+
+                continue;
+            }
+
             $allSucceeded = true;
 
             foreach ($post->platforms as $platform) {
                 try {
-                    $this->publishToPlatform($platform, $post);
-                    $this->info("Post ID: {$post->id} published to {$platform}");
+                    $platformName = is_string($platform) ? $platform : (string) ($platform['platform'] ?? '');
+                    if ($platformName === '') {
+                        throw new InvalidArgumentException('A social post target is missing its platform.');
+                    }
+                    $this->publishToPlatform($platformName, $post);
+                    $this->info("Post ID: {$post->id} published to {$platformName}");
                 } catch (Exception $e) {
                     $this->error("Failed to publish post ID: {$post->id} to {$platform}. Error: {$e->getMessage()}");
                     $allSucceeded = false;

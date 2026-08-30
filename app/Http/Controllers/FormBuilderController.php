@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomField;
 use App\Models\FormBuilder;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class FormBuilderController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): Factory|View
     {
 
         $user = Auth::user();
@@ -19,7 +21,7 @@ class FormBuilderController extends Controller
         return view('form-builders.index', ['forms' => $forms]);
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function create(): Factory|View
     {
         return view('form-builders.create');
     }
@@ -40,7 +42,7 @@ class FormBuilderController extends Controller
         return redirect()->route('form-builders.index')->with('success', 'Form created successfully.');
     }
 
-    public function edit(FormBuilder $formBuilder): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(FormBuilder $formBuilder): Factory|View
     {
         return view('form-builders.edit', ['formBuilder' => $formBuilder]);
     }
@@ -65,7 +67,7 @@ class FormBuilderController extends Controller
         return redirect()->route('form-builders.index')->with('success', 'Form deleted successfully.');
     }
 
-    public function createCustomField(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function createCustomField(): Factory|View
     {
         return view('custom-fields.create');
     }
@@ -86,7 +88,7 @@ class FormBuilderController extends Controller
         return redirect()->route('custom-fields.index')->with('success', 'Custom field created successfully.');
     }
 
-    public function indexCustomFields(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function indexCustomFields(): Factory|View
     {
         $user = Auth::user();
         $customFields = CustomField::where('team_id', $user->currentTeam->id)->get();
@@ -94,7 +96,7 @@ class FormBuilderController extends Controller
         return view('custom-fields.index', ['customFields' => $customFields]);
     }
 
-    public function editCustomField(CustomField $customField): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function editCustomField(CustomField $customField): Factory|View
     {
         return view('custom-fields.edit', ['customField' => $customField]);
     }

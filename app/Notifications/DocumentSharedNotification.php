@@ -24,7 +24,7 @@ class DocumentSharedNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('A document was shared with you')
             ->line('A new document is available in your customer portal: '.$this->document->getAttribute('name'))
             // Fixed portal path (panel path 'portal', documents slug); avoids

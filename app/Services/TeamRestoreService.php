@@ -46,7 +46,7 @@ class TeamRestoreService
         }
         file_put_contents($tmp, (string) $disk->get($backup->path));
 
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         if ($zip->open($tmp) !== true) {
             @unlink($tmp);
             throw new TeamRestoreException('Could not open the backup archive.');
@@ -100,7 +100,7 @@ class TeamRestoreService
     public function firstPopulatedTable(Team $team): ?string
     {
         foreach (TenantModels::all() as $class) {
-            $table = (new $class)->getTable();
+            $table = (new $class())->getTable();
             if (Schema::hasTable($table) && DB::table($table)->where('team_id', $team->id)->exists()) {
                 return $table;
             }
@@ -126,7 +126,7 @@ class TeamRestoreService
         $restored = [];
 
         foreach (TenantModels::all() as $class) {
-            $table = (new $class)->getTable();
+            $table = (new $class())->getTable();
             if (! Schema::hasTable($table)) {
                 continue;
             }

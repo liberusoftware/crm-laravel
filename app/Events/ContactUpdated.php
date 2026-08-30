@@ -16,7 +16,7 @@ class ContactUpdated implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * @var \App\Models\Contact
+     * @var Contact
      */
     public $contact;
 

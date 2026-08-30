@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Meta Server-Side Tracking API
+  version: 1.0.0
+paths:
+  /api/v1/analytics-meta/status:
+    get:
+      operationId: analytics_meta_status
+      responses:
+        '200':
+          description: Adapter availability
+

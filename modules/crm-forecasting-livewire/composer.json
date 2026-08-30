@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-forecasting-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ForecastingLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ForecastingLivewire\\ForecastingLivewireServiceProvider"]},"liberu":{"name":"module-crm-forecasting-livewire"}}}

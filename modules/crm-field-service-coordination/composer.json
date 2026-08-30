@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-field-service-coordination","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\FieldServiceCoordination\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\FieldServiceCoordination\\FieldServiceCoordinationServiceProvider"]},"liberu":{"name":"crm-field-service-coordination"}}}

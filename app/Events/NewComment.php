@@ -12,9 +12,7 @@ class NewComment
 {
     use Dispatchable;
 
-    public function __construct(public Note $note)
-    {
-    }
+    public function __construct(public Note $note) {}
 
     /** Team this event belongs to — used to scope notifications (anti cross-tenant leak). */
     public function team(): ?Team

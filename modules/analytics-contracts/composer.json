@@ -1,0 +1,11 @@
+{
+  "name": "liberusoftware/analytics-contracts",
+  "description": "Framework-neutral contracts for Liberu analytics destinations and events.",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/liberusoftware/analytics-contracts",
+  "support": {"source": "https://github.com/liberusoftware/analytics-contracts"},
+  "require": {"php": "^8.5"},
+  "autoload": {"psr-4": {"Liberu\\Analytics\\Contracts\\": "src/"}},
+  "version": "1.0.0"
+}

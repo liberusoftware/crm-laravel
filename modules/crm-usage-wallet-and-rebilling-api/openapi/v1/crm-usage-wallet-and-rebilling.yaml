@@ -1,0 +1,14 @@
+openapi: 3.1.0
+info: {title: CRM Usage Wallet and Rebilling API, version: 1.0.0}
+paths:
+  /api/v1/crm/usage-wallet-and-rebilling/summary:
+    get: {operationId: crm.usage.wallet.and.rebilling.summary, security: [{sanctum: []}], responses: {'200': {description: Summary}}}
+  /api/v1/crm/usage-wallet-and-rebilling/imports:
+    get: {operationId: crm.usage.wallet.and.rebilling.imports.list, security: [{sanctum: []}], responses: {'200': {description: Imports}}}
+    post: {operationId: crm.usage.wallet.and.rebilling.imports.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], responses: {'201': {description: Imported}}}
+  /api/v1/crm/usage-wallet-and-rebilling/charges:
+    get: {operationId: crm.usage.wallet.and.rebilling.charges.list, security: [{sanctum: []}], responses: {'200': {description: Charges}}}
+    post: {operationId: crm.usage.wallet.and.rebilling.charges.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], responses: {'201': {description: Charged}}}
+components:
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  parameters: {IdempotencyKey: {name: Idempotency-Key, in: header, required: false, schema: {type: string, maxLength: 255}}}

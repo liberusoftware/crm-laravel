@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
  * Adds JIT provisioning, SSO enforcement, and group→role mapping to SAML
  * connections — mirroring the OIDC sso_connections columns.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

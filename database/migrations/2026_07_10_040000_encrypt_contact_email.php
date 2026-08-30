@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  * deterministic email_hash blind index. Existing rows are encrypted + hashed
  * in place. See App\Support\PiiEncryptionBackfill + Contact::hashEmail.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

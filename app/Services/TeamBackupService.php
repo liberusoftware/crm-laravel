@@ -39,7 +39,7 @@ class TeamBackupService
             throw new RuntimeException('Could not allocate a temp file for the backup.');
         }
 
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         if ($zip->open($tmp, ZipArchive::OVERWRITE) !== true) {
             throw new RuntimeException('Could not open the backup archive for writing.');
         }
@@ -61,7 +61,7 @@ class TeamBackupService
         // ambiguity (json columns, dates). Keyed by model basename; restore
         // resolves basename -> table via the same TenantModels enumeration.
         foreach (TenantModels::all() as $class) {
-            $table = (new $class)->getTable();
+            $table = (new $class())->getTable();
 
             // A tenant-scoped model with no table is dead/pending schema drift
             // (e.g. SiteSettings) — it holds no rows, so skip rather than fatal.

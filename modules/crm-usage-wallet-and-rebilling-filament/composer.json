@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-usage-wallet-and-rebilling-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UsageWalletAndRebilling\\Filament\\":"src/"}},"extra":{"liberu":{"name":"crm-usage-wallet-and-rebilling-filament"}},"require":{"liberusoftware/module-crm-usage-wallet-and-rebilling":"*"}}

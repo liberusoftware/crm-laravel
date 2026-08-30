@@ -1,0 +1,10 @@
+{
+  "name": "liberusoftware/module-crm-core-livewire",
+  "description": "Livewire 4 presentation adapter for CRM Core.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {"php": "^8.5", "livewire/livewire": "^4.0", "liberusoftware/module-crm-core": "^1.0"},
+  "autoload": {"psr-4": {"Liberu\\CRM\\Core\\Livewire\\": "src/"}},
+  "extra": {"liberu": {"name": "crm-core-livewire"}},
+  "version": "1.0.0"
+}

@@ -33,8 +33,7 @@ class TeamPolicy
 
     public function addTeamMember(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team) ||
-               $team->teamInvitations()->where('email', $user->email)->exists();
+        return $user->ownsTeam($team);
     }
 
     public function updateTeamMember(User $user, Team $team): bool

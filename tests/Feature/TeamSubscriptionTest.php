@@ -13,6 +13,7 @@ use Tests\TestCase;
 class TeamSubscriptionTest extends TestCase
 {
     public $stripeService;
+
     use RefreshDatabase;
     use WithFaker;
 

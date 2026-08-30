@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\OAuthConfiguration;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -25,6 +27,7 @@ class OAuthConfigurationController extends Controller
         'gmail' => 'google',
         'whatsapp' => 'whatsapp',
         'outlook' => 'microsoft',
+        'microsoft365' => 'microsoft',
     ];
 
     protected $serviceScopes = [
@@ -61,19 +64,23 @@ class OAuthConfigurationController extends Controller
             'https://www.googleapis.com/auth/youtube',
         ],
         'google' => [
-            'https://www.googleapis.com/auth/gmail.readonly',
+            'https://www.googleapis.com/auth/gmail.modify',
+            'https://www.googleapis.com/auth/calendar',
+        ],
+        'gmail' => [
+            'https://www.googleapis.com/auth/gmail.modify',
             'https://www.googleapis.com/auth/calendar',
         ],
     ];
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): Factory|View
     {
         $configurations = OAuthConfiguration::where('user_id', Auth::id())->get();
 
         return view('oauth.configurations.index', ['configurations' => $configurations]);
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function create(): Factory|View
     {
         return view('oauth.configurations.create');
     }
@@ -81,7 +88,7 @@ class OAuthConfigurationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'service_name' => 'required|string',
+            'service_name' => 'required|string|in:facebook,twitter,instagram,linkedin,youtube,google,gmail,whatsapp,outlook,microsoft365',
             'account_name' => 'required|string',
             'additional_settings' => 'nullable|array',
         ]);
@@ -126,7 +133,7 @@ class OAuthConfigurationController extends Controller
     {
         try {
             $configId = session('oauth_config_id');
-            $config = OAuthConfiguration::findOrFail($configId);
+            $config = OAuthConfiguration::query()->whereKey($configId)->where('user_id', Auth::id())->firstOrFail();
 
             $driver = $this->serviceToDriver[$service] ?? $service;
             $socialiteUser = Socialite::driver($driver)->user();
@@ -170,6 +177,7 @@ class OAuthConfigurationController extends Controller
 
     public function destroy(OAuthConfiguration $configuration)
     {
+        abort_unless($configuration->user_id === Auth::id(), 403);
         $configuration->delete();
 
         return redirect()->route('oauth.configurations.index')

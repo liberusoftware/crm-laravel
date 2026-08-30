@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-customer-data-model-filament",
+  "display_name": "CRM Customer Data Model Filament",
+  "description": "Filament 5 schema builder for customer data models.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\CustomerDataModel\\Filament\\CustomerDataModelFilamentServiceProvider",
+  "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-crm-customer-data-model": "^1.0"}, "capabilities": {"crm.customer-data-model.schemas": "^1.0"}},
+  "capabilities": ["crm.customer-data-model.filament"],
+  "default_enabled": false,
+  "features": ["Object schemas", "Field definitions", "Schema publishing"]
+}

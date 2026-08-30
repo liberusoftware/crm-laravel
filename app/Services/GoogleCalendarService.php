@@ -18,7 +18,7 @@ class GoogleCalendarService implements CalendarService
     protected function getService()
     {
         if ($this->service === null) {
-            $client = new \Google_Client;
+            $client = new \Google_Client();
             $client->setAuthConfig(config('services.google.credentials_path'));
             $client->addScope(\Google_Service_Calendar::CALENDAR);
             $this->service = new \Google_Service_Calendar($client);

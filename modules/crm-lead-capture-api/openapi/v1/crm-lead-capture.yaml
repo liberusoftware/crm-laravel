@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: CRM Lead Capture API
+  version: 1.0.0
+paths:
+  /api/v1/crm/lead-capture:
+    get:
+      operationId: crm.lead.capture.list
+      security: [{sanctum: []}]
+      parameters: [{"$ref": "#/components/parameters/PageSize"}, {name: kind, in: query, schema: {type: string}}, {name: status, in: query, schema: {type: string}}]
+      responses: {"200": {$ref: "#/components/responses/Collection"}}
+    post:
+      operationId: crm.lead.capture.create
+      security: [{sanctum: []}]
+      parameters: [{"$ref": "#/components/parameters/IdempotencyKey"}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: "#/components/schemas/CaptureRequest"}}}}
+      responses: {"201": {$ref: "#/components/responses/Capture"}, "422": {$ref: "#/components/responses/Problem"}}
+  /api/v1/crm/lead-capture/{id}:
+    get:
+      operationId: crm.lead.capture.get
+      security: [{sanctum: []}]
+      parameters: [{"$ref": "#/components/parameters/Id"}]
+      responses: {"200": {$ref: "#/components/responses/Capture"}, "404": {$ref: "#/components/responses/Problem"}}
+    patch:
+      operationId: crm.lead.capture.update
+      security: [{sanctum: []}]
+      parameters: [{"$ref": "#/components/parameters/Id"}, {"$ref": "#/components/parameters/IfMatch"}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: "#/components/schemas/CaptureStatusRequest"}}}}
+      responses: {"200": {$ref: "#/components/responses/Capture"}, "409": {$ref: "#/components/responses/Problem"}}
+  /api/v1/crm/lead-capture/report:
+    get:
+      operationId: crm.lead.capture.report
+      security: [{sanctum: []}]
+      responses: {"200": {description: Report, content: {application/json: {schema: {type: object, required: [data], properties: {data: {type: object, properties: {total: {type: integer}, converted: {type: integer}, failed: {type: integer}, conversion_rate: {type: number}}}}}}}}}
+  /api/v1/crm/lead-capture/forms:
+    get: {operationId: crm.lead.capture.forms.list, security: [{sanctum: []}], responses: {"200": {$ref: "#/components/responses/Collection"}}}
+    post: {operationId: crm.lead.capture.forms.create, security: [{sanctum: []}], requestBody: {required: true, content: {application/json: {schema: {$ref: "#/components/schemas/FormRequest"}}}}, responses: {"201": {$ref: "#/components/responses/Capture"}}}
+  /api/v1/crm/lead-capture/forms/{id}/submit:
+    post: {operationId: crm.lead.capture.forms.submit, security: [{sanctum: []}], parameters: [{"$ref": "#/components/parameters/Id"}], requestBody: {required: true, content: {application/json: {schema: {type: object, required: [payload], properties: {payload: {type: object, additionalProperties: true}}}}}}, responses: {"201": {$ref: "#/components/responses/Capture"}, "422": {$ref: "#/components/responses/Problem"}}}
+  /api/v1/crm/lead-capture/qr-codes:
+    get: {operationId: crm.lead.capture.qr.list, security: [{sanctum: []}], responses: {"200": {$ref: "#/components/responses/Collection"}}}
+    post: {operationId: crm.lead.capture.qr.create, security: [{sanctum: []}], requestBody: {required: true, content: {application/json: {schema: {$ref: "#/components/schemas/QrCodeRequest"}}}}, responses: {"201": {$ref: "#/components/responses/Capture"}}}
+  /api/v1/crm/lead-capture/referrals:
+    get: {operationId: crm.lead.capture.referrals.list, security: [{sanctum: []}], responses: {"200": {$ref: "#/components/responses/Collection"}}}
+    post: {operationId: crm.lead.capture.referrals.create, security: [{sanctum: []}], requestBody: {required: true, content: {application/json: {schema: {$ref: "#/components/schemas/ReferralRequest"}}}}, responses: {"201": {$ref: "#/components/responses/Capture"}}}
+components:
+  parameters:
+    Id: {name: id, in: path, required: true, schema: {type: string}}
+    PageSize: {name: page[size], in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, schema: {type: string, maxLength: 255}}
+    IfMatch: {name: If-Match, in: header, schema: {type: string}}
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    CaptureRequest: {type: object, required: [kind], properties: {kind: {type: string, enum: [leads_inbox, manual, import, api, form, survey, qr_code, chat, call, advertisement, event, referral]}, name: {type: [string, 'null']}, email: {type: [string, 'null'], format: email}, phone: {type: [string, 'null']}, source: {type: [string, 'null']}, source_medium: {type: [string, 'null']}, source_campaign: {type: [string, 'null']}, external_id: {type: [string, 'null']}, dedupe_key: {type: [string, 'null']}, source_metadata: {type: object, additionalProperties: true}, payload: {type: object, additionalProperties: true}, provenance: {type: object, additionalProperties: true}}}
+    CaptureStatusRequest: {type: object, required: [status], properties: {status: {type: string, enum: [received, processing, converted, rejected, failed]}, failure_reason: {type: [string, 'null']}}}
+    FormRequest: {type: object, required: [kind, name, slug, schema], properties: {kind: {type: string, enum: [form, survey]}, name: {type: string}, slug: {type: string}, schema: {type: array, items: {type: object, additionalProperties: true}}, settings: {type: object, additionalProperties: true}, status: {type: string, enum: [draft, published, archived]}}}
+    QrCodeRequest: {type: object, required: [name, code, destination], properties: {name: {type: string}, code: {type: string}, destination: {type: string, format: uri}, metadata: {type: object, additionalProperties: true}}}
+    ReferralRequest: {type: object, required: [code], properties: {code: {type: string}, referrer_type: {type: [string, 'null']}, referrer_id: {type: [integer, 'null']}, referred_type: {type: [string, 'null']}, referred_id: {type: [integer, 'null']}, status: {type: string}, metadata: {type: object, additionalProperties: true}}}
+    Capture: {type: object, required: [id, type, attributes], properties: {id: {type: string}, type: {type: string, const: crm-lead-capture}, attributes: {type: object, additionalProperties: true}}}
+    Problem: {type: object, required: [type, title, status], properties: {type: {type: string, format: uri}, title: {type: string}, status: {type: integer}, detail: {type: string}, errors: {type: object, additionalProperties: true}}}
+  responses:
+    Capture: {description: Authorized capture resource, content: {application/json: {schema: {type: object, properties: {data: {$ref: "#/components/schemas/Capture"}}}}}}
+    Collection: {description: Authorized resources, content: {application/json: {schema: {type: object, required: [data], properties: {data: {type: array, items: {$ref: "#/components/schemas/Capture"}}, meta: {type: object, additionalProperties: true}}}}}}
+    Problem: {description: RFC 9457 Problem Details, content: {application/problem+json: {schema: {$ref: "#/components/schemas/Problem"}}}}

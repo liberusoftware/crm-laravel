@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-customer-data-model-api",
+  "display_name": "CRM Customer Data Model API",
+  "description": "Versioned API adapter for customer schema definitions.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\CustomerDataModel\\Api\\CustomerDataModelApiServiceProvider",
+  "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-crm-customer-data-model": "^1.0"}, "capabilities": {"crm.customer-data-model.schemas": "^1.0"}},
+  "capabilities": ["crm.customer-data-model.api"],
+  "default_enabled": false,
+  "features": ["Schema REST resources", "Schema publishing", "OpenAPI contract"]
+}

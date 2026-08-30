@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Application Core API
+  version: 1.0.0
+paths:
+  /api/v1/application/status:
+    get:
+      operationId: application_status
+      responses:
+        '200':
+          description: Adapter availability
+

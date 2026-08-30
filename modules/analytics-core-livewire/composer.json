@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/analytics-core-livewire",
+  "description": "Analytics Core livewire presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "livewire/livewire": "^4.0",
+    "liberusoftware/analytics-core": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\AnalyticsCoreLivewire\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "analytics-core-livewire"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-analytics-core-livewire"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\AnalyticsCoreLivewire\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

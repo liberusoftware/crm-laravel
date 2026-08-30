@@ -6,6 +6,7 @@ use App\Events\Module\ModuleDisabled;
 use App\Events\Module\ModuleEnabled;
 use App\Events\Module\ModuleInstalled;
 use App\Events\Module\ModuleUninstalled;
+use App\Models\Module;
 use App\Modules\Contracts\ModuleInterface;
 use Artisan;
 use Illuminate\Support\Facades\Cache;
@@ -156,7 +157,7 @@ abstract class BaseModule implements ModuleInterface
     protected function resolveEnabledState(): bool
     {
         try {
-            $record = \App\Models\Module::query()->where('name', $this->name)->first();
+            $record = Module::query()->where('name', $this->name)->first();
 
             if ($record) {
                 return (bool) $record->is_enabled;
@@ -173,7 +174,7 @@ abstract class BaseModule implements ModuleInterface
     protected function persistState(bool $enabled): void
     {
         try {
-            \App\Models\Module::query()->updateOrCreate(
+            Module::query()->updateOrCreate(
                 ['name' => $this->name],
                 [
                     'is_enabled' => $enabled,

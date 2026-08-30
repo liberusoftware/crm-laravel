@@ -10,11 +10,11 @@ use Microsoft\Graph\Model\Message;
 
 class OutlookService
 {
-    protected \Microsoft\Graph\Graph $graph;
+    protected Graph $graph;
 
     public function __construct()
     {
-        $this->graph = new Graph;
+        $this->graph = new Graph();
     }
 
     public function getUnreadMessages(OAuthConfiguration $config): Collection

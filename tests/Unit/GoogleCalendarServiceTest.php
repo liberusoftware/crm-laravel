@@ -20,7 +20,7 @@ class GoogleCalendarServiceTest extends TestCase
     {
         parent::setUp();
         $this->mockGoogleService = Mockery::mock();
-        $this->googleCalendarService = new GoogleCalendarService;
+        $this->googleCalendarService = new GoogleCalendarService();
         $this->googleCalendarService->service = $this->mockGoogleService;
     }
 

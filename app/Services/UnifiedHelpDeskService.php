@@ -4,8 +4,12 @@ namespace App\Services;
 
 use App\Events\MessageReplySent;
 use App\Events\NewMessageReceived;
+use App\Models\ConnectedAccount;
 use App\Models\OAuthConfiguration;
+use App\Services\Zernio\ZernioClient;
+use App\Services\Zernio\ZernioTenantService;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -16,11 +20,9 @@ class UnifiedHelpDeskService
 {
     protected $cacheTimeout = 300; // 5 minutes
 
-    public function __construct(protected \App\Services\WhatsAppBusinessService $whatsAppService, protected \App\Services\FacebookMessengerService $facebookMessengerService, protected \App\Services\GmailService $gmailService, protected \App\Services\OutlookService $outlookService, protected \App\Services\ImapService $imapService, protected \App\Services\Pop3Service $pop3Service)
-    {
-    }
+    public function __construct(protected WhatsAppBusinessService $whatsAppService, protected FacebookMessengerService $facebookMessengerService, protected GmailService $gmailService, protected OutlookService $outlookService, protected ImapService $imapService, protected Pop3Service $pop3Service, protected ?ZernioClient $zernioClient = null, protected ?ZernioTenantService $zernioTenants = null) {}
 
-    public function getAllMessages($accountId = null, $useCache = true)
+    public function getAllMessages($accountId = null, $useCache = true, ?Model $team = null)
     {
         $cacheKey = 'messages_'.($accountId ?? 'all');
 
@@ -32,7 +34,7 @@ class UnifiedHelpDeskService
         $errors = collect();
 
         try {
-            $messages = $this->fetchMessagesFromAllPlatforms($accountId, $errors);
+            $messages = $this->fetchMessagesFromAllPlatforms($accountId, $errors, $team);
         } catch (Throwable $e) {
             Log::error('Critical error fetching unified messages: '.$e->getMessage());
             throw $e;
@@ -51,7 +53,7 @@ class UnifiedHelpDeskService
         return $sortedMessages;
     }
 
-    protected function fetchMessagesFromAllPlatforms($accountId, &$errors)
+    protected function fetchMessagesFromAllPlatforms($accountId, &$errors, ?Model $team = null)
     {
         $messages = collect();
 
@@ -102,6 +104,29 @@ class UnifiedHelpDeskService
             }
         }
 
+        if ($this->zernioClient !== null && $this->zernioTenants !== null && $team !== null && (string) config('services.zernio.api_key') !== '') {
+            try {
+                $response = $this->zernioClient->listConversations(array_filter([
+                    'profileId' => $this->zernioTenants->ensureProfile($team),
+                    'limit' => 100,
+                    'sortOrder' => 'desc',
+                ]));
+
+                foreach (data_get($response, 'data', []) as $conversation) {
+                    if (! is_array($conversation) || ! isset($conversation['id'], $conversation['accountId'])) {
+                        continue;
+                    }
+
+                    $message = $this->formatZernioConversation($conversation);
+                    $messages->push($message);
+                    Event::dispatch(new NewMessageReceived($message));
+                }
+            } catch (Throwable $e) {
+                $errors->push(['platform' => 'zernio', 'error' => $e->getMessage()]);
+                Log::error('Error processing Zernio inbox: '.$e->getMessage());
+            }
+        }
+
         return $messages;
     }
 
@@ -113,14 +138,31 @@ class UnifiedHelpDeskService
             ->get();
     }
 
-    public function sendReply($messageId, $content, $channel, string $accountId)
+    public function sendReply($messageId, $content, $channel, string $accountId, ?Model $team = null)
     {
+        if ($channel === 'zernio') {
+            if ($this->zernioClient === null || $this->zernioTenants === null || $team === null || (string) config('services.zernio.api_key') === '') {
+                throw new InvalidArgumentException('Zernio is not configured.');
+            }
+
+            $profileId = $this->zernioTenants->ensureProfile($team);
+            $result = $this->zernioClient->sendInboxMessage((string) $messageId, $accountId, (string) $content, $profileId);
+            Cache::forget('messages_all');
+            Event::dispatch(new MessageReplySent($messageId, $content, $channel, $accountId));
+
+            return $result;
+        }
+
         $config = OAuthConfiguration::findOrFail($accountId);
 
         try {
             $result = match ($channel) {
                 'whatsapp' => $this->whatsAppService->sendMessage($messageId, $content, $config),
-                'facebook' => $this->facebookMessengerService->sendReply($messageId, $content, $config),
+                'facebook' => $this->facebookMessengerService->sendReply(
+                    $messageId,
+                    $content,
+                    ConnectedAccount::ofType('facebook')->primary()->first()
+                ),
                 'gmail' => $this->gmailService->sendReply($messageId, $content, $config),
                 'outlook', 'microsoft365' => $this->outlookService->sendReply($messageId, $content, $config),
                 'imap' => $this->imapService->sendReply($messageId, $content, $config),
@@ -164,7 +206,7 @@ class UnifiedHelpDeskService
         ];
     }
 
-    protected function normalizeTimestamp($timestamp): \Carbon\Carbon
+    protected function normalizeTimestamp($timestamp): Carbon
     {
         if (is_numeric($timestamp)) {
             return Carbon::createFromTimestamp($timestamp);
@@ -210,5 +252,35 @@ class UnifiedHelpDeskService
             ],
             default => [],
         };
+    }
+
+    /** @param array<string, mixed> $conversation @return array<string, mixed> */
+    protected function formatZernioConversation(array $conversation): array
+    {
+        return [
+            'id' => $conversation['id'],
+            'channel' => 'zernio',
+            'account_id' => $conversation['accountId'],
+            'account_name' => $conversation['accountUsername'] ?? $conversation['accountId'],
+            'from' => [
+                'id' => $conversation['participantId'] ?? null,
+                'name' => $conversation['participantName'] ?? null,
+            ],
+            'content' => $conversation['lastMessage'] ?? '',
+            'timestamp' => $this->normalizeTimestamp($conversation['updatedTime'] ?? now()->toIso8601String()),
+            'thread_id' => $conversation['id'],
+            'attachments' => [],
+            'status' => $conversation['status'] ?? 'received',
+            'priority' => $this->calculatePriority($conversation),
+            'metadata' => [
+                'service_specific_data' => $conversation,
+                'config_id' => $conversation['accountId'],
+                'platform_specific' => [
+                    'platform' => $conversation['platform'] ?? null,
+                    'url' => $conversation['url'] ?? null,
+                    'unread_count' => $conversation['unreadCount'] ?? 0,
+                ],
+            ],
+        ];
     }
 }

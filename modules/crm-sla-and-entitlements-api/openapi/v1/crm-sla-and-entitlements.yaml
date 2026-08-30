@@ -1,0 +1,13 @@
+openapi: 3.1.0
+info:
+  title: CRM SLA and Entitlements API
+  version: 1.0.0
+paths:
+  /api/v1/crm/sla-and-entitlements/cases:
+    get: {summary: List team SLA cases, security: [{sanctum: []}], responses: {'200': {description: Cases}}}
+    post: {summary: Open an SLA case, security: [{sanctum: []}], responses: {'201': {description: Case opened}}}
+  /api/v1/crm/sla-and-entitlements/cases/{case}/evaluate:
+    post: {summary: Evaluate warnings breaches and escalation, security: [{sanctum: []}], responses: {'200': {description: Evaluation}}}
+components:
+  securitySchemes:
+    sanctum: {type: http, scheme: bearer}

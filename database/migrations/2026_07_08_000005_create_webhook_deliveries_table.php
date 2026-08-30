@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
  * exposed on the app panel via WebhookDeliveryResource; team_id mirrors the
  * parent webhook so IsTenantModel scopes the log to the owning team.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

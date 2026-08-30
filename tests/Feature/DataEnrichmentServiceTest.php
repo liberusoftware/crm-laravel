@@ -20,7 +20,7 @@ class DataEnrichmentServiceTest extends TestCase
     {
         parent::setUp();
         config(['services.data_enrichment.api_key' => 'test-key']);
-        $this->service = new DataEnrichmentService;
+        $this->service = new DataEnrichmentService();
     }
 
     public function test_enrich_updates_fillable_fields_and_returns_true(): void

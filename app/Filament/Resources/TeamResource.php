@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Role;
 use App\Filament\Resources\TeamResource\Pages\ListTeams;
+use App\Http\Middleware\SetFilamentDefaultTenant;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\TeamCloneService;
@@ -13,6 +14,7 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Panel;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
@@ -30,11 +32,23 @@ class TeamResource extends Resource
 {
     protected static ?string $model = Team::class;
 
+    public static function isScopedToTenant(): bool
+    {
+        return false;
+    }
+
+    protected static bool $isScopedToTenant = false;
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
     public static function canAccess(): bool
     {
         return (bool) auth()->user()?->hasRole(Role::SuperAdmin);
+    }
+
+    public static function getRouteMiddleware(Panel $panel): string|array
+    {
+        return [SetFilamentDefaultTenant::class];
     }
 
     #[\Override]

@@ -6,6 +6,8 @@ use App\Models\Contact;
 use App\Models\Lead;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class TaskForm extends Component
@@ -28,10 +30,13 @@ class TaskForm extends Component
 
     public $reminder_date;
 
+    public $recurrence;
+
     protected $rules = [
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
-        'due_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:today',
+            'recurrence' => 'nullable|in:daily,weekly,monthly',
         'contact_id' => 'nullable|exists:contacts,id',
         'lead_id' => 'nullable|exists:leads,id',
         'assigned_to' => 'required|exists:users,id',
@@ -50,6 +55,7 @@ class TaskForm extends Component
             $this->lead_id = $this->task->lead_id;
             $this->assigned_to = $this->task->assigned_to;
             $this->reminder_date = $this->task->reminder_date ? $this->task->reminder_date->format('Y-m-d\TH:i') : null;
+            $this->recurrence = $this->task->recurrence;
         }
     }
 
@@ -65,6 +71,7 @@ class TaskForm extends Component
             'lead_id' => $this->lead_id,
             'assigned_to' => $this->assigned_to,
             'reminder_date' => $this->reminder_date,
+            'recurrence' => $this->recurrence,
         ];
 
         if ($this->taskId) {
@@ -78,7 +85,7 @@ class TaskForm extends Component
         return redirect()->route('tasks.index');
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         return view('livewire.task-form', [
             'contacts' => Contact::all(),

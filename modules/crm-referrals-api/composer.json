@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-referrals-api","type":"liberu-module","require":{"liberusoftware/module-crm-referrals":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\ReferralsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ReferralsApi\\Providers\\ReferralsApiServiceProvider"]},"liberu":{"name":"crm-referrals-api"}}}

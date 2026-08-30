@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sales-engagement","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\SalesEngagement\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SalesEngagement\\SalesEngagementServiceProvider"]},"liberu":{"name":"crm-sales-engagement"}}}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DealController;
+use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\WebhookController;
 use App\Http\Controllers\WorkflowController;
@@ -20,12 +21,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', fn(Request $request) => $request->user());
+Route::middleware('auth:sanctum')->get('/user', fn (Request $request) => $request->user());
 
 Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:api'])->group(function (): void {
     // Core resources
     Route::apiResource('contacts', ContactController::class);
     Route::apiResource('deals', DealController::class);
+    Route::apiResource('leads', LeadController::class);
     Route::apiResource('tasks', TaskController::class);
 
     // Bulk operations — contacts

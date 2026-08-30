@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-resource-planning","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ResourcePlanning\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ResourcePlanning\\ResourcePlanningServiceProvider"]},"liberu":{"name":"crm-resource-planning"}}}

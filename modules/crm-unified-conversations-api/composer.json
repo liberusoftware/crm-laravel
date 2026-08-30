@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-unified-conversations-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UnifiedConversationsApi\\":"src/"}},"extra":{"liberu":{"name":"crm-unified-conversations-api"}}}

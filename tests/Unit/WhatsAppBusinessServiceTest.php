@@ -13,7 +13,7 @@ class WhatsAppBusinessServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->whatsAppService = new WhatsAppBusinessService;
+        $this->whatsAppService = new WhatsAppBusinessService();
     }
 
     public function test_get_unread_messages(): void

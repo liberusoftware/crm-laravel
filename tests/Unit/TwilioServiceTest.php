@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Log;
 use Mockery;
 use Tests\TestCase;
 use Twilio\Exceptions\TwilioException;
+use Twilio\Rest\Api\V2010\Account\Call\RecordingContext;
+use Twilio\Rest\Api\V2010\Account\Call\RecordingInstance;
+use Twilio\Rest\Api\V2010\Account\CallContext;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
 use Twilio\Rest\Api\V2010\Account\CallList;
 use Twilio\Rest\Client;
@@ -24,7 +27,7 @@ class TwilioServiceTest extends TestCase
         $this->mockTwilioClient = Mockery::mock(Client::class);
         $this->mockTwilioClient->shouldReceive('getAccountSid')
             ->andReturn('ACtest1234567890123456789012345678');
-        $this->twilioService = new TwilioService;
+        $this->twilioService = new TwilioService();
         $this->twilioService->setClient($this->mockTwilioClient);
     }
 
@@ -171,9 +174,9 @@ class TwilioServiceTest extends TestCase
     public function test_start_call_recording(): void
     {
         $callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-        $mockRecordingInstance = Mockery::mock(\Twilio\Rest\Api\V2010\Account\Call\RecordingInstance::class);
+        $mockRecordingInstance = Mockery::mock(RecordingInstance::class);
 
-        $mockCallContext = Mockery::mock(\Twilio\Rest\Api\V2010\Account\CallContext::class);
+        $mockCallContext = Mockery::mock(CallContext::class);
         $this->mockTwilioClient->shouldReceive('calls')
             ->once()
             ->with($callSid)
@@ -187,15 +190,15 @@ class TwilioServiceTest extends TestCase
         $mockCallContext->recordings = $mockRecordingList;
 
         $result = $this->twilioService->startCallRecording($callSid);
-        $this->assertInstanceOf(\Twilio\Rest\Api\V2010\Account\Call\RecordingInstance::class, $result);
+        $this->assertInstanceOf(RecordingInstance::class, $result);
     }
 
     public function test_stop_call_recording(): void
     {
         $callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-        $mockRecordingContext = Mockery::mock(\Twilio\Rest\Api\V2010\Account\Call\RecordingContext::class);
+        $mockRecordingContext = Mockery::mock(RecordingContext::class);
 
-        $mockCallContext = Mockery::mock(\Twilio\Rest\Api\V2010\Account\CallContext::class);
+        $mockCallContext = Mockery::mock(CallContext::class);
         $this->mockTwilioClient->shouldReceive('calls')
             ->once()
             ->with($callSid)
@@ -211,7 +214,7 @@ class TwilioServiceTest extends TestCase
         $mockRecordingContext->shouldReceive('update')
             ->once()
             ->with('stopped')
-            ->andReturn(Mockery::mock(\Twilio\Rest\Api\V2010\Account\Call\RecordingInstance::class));
+            ->andReturn(Mockery::mock(RecordingInstance::class));
 
         $result = $this->twilioService->stopCallRecording($callSid);
         $this->assertTrue($result);

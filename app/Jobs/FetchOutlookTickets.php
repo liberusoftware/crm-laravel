@@ -16,9 +16,7 @@ class FetchOutlookTickets implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(protected $configId = null)
-    {
-    }
+    public function __construct(protected $configId = null) {}
 
     public function handle(OutlookService $outlookService, CreateTicketFromEmail $createTicket): void
     {

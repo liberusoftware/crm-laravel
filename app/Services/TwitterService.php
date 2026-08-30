@@ -7,7 +7,7 @@ use App\Models\ConnectedAccount;
 
 class TwitterService
 {
-    protected \Abraham\TwitterOAuth\TwitterOAuth $connection;
+    protected TwitterOAuth $connection;
 
     public function __construct()
     {

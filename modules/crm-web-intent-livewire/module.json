@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-web-intent-livewire",
+  "display_name": "CRM Web Intent Livewire",
+  "description": "Livewire presentation package for CRM Web Intent.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\WebIntent\\Livewire\\WebIntentLivewireServiceProvider",
+  "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-web-intent": "^1.0" } },
+  "suggests": [],
+  "capabilities": ["crm.web-intent.livewire"],
+  "default_enabled": false,
+  "features": ["Intent dashboard", "Intent alert recovery"]
+}

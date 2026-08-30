@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Scheduler and Queues API
+  version: 1.0.0
+paths:
+  /api/v1/scheduler-queues/status:
+    get:
+      operationId: scheduler_queues_status
+      responses:
+        '200':
+          description: Adapter availability
+

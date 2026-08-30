@@ -1,0 +1,10 @@
+{
+  "name": "liberusoftware/module-crm-core-filament",
+  "description": "Filament 5 presentation adapter for CRM Core.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {"php": "^8.5", "filament/filament": "^5.0", "liberusoftware/module-crm-core": "^1.0"},
+  "autoload": {"psr-4": {"Liberu\\CRM\\Core\\Filament\\": "src/"}},
+  "extra": {"liberu": {"name": "crm-core-filament"}},
+  "version": "1.0.0"
+}

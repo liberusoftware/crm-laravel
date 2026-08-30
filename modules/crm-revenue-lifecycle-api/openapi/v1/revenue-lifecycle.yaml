@@ -1,0 +1,19 @@
+openapi: 3.1.0
+info:
+  title: CRM Revenue Lifecycle API
+  version: 1.0.0
+paths:
+  /api/v1/crm/revenue-lifecycle/assets:
+    get:
+      summary: List installed revenue assets
+    post:
+      summary: Create or update an installed asset
+  /api/v1/crm/revenue-lifecycle/orders:
+    post:
+      summary: Create a pending order from an opportunity
+  /api/v1/crm/revenue-lifecycle/assets/{asset}/usage:
+    post:
+      summary: Record an asset usage signal
+  /api/v1/crm/revenue-lifecycle/fallout:
+    get:
+      summary: List open lifecycle fallout

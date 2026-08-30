@@ -29,7 +29,8 @@ class ContactApiExtendedTest extends TestCase
         $response = $this->getJson('/api/v1/contacts');
 
         $response->assertOk()
-            ->assertJsonCount(3);
+            ->assertJsonPath('total', 3)
+            ->assertJsonCount(3, 'data');
     }
 
     public function test_api_can_create_contact(): void

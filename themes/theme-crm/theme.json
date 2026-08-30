@@ -1,0 +1,20 @@
+{
+    "$schema": "https://schemas.liberu.dev/theme/v1.json",
+    "name": "theme-crm",
+    "display_name": "Liberu CRM",
+    "version": "1.0.0",
+    "provider": "Liberu\\Themes\\Crm\\CrmThemeServiceProvider",
+    "type": "portal",
+    "parent": "base",
+    "optimized_for": ["liberusoftware/crm-laravel:^1.0"],
+    "tested_with": ["liberusoftware/crm-laravel:^1.0"],
+    "required_capabilities": [],
+    "optional_capabilities": ["foundation.localization", "foundation.theme-support"],
+    "supports": ["application.shell", "identity.auth", "foundation.account", "crm.workspace"],
+    "assets": {
+        "css": ["resources/css/app.css"],
+        "js": ["resources/js/app.js"]
+    },
+    "colors": {"primary": "indigo", "secondary": "slate"},
+    "description": "A focused, accessible workspace theme for CRM teams and SaaS operators."
+}

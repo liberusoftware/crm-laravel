@@ -11,6 +11,7 @@ use App\Services\TwitterService;
 use App\Services\YouTubeService;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Mockery;
 use Tests\TestCase;
 
@@ -185,5 +186,24 @@ class PublishScheduledPostsTest extends TestCase
         $this->artisan('social-media:publish-scheduled')->assertSuccessful();
 
         $this->assertEquals(SocialMediaPost::STATUS_PUBLISHED, $post->fresh()->status);
+    }
+
+    public function test_publishes_through_zernio_when_preferred_and_target_is_configured(): void
+    {
+        config([
+            'services.zernio.api_key' => 'sk_'.str_repeat('a', 64),
+            'services.zernio.mode' => 'preferred',
+        ]);
+        Http::fake([
+            'https://zernio.com/api/v1/posts' => Http::response(['post' => ['_id' => 'zernio_123']], 201),
+        ]);
+
+        $post = $this->makePost([['platform' => 'facebook', 'account_id' => 'account_123']]);
+
+        $this->artisan('social-media:publish-scheduled')->assertSuccessful();
+
+        $fresh = $post->fresh();
+        $this->assertEquals(SocialMediaPost::STATUS_PUBLISHED, $fresh->status);
+        $this->assertEquals('zernio_123', $fresh->platform_post_ids['zernio']);
     }
 }

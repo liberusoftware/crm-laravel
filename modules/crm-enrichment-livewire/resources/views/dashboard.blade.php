@@ -1,0 +1,1 @@
+<section aria-labelledby="enrichment-heading"><h2 id="enrichment-heading">Enrichment</h2><ul>@forelse($profiles as $profile)<li>{{ $profile->entity_type }}: {{ $profile->entity_key }} — confidence {{ $profile->confidence }}%</li>@empty<li>No enrichment profiles.</li>@endforelse</ul></section>

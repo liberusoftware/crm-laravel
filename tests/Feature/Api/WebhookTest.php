@@ -109,7 +109,7 @@ class WebhookTest extends TestCase
         $service = app(WebhookService::class);
         $service->send($webhook, 'contact.created', []);
 
-        Http::assertSent(fn(Request $r) => $r->url() === 'https://example.com/hook');
+        Http::assertSent(fn (Request $r) => $r->url() === 'https://example.com/hook');
     }
 
     public function test_update_rejects_localhost_url_in_production(): void

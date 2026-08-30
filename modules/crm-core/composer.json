@@ -1,0 +1,21 @@
+{
+  "name": "liberusoftware/module-crm-core",
+  "description": "CRM Core customer records, relationships, notes, tags, favorites, attachments, and timeline.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "illuminate/database": "^13.0",
+    "liberusoftware/module-manager": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\CRM\\Core\\": "src/"
+    }
+  },
+  "extra": {"liberu": {"name": "crm-core"}},
+  "version": "1.0.0",
+  "autoload-dev": {"psr-4": {"Liberu\\CRM\\Core\\Tests\\": "tests/"}},
+  "require-dev": {"liberusoftware/package-testbench": "^1.5", "pestphp/pest": "^5.0"},
+  "scripts": {"test": "pest"}
+}

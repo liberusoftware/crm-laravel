@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Schema;
  * team_id is nullable — a global super_admin assignment is stored with
  * team_id = null, and MySQL forbids NULL in a PRIMARY KEY.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

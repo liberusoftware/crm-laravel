@@ -1,0 +1,7 @@
+{
+  "name": "liberusoftware/module-crm-web-intent-livewire",
+  "type": "liberu-module",
+  "autoload": { "psr-4": { "Liberu\\CRM\\WebIntent\\Livewire\\": "src/" } },
+  "extra": { "laravel": { "providers": ["Liberu\\CRM\\WebIntent\\Livewire\\WebIntentLivewireServiceProvider"] }, "liberu": { "name": "crm-web-intent-livewire" } },
+  "require": { "php": "^8.5", "livewire/livewire": "^4.0", "liberusoftware/module-crm-web-intent": "^1.0" }
+}

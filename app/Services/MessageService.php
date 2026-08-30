@@ -11,13 +11,13 @@ use InvalidArgumentException;
 
 class MessageService
 {
-    protected \Google_Client $gmailClient;
+    protected Google_Client $gmailClient;
 
-    protected \Google_Service_Gmail $gmailService;
+    protected Google_Service_Gmail $gmailService;
 
-    public function __construct(protected \App\Services\WhatsAppBusinessService $whatsappService, protected \App\Services\FacebookMessengerService $facebookMessengerService)
+    public function __construct(protected WhatsAppBusinessService $whatsappService, protected FacebookMessengerService $facebookMessengerService)
     {
-        $this->gmailClient = new Google_Client;
+        $this->gmailClient = new Google_Client();
         $this->gmailClient->setApplicationName(config('services.gmail.application_name'));
         $this->gmailClient->setScopes(Google_Service_Gmail::GMAIL_MODIFY);
         $this->gmailClient->setAuthConfig(config('services.gmail.credentials_path'));
@@ -171,12 +171,12 @@ class MessageService
         return '';
     }
 
-    protected function createReplyMessage($originalMessageId, $replyBody): \Google_Service_Gmail_Message
+    protected function createReplyMessage($originalMessageId, $replyBody): Google_Service_Gmail_Message
     {
         $originalMessage = $this->gmailService->users_messages->get('me', $originalMessageId);
         $headers = $this->parseHeaders($originalMessage->getPayload()->getHeaders());
 
-        $replyMessage = new Google_Service_Gmail_Message;
+        $replyMessage = new Google_Service_Gmail_Message();
         $rawMessageString = "From: me\r\n";
         $rawMessageString .= "To: {$headers['From']}\r\n";
         $rawMessageString .= 'Subject: Re: '.($headers['Subject'] ?? '')."\r\n";

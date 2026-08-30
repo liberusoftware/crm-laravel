@@ -1,0 +1,10 @@
+{
+  "name": "liberusoftware/module-crm-core-api",
+  "description": "HTTP API presentation adapter for CRM Core.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {"php": "^8.5", "illuminate/routing": "^13.0", "liberusoftware/module-crm-core": "^1.0"},
+  "autoload": {"psr-4": {"Liberu\\CRM\\Core\\Api\\": "src/"}},
+  "extra": {"liberu": {"name": "crm-core-api"}},
+  "version": "1.0.0"
+}

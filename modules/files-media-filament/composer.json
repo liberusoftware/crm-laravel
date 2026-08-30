@@ -1,0 +1,42 @@
+{
+  "name": "liberusoftware/files-media-filament",
+  "description": "Files and Media filament presentation adapter.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "filament/filament": "^5.1",
+    "liberusoftware/files-media": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Foundation\\FilesMediaFilament\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "files-media-filament"
+    },
+    "support": {
+      "source": "https://github.com/liberusoftware/module-files-media-filament"
+    }
+  },
+  "version": "1.0.1",
+  "autoload-dev": {
+    "psr-4": {
+      "Liberu\\Foundation\\FilesMediaFilament\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "liberusoftware/package-testbench": "^1.7",
+    "pestphp/pest": "^5.0"
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

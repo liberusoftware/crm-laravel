@@ -15,15 +15,18 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $adminPassword = Str::random(12);
-        $adminUser = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make($adminPassword),
-            'email_verified_at' => now(),
-        ]);
+        $adminUser = User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make($adminPassword),
+                'email_verified_at' => now(),
+            ],
+        );
 
         $team = Team::firstOrFail();
         $adminUser->teams()->syncWithoutDetaching([$team->id]);
+        $adminUser->forceFill(['current_team_id' => $team->id])->save();
 
         $role = SpatieRole::where('name', Role::SuperAdmin->value)->firstOrFail();
         $adminUser->assignRole($role);

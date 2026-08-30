@@ -3,6 +3,7 @@
 namespace Tests\Feature\Livewire;
 
 use App\Livewire\CallManager;
+use App\Models\CallLog;
 use App\Models\Contact;
 use App\Services\TwilioService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -36,7 +37,7 @@ class CallManagerTest extends TestCase
             $mock->shouldReceive('logCall')
                 ->once()
                 ->with('CA1234567890abcdef', $contact->id, 'outbound', null, 'initiated')
-                ->andReturn(new \App\Models\CallLog);
+                ->andReturn(new CallLog());
         });
 
         Livewire::test(CallManager::class, ['contactId' => $contact->id])

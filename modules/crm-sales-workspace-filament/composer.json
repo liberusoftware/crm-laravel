@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-sales-workspace-filament","type":"liberu-module","require":{"liberusoftware/module-crm-sales-workspace":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\SalesWorkspace\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SalesWorkspace\\Filament\\SalesWorkspaceFilamentServiceProvider"]},"liberu":{"name":"crm-sales-workspace-filament"}}}

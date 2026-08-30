@@ -1,0 +1,1 @@
+<section aria-labelledby="forecasting-heading"><h2 id="forecasting-heading">Forecasting</h2><dl><dt>Pipeline</dt><dd>{{ $summary['pipeline'] ?? 0 }}</dd><dt>Best case</dt><dd>{{ $summary['best_case'] ?? 0 }}</dd><dt>Commit</dt><dd>{{ $summary['commit'] ?? 0 }}</dd><dt>Coverage</dt><dd>{{ $summary['coverage'] ?? 0 }}</dd></dl></section>

@@ -10,9 +10,7 @@ class NewLead
 {
     use Dispatchable;
 
-    public function __construct(public Lead $lead)
-    {
-    }
+    public function __construct(public Lead $lead) {}
 
     /** Team this event belongs to — used to scope notifications (anti cross-tenant leak). */
     public function team(): ?Team

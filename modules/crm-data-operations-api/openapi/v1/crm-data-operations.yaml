@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: CRM Data Operations API
+  version: 1.0.0
+paths:
+  /api/v1/crm/data-operations:
+    get:
+      operationId: crm.data.operations.list
+      security: [{sanctum: []}]
+      parameters: [{'$ref': '#/components/parameters/PageSize'}]
+      responses: {'200': {$ref: '#/components/responses/OperationCollection'}, '401': {$ref: '#/components/responses/Problem'}}
+    post:
+      operationId: crm.data.operations.create
+      security: [{sanctum: []}]
+      parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}]
+      requestBody: {required: true, content: {application/json: {$ref: '#/components/schemas/OperationInput'}}}
+      responses: {'201': {$ref: '#/components/responses/Operation'}, '422': {$ref: '#/components/responses/Problem'}}
+  /api/v1/crm/data-operations/{id}:
+    parameters: [{'$ref': '#/components/parameters/Id'}]
+    get: {operationId: crm.data.operations.get, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Operation'}, '404': {$ref: '#/components/responses/Problem'}}}
+    patch: {operationId: crm.data.operations.update, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IfMatch'}], requestBody: {content: {application/json: {$ref: '#/components/schemas/OperationPatch'}}}, responses: {'200': {$ref: '#/components/responses/Operation'}, '409': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/data-operations/{id}/transition:
+    post: {operationId: crm.data.operations.transition, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Id'}, {'$ref': '#/components/parameters/IdempotencyKey'}], requestBody: {required: true, content: {application/json: {schema: {type: object, required: [status], properties: {status: {type: string, enum: [queued, running, completed, partial, failed]}, reason: {type: string, nullable: true}}}}}}, responses: {'200': {$ref: '#/components/responses/Operation'}, '422': {$ref: '#/components/responses/Problem'}}}
+components:
+  parameters:
+    Id: {name: id, in: path, required: true, schema: {type: string}}
+    PageSize: {name: page[size], in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, schema: {type: string, maxLength: 255}}
+    IfMatch: {name: If-Match, in: header, schema: {type: string}}
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    OperationInput: {type: object, required: [kind], properties: {kind: {type: string, enum: [import, export, enrichment, deduplication, formatting, quality]}, source: {type: string, nullable: true}, target: {type: string, nullable: true}, options: {type: object}, mappings: {type: array, items: {type: object}}}}
+    OperationPatch: {type: object, properties: {source: {type: string, nullable: true}, target: {type: string, nullable: true}, options: {type: object}}}
+    Operation: {type: object, required: [id, type, attributes], properties: {id: {type: string}, type: {const: crm-data-operation}, attributes: {type: object, additionalProperties: true}}}
+    Problem: {type: object, required: [type, title, status], properties: {type: {type: string, format: uri}, title: {type: string}, status: {type: integer}, detail: {type: string}}}
+  responses:
+    Operation: {description: Data operation, content: {application/json: {schema: {type: object, properties: {data: {$ref: '#/components/schemas/Operation'}}}}}}
+    OperationCollection: {description: Paginated operations, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/Operation'}}, meta: {type: object}, links: {type: object}}}}}}
+    Problem: {description: RFC 9457 problem, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}

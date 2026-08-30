@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\Lead;
 use App\Models\Task;
 use App\Models\User;
+use App\Services\TaskAssignmentService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -30,12 +31,15 @@ class TaskForm extends Component
 
     public ?string $reminder_date = null;
 
+    public ?string $recurrence = null;
+
     protected function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'required|date',
+            'due_date' => $this->taskId ? 'required|date' : 'required|date|after_or_equal:today',
+            'recurrence' => 'nullable|in:daily,weekly,monthly',
             'contact_id' => 'nullable|exists:contacts,id',
             'lead_id' => 'nullable|exists:leads,id',
             'assigned_to' => 'required|exists:users,id',
@@ -55,10 +59,11 @@ class TaskForm extends Component
             $this->lead_id = $this->task->lead_id;
             $this->assigned_to = $this->task->assigned_to;
             $this->reminder_date = $this->task->reminder_date?->format('Y-m-d\TH:i');
+            $this->recurrence = $this->task->recurrence;
         }
     }
 
-    public function save(): mixed
+    public function save(TaskAssignmentService $taskAssignmentService): mixed
     {
         $this->validate();
 
@@ -70,13 +75,17 @@ class TaskForm extends Component
             'lead_id' => $this->lead_id,
             'assigned_to' => $this->assigned_to,
             'reminder_date' => $this->reminder_date,
+            'recurrence' => $this->recurrence,
         ];
 
         if ($this->taskId) {
+            $previousAssigneeId = $this->task->assigned_to;
             $this->task->update($taskData);
+            $taskAssignmentService->notify($this->task, $previousAssigneeId);
             session()->flash('message', 'Task updated successfully.');
         } else {
-            Task::create($taskData);
+            $task = Task::create($taskData);
+            $taskAssignmentService->notify($task);
             session()->flash('message', 'Task created successfully.');
         }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Security;
 
 use App\Models\Contact;
+use App\Models\Team;
 use App\Support\PiiEncryptionBackfill;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -44,12 +45,14 @@ class ContactEmailEncryptionTest extends TestCase
         $this->assertTrue($contact->is($found));
     }
 
-    public function test_duplicate_email_violates_uniqueness(): void
+    public function test_duplicate_email_violates_uniqueness_within_a_team(): void
     {
-        Contact::factory()->create(['email' => 'dupe@corp.example']);
+        $team = Team::factory()->create();
+        $attributes = ['email' => 'dupe@corp.example', 'team_id' => $team->id];
+        Contact::factory()->create($attributes);
 
         $this->expectException(QueryException::class);
-        Contact::factory()->create(['email' => 'dupe@corp.example']);
+        Contact::factory()->create($attributes);
     }
 
     public function test_backfill_encrypts_a_plaintext_row_and_is_idempotent(): void

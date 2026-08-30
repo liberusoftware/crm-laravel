@@ -1,0 +1,1 @@
+<section aria-label="Conversation inbox"><h2>Conversations</h2>@forelse($conversations as $conversation)<article><strong>{{ $conversation->channel }}</strong> {{ $conversation->subject }}</article>@empty<p>No conversations.</p>@endforelse</section>

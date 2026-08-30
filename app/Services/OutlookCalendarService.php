@@ -21,7 +21,7 @@ class OutlookCalendarService implements CalendarService
     protected function getGraph()
     {
         if ($this->graph === null) {
-            $this->graph = new Graph;
+            $this->graph = new Graph();
             $this->graph->setAccessToken($this->getAccessToken());
         }
 
@@ -36,7 +36,7 @@ class OutlookCalendarService implements CalendarService
 
     public function createEvent(Task $task): void
     {
-        $event = new Event;
+        $event = new Event();
         $event->setSubject($task->name);
         $event->setBody(new ItemBody(['content' => $task->description]));
         $event->setStart(new DateTimeTimeZone([
@@ -60,7 +60,7 @@ class OutlookCalendarService implements CalendarService
 
     public function updateEvent(Task $task): void
     {
-        $event = new Event;
+        $event = new Event();
         $event->setSubject($task->name);
         $event->setBody(new ItemBody(['content' => $task->description]));
         $event->setStart(new DateTimeTimeZone([

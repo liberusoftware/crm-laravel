@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-usage-wallet-and-rebilling-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UsageWalletAndRebilling\\Livewire\\":"src/"}},"extra":{"liberu":{"name":"crm-usage-wallet-and-rebilling-livewire"}},"require":{"liberusoftware/module-crm-usage-wallet-and-rebilling":"*"}}

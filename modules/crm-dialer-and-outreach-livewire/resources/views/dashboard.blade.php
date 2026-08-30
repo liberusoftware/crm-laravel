@@ -1,0 +1,1 @@
+<section aria-labelledby="dialer-heading"><h2 id="dialer-heading">Dialer and outreach</h2><ul>@forelse($lists as $list)<li>{{ $list->name }} — {{ $list->mode }} — {{ $list->status }}</li>@empty<li>No dialer lists.</li>@endforelse</ul></section>

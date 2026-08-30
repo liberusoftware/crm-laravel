@@ -40,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => $this->passwordRules(),
             ])->validate();
 
-            return DB::transaction(fn() => tap(User::create([
+            return DB::transaction(fn () => tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),

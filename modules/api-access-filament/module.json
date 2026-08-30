@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "api-access-filament",
+  "display_name": "API Access Filament",
+  "description": "API Access filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ApiAccessFilament\\ApiAccessFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/api-access": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.api-access.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for API Access",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\ApiAccessFilament\\ApiAccessFilamentPlugin"
+      ]
+    }
+  }
+}

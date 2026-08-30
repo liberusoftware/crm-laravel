@@ -15,9 +15,9 @@ class ImapServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->imapService = new ImapService;
+        $this->imapService = new ImapService();
 
-        $this->mockConfig = new OAuthConfiguration;
+        $this->mockConfig = new OAuthConfiguration();
         $this->mockConfig->forceFill([
             'id' => 1,
             'client_id' => 'test@example.com',
@@ -39,7 +39,7 @@ class ImapServiceTest extends TestCase
 
     public function test_imap_service_requires_configuration(): void
     {
-        $configWithoutSettings = new OAuthConfiguration;
+        $configWithoutSettings = new OAuthConfiguration();
         $configWithoutSettings->forceFill([
             'id' => 1,
             'client_id' => 'test@example.com',

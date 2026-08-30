@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Contact;
 use App\Models\Deal;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,7 +41,22 @@ class DealApiTest extends TestCase
 
         $this->getJson('/api/v1/deals')
             ->assertOk()
-            ->assertJsonCount(2);
+            ->assertJsonPath('total', 2)
+            ->assertJsonCount(2, 'data');
+    }
+
+    public function test_index_supports_search_filter_sort_and_pagination(): void
+    {
+        $user = $this->actingUser();
+        Deal::factory()->create(['team_id' => $user->currentTeam->id, 'name' => 'Alpha', 'stage' => 'open']);
+        Deal::factory()->create(['team_id' => $user->currentTeam->id, 'name' => 'Beta', 'stage' => 'won']);
+
+        $this->getJson('/api/v1/deals?search=Beta&stage=won&sort_by=name&sort_direction=asc&per_page=1')
+            ->assertOk()
+            ->assertJsonPath('total', 1)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.name', 'Beta')
+            ->assertJsonPath('per_page', 1);
     }
 
     // --------------------------------------------------------------- show
@@ -101,6 +117,21 @@ class DealApiTest extends TestCase
         $this->postJson('/api/v1/deals', ['name' => 'X', 'value' => 'not-a-number'])
             ->assertUnprocessable()
             ->assertJsonValidationErrors(['value']);
+    }
+
+    public function test_store_rejects_a_contact_from_another_team(): void
+    {
+        $this->actingUser();
+        $foreignContact = Contact::factory()->create([
+            'team_id' => $this->foreignTeamId(),
+        ]);
+
+        $this->postJson('/api/v1/deals', [
+            'name' => 'Cross-team deal',
+            'value' => 100,
+            'contact_id' => $foreignContact->id,
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors(['contact_id']);
     }
 
     // ------------------------------------------------------------- update

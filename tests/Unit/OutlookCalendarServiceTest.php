@@ -20,7 +20,7 @@ class OutlookCalendarServiceTest extends TestCase
     {
         parent::setUp();
         $this->mockGraph = Mockery::mock();
-        $this->outlookCalendarService = new OutlookCalendarService;
+        $this->outlookCalendarService = new OutlookCalendarService();
         $this->outlookCalendarService->graph = $this->mockGraph;
     }
 

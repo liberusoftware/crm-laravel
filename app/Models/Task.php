@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Contracts\OwnsRecords;
+use App\Services\RecurringTaskService;
 use App\Traits\IsTenantModel;
 use App\Traits\RestrictsToOwner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 class Task extends Model implements OwnsRecords
 {
@@ -26,6 +28,8 @@ class Task extends Model implements OwnsRecords
         'description',
         'due_date',
         'status',
+        'recurrence',
+        'completed_at',
         'contact_id',
         'lead_id',
         'company_id',
@@ -43,8 +47,32 @@ class Task extends Model implements OwnsRecords
         'reminder_date' => 'datetime',
         'reminder_sent' => 'boolean',
         'due_date' => 'datetime',
+        'completed_at' => 'datetime',
         'overdue_notified' => 'boolean',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (self $task): void {
+            if ($task->status === 'completed') {
+                $task->completed_at ??= now();
+            } elseif ($task->isDirty('status')) {
+                $task->completed_at = null;
+            }
+        });
+
+        static::updated(function (self $task): void {
+            if (
+                ! $task->wasChanged('status')
+                || $task->status !== 'completed'
+                || $task->recurrence === null
+            ) {
+                return;
+            }
+
+            app(RecurringTaskService::class)->createNextOccurrence($task);
+        });
+    }
 
     public function contact(): BelongsTo
     {
@@ -99,7 +127,6 @@ class Task extends Model implements OwnsRecords
             return app(OutlookCalendarService::class);
         }
 
-        return null;
     }
 
     public function assign(User $user): void
@@ -116,12 +143,18 @@ class Task extends Model implements OwnsRecords
 
     public function markAsIncomplete(): void
     {
-        $this->status = 'incomplete';
+        $this->status = 'pending';
         $this->save();
     }
 
     public function isOverdue(): bool
     {
-        return $this->due_date && $this->due_date->isPast() && $this->status !== 'completed';
+        $dueDate = $this->getAttribute('due_date');
+
+        if (! $dueDate instanceof Carbon) {
+            return false;
+        }
+
+        return $dueDate->isPast() && $this->status !== 'completed';
     }
 }

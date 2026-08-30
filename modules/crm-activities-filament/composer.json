@@ -1,0 +1,8 @@
+{
+    "name": "liberusoftware/module-crm-activities-filament",
+    "description": "Filament presentation for CRM activities",
+    "type": "liberu-module",
+    "require": {"php": "^8.5", "filament/filament": "^5.0", "liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-activities": "^1.0"},
+    "autoload": {"psr-4": {"Liberu\\CRM\\Activities\\Filament\\": "src/"}},
+    "extra": {"laravel": {"providers": ["Liberu\\CRM\\Activities\\Filament\\ActivitiesFilamentServiceProvider"]}, "liberu": {"name": "crm-activities-filament"}}
+}

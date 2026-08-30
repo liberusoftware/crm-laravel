@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Contact;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,7 +28,21 @@ class TaskApiTest extends TestCase
         $response = $this->getJson('/api/v1/tasks');
 
         $response->assertStatus(200)
-            ->assertJsonCount($beforeCount + 3);
+            ->assertJsonPath('total', $beforeCount + 3)
+            ->assertJsonCount(3, 'data');
+    }
+
+    public function test_can_search_filter_sort_and_paginate_tasks(): void
+    {
+        Task::factory()->create(['name' => 'Alpha task', 'status' => 'pending']);
+        Task::factory()->create(['name' => 'Beta task', 'status' => 'completed']);
+
+        $this->getJson('/api/v1/tasks?search=Beta&status=completed&sort_by=name&sort_direction=asc&per_page=1')
+            ->assertOk()
+            ->assertJsonPath('total', 1)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.name', 'Beta task')
+            ->assertJsonPath('per_page', 1);
     }
 
     public function test_can_create_task(): void
@@ -35,7 +50,7 @@ class TaskApiTest extends TestCase
         $taskData = [
             'name' => 'New Task',
             'description' => 'Task description',
-            'due_date' => '2023-06-30',
+            'due_date' => now()->addDay()->toDateString(),
             'status' => 'pending',
         ];
 
@@ -47,6 +62,41 @@ class TaskApiTest extends TestCase
                 'description' => 'Task description',
                 'status' => 'pending',
             ]);
+    }
+
+    public function test_can_create_a_recurring_task(): void
+    {
+        $response = $this->postJson('/api/v1/tasks', [
+            'name' => 'Weekly pipeline review',
+            'due_date' => now()->addDay()->toDateString(),
+            'recurrence' => 'weekly',
+        ]);
+
+        $response->assertCreated()
+            ->assertJsonPath('recurrence', 'weekly');
+    }
+
+    public function test_store_rejects_a_contact_from_another_team(): void
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        Sanctum::actingAs($user);
+        $foreignUser = User::factory()->withPersonalTeam()->create();
+        $foreignContact = Contact::factory()->create(['team_id' => $foreignUser->currentTeam->id]);
+
+        $this->postJson('/api/v1/tasks', [
+            'name' => 'Cross-team task',
+            'contact_id' => $foreignContact->id,
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors(['contact_id']);
+    }
+
+    public function test_store_rejects_a_past_due_date(): void
+    {
+        $this->postJson('/api/v1/tasks', [
+            'name' => 'Past task',
+            'due_date' => now()->subDay()->toDateString(),
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors(['due_date']);
     }
 
     public function test_can_show_task(): void

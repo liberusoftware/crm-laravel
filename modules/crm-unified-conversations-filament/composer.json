@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-unified-conversations-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UnifiedConversations\\Filament\\":"src/"}},"extra":{"liberu":{"name":"crm-unified-conversations-filament"}}}

@@ -1,0 +1,37 @@
+openapi: 3.1.0
+info:
+  title: CRM White Label API
+  version: 1.0.0
+paths:
+  /api/v1/crm/white-label:
+    get:
+      operationId: crm.white.label.get
+      security: [{ sanctum: [] }]
+      responses: { '200': { description: Authorized settings resource } }
+    patch:
+      operationId: crm.white.label.update
+      security: [{ sanctum: [] }]
+      parameters:
+        - { name: If-Match, in: header, schema: { type: string } }
+        - { name: Idempotency-Key, in: header, schema: { type: string, maxLength: 128 } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/WhiteLabelSettingsInput' }
+      responses: { '200': { description: Updated settings }, '409': { description: Version conflict } }
+components:
+  securitySchemes:
+    sanctum: { type: http, scheme: bearer, bearerFormat: Sanctum }
+  schemas:
+    WhiteLabelSettingsInput:
+      type: object
+      properties:
+        brand_name: { type: [string, 'null'], maxLength: 255 }
+        custom_domain: { type: [string, 'null'], maxLength: 255 }
+        theme: { type: string, maxLength: 100 }
+        email_settings: { type: [object, 'null'] }
+        application_settings: { type: [object, 'null'] }
+        client_experience: { type: [object, 'null'] }
+        provider: { type: string, maxLength: 100 }
+        show_platform_attribution: { type: boolean }

@@ -13,6 +13,7 @@ class SocialMediaPost extends Model
 
     protected $fillable = [
         'content',
+        'team_id',
         'link',
         'image_path',
         'video_url',

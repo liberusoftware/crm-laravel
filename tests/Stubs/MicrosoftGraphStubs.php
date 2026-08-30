@@ -45,9 +45,7 @@ namespace Microsoft\Graph\Model {
     if (! class_exists(Event::class)) {
         class Event
         {
-            public function __construct(protected array $data = [])
-            {
-            }
+            public function __construct(protected array $data = []) {}
 
             public function getId(): ?string
             {
@@ -120,9 +118,7 @@ namespace Microsoft\Graph\Model {
     if (! class_exists(ItemBody::class)) {
         class ItemBody
         {
-            public function __construct(protected array $data = [])
-            {
-            }
+            public function __construct(protected array $data = []) {}
 
             public function getContent(): ?string
             {
@@ -134,9 +130,7 @@ namespace Microsoft\Graph\Model {
     if (! class_exists(DateTimeTimeZone::class)) {
         class DateTimeTimeZone
         {
-            public function __construct(protected array $data = [])
-            {
-            }
+            public function __construct(protected array $data = []) {}
 
             public function getDateTime(): ?string
             {

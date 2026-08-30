@@ -8,6 +8,7 @@ use App\Actions\Socialstream\GenerateRedirectForProvider;
 use App\Actions\Socialstream\HandleInvalidState;
 use App\Actions\Socialstream\ResolveSocialiteUser;
 use App\Actions\Socialstream\UpdateConnectedAccount;
+use App\Models\ConnectedAccount;
 use App\Models\OAuthConfiguration;
 use App\Services\OAuth\TwilioProvider;
 use Illuminate\Support\ServiceProvider;
@@ -94,7 +95,7 @@ class SocialstreamServiceProvider extends ServiceProvider
         // ConnectedAccount model; override it so sign-up gets the app model
         // (IsTenantModel, account_type/is_primary, its event map). userModel is
         // already App\Models\User by default and not reset, so no override needed.
-        Socialstream::useConnectedAccountModel(\App\Models\ConnectedAccount::class);
+        Socialstream::useConnectedAccountModel(ConnectedAccount::class);
 
         Socialstream::resolvesSocialiteUsersUsing(ResolveSocialiteUser::class);
         Socialstream::createUsersFromProviderUsing(CreateUserWithTeamsFromProvider::class);
@@ -124,7 +125,7 @@ class SocialstreamServiceProvider extends ServiceProvider
             $serviceName = $provider->service_name;
 
             if ($serviceName === 'twilio') {
-                Socialite::extend($serviceName, fn() => new TwilioProvider(
+                Socialite::extend($serviceName, fn () => new TwilioProvider(
                     $this->app['request'],
                     $provider->client_id,
                     $provider->client_secret,

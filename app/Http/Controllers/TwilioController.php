@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\TwilioService;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Twilio\TwiML\VoiceResponse;
 
 class TwilioController extends Controller
 {
-    public function __construct(protected \App\Services\TwilioService $twilioService)
-    {
-    }
+    public function __construct(protected TwilioService $twilioService) {}
 
     public function initiateCall(Request $request)
     {
@@ -30,7 +30,7 @@ class TwilioController extends Controller
 
     public function handleOutboundCall(Request $request)
     {
-        $response = new VoiceResponse;
+        $response = new VoiceResponse();
         $dial = $response->dial('', ['callerId' => config('services.twilio.phone_number')]);
         $dial->number($request->input('To'));
 
@@ -39,14 +39,14 @@ class TwilioController extends Controller
 
     public function handleInboundCall(Request $request)
     {
-        $response = new VoiceResponse;
+        $response = new VoiceResponse();
         $response->say('Welcome to Liberu CRM. Please wait while we connect you to an agent.');
         $response->dial('', ['callerId' => $request->input('To')]);
 
         return response($response)->header('Content-Type', 'text/xml');
     }
 
-    public function handleRecordingCallback(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function handleRecordingCallback(Request $request): ResponseFactory|Response
     {
         $request->input('CallSid');
         $request->input('RecordingUrl');

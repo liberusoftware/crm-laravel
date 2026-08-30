@@ -18,7 +18,7 @@ class ReportingServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->reportingService = new ReportingService;
+        $this->reportingService = new ReportingService();
     }
 
     public function test_get_contact_interactions_data(): void

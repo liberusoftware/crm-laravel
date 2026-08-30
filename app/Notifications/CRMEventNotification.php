@@ -11,9 +11,7 @@ class CRMEventNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(protected $event, protected $data)
-    {
-    }
+    public function __construct(protected $event, protected $data) {}
 
     public function via($notifiable): array
     {
@@ -22,7 +20,7 @@ class CRMEventNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject("CRM Event: {$this->event}")
             ->line("A new CRM event has occurred: {$this->event}")
             ->line('Details: '.$this->getEventDetails())

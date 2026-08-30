@@ -1,0 +1,22 @@
+{
+  "name": "liberusoftware/theme-crm",
+  "description": "Liberu CRM responsive SaaS application theme.",
+  "type": "liberu-theme",
+  "license": "MIT",
+  "require": {
+    "php": "^8.5",
+    "liberusoftware/theme-base": "^2.0",
+    "liberusoftware/theme-support": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Liberu\\Themes\\Crm\\": "src/"
+    }
+  },
+  "extra": {
+    "liberu": {
+      "name": "theme-crm"
+    }
+  },
+  "version": "1.0.0"
+}

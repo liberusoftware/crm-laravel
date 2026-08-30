@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Google_Client;
 use Google_Service_Calendar;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class GoogleCalendarController extends Controller
 {
-    public function redirectToGoogle(): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+    public function redirectToGoogle(): Redirector|RedirectResponse
     {
-        $client = new Google_Client;
+        $client = new Google_Client();
         $client->setAuthConfig(config('services.google.credentials_path'));
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri(route('google.callback'));
@@ -21,7 +23,7 @@ class GoogleCalendarController extends Controller
 
     public function handleGoogleCallback(Request $request)
     {
-        $client = new Google_Client;
+        $client = new Google_Client();
         $client->setAuthConfig(config('services.google.credentials_path'));
         $client->setRedirectUri(route('google.callback'));
 

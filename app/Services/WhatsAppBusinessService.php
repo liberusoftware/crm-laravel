@@ -22,7 +22,7 @@ class WhatsAppBusinessService
 
     protected function initializeFromConfig(?OAuthConfiguration $config = null)
     {
-        if ($config instanceof \App\Models\OAuthConfiguration) {
+        if ($config instanceof OAuthConfiguration) {
             $this->apiUrl = $config->additional_settings['api_url'] ?? $this->apiUrl;
             $this->accessToken = $config->additional_settings['access_token'] ?? $config->client_secret;
         }

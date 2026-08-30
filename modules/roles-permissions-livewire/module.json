@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "roles-permissions-livewire",
+  "display_name": "Roles and Permissions Livewire",
+  "description": "Roles and Permissions livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\RolesPermissionsLivewire\\RolesPermissionsLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/roles-permissions": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.roles-permissions.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Roles and Permissions",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

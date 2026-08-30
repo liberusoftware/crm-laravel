@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-orders-and-payments-workspace-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\OrdersAndPaymentsWorkspaceApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\OrdersAndPaymentsWorkspaceApi\\Providers\\OrdersAndPaymentsWorkspaceApiServiceProvider"]},"liberu":{"name":"crm-orders-and-payments-workspace-api"}}}

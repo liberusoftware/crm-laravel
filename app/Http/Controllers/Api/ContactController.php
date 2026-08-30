@@ -4,30 +4,68 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\User;
+use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        return Contact::byTeam($request->user()?->currentTeam?->id)->get();
+        $search = trim((string) $request->input('search', ''));
+        $sortBy = (string) $request->input('sort_by', 'created_at');
+        $sortDirection = strtolower((string) $request->input('sort_direction', 'desc'));
+        $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
+
+        $query = Contact::query()
+            ->byTeam($request->user()?->currentTeam?->id)
+            ->when($search !== '', function (Builder $query) use ($search): void {
+                $like = '%'.addcslashes($search, '\\%_').'%';
+
+                $query->where(function (Builder $searchQuery) use ($search, $like): void {
+                    $searchQuery
+                        ->where('name', 'like', $like)
+                        ->orWhere('last_name', 'like', $like)
+                        ->orWhere('industry', 'like', $like)
+                        ->orWhere('lifecycle_stage', 'like', $like)
+                        ->orWhere('company_size', 'like', $like)
+                        ->orWhere('annual_revenue', 'like', $like)
+                        ->orWhere('email_hash', Contact::hashEmail($search))
+                        ->orWhereHas('company', fn (Builder $companyQuery): Builder => $companyQuery->where('name', 'like', $like));
+                });
+            })
+            ->when($request->filled('status'), fn (Builder $query): Builder => $query->where('status', $request->string('status')->toString()))
+            ->when($request->filled('source'), fn (Builder $query): Builder => $query->where('source', $request->string('source')->toString()))
+            ->when($request->filled('lifecycle_stage'), fn (Builder $query): Builder => $query->where('lifecycle_stage', $request->string('lifecycle_stage')->toString()))
+            ->when($request->filled('company_id'), fn (Builder $query): Builder => $query->where('company_id', (int) $request->input('company_id')));
+
+        $sortBy = in_array($sortBy, ['created_at', 'name', 'last_name', 'status', 'source', 'lifecycle_stage'], true)
+            ? $sortBy
+            : 'created_at';
+        $sortDirection = in_array($sortDirection, ['asc', 'desc'], true) ? $sortDirection : 'desc';
+
+        return $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
     }
 
     public function store(Request $request)
     {
+        $teamId = $request->user()?->currentTeam?->id;
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:contacts,email',
+            'email' => ['required', 'email', $this->uniqueEmailRule($teamId)],
             'phone_number' => 'nullable|string|max:20',
             'last_name' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:255',
             'source' => 'nullable|string|max:255',
             'industry' => 'nullable|string|max:255',
             'lifecycle_stage' => 'nullable|string|max:255',
-            'company_id' => 'nullable|integer|exists:companies,id',
+            'company_id' => ['nullable', 'integer', Rule::exists('companies', 'id')->where('team_id', $teamId)],
         ]);
 
-        $validated['team_id'] = $request->user()?->currentTeam?->id;
+        $validated['team_id'] = $teamId;
         $contact = Contact::create($validated);
 
         return response()->json($contact, 201);
@@ -42,23 +80,41 @@ class ContactController extends Controller
 
     public function update(Request $request, Contact $contact)
     {
-        abort_unless($contact->belongsToTeam($request->user()?->currentTeam?->id), 403);
+        $teamId = $request->user()?->currentTeam?->id;
+        abort_unless($contact->belongsToTeam($teamId), 403);
 
         $validated = $request->validate([
             'name' => 'string|max:255',
-            'email' => 'email|unique:contacts,email,'.$contact->id,
+            'email' => ['email', $this->uniqueEmailRule($teamId, $contact->id)],
             'phone_number' => 'nullable|string|max:20',
             'last_name' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:255',
             'source' => 'nullable|string|max:255',
             'industry' => 'nullable|string|max:255',
             'lifecycle_stage' => 'nullable|string|max:255',
-            'company_id' => 'nullable|integer|exists:companies,id',
+            'company_id' => ['nullable', 'integer', Rule::exists('companies', 'id')->where('team_id', $teamId)],
         ]);
 
         $contact->update($validated);
 
         return response()->json($contact, 200);
+    }
+
+    private function uniqueEmailRule(?int $teamId, ?int $ignoreId = null): Closure
+    {
+        return function (string $attribute, mixed $value, Closure $fail) use ($teamId, $ignoreId): void {
+            $query = Contact::withoutGlobalScopes()
+                ->where('team_id', $teamId)
+                ->where('email_hash', Contact::hashEmail((string) $value));
+
+            if ($ignoreId !== null) {
+                $query->whereKeyNot($ignoreId);
+            }
+
+            if ($query->exists()) {
+                $fail('The :attribute has already been taken by a contact in this team.');
+            }
+        };
     }
 
     public function destroy(Request $request, Contact $contact)
@@ -135,11 +191,11 @@ class ContactController extends Controller
         // Assignee must be a member of the caller's current team, else this
         // leaks records across tenants. Refuse before touching any record.
         $team = $request->user()?->currentTeam;
-        $assignee = \App\Models\User::find($request->input('user_id'));
+        $assignee = User::find($request->input('user_id'));
         abort_unless($team && $assignee?->belongsToTeam($team), 403);
 
         $query = Contact::whereIn('id', $request->input('ids'));
-        $query->byTeam($request->user()?->currentTeam?->id);
+        $query->byTeam($team->id);
         $count = $query->update(['user_id' => $request->input('user_id')]);
 
         return response()->json(['assigned' => $count]);

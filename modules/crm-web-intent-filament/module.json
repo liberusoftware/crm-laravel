@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-web-intent-filament",
+  "display_name": "CRM Web Intent Filament",
+  "description": "Filament presentation package for CRM Web Intent.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\WebIntent\\Filament\\WebIntentFilamentServiceProvider",
+  "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-web-intent": "^1.0" } },
+  "suggests": [],
+  "capabilities": ["crm.web-intent.filament"],
+  "default_enabled": false,
+  "features": ["Intent visit resource", "Intent alerts resource"]
+}

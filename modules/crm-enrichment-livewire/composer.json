@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-enrichment-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EnrichmentLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EnrichmentLivewire\\EnrichmentLivewireServiceProvider"]},"liberu":{"name":"module-crm-enrichment-livewire"}}}

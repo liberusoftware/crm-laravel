@@ -26,9 +26,7 @@ namespace Twilio\Rest {
     if (! class_exists(Client::class)) {
         class Client
         {
-            public function __construct()
-            {
-            }
+            public function __construct() {}
 
             /**
              * Expose dynamic properties via __get so Mockery can intercept them

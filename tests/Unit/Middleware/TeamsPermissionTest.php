@@ -5,6 +5,7 @@ namespace Tests\Unit\Middleware;
 use App\Http\Middleware\TeamsPermission;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,14 +37,14 @@ class TeamsPermissionTest extends TestCase
             ]);
         }
 
-        $this->middleware = new TeamsPermission;
+        $this->middleware = new TeamsPermission();
     }
 
     public function test_unauthenticated_user_is_redirected(): void
     {
         $request = Request::create('/_test/teams', 'GET');
 
-        $response = $this->middleware->handle($request, fn ($_): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($_): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(302, $response->getStatusCode());
     }
@@ -61,7 +62,7 @@ class TeamsPermissionTest extends TestCase
 
         $request = Request::create('/_test/teams', 'GET');
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -74,7 +75,7 @@ class TeamsPermissionTest extends TestCase
 
         $request = Request::create('/_test/teams', 'GET');
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -91,7 +92,7 @@ class TeamsPermissionTest extends TestCase
 
         $request = Request::create('/_test/teams', 'GET');
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -108,7 +109,7 @@ class TeamsPermissionTest extends TestCase
 
         $request = Request::create('/_test/teams', 'GET');
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -133,7 +134,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/companies', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(302, $response->getStatusCode());
     }
@@ -158,7 +159,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/companies', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -181,7 +182,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/dashboard', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -208,7 +209,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/companies', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -227,7 +228,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/team/new', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -245,7 +246,7 @@ class TeamsPermissionTest extends TestCase
 
         $request = Request::create('/_test/teams', 'GET');
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -272,7 +273,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/companies', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());
@@ -296,7 +297,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create("/_test/teams/{$otherTeam->id}", 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(302, $response->getStatusCode());
     }
@@ -318,7 +319,7 @@ class TeamsPermissionTest extends TestCase
         $request = Request::create('/_test/advertising-dashboards', 'GET');
         $request->setRouteResolver(fn () => app('router')->getRoutes()->match($request));
 
-        $response = $this->middleware->handle($request, fn ($req): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response => response('ok'));
+        $response = $this->middleware->handle($request, fn ($req): ResponseFactory|\Illuminate\Http\Response => response('ok'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('ok', $response->getContent());

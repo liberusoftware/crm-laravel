@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-business-process-management-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\BusinessProcessManagementFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\BusinessProcessManagementFilament\\BusinessProcessManagementFilamentServiceProvider"]},"liberu":{"name":"module-crm-business-process-management-filament"}}}

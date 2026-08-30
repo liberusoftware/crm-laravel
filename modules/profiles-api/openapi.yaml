@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Profiles API
+  version: 1.0.0
+paths:
+  /api/v1/profiles/status:
+    get:
+      operationId: profiles_status
+      responses:
+        '200':
+          description: Adapter availability
+

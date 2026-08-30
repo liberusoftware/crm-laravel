@@ -21,7 +21,7 @@ class MailChimpServiceTest extends TestCase
         config()->set('services.mailchimp.server_prefix', 'us1');
 
         $this->mockApiClient = Mockery::mock(ApiClient::class);
-        $this->mailChimpService = new MailChimpService;
+        $this->mailChimpService = new MailChimpService();
         $this->mailChimpService->setClient($this->mockApiClient);
     }
 
@@ -39,7 +39,7 @@ class MailChimpServiceTest extends TestCase
     {
         config()->set('services.mailchimp.api_key', '');
 
-        $service = new MailChimpService;
+        $service = new MailChimpService();
 
         $this->assertFalse($service->isConfigured());
     }
@@ -48,7 +48,7 @@ class MailChimpServiceTest extends TestCase
     {
         config()->set('services.mailchimp.server_prefix', '');
 
-        $service = new MailChimpService;
+        $service = new MailChimpService();
 
         $this->assertFalse($service->isConfigured());
     }
@@ -57,7 +57,7 @@ class MailChimpServiceTest extends TestCase
     {
         config()->set('services.mailchimp.api_key', '');
 
-        $service = new MailChimpService;
+        $service = new MailChimpService();
 
         $this->assertSame([], $service->getLists());
     }

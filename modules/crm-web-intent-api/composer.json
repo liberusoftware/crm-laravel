@@ -1,0 +1,7 @@
+{
+  "name": "liberusoftware/module-crm-web-intent-api",
+  "type": "liberu-module",
+  "autoload": { "psr-4": { "Liberu\\CRM\\WebIntent\\Api\\": "src/" } },
+  "extra": { "laravel": { "providers": ["Liberu\\CRM\\WebIntent\\Api\\WebIntentApiServiceProvider"] }, "liberu": { "name": "crm-web-intent-api" } },
+  "require": { "php": "^8.5", "illuminate/routing": "^13.0", "liberusoftware/module-crm-web-intent": "^1.0" }
+}

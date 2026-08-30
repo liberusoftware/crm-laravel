@@ -7,6 +7,7 @@ use App\Models\Webhook;
 use App\Services\WebhookService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Uri;
+use League\Uri\Contracts\UriInterface;
 
 class WebhookController extends Controller
 {
@@ -36,7 +37,7 @@ class WebhookController extends Controller
             'url' => [
                 'required',
                 'url',
-                function ($_attribute, \League\Uri\Contracts\UriInterface|\Stringable|string $value, $fail): void {
+                function ($_attribute, UriInterface|\Stringable|string $value, $fail): void {
                     if (! app()->environment('production')) {
                         return;
                     }
@@ -99,7 +100,7 @@ class WebhookController extends Controller
             'url' => [
                 'sometimes',
                 'url',
-                function ($_attribute, \League\Uri\Contracts\UriInterface|\Stringable|string $value, $fail): void {
+                function ($_attribute, UriInterface|\Stringable|string $value, $fail): void {
                     if (! app()->environment('production')) {
                         return;
                     }

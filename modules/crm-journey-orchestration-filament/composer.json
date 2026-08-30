@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-journey-orchestration-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\JourneyOrchestrationFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\JourneyOrchestrationFilament\\JourneyOrchestrationFilamentServiceProvider"]},"liberu":{"name":"crm-journey-orchestration-filament"}}}

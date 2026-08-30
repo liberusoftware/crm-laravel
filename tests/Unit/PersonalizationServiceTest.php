@@ -16,7 +16,7 @@ class PersonalizationServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new PersonalizationService;
+        $this->service = new PersonalizationService();
     }
 
     /**
@@ -25,18 +25,18 @@ class PersonalizationServiceTest extends TestCase
     public static function segmentProvider(): array
     {
         return [
-            'customer stage wins'            => [['lifecycle_stage' => 'customer', 'activity_count' => 0], 'customer'],
-            'opportunity stage'              => [['lifecycle_stage' => 'opportunity'], 'opportunity'],
-            'sql stage'                      => [['lifecycle_stage' => 'sql'], 'sales_qualified'],
-            'mql stage'                      => [['lifecycle_stage' => 'mql'], 'marketing_qualified'],
-            'activity>=5 => marketing'       => [['activity_count' => 5], 'marketing_qualified'],
-            'activity 8 no stage => mkt'     => [['activity_count' => 8], 'marketing_qualified'],
-            'lead stage'                     => [['lifecycle_stage' => 'lead'], 'engaged_lead'],
-            'activity>=3 => engaged'         => [['activity_count' => 3], 'engaged_lead'],
-            'subscriber stage'               => [['lifecycle_stage' => 'subscriber'], 'prospect'],
-            'activity>=1 => prospect'        => [['activity_count' => 1], 'prospect'],
-            'empty => new_visitor'           => [[], 'new_visitor'],
-            'zero activity => new_visitor'   => [['activity_count' => 0], 'new_visitor'],
+            'customer stage wins' => [['lifecycle_stage' => 'customer', 'activity_count' => 0], 'customer'],
+            'opportunity stage' => [['lifecycle_stage' => 'opportunity'], 'opportunity'],
+            'sql stage' => [['lifecycle_stage' => 'sql'], 'sales_qualified'],
+            'mql stage' => [['lifecycle_stage' => 'mql'], 'marketing_qualified'],
+            'activity>=5 => marketing' => [['activity_count' => 5], 'marketing_qualified'],
+            'activity 8 no stage => mkt' => [['activity_count' => 8], 'marketing_qualified'],
+            'lead stage' => [['lifecycle_stage' => 'lead'], 'engaged_lead'],
+            'activity>=3 => engaged' => [['activity_count' => 3], 'engaged_lead'],
+            'subscriber stage' => [['lifecycle_stage' => 'subscriber'], 'prospect'],
+            'activity>=1 => prospect' => [['activity_count' => 1], 'prospect'],
+            'empty => new_visitor' => [[], 'new_visitor'],
+            'zero activity => new_visitor' => [['activity_count' => 0], 'new_visitor'],
         ];
     }
 
@@ -95,7 +95,7 @@ class PersonalizationServiceTest extends TestCase
 
     public function test_personalize_content_runs_end_to_end(): void
     {
-        $page = new LandingPage;
+        $page = new LandingPage();
         $page->content = 'Hello {name}! '
             .'[segment:prospect]You are a prospect.[/segment]'
             .'[segment:customer]VIP treatment.[/segment]'

@@ -1,0 +1,10 @@
+{
+  "name": "liberusoftware/module-crm-customer-data-model",
+  "description": "Schema-driven standard and custom customer data models for Liberu CRM.",
+  "type": "liberu-module",
+  "license": "MIT",
+  "require": {"php": "^8.5", "illuminate/database": "^13.0", "liberusoftware/module-manager": "^1.0", "liberusoftware/module-crm-core": "^1.0"},
+  "autoload": {"psr-4": {"Liberu\\CRM\\CustomerDataModel\\": "src/"}},
+  "extra": {"liberu": {"name": "crm-customer-data-model"}},
+  "version": "1.0.0"
+}

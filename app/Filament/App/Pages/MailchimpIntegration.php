@@ -43,7 +43,7 @@ class MailchimpIntegration extends Page
 
     public function createList(MailChimpService $mailchimpService): void
     {
-        $data = $this->createListForm(new Schema)->getState();
+        $data = $this->createListForm(new Schema())->getState();
         $result = $mailchimpService->createList(
             $data['name'],
             $data['company'],
@@ -83,7 +83,7 @@ class MailchimpIntegration extends Page
 
     public function createCampaign(MailChimpService $mailchimpService): void
     {
-        $data = $this->createCampaignForm(new Schema)->getState();
+        $data = $this->createCampaignForm(new Schema())->getState();
         $result = $mailchimpService->createCampaign(
             $data['list_id'],
             $data['subject'],

@@ -19,16 +19,14 @@ class CreateUserFromProvider implements CreatesUserFromProvider
          * The creates connected accounts instance.
          */
         public CreatesConnectedAccounts $createsConnectedAccounts
-    )
-    {
-    }
+    ) {}
 
     /**
      * Create a new user from a social provider user.
      */
     public function create(string $provider, ProviderUser $providerUser): User
     {
-        return DB::transaction(fn() => tap(User::create([
+        return DB::transaction(fn () => tap(User::create([
             'name' => $providerUser->getName() ?? $providerUser->getNickname(),
             'email' => $providerUser->getEmail(),
         ]), function (User $user) use ($provider, $providerUser): void {

@@ -6,6 +6,8 @@ use App\Filament\App\Resources\ContactResource;
 use App\Models\Contact;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ListContacts extends ListRecords
@@ -23,7 +25,7 @@ class ListContacts extends ListRecords
     /**
      * Handle the index request for the contacts list.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(Request $request): Factory|View
     {
         $query = Contact::query();
 

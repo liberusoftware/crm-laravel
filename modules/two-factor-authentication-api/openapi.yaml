@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Two-Factor Authentication API
+  version: 1.0.0
+paths:
+  /api/v1/two-factor-authentication/status:
+    get:
+      operationId: two_factor_authentication_status
+      responses:
+        '200':
+          description: Adapter availability
+

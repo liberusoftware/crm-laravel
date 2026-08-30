@@ -1,0 +1,11 @@
+{
+  "name": "liberusoftware/localization-contracts",
+  "description": "Framework-neutral contracts for Liberu localization providers.",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/liberusoftware/localization-contracts",
+  "support": {"source": "https://github.com/liberusoftware/localization-contracts"},
+  "require": {"php": "^8.5"},
+  "autoload": {"psr-4": {"Liberu\\Localization\\Contracts\\": "src/"}},
+  "version": "1.0.0"
+}

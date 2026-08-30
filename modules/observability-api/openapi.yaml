@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Observability API
+  version: 1.0.0
+paths:
+  /api/v1/observability/status:
+    get:
+      operationId: observability_status
+      responses:
+        '200':
+          description: Adapter availability
+

@@ -3,6 +3,8 @@
 namespace App\Filament\App\Resources\TaskResource\Pages;
 
 use App\Filament\App\Resources\TaskResource;
+use App\Models\Task;
+use App\Services\TaskAssignmentService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\CreateRecord;
@@ -34,6 +36,12 @@ class CreateTask extends CreateRecord
 
     protected function afterCreate(): void
     {
+        if (! $this->record instanceof Task) {
+            return;
+        }
+
+        app(TaskAssignmentService::class)->notify($this->record);
+
         if ($this->record->calendar_type !== 'none') {
             $this->record->syncWithCalendar();
         }

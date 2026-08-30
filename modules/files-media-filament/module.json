@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "files-media-filament",
+  "display_name": "Files and Media Filament",
+  "description": "Files and Media filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\FilesMediaFilament\\FilesMediaFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/files-media": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.files-media.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Files and Media",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\FilesMediaFilament\\FilesMediaFilamentPlugin"
+      ]
+    }
+  }
+}

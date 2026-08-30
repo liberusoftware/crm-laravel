@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "activity-comments-livewire",
+  "display_name": "Activity and Comments Livewire",
+  "description": "Activity and Comments livewire presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ActivityCommentsLivewire\\ActivityCommentsLivewireServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/activity-comments": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.activity-comments.livewire"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded livewire presentation for Activity and Comments",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}

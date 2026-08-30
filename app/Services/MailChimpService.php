@@ -7,11 +7,11 @@ use MailchimpMarketing\ApiClient;
 
 class MailChimpService
 {
-    protected \MailchimpMarketing\ApiClient $client;
+    protected ApiClient $client;
 
     public function __construct()
     {
-        $this->client = new ApiClient;
+        $this->client = new ApiClient();
         $this->client->setConfig([
             'apiKey' => config('services.mailchimp.api_key'),
             'server' => config('services.mailchimp.server_prefix'),
@@ -43,7 +43,7 @@ class MailChimpService
     public function createList($name, $company, $permission_reminder, $from_name, $from_email)
     {
         if (! $this->isConfigured()) {
-            return null;
+            return;
         }
 
         return $this->client->lists->createList([
@@ -70,7 +70,7 @@ class MailChimpService
     public function addMember($list_id, $email, $status = 'subscribed', $merge_fields = [])
     {
         if (! $this->isConfigured()) {
-            return null;
+            return;
         }
 
         return $this->client->lists->addListMember($list_id, [
@@ -83,7 +83,7 @@ class MailChimpService
     public function createCampaign($list_id, $subject, $from_name, $reply_to, $html_content)
     {
         if (! $this->isConfigured()) {
-            return null;
+            return;
         }
 
         $campaign = $this->client->campaigns->create([
@@ -108,7 +108,7 @@ class MailChimpService
     public function createABTestCampaign($list_id, $subject_a, $subject_b, $from_name, $reply_to, $html_content_a, $html_content_b, $test_size = 50, $winner_criteria = 'opens')
     {
         if (! $this->isConfigured()) {
-            return null;
+            return;
         }
 
         $campaign = $this->client->campaigns->create([
@@ -143,7 +143,7 @@ class MailChimpService
     public function sendCampaign($campaign_id)
     {
         if (! $this->isConfigured()) {
-            return null;
+            return;
         }
 
         return $this->client->campaigns->send($campaign_id);
@@ -157,7 +157,7 @@ class MailChimpService
 
         $response = $this->client->campaigns->list();
 
-        return collect($response->campaigns)->map(fn($campaign) => [
+        return collect($response->campaigns)->map(fn ($campaign) => [
             'id' => $campaign->id,
             'web_id' => $campaign->web_id,
             'name' => $campaign->settings->title,

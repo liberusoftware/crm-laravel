@@ -1,0 +1,41 @@
+openapi: 3.1.0
+info: {title: CRM Lead Qualification API, version: 1.0.0}
+paths:
+  /api/v1/crm/lead-qualification:
+    get: {operationId: crm.lead.qualification.list, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/PageSize'}, {'$ref': '#/components/parameters/Status'}, {'$ref': '#/components/parameters/Stage'}], responses: {'200': {$ref: '#/components/responses/Collection'}}}
+    post: {operationId: crm.lead.qualification.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/QualificationInput'}}}}, responses: {'201': {$ref: '#/components/responses/Qualification'}, '422': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/lead-qualification/{qualification}:
+    get: {operationId: crm.lead.qualification.get, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}], responses: {'200': {$ref: '#/components/responses/Qualification'}}}
+    patch: {operationId: crm.lead.qualification.score, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}, {'$ref': '#/components/parameters/IfMatch'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/ScoreInput'}}}}, responses: {'200': {$ref: '#/components/responses/Qualification'}, '409': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/lead-qualification/{qualification}/evaluate: {post: {operationId: crm.lead.qualification.evaluate, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}, {'$ref': '#/components/parameters/IdempotencyKey'}], responses: {'200': {$ref: '#/components/responses/Qualification'}}}}
+  /api/v1/crm/lead-qualification/{qualification}/transition: {post: {operationId: crm.lead.qualification.transition, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/TransitionInput'}}}}, responses: {'200': {$ref: '#/components/responses/Qualification'}}}}
+  /api/v1/crm/lead-qualification/{qualification}/disqualify: {post: {operationId: crm.lead.qualification.disqualify, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/DisqualificationInput'}}}}, responses: {'200': {$ref: '#/components/responses/Qualification'}}}}
+  /api/v1/crm/lead-qualification/{qualification}/nurture: {post: {operationId: crm.lead.qualification.nurture, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/NurtureInput'}}}}, responses: {'201': {$ref: '#/components/responses/Nurture'}}}}
+  /api/v1/crm/lead-qualification/{qualification}/convert: {post: {operationId: crm.lead.qualification.convert, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Qualification'}], responses: {'200': {$ref: '#/components/responses/Qualification'}}}}
+  /api/v1/crm/lead-qualification/frameworks: {get: {operationId: crm.lead.qualification.frameworks.list, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Collection'}}}, post: {operationId: crm.lead.qualification.frameworks.create, security: [{sanctum: []}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/FrameworkInput'}}}}, responses: {'201': {$ref: '#/components/responses/Framework'}}}}
+  /api/v1/crm/lead-qualification/report: {get: {operationId: crm.lead.qualification.report, security: [{sanctum: []}], responses: {'200': {description: Qualification report}}}}
+components:
+  parameters:
+    Qualification: {name: qualification, in: path, required: true, schema: {type: integer, minimum: 1}}
+    PageSize: {name: page[size], in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+    Status: {name: status, in: query, schema: {type: string}}
+    Stage: {name: lifecycle_stage, in: query, schema: {type: string}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, schema: {type: string}}
+    IfMatch: {name: If-Match, in: header, schema: {type: string}}
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    QualificationInput: {type: object, required: [subject_type, subject_id], properties: {subject_type: {type: string}, subject_id: {type: integer}, framework_id: {type: integer, nullable: true}, lifecycle_stage: {type: string}, fit_score: {type: integer, minimum: 0, maximum: 100}, engagement_score: {type: integer, minimum: 0, maximum: 100}, metadata: {type: object}}}
+    ScoreInput: {type: object, required: [fit_score, engagement_score], properties: {fit_score: {type: integer, minimum: 0, maximum: 100}, engagement_score: {type: integer, minimum: 0, maximum: 100}}}
+    TransitionInput: {type: object, required: [lifecycle_stage], properties: {lifecycle_stage: {type: string}, reason: {type: string, nullable: true}}}
+    DisqualificationInput: {type: object, required: [reason], properties: {reason: {type: string}}}
+    NurtureInput: {type: object, required: [sequence], properties: {sequence: {type: string}, starts_at: {type: string, format: date-time}, ends_at: {type: string, format: date-time, nullable: true}, metadata: {type: object}}}
+    FrameworkInput: {type: object, required: [name], properties: {name: {type: string}, status: {type: string}, mql_threshold: {type: integer}, pql_threshold: {type: integer}, sql_threshold: {type: integer}, service_qualified_threshold: {type: integer}, rules: {type: object}, settings: {type: object}}}
+    Qualification: {type: object, required: [id, type, attributes], properties: {id: {type: string}, type: {const: crm-lead-qualification}, attributes: {type: object, additionalProperties: false}}}
+    Nurture: {type: object, required: [id, type, attributes], properties: {id: {type: string}, type: {const: crm-lead-qualification-nurture}, attributes: {type: object, additionalProperties: true}}}
+    Problem: {type: object, required: [type, title, status], properties: {type: {type: string}, title: {type: string}, status: {type: integer}, detail: {type: string}}}
+  responses:
+    Qualification: {description: Qualification resource, content: {application/json: {schema: {type: object, properties: {data: {$ref: '#/components/schemas/Qualification'}}}}}}
+    Framework: {description: Framework resource, content: {application/json: {schema: {type: object, properties: {data: {$ref: '#/components/schemas/Qualification'}}}}}}
+    Nurture: {description: Nurture resource, content: {application/json: {schema: {type: object, properties: {data: {$ref: '#/components/schemas/Nurture'}}}}}}
+    Collection: {description: Paginated qualification resources, content: {application/json: {schema: {type: object, properties: {data: {type: array}, meta: {type: object}, links: {type: object}}}}}}
+    Problem: {description: RFC 9457 problem, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}

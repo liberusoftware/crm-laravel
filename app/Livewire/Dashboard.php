@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\DashboardWidget;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -37,7 +39,7 @@ class Dashboard extends Component
         $this->widgets = $this->widgets->reject(fn ($widget): bool => $widget->id == $widgetId)->values();
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         return view('livewire.dashboard');
     }

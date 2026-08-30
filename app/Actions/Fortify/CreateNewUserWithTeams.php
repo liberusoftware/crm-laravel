@@ -28,7 +28,7 @@ class CreateNewUserWithTeams implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        return DB::transaction(fn() => tap(User::create([
+        return DB::transaction(fn () => tap(User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),

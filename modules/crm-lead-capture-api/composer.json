@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-lead-capture-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LeadCaptureApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LeadCaptureApi\\Providers\\LeadCaptureApiServiceProvider"]},"liberu":{"name":"crm-lead-capture-api"}}}

@@ -1,0 +1,17 @@
+openapi: 3.1.0
+info: {title: CRM Web Intent API, version: 1.0.0}
+paths:
+  /api/v1/crm/web-intent/visits:
+    get: {operationId: crm.web.intent.list, security: [{sanctum: []}], responses: {'200': {description: Authorized visit collection}}}
+    post: {operationId: crm.web.intent.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/VisitInput'}}}}, responses: {'201': {description: Visit created}}}
+  /api/v1/crm/web-intent/visits/{visit}/engagements:
+    post: {operationId: crm.web.intent.engagement.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Visit'}], responses: {'201': {description: Engagement recorded}}}
+  /api/v1/crm/web-intent/summary:
+    get: {operationId: crm.web.intent.summary, security: [{sanctum: []}], responses: {'200': {description: Intent summary}}}
+components:
+  parameters:
+    Visit: {name: visit, in: path, required: true, schema: {type: integer, minimum: 1}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, schema: {type: string, maxLength: 128}}
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    VisitInput: {type: object, required: [visitor_key], properties: {visitor_key: {type: string, maxLength: 128}, session_key: {type: [string, 'null']}, landing_url: {type: [string, 'null'], format: uri}, referrer: {type: [string, 'null'], format: uri}, consent_status: {type: string, enum: [unknown, granted, denied, withdrawn]}, metadata: {type: [object, 'null']}}}

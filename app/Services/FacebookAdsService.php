@@ -14,7 +14,7 @@ class FacebookAdsService
 {
     protected $api;
 
-    public function __construct(protected \App\Models\AdvertisingAccount $account)
+    public function __construct(protected AdvertisingAccount $account)
     {
         $this->api = $this->initializeApi();
     }

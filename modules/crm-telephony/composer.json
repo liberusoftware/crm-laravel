@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-telephony","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Telephony\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Telephony\\TelephonyServiceProvider"]},"liberu":{"name":"crm-telephony"}}}

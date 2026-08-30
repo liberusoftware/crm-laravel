@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-lead-qualification-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\LeadQualificationApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\LeadQualificationApi\\Providers\\LeadQualificationApiServiceProvider"]},"liberu":{"name":"crm-lead-qualification-api"}}}

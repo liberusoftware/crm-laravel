@@ -1,0 +1,1 @@
+<section aria-labelledby="campaigns-heading"><h2 id="campaigns-heading">Email campaigns</h2><ul>@forelse($campaigns as $campaign)<li>{{ $campaign->name }} — {{ $campaign->status }}</li>@empty<li>No campaigns.</li>@endforelse</ul><dl><dt>Opened</dt><dd>{{ $analytics['opened'] ?? 0 }}</dd><dt>Clicked</dt><dd>{{ $analytics['clicked'] ?? 0 }}</dd></dl></section>

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ContactListController;
 use App\Http\Controllers\EmailTrackingController;
 use App\Http\Controllers\HomeController;
@@ -60,7 +61,7 @@ Route::get('/contacts/{created_at?}', [ContactListController::class, 'index'])->
     ->where('created_at', '.+');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
 // Twilio TwiML routes (public, Twilio callback, signature-verified)
 Route::post('/twilio/twiml/outbound', [TwilioController::class, 'handleOutboundCall'])->middleware('twilio.verify')->name('twilio.twiml.outbound');
@@ -69,6 +70,15 @@ Route::post('/twilio/recording/callback', [TwilioController::class, 'handleRecor
 // Email tracking routes (public, no auth required)
 Route::get('/email/track/pixel/{tracking_id}', [EmailTrackingController::class, 'pixel'])->name('email.tracking.pixel');
 Route::get('/email/track/link/{tracking_id}', [EmailTrackingController::class, 'link'])->name('email.tracking.link');
+
+Route::middleware(['auth'])->prefix('billing')->group(function (): void {
+    Route::get('/', fn () => view('billing.index', ['plans' => config('saas.plans')]))->name('billing.index');
+    Route::post('/subscribe', [BillingController::class, 'subscribe'])->name('billing.subscribe');
+    Route::post('/payment-method', [BillingController::class, 'updatePaymentMethod'])->name('billing.payment-method');
+    Route::post('/cancel', [BillingController::class, 'cancel'])->name('billing.cancel');
+});
+Route::post('/stripe/webhook', [BillingController::class, 'webhook'])->name('billing.webhook');
+Route::middleware(['auth'])->get('/data/export', [BillingController::class, 'export'])->name('data.export');
 
 // Route::middleware(['guest'])->group(function () {
 //     Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');

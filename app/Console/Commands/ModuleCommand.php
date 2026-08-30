@@ -59,7 +59,7 @@ class ModuleCommand extends Command
 
         $this->table(
             ['Name', 'Version', 'Status', 'Description'],
-            $modules->map(fn($module) => [
+            $modules->map(fn ($module) => [
                 $module->getName(),
                 $module->getVersion(),
                 $module->isEnabled() ? '<fg=green>Enabled</>' : '<fg=red>Disabled</>',
@@ -165,8 +165,9 @@ class ModuleCommand extends Command
             return 1;
         }
 
-        if (!$this->option('force') && ! $this->confirm("Are you sure you want to uninstall module '{$name}'? This action cannot be undone.")) {
+        if (! $this->option('force') && ! $this->confirm("Are you sure you want to uninstall module '{$name}'? This action cannot be undone.")) {
             $this->info('Operation cancelled.');
+
             return 0;
         }
 

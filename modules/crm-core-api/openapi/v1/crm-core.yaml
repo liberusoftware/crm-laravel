@@ -1,0 +1,54 @@
+openapi: 3.1.0
+info:
+  title: CRM Core API
+  version: 1.0.0
+paths:
+  /api/v1/crm/crm-core:
+    get:
+      operationId: crm.core.list
+      security: [{sanctum: []}]
+      parameters:
+        - {name: page[size], in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+        - {name: type, in: query, schema: {type: string, maxLength: 40}}
+      responses:
+        '200': {$ref: '#/components/responses/ResourceCollection'}
+    post:
+      operationId: crm.core.create
+      security: [{sanctum: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateRecordRequest'}
+      responses: {'201': {$ref: '#/components/responses/Resource'}}
+  /api/v1/crm/crm-core/{id}:
+    parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+    get:
+      operationId: crm.core.get
+      security: [{sanctum: []}]
+      responses: {'200': {$ref: '#/components/responses/Resource'}}
+    patch:
+      operationId: crm.core.update
+      security: [{sanctum: []}]
+      responses: {'200': {$ref: '#/components/responses/Resource'}}
+    delete:
+      operationId: crm.core.delete
+      security: [{sanctum: []}]
+      responses: {'204': {description: Archived}}
+components:
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    CrmCoreResource:
+      type: object
+      required: [id, type, attributes]
+      properties:
+        id: {type: string}
+        type: {type: string, const: crm-core}
+        attributes: {type: object, required: [record_type, name, status], properties: {record_type: {type: string}, name: {type: string}, status: {type: string}, data: {type: object, additionalProperties: true}}}
+    CreateRecordRequest:
+      type: object
+      required: [type, name]
+      properties: {type: {type: string, maxLength: 40}, name: {type: string, maxLength: 255}, data: {type: object, additionalProperties: true}, owner_id: {type: integer, nullable: true}}
+  responses:
+    Resource: {description: CRM Core resource, content: {application/json: {schema: {type: object, required: [data], properties: {data: {$ref: '#/components/schemas/CrmCoreResource'}}}}}}
+    ResourceCollection: {description: Paginated CRM Core resources, content: {application/json: {schema: {type: object, required: [data], properties: {data: {type: array, items: {$ref: '#/components/schemas/CrmCoreResource'}}, meta: {type: object}}}}}}

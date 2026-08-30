@@ -19,12 +19,13 @@ class MakeModuleCommand extends Command
 
         if (File::exists($modulePath) && ! $this->option('force')) {
             $this->error("Module '{$name}' already exists. Use --force to overwrite.");
+
             return 1;
         }
 
         $this->createStructure($name, $modulePath);
         $this->info("Module '{$name}' created successfully at app/Modules/{$name}Module/");
-        $this->line("  Register its service provider in config/app.php or a service provider.");
+        $this->line('  Register its service provider in config/app.php or a service provider.');
 
         return 0;
     }

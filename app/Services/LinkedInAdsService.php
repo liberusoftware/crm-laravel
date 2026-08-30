@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class LinkedInAdsService
 {
-    protected \GuzzleHttp\Client $client;
+    protected Client $client;
 
-    public function __construct(protected \App\Models\AdvertisingAccount $account)
+    public function __construct(protected AdvertisingAccount $account)
     {
         $this->client = new Client([
             'base_uri' => 'https://api.linkedin.com/v2/',

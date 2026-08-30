@@ -15,9 +15,7 @@ class TeamInvitation extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(protected \App\Models\Team $team, protected \App\Models\User $invitedBy)
-    {
-    }
+    public function __construct(protected Team $team, protected User $invitedBy) {}
 
     /**
      * Get the notification's delivery channels.
@@ -37,7 +35,7 @@ class TeamInvitation extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->line('You have been invited to join the team '.$this->team->name.' by '.$this->invitedBy->name.'.')
             ->action('Accept Invitation', url('/team-invitations/'.$notifiable->id.'/accept'))
             ->line('If you did not expect to receive an invitation to this team, you may discard this email.');

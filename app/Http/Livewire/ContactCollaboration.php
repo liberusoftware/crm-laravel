@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Events\ContactUpdated;
 use App\Models\Contact;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -40,7 +42,7 @@ class ContactCollaboration extends Component
 
     public function mount(?Contact $contact = null): void
     {
-        if ($contact instanceof \App\Models\Contact) {
+        if ($contact instanceof Contact) {
             $this->contact = $contact;
             $this->name = $contact->name;
             $this->email = $contact->email;
@@ -75,7 +77,7 @@ class ContactCollaboration extends Component
         $this->sortField = $field;
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         $contacts = Contact::query()
             ->when($this->search, function ($query): void {

@@ -1,0 +1,31 @@
+openapi: 3.1.0
+info: {title: CRM Consent and Preferences API, version: 1.0.0}
+paths:
+  /api/v1/crm/consent-and-preferences:
+    get: {operationId: crm.consent.and.preferences.list, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/PageSize'}], responses: {'200': {$ref: '#/components/responses/Collection'}}}
+    post: {operationId: crm.consent.and.preferences.create, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IdempotencyKey'}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/ConsentInput'}}}}, responses: {'201': {$ref: '#/components/responses/Consent'}, '422': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/consent-and-preferences/{id}:
+    parameters: [{'$ref': '#/components/parameters/Id'}]
+    get: {operationId: crm.consent.and.preferences.get, security: [{sanctum: []}], responses: {'200': {$ref: '#/components/responses/Consent'}}}
+    patch: {operationId: crm.consent.and.preferences.update, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/IfMatch'}], requestBody: {content: {application/json: {schema: {$ref: '#/components/schemas/ConsentPatch'}}}}, responses: {'200': {$ref: '#/components/responses/Consent'}, '409': {$ref: '#/components/responses/Problem'}}}
+  /api/v1/crm/consent-and-preferences/{id}/withdraw: {post: {operationId: crm.consent.and.preferences.withdraw, security: [{sanctum: []}], parameters: [{'$ref': '#/components/parameters/Id'}, {'$ref': '#/components/parameters/IdempotencyKey'}], responses: {'200': {$ref: '#/components/responses/Consent'}}}}
+  /api/v1/crm/consent-and-preferences/evaluate: {post: {operationId: crm.consent.and.preferences.evaluate, security: [{sanctum: []}], requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/EvaluationInput'}}}}, responses: {'200': {$ref: '#/components/responses/Evaluation'}}}}
+components:
+  parameters:
+    Id: {name: id, in: path, required: true, schema: {type: string}}
+    PageSize: {name: page[size], in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, schema: {type: string}}
+    IfMatch: {name: If-Match, in: header, schema: {type: string}}
+  securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
+  schemas:
+    ConsentInput: {type: object, required: [subject_type, subject_id, channel, lawful_basis, source, proof], properties: {subject_type: {type: string}, subject_id: {type: integer}, channel: {type: string}, topic: {type: string, default: general}, lawful_basis: {type: string, enum: [consent, contract, legal_obligation, vital_interests, public_task, legitimate_interest]}, source: {type: string}, proof: {type: object}, expires_at: {type: string, format: date-time, nullable: true}, preference_state: {type: string, enum: [allowed, denied]}, quiet_hours: {type: object, nullable: true}}}
+    ConsentPatch: {type: object, properties: {proof: {type: object}, expires_at: {type: string, format: date-time, nullable: true}}}
+    EvaluationInput: {type: object, required: [subject_type, subject_id, channel], properties: {subject_type: {type: string}, subject_id: {type: integer}, channel: {type: string}, topic: {type: string}}}
+    Consent: {type: object, required: [id, type, attributes], properties: {id: {type: string}, type: {const: crm-consent-and-preferences}, attributes: {type: object, additionalProperties: true}}}
+    Evaluation: {type: object, properties: {data: {type: object, properties: {allowed: {type: boolean}, reasons: {type: array, items: {type: string}}, evaluation_id: {type: string}}}}}
+    Problem: {type: object, required: [type, title, status], properties: {type: {type: string}, title: {type: string}, status: {type: integer}, detail: {type: string}}}
+  responses:
+    Consent: {description: Consent resource, content: {application/json: {schema: {type: object, properties: {data: {$ref: '#/components/schemas/Consent'}}}}}}
+    Collection: {description: Paginated consent resources, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/Consent'}}, meta: {type: object}}}}}}
+    Evaluation: {description: Policy decision, content: {application/json: {$ref: '#/components/schemas/Evaluation'}}}
+    Problem: {description: RFC 9457 problem, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}

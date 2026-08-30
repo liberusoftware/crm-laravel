@@ -4,31 +4,64 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\User;
+use App\Services\TaskAssignmentService;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
+    public function __construct(protected TaskAssignmentService $taskAssignmentService) {}
+
     public function index(Request $request)
     {
-        return Task::byTeam($request->user()?->currentTeam?->id)->get();
+        $search = trim((string) $request->input('search', ''));
+        $sortBy = (string) $request->input('sort_by', 'created_at');
+        $sortDirection = strtolower((string) $request->input('sort_direction', 'desc'));
+        $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
+
+        $query = Task::query()
+            ->byTeam($request->user()?->currentTeam?->id)
+            ->when($search !== '', function (Builder $query) use ($search): void {
+                $like = '%'.addcslashes($search, '\\%_').'%';
+                $query->where(function (Builder $searchQuery) use ($like): void {
+                    $searchQuery->where('name', 'like', $like)->orWhere('description', 'like', $like);
+                });
+            })
+            ->when($request->filled('status'), fn (Builder $query): Builder => $query->where('status', $request->string('status')->toString()))
+            ->when($request->filled('assigned_to'), fn (Builder $query): Builder => $query->where('assigned_to', (int) $request->input('assigned_to')))
+            ->when($request->filled('due_from'), fn (Builder $query): Builder => $query->whereDate('due_date', '>=', $request->input('due_from')))
+            ->when($request->filled('due_to'), fn (Builder $query): Builder => $query->whereDate('due_date', '<=', $request->input('due_to')));
+
+        $sortBy = in_array($sortBy, ['created_at', 'name', 'status', 'due_date', 'reminder_date'], true)
+            ? $sortBy
+            : 'created_at';
+        $sortDirection = in_array($sortDirection, ['asc', 'desc'], true) ? $sortDirection : 'desc';
+
+        return $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
     }
 
     public function store(Request $request)
     {
+        $teamId = $request->user()?->currentTeam?->id;
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
+            'due_date' => 'nullable|date|after_or_equal:today',
             'status' => 'nullable|string|in:pending,in_progress,completed',
-            'assigned_to' => 'nullable|integer|exists:users,id',
-            'contact_id' => 'nullable|integer|exists:contacts,id',
-            'lead_id' => 'nullable|integer|exists:leads,id',
-            'company_id' => 'nullable|integer|exists:companies,id',
+            'recurrence' => 'nullable|string|in:daily,weekly,monthly',
+            'assigned_to' => ['nullable', 'integer', Rule::exists('team_user', 'user_id')->where('team_id', $teamId)],
+            'contact_id' => ['nullable', 'integer', Rule::exists('contacts', 'id')->where('team_id', $teamId)],
+            'lead_id' => ['nullable', 'integer', Rule::exists('leads', 'id')->where('team_id', $teamId)],
+            'company_id' => ['nullable', 'integer', Rule::exists('companies', 'id')->where('team_id', $teamId)],
             'calendar_type' => 'nullable|string|in:google,outlook',
         ]);
 
-        $validated['team_id'] = $request->user()?->currentTeam?->id;
+        $validated['team_id'] = $teamId;
         $task = Task::create($validated);
+        $this->taskAssignmentService->notify($task);
 
         return response()->json($task, 201);
     }
@@ -42,21 +75,25 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        abort_unless($task->belongsToTeam($request->user()?->currentTeam?->id), 403);
+        $teamId = $request->user()?->currentTeam?->id;
+        abort_unless($task->belongsToTeam($teamId), 403);
 
         $validated = $request->validate([
             'name' => 'string|max:255',
             'description' => 'nullable|string',
             'due_date' => 'nullable|date',
             'status' => 'string|in:pending,in_progress,completed',
-            'assigned_to' => 'nullable|integer|exists:users,id',
-            'contact_id' => 'nullable|integer|exists:contacts,id',
-            'lead_id' => 'nullable|integer|exists:leads,id',
-            'company_id' => 'nullable|integer|exists:companies,id',
+            'recurrence' => 'nullable|string|in:daily,weekly,monthly',
+            'assigned_to' => ['nullable', 'integer', Rule::exists('team_user', 'user_id')->where('team_id', $teamId)],
+            'contact_id' => ['nullable', 'integer', Rule::exists('contacts', 'id')->where('team_id', $teamId)],
+            'lead_id' => ['nullable', 'integer', Rule::exists('leads', 'id')->where('team_id', $teamId)],
+            'company_id' => ['nullable', 'integer', Rule::exists('companies', 'id')->where('team_id', $teamId)],
             'calendar_type' => 'nullable|string|in:google,outlook',
         ]);
 
+        $previousAssigneeId = $task->assigned_to;
         $task->update($validated);
+        $this->taskAssignmentService->notify($task, $previousAssigneeId);
 
         return response()->json($task, 200);
     }
@@ -134,13 +171,19 @@ class TaskController extends Controller
         // Assignee must be a member of the caller's current team, else this
         // leaks records across tenants. Refuse before touching any record.
         $team = $request->user()?->currentTeam;
-        $assignee = \App\Models\User::find($request->input('user_id'));
+        $assignee = User::find($request->input('user_id'));
         abort_unless($team && $assignee?->belongsToTeam($team), 403);
 
         $query = Task::whereIn('id', $request->input('ids'));
-        $query->byTeam($request->user()?->currentTeam?->id);
+        $query->byTeam($team->id);
         // Tasks store the assignee in `assigned_to` (there is no user_id column).
-        $count = $query->update(['assigned_to' => $request->input('user_id')]);
+        $tasks = $query->get();
+        foreach ($tasks as $task) {
+            $previousAssigneeId = $task->assigned_to;
+            $task->update(['assigned_to' => $request->input('user_id')]);
+            $this->taskAssignmentService->notify($task, $previousAssigneeId);
+        }
+        $count = $tasks->count();
 
         return response()->json(['assigned' => $count]);
     }

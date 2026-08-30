@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info: {title: CRM Segmentation API, version: 1.0.0}
+paths:
+  /api/v1/crm/segmentation/audiences:
+    get: {summary: List team audiences, security: [{sanctum: []}], responses: {'200': {description: Audiences}}}
+    post: {summary: Create an audience, security: [{sanctum: []}], responses: {'201': {description: Audience created}}}
+  /api/v1/crm/segmentation/audiences/{audience}/refresh:
+    post: {summary: Refresh audience membership, security: [{sanctum: []}], responses: {'200': {description: Audience refreshed}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

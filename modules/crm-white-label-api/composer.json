@@ -1,0 +1,7 @@
+{
+  "name": "liberusoftware/module-crm-white-label-api",
+  "type": "liberu-module",
+  "autoload": { "psr-4": { "Liberu\\CRM\\WhiteLabel\\Api\\": "src/" } },
+  "extra": { "laravel": { "providers": ["Liberu\\CRM\\WhiteLabel\\Api\\WhiteLabelApiServiceProvider"] }, "liberu": { "name": "crm-white-label-api" } },
+  "require": { "php": "^8.5", "illuminate/routing": "^13.0", "liberusoftware/module-crm-white-label": "^1.0" }
+}

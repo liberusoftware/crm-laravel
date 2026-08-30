@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-scheduling","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Scheduling\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Scheduling\\SchedulingServiceProvider"]},"liberu":{"name":"crm-scheduling"}}}

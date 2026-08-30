@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "two-factor-authentication-api",
+  "display_name": "Two-Factor Authentication Api",
+  "description": "Two-Factor Authentication api presentation adapter.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\TwoFactorAuthenticationApi\\TwoFactorAuthenticationApiServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/two-factor-authentication": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.two-factor-authentication.api"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded api presentation for Two-Factor Authentication",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ]
+}
+

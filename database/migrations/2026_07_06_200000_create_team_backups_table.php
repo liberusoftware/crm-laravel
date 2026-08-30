@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
  * Tracks each team data-export: its lifecycle (pending -> processing ->
  * completed | failed) and where the resulting zip lives on the storage disk.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-segmentation-api","type":"liberu-module","require":{"liberusoftware/module-crm-segmentation":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\SegmentationApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SegmentationApi\\Providers\\SegmentationApiServiceProvider"]},"liberu":{"name":"crm-segmentation-api"}}}

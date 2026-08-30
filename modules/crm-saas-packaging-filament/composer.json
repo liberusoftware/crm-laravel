@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-saas-packaging-filament","type":"liberu-module","require":{"liberusoftware/module-crm-saas-packaging":"*"},"autoload":{"psr-4":{"Liberu\\CRM\\SaasPackaging\\Filament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\SaasPackaging\\Filament\\SaasPackagingFilamentServiceProvider"]},"liberu":{"name":"crm-saas-packaging-filament"}}}

@@ -47,6 +47,19 @@ class TaskResource extends Resource
                         'cancelled' => 'Cancelled',
                     ])
                     ->label('Status'),
+                Select::make('recurrence')
+                    ->options([
+                        'daily' => 'Daily',
+                        'weekly' => 'Weekly',
+                        'monthly' => 'Monthly',
+                    ])
+                    ->placeholder('Does not repeat')
+                    ->label('Recurrence'),
+                Select::make('assigned_to')
+                    ->relationship('assignedTo', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Assigned To'),
                 Select::make('contact_id')
                     ->relationship('contact', 'name')
                     ->label('Contact'),

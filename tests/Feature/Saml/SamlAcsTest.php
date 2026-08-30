@@ -117,7 +117,7 @@ class SamlAcsTest extends TestCase
             'private_key_bits' => 2048,
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ]);
-        $csr = openssl_csr_new(['commonName' => 'idp.example.com'], $pkey);
+        $csr = openssl_csr_new(['commonName' => 'idp.example.com'], $pkey, ['digest_alg' => 'sha256']);
         $x509 = openssl_csr_sign($csr, null, $pkey, 365, ['digest_alg' => 'sha256']);
         openssl_x509_export($x509, $certPem);
         openssl_pkey_export($pkey, $privPem);
@@ -158,14 +158,14 @@ class SamlAcsTest extends TestCase
         </samlp:Response>
         XML;
 
-        $doc = new DOMDocument;
+        $doc = new DOMDocument();
         // Drop the indentation whitespace text nodes so the signed document is
         // clean XML that passes OneLogin's XSD validation.
         $doc->preserveWhiteSpace = false;
         $doc->loadXML($xml);
         $assertion = $doc->getElementsByTagNameNS('urn:oasis:names:tc:SAML:2.0:assertion', 'Assertion')->item(0);
 
-        $dsig = new XMLSecurityDSig;
+        $dsig = new XMLSecurityDSig();
         $dsig->setCanonicalMethod(XMLSecurityDSig::EXC_C14N);
         $dsig->addReference(
             $assertion,

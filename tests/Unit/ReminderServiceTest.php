@@ -22,7 +22,7 @@ class ReminderServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->reminderService = new ReminderService;
+        $this->reminderService = new ReminderService();
         restore_error_handler();
         restore_exception_handler();
     }
@@ -98,7 +98,7 @@ class ReminderServiceTest extends TestCase
     public function test_log_reminder_activity(): void
     {
         Notification::fake();
-        Log::shouldReceive('info')->once()->withArgs(fn($message) => str_contains((string) $message, 'Reminder sent successfully'));
+        Log::shouldReceive('info')->once()->withArgs(fn ($message) => str_contains((string) $message, 'Reminder sent successfully'));
 
         $user = User::factory()->create();
         $contact = Contact::factory()->create();

@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: CRM Partner Relationship Management API
+  version: 1.0.0
+paths:
+  /api/v1/crm/partner-relationship-management/partners:
+    get: { summary: List partner accounts }
+    post: { summary: Create a partner account }
+  /api/v1/crm/partner-relationship-management/activities:
+    post: { summary: Record recruitment, enablement or co-selling activity }
+  /api/v1/crm/partner-relationship-management/performance:
+    post: { summary: Record partner performance }

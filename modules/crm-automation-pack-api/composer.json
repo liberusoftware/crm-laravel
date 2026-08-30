@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-automation-pack-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AutomationPackApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AutomationPackApi\\AutomationPackApiServiceProvider"]},"liberu":{"name":"module-crm-automation-pack-api"}}}

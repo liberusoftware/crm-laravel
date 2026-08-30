@@ -31,13 +31,13 @@ class GoogleAdsService
 
     protected function createClient(ConnectedAccount $account)
     {
-        $oAuth2Credential = (new OAuth2TokenBuilder)
+        $oAuth2Credential = (new OAuth2TokenBuilder())
             ->withClientId(config('services.google_ads.client_id'))
             ->withClientSecret(config('services.google_ads.client_secret'))
             ->withRefreshToken($account->token)
             ->build();
 
-        return (new GoogleAdsClientBuilder)
+        return (new GoogleAdsClientBuilder())
             ->withOAuth2Credential($oAuth2Credential)
             ->withDeveloperToken(config('services.google_ads.developer_token'))
             ->withLoginCustomerId($account->provider_id)
@@ -91,7 +91,7 @@ class GoogleAdsService
                 // Add other campaign settings as needed
             ]);
 
-            $operation = new CampaignOperation;
+            $operation = new CampaignOperation();
             $operation->setCreate($campaign);
 
             $campaignServiceClient = $client->getCampaignServiceClient();
@@ -123,7 +123,7 @@ class GoogleAdsService
                 // Add other updatable fields as needed
             ]);
 
-            $operation = new CampaignOperation;
+            $operation = new CampaignOperation();
             $operation->setUpdate($campaign);
             $operation->setUpdateMask(['name', 'status']);
 
@@ -149,7 +149,7 @@ class GoogleAdsService
             $client = $this->clients[$accountId];
             $customerId = $client->getLoginCustomerId();
 
-            $operation = new CampaignOperation;
+            $operation = new CampaignOperation();
             $operation->setRemove($campaignId);
 
             $campaignServiceClient = $client->getCampaignServiceClient();

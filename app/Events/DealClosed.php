@@ -10,9 +10,7 @@ class DealClosed
 {
     use Dispatchable;
 
-    public function __construct(public Deal $deal)
-    {
-    }
+    public function __construct(public Deal $deal) {}
 
     /** Team this event belongs to — used to scope notifications (anti cross-tenant leak). */
     public function team(): ?Team

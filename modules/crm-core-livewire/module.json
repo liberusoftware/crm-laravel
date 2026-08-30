@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-core-livewire",
+  "display_name": "CRM Core Livewire",
+  "description": "Livewire 4 components for CRM Core records and timeline.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\Core\\Livewire\\CRMCoreLivewireServiceProvider",
+  "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-crm-core": "^1.0"}, "capabilities": {"crm.core.records": "^1.0"}},
+  "capabilities": ["crm.core.livewire"],
+  "default_enabled": false,
+  "features": ["Record browser", "Record creation", "Timeline presentation"]
+}

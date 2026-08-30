@@ -6,6 +6,7 @@ use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class LiveChat extends Model
 {
@@ -55,7 +56,7 @@ class LiveChat extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(ChatMessage::class, 'chat_id');
     }

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-usage-wallet-and-rebilling-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UsageWalletAndRebillingApi\\":"src/"}},"extra":{"liberu":{"name":"crm-usage-wallet-and-rebilling-api"}},"require":{"liberusoftware/module-crm-usage-wallet-and-rebilling":"*"}}

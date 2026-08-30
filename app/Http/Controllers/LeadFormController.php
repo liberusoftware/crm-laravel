@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 
 class LeadFormController extends Controller
 {
-    public function __construct(protected \App\Services\LeadScoringService $leadScoringService)
-    {
-    }
+    public function __construct(protected LeadScoringService $leadScoringService) {}
 
     public function submit(Request $request, LeadForm $leadForm)
     {

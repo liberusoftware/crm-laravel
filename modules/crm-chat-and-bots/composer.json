@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-chat-and-bots","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ChatAndBots\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ChatAndBots\\ChatAndBotsServiceProvider"]},"liberu":{"name":"crm-chat-and-bots"}}}

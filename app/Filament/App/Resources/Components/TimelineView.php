@@ -51,7 +51,7 @@ class TimelineView extends Column
         }
 
         // Sort items by date
-        usort($items, fn(array $a, array $b) => $b['date']->getTimestamp() - $a['date']->getTimestamp());
+        usort($items, fn (array $a, array $b) => $b['date']->getTimestamp() - $a['date']->getTimestamp());
 
         return $items;
     }

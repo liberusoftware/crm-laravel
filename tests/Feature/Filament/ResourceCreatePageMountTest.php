@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Filament;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
@@ -18,7 +19,7 @@ class ResourceCreatePageMountTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function actingManagerWithTeam(): \App\Models\Team
+    private function actingManagerWithTeam(): Team
     {
         Role::findOrCreate('manager', 'web');
         $user = User::factory()->withPersonalTeam()->create(['email_verified_at' => now()]);

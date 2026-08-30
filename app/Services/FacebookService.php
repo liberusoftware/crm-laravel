@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 
 class FacebookService
 {
-    protected \Facebook\Facebook $fb;
+    protected Facebook $fb;
 
     public function __construct()
     {

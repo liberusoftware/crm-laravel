@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Services\ReportingService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class ReportCustomizer extends Component
@@ -82,7 +84,7 @@ class ReportCustomizer extends Component
         ];
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function render(): Factory|View
     {
         $data = $this->generateReport();
 

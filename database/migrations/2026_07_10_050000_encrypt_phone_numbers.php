@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
  * up by value (no equality queries / indexes), so no blind index — just widen to
  * text and encrypt existing rows in place. See App\Support\PiiEncryptionBackfill.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

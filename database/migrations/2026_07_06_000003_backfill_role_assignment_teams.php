@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Log;
  *
  * On a fresh migrate model_has_roles is empty, so this is a no-op.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {
@@ -44,7 +44,7 @@ return new class extends Migration
             DB::table($mhr)->whereIn($roleKey, $superAdminIds)->update([$teamKey => null]);
         }
 
-        $userMorph = (new User)->getMorphClass();
+        $userMorph = (new User())->getMorphClass();
 
         // Every other User assignment → the user's current team.
         DB::table($mhr)

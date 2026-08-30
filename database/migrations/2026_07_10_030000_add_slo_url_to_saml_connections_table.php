@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
  * Adds the IdP Single Logout Service URL to SAML connections, for SP-initiated
  * single-logout (the LogoutRequest target).
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

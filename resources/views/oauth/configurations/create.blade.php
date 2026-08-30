@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Connect New Account') }}
@@ -112,4 +114,4 @@
         // Trigger on load to show help for the default selected option
         document.getElementById('service_name').dispatchEvent(new Event('change'));
     </script>
-</x-app-layout>
+@endsection

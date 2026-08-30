@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Identity API
+  version: 1.0.0
+paths:
+  /api/v1/identity-core/status:
+    get:
+      operationId: identity_core_status
+      responses:
+        '200':
+          description: Adapter availability
+

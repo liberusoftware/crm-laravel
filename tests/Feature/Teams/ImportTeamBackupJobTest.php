@@ -26,7 +26,7 @@ class ImportTeamBackupJobTest extends TestCase
         $source = Team::factory()->create();
         Contact::factory()->create(['team_id' => $source->id]);
 
-        $result = (new TeamBackupService)->backup($source, 'local');
+        $result = (new TeamBackupService())->backup($source, 'local');
         Contact::withoutGlobalScope('tenant')->where('team_id', $source->id)->delete();
 
         (new ImportTeamBackup('local', $result['path'], 'Imported', $importer->id))

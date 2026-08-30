@@ -13,6 +13,7 @@ use App\Listeners\LogPasswordReset;
 use App\Listeners\LogSsoLogout;
 use App\Listeners\LogSuccessfulLogin;
 use App\Listeners\NotifyTeamMembers;
+use App\Listeners\ProvisionZernioProfile;
 use App\Listeners\SendCRMEventNotification;
 use App\Models\Task;
 use App\Observers\TaskObserver;
@@ -25,6 +26,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamMemberAdded;
 
 class EventServiceProvider extends ServiceProvider
@@ -52,6 +54,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         TeamMemberAdded::class => [
             AssignDefaultTeamRole::class,
+        ],
+        TeamCreated::class => [
+            ProvisionZernioProfile::class,
         ],
         Logout::class => [
             LogSsoLogout::class,

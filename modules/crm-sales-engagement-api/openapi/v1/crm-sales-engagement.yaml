@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info: {title: CRM Sales Engagement API, version: 1.0.0}
+paths:
+  /api/v1/crm/sales-engagement/sequences:
+    get: {summary: List team sequences, security: [{sanctum: []}], responses: {'200': {description: Sequences}}}
+    post: {summary: Create a sequence, security: [{sanctum: []}], responses: {'201': {description: Created}}}
+  /api/v1/crm/sales-engagement/enrollments:
+    post: {summary: Enroll or re-enter a contact, security: [{sanctum: []}], responses: {'201': {description: Enrolled}}}
+components: {securitySchemes: {sanctum: {type: http, scheme: bearer}}}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "crm-web-intent-api",
+  "display_name": "CRM Web Intent API",
+  "description": "HTTP presentation package for CRM Web Intent.",
+  "version": "1.0.0",
+  "category": "presentation",
+  "provider": "Liberu\\CRM\\WebIntent\\Api\\WebIntentApiServiceProvider",
+  "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-web-intent": "^1.0" } },
+  "suggests": [],
+  "capabilities": ["crm.web-intent.api"],
+  "default_enabled": false,
+  "features": ["Visits", "Engagement", "Consent", "Identification", "Alerts", "Conversions", "Intent summary"]
+}

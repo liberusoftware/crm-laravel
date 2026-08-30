@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.liberu.dev/module/v1.json",
+  "name": "activity-comments-filament",
+  "display_name": "Activity and Comments Filament",
+  "description": "Activity and Comments filament presentation adapter.",
+  "version": "1.0.1",
+  "category": "presentation",
+  "provider": "Liberu\\Foundation\\ActivityCommentsFilament\\ActivityCommentsFilamentServiceProvider",
+  "requires": {
+    "php": "^8.5",
+    "laravel": "^13.0",
+    "packages": {
+      "liberusoftware/activity-comments": "^1.0"
+    }
+  },
+  "suggests": [],
+  "capabilities": [
+    "foundation.activity-comments.filament"
+  ],
+  "default_enabled": true,
+  "features": [
+    "Bounded filament presentation for Activity and Comments",
+    "Authorization delegated to the matching core module",
+    "Accessible loading, empty, denied, and failure states"
+  ],
+  "presentation": {
+    "filament": {
+      "admin": [
+        "Liberu\\Foundation\\ActivityCommentsFilament\\ActivityCommentsFilamentPlugin"
+      ]
+    }
+  }
+}

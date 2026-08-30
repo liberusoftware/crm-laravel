@@ -2,12 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Http\Middleware\SetFilamentDefaultTenant;
 use App\Services\ReportingService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Pages\Page;
+use Filament\Panel;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -25,6 +27,11 @@ class ReportCustomizer extends Page
     public ?string $startDate = null;
 
     public ?string $endDate = null;
+
+    public static function getRouteMiddleware(Panel $panel): string|array
+    {
+        return [SetFilamentDefaultTenant::class];
+    }
 
     public function mount(): void
     {

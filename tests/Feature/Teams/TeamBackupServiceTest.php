@@ -20,7 +20,7 @@ class TeamBackupServiceTest extends TestCase
 
     private function readEntry(string $path, string $entry): string
     {
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         $this->assertTrue($zip->open(Storage::disk('local')->path($path)) === true);
         $contents = $zip->getFromName($entry);
         $zip->close();
@@ -35,7 +35,7 @@ class TeamBackupServiceTest extends TestCase
         $team = Team::factory()->create();
         Contact::factory()->create(['team_id' => $team->id, 'name' => 'Acme Buyer']);
 
-        $result = (new TeamBackupService)->backup($team, 'local');
+        $result = (new TeamBackupService())->backup($team, 'local');
 
         Storage::disk('local')->assertExists($result['path']);
         $this->assertGreaterThan(0, $result['size']);
@@ -56,7 +56,7 @@ class TeamBackupServiceTest extends TestCase
         Contact::factory()->create(['team_id' => $teamB->id, 'name' => 'Other Contact']);
         Lead::factory()->create(['team_id' => $teamB->id]);
 
-        $result = (new TeamBackupService)->backup($teamA, 'local');
+        $result = (new TeamBackupService())->backup($teamA, 'local');
 
         $contacts = $this->readEntry($result['path'], 'models/Contact.json');
         $this->assertStringContainsString('Mine Contact', $contacts);
@@ -74,7 +74,7 @@ class TeamBackupServiceTest extends TestCase
         $member = User::factory()->create();
         $team->users()->attach($member, ['role' => 'sales_rep']);
 
-        $result = (new TeamBackupService)->backup($team, 'local');
+        $result = (new TeamBackupService())->backup($team, 'local');
 
         $manifest = json_decode($this->readEntry($result['path'], 'manifest.json'), true);
         $this->assertSame(1, $manifest['extras']['team_user']);

@@ -56,7 +56,7 @@ if (! class_exists('Google_Service_Calendar_Event')) {
             $this->data['description'] = $description;
         }
 
-        public function getStart(): ?\stdClass
+        public function getStart(): ?stdClass
         {
             if (isset($this->data['start'])) {
                 return (object) $this->data['start'];

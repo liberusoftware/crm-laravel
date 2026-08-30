@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
  * free-text `description`. All nullable so pre-existing AuditLogService writes
  * (which only set action/description/user_id/ip_address) keep working.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

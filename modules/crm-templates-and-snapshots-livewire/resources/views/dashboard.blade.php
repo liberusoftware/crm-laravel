@@ -1,0 +1,1 @@
+<section aria-label="Templates and snapshots"><h2>Snapshots</h2>@forelse($snapshots as $snapshot)<article><strong>{{ $snapshot->name }}</strong> v{{ $snapshot->version }} — {{ $snapshot->status }}</article>@empty<p>No snapshots.</p>@endforelse</section>

@@ -52,7 +52,7 @@ class SocialstreamActionsTest extends TestCase
     {
         $providerUser = $this->fakeProviderUser();
 
-        $action = new CreateUserWithTeamsFromProvider(new CreateConnectedAccount);
+        $action = new CreateUserWithTeamsFromProvider(new CreateConnectedAccount());
         $user = $action->create('google', $providerUser);
 
         $this->assertInstanceOf(User::class, $user);
@@ -104,7 +104,7 @@ class SocialstreamActionsTest extends TestCase
             'expiresIn' => 7200,
         ]);
 
-        $account = (new CreateConnectedAccount)->create($user, 'Google', $providerUser);
+        $account = (new CreateConnectedAccount())->create($user, 'Google', $providerUser);
 
         $this->assertTrue($account->exists);
         $this->assertDatabaseHas('connected_accounts', [
@@ -123,7 +123,7 @@ class SocialstreamActionsTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $account = (new CreateConnectedAccount)->create(
+        $account = (new CreateConnectedAccount())->create(
             $user,
             'google',
             $this->fakeProviderUser(['token' => 'old-token', 'refreshToken' => 'old-refresh']),
@@ -149,7 +149,7 @@ class SocialstreamActionsTest extends TestCase
     {
         $user = User::factory()->create();
 
-        (new SetUserPassword)->set($user, [
+        (new SetUserPassword())->set($user, [
             'password' => 'S3cret-Passw0rd',
             'password_confirmation' => 'S3cret-Passw0rd',
         ]);
@@ -175,7 +175,7 @@ class SocialstreamActionsTest extends TestCase
 
         $user = User::factory()->create();
 
-        $account = (new CreateConnectedAccount)->create($user, 'google', $this->fakeProviderUser());
+        $account = (new CreateConnectedAccount())->create($user, 'google', $this->fakeProviderUser());
 
         $this->assertInstanceOf(ConnectedAccount::class, $account);
 
@@ -190,6 +190,6 @@ class SocialstreamActionsTest extends TestCase
     {
         $this->expectException(InvalidStateException::class);
 
-        (new HandleInvalidState)->handle(new InvalidStateException);
+        (new HandleInvalidState())->handle(new InvalidStateException());
     }
 }

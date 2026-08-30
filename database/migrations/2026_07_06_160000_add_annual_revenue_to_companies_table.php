@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
  * companies had no annual_revenue column, so DataEnrichmentService's revenue
  * enrichment was silently dropped by mass-assignment. Add it.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     public function up(): void
     {

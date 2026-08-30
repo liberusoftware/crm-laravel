@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  * backfilled from their parent records — no prod data exists yet, so there is
  * nothing to backfill today.
  */
-return new class extends Migration
+return new class() extends Migration
 {
     /** @var list<string> */
     private array $tables = [

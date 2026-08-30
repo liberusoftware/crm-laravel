@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Company;
+use App\Models\Contact;
+use App\Models\Deal;
 use App\Models\Document;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,7 +25,7 @@ class DocumentFactory extends Factory
             'file_size' => $this->faker->numberBetween(1024, 10485760),
             'mime_type' => $this->faker->mimeType(),
             'type' => $this->faker->randomElement(['contract', 'proposal', 'invoice', 'other']),
-            'documentable_type' => $this->faker->randomElement([\App\Models\Deal::class, \App\Models\Contact::class, \App\Models\Company::class]),
+            'documentable_type' => $this->faker->randomElement([Deal::class, Contact::class, Company::class]),
             'documentable_id' => $this->faker->numberBetween(1, 100),
             'description' => $this->faker->optional()->sentence,
             'tags' => json_encode($this->faker->words(3)),

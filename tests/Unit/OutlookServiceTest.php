@@ -16,9 +16,9 @@ class OutlookServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->outlookService = new OutlookService;
+        $this->outlookService = new OutlookService();
 
-        $this->mockConfig = new OAuthConfiguration;
+        $this->mockConfig = new OAuthConfiguration();
         $this->mockConfig->forceFill([
             'id' => 1,
             'additional_settings' => [
@@ -40,7 +40,7 @@ class OutlookServiceTest extends TestCase
 
     public function test_get_unread_messages_requires_access_token(): void
     {
-        $configWithoutToken = new OAuthConfiguration;
+        $configWithoutToken = new OAuthConfiguration();
         $configWithoutToken->forceFill(['additional_settings' => []]);
 
         $this->expectException(\Exception::class);

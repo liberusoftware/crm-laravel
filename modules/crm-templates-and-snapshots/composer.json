@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-templates-and-snapshots","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\TemplatesAndSnapshots\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\TemplatesAndSnapshots\\TemplatesAndSnapshotsServiceProvider"]},"liberu":{"name":"crm-templates-and-snapshots"}}}

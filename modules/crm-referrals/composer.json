@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-referrals","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\Referrals\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\Referrals\\ReferralsServiceProvider"]},"liberu":{"name":"crm-referrals"}}}

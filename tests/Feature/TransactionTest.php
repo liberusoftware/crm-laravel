@@ -12,6 +12,7 @@ use Tests\TestCase;
 class TransactionTest extends TestCase
 {
     public $mockAccountingService;
+
     use RefreshDatabase;
 
     protected function setUp(): void

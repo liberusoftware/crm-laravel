@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-unified-conversations","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\UnifiedConversations\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\UnifiedConversations\\UnifiedConversationsServiceProvider"]},"liberu":{"name":"crm-unified-conversations"}}}

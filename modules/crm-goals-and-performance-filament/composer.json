@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-goals-and-performance-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\GoalsAndPerformanceFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\GoalsAndPerformanceFilament\\GoalsAndPerformanceFilamentServiceProvider"]},"liberu":{"name":"crm-goals-and-performance-filament"}}}

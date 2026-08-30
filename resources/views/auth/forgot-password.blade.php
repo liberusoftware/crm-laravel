@@ -1,8 +1,6 @@
-@extends('layouts.app')
-
-@section('content')
+<x-guest-layout>
     <div class="h-full flex flex-col sm:justify-center items-center pt-3 sm:pt-0 my-8">
-        <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="cs-card">
 
             <div class="mb-4 text-sm text-gray-600">
                 {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
@@ -34,4 +32,4 @@
         </div>
     </div>
 
-@endsection
+</x-guest-layout>

@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Services\EmailTrackingService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Uri;
 
 class EmailTrackingController extends Controller
 {
-    public function __construct(protected \App\Services\EmailTrackingService $trackingService)
-    {
-    }
+    public function __construct(protected EmailTrackingService $trackingService) {}
 
     /**
      * Serve tracking pixel and record email open
@@ -41,7 +41,7 @@ class EmailTrackingController extends Controller
     /**
      * Track link clicks and redirect
      */
-    public function link(Request $request, string $trackingId): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+    public function link(Request $request, string $trackingId): Redirector|RedirectResponse
     {
         $encodedUrl = $request->get('url');
         $signature = $request->get('s');

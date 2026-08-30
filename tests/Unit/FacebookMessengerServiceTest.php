@@ -20,7 +20,7 @@ class FacebookMessengerServiceTest extends TestCase
         $this->facebookMock = Mockery::mock(Facebook::class);
         $this->app->instance(Facebook::class, $this->facebookMock);
 
-        $this->facebookMessengerService = new FacebookMessengerService;
+        $this->facebookMessengerService = new FacebookMessengerService();
     }
 
     public function test_get_unread_messages(): void

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-mobile-messaging-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MobileMessagingLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MobileMessagingLivewire\\MobileMessagingLivewireServiceProvider"]},"liberu":{"name":"crm-mobile-messaging-livewire"}}}

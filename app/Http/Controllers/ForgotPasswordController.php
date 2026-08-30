@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController as AuthAuthenticatedSessionController;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends AuthAuthenticatedSessionController
 {
-    public function showLinkRequestForm(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function showLinkRequestForm(): Factory|View
     {
         return view('admin.auth.forgot-password');
     }

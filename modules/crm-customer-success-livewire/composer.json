@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-success-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerSuccessLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerSuccessLivewire\\CustomerSuccessLivewireServiceProvider"]},"liberu":{"name":"module-crm-customer-success-livewire"}}}

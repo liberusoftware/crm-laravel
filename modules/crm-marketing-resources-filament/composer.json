@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-marketing-resources-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\MarketingResourcesFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\MarketingResourcesFilament\\MarketingResourcesFilamentServiceProvider"]},"liberu":{"name":"crm-marketing-resources-filament"}}}

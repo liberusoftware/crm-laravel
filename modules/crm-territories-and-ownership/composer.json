@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-territories-and-ownership","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\TerritoriesAndOwnership\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\TerritoriesAndOwnership\\TerritoriesAndOwnershipServiceProvider"]},"liberu":{"name":"crm-territories-and-ownership"}}}

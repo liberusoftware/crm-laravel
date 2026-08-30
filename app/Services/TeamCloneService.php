@@ -65,7 +65,7 @@ class TeamCloneService
 
     public function clone(Team $source, string $name, User $owner): Team
     {
-        $team = new Team;
+        $team = new Team();
         $team->name = $name;
         $team->user_id = $owner->id;
         $team->personal_team = false;
@@ -94,7 +94,7 @@ class TeamCloneService
         $idMap = [];
 
         foreach (self::CLONEABLE_MODELS as $class) {
-            $table = (new $class)->getTable();
+            $table = (new $class())->getTable();
             if (! Schema::hasTable($table)) {
                 continue;
             }
@@ -121,7 +121,7 @@ class TeamCloneService
     private function patchForeignKeys(Team $team, array $idMap): void
     {
         foreach (self::FK_EDGES as $class => $edges) {
-            $table = (new $class)->getTable();
+            $table = (new $class())->getTable();
             if (! Schema::hasTable($table) || empty($idMap[$class])) {
                 continue;
             }

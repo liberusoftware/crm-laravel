@@ -1,0 +1,13 @@
+{
+    "name": "liberusoftware/module-crm-data-operations",
+    "description": "CRM data operations domain module",
+    "type": "liberu-module",
+    "require": {
+        "php": "^8.5",
+        "illuminate/database": "^13.0",
+        "liberusoftware/module-manager": "^1.0",
+        "liberusoftware/module-crm-core": "^1.0"
+    },
+    "autoload": {"psr-4": {"Liberu\\CRM\\DataOperations\\": "src/"}},
+    "extra": {"laravel": {"providers": ["Liberu\\CRM\\DataOperations\\DataOperationsServiceProvider"]}, "liberu": {"name": "crm-data-operations"}}
+}

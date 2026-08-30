@@ -11,7 +11,5 @@ class MessageReplySent
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public string $messageId, public string $content, public string $channel, public int|string $accountId)
-    {
-    }
+    public function __construct(public string $messageId, public string $content, public string $channel, public int|string $accountId) {}
 }

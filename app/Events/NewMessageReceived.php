@@ -11,7 +11,5 @@ class NewMessageReceived
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public array $message)
-    {
-    }
+    public function __construct(public array $message) {}
 }

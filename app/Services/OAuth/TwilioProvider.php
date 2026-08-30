@@ -35,7 +35,7 @@ class TwilioProvider extends AbstractProvider implements ProviderInterface
 
     protected function mapUserToObject(array $user)
     {
-        return (new User)->setRaw($user)->map([
+        return (new User())->setRaw($user)->map([
             'id' => $user['sub'],
             'name' => $user['name'] ?? null,
             'email' => $user['email'] ?? null,

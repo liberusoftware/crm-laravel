@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$path = $argv[1] ?? 'coverage.xml';
+$minimum = isset($argv[2]) ? (float) $argv[2] : 100.0;
+
+if (! is_file($path)) {
+    fwrite(STDERR, "Coverage report not found: {$path}\n");
+    exit(1);
+}
+
+libxml_use_internal_errors(true);
+$report = simplexml_load_file($path);
+
+if ($report === false) {
+    fwrite(STDERR, "Coverage report is not valid XML: {$path}\n");
+    exit(1);
+}
+
+$metrics = $report->project->metrics;
+$statements = (int) ($metrics['statements'] ?? 0);
+$covered = (int) ($metrics['coveredstatements'] ?? 0);
+
+if ($statements === 0) {
+    fwrite(STDERR, "Coverage report contains no release-scope statements.\n");
+    exit(1);
+}
+
+$percentage = ($covered / $statements) * 100;
+printf("Release-scope coverage: %.2f%% (%d/%d statements), minimum %.2f%%\n", $percentage, $covered, $statements, $minimum);
+
+if ($percentage + 0.00001 < $minimum) {
+    exit(1);
+}
