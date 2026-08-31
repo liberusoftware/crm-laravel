@@ -44,6 +44,10 @@ class ContactResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'CRM';
+
+    protected static ?int $navigationSort = 1;
+
     #[\Override]
     public static function form(Schema $schema): Schema
     {

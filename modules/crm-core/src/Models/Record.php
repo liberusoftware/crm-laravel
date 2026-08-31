@@ -44,7 +44,19 @@ class Record extends Model
 
     public function timeline(): MorphMany
     {
-        return $this->morphMany(TimelineEntry::class, 'recordable')->latest();
+        return $this->morphMany(TimelineEntry::class, 'recordable')->latest('id');
+    }
+
+    /** @return MorphMany<Relationship, $this> */
+    public function outgoingRelationships(): MorphMany
+    {
+        return $this->morphMany(Relationship::class, 'from');
+    }
+
+    /** @return MorphMany<Relationship, $this> */
+    public function incomingRelationships(): MorphMany
+    {
+        return $this->morphMany(Relationship::class, 'to');
     }
 
     public function scopeActive(Builder $query): Builder

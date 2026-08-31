@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\LeadCapture\Filament\Resources\CaptureReferralResource\Pages\CreateCaptureReferral;
 use Liberu\CRM\LeadCapture\Filament\Resources\CaptureReferralResource\Pages\ListCaptureReferrals;
 use Liberu\CRM\LeadCapture\Models\CaptureReferral;
@@ -28,6 +29,15 @@ final class CaptureReferralResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([TextColumn::make('code')->searchable(), TextColumn::make('referrer_type'), TextColumn::make('referrer_id'), TextColumn::make('referred_type'), TextColumn::make('status')->badge()]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array

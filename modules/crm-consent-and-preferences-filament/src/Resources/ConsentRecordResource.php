@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\ConsentAndPreferences\Filament\Resources\ConsentRecordResource\Pages\CreateConsentRecord;
 use Liberu\CRM\ConsentAndPreferences\Filament\Resources\ConsentRecordResource\Pages\EditConsentRecord;
 use Liberu\CRM\ConsentAndPreferences\Filament\Resources\ConsentRecordResource\Pages\ListConsentRecords;
@@ -30,6 +31,15 @@ final class ConsentRecordResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([TextColumn::make('subject_type'), TextColumn::make('subject_id'), TextColumn::make('channel')->badge(), TextColumn::make('topic'), TextColumn::make('lawful_basis')->badge(), TextColumn::make('status')->badge(), TextColumn::make('expires_at')->dateTime(), TextColumn::make('created_at')->dateTime()]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array

@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\CustomerDataModel\Filament\Resources\ObjectDefinitionResource\Pages\CreateObjectDefinition;
 use Liberu\CRM\CustomerDataModel\Filament\Resources\ObjectDefinitionResource\Pages\EditObjectDefinition;
 use Liberu\CRM\CustomerDataModel\Filament\Resources\ObjectDefinitionResource\Pages\ListObjectDefinitions;
@@ -29,6 +30,15 @@ final class ObjectDefinitionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([TextColumn::make('key')->searchable(), TextColumn::make('label')->searchable(), TextColumn::make('status')->badge(), TextColumn::make('current_version')->label('Version'), TextColumn::make('updated_at')->dateTime()]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array

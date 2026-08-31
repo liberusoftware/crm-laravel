@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\CallLog;
+use App\Models\OAuthConfiguration;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Twilio\Exceptions\TwilioException;
 use Twilio\Rest\Client;
 
@@ -26,8 +28,9 @@ class TwilioService
     protected function getClient()
     {
         if ($this->client === null) {
-            $accountSid = config('services.twilio.account_sid');
-            $authToken = config('services.twilio.auth_token');
+            $configuration = $this->storedConfiguration();
+            $accountSid = $configuration?->client_id ?? config('services.twilio.account_sid');
+            $authToken = $configuration?->client_secret ?? config('services.twilio.auth_token');
             $this->client = new Client($accountSid, $authToken);
         }
 
@@ -40,7 +43,7 @@ class TwilioService
         while ($attempts < $this->maxRetries) {
             try {
                 $this->getClient()->messages->create($to, [
-                    'from' => config('services.twilio.phone_number'),
+                    'from' => $this->phoneNumber(),
                     'body' => $message,
                 ]);
 
@@ -68,9 +71,9 @@ class TwilioService
         $attempts = 0;
         while ($attempts < $this->maxRetries) {
             try {
-                $this->getClient()->calls->create($to, config('services.twilio.phone_number'), [
-                    'url' => $url,
-                ]);
+                $this->getClient()->calls->create($to, $this->phoneNumber(), [
+                        'url' => $url,
+                    ]);
 
                 return true;
             } catch (TwilioException $e) {
@@ -99,9 +102,20 @@ class TwilioService
 
     public function initiateCall(string $to)
     {
-        return $this->getClient()->calls->create($to, config('services.twilio.phone_number'), [
+        return $this->getClient()->calls->create($to, $this->phoneNumber(), [
             'url' => route('twilio.twiml.outbound'),
         ]);
+    }
+
+    private function phoneNumber(): ?string
+    {
+        return $this->storedConfiguration()?->additional_settings['phone_number']
+            ?? config('services.twilio.phone_number');
+    }
+
+    private function storedConfiguration(): ?OAuthConfiguration
+    {
+        return Schema::hasTable('oauth_configurations') ? OAuthConfiguration::getConfig('twilio') : null;
     }
 
     public function startCallRecording(string $callSid)

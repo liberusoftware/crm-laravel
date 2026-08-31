@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\App\Resources\TeamRoleResource;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Liberu\Foundation\Organizations\Models\Team;
@@ -26,4 +27,18 @@ it('allows the admin panel to a super_admin', function () {
 
     expect($user->hasAdminAccess())->toBeTrue();
     expect($user->canAccessPanel(Filament::getPanel('admin')))->toBeTrue();
+});
+
+it('allows the admin panel to an admin', function () {
+    $user = User::factory()->create();
+    $team = Team::factory()->create(['user_id' => $user->id]);
+    setPermissionsTeamId($team->id);
+    Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web', 'team_id' => $team->id]);
+    $user->assignRole('admin');
+
+    expect($user->canAccessPanel(Filament::getPanel('admin')))->toBeTrue();
+});
+
+it('registers custom role administration in the admin panel', function () {
+    expect(Filament::getPanel('admin')->getResources())->toContain(TeamRoleResource::class);
 });

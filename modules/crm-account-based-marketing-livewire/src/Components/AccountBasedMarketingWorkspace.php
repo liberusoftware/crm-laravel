@@ -25,6 +25,8 @@ final class AccountBasedMarketingWorkspace extends Component
 
     public function save(UpsertRecord $upsert): void
     {
+        abort_unless((int) auth()->user()?->current_team_id > 0, 403);
+
         $this->validate([
             'kind' => ['required', Rule::in(AccountBasedMarketingRecord::KINDS)],
             'name' => ['required', 'string', 'max:255'],
@@ -45,6 +47,8 @@ final class AccountBasedMarketingWorkspace extends Component
 
     public function render(AccountBasedMarketingQuery $query, Factory $views): View
     {
+        abort_unless((int) auth()->user()?->current_team_id > 0, 403);
+
         return $views->make('crm-account-based-marketing-livewire::workspace', [
             'records' => $query->records((int) auth()->user()->current_team_id, $this->kind ?: null)->limit(50)->get(),
             'kinds' => AccountBasedMarketingRecord::KINDS,

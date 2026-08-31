@@ -32,6 +32,10 @@ class OAuthConfigurationResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
+
+    protected static ?string $navigationLabel = 'Integrations';
+
     #[\Override]
     public static function form(Schema $schema): Schema
     {

@@ -6,6 +6,7 @@ namespace Tests\Feature\Filament;
 
 use App\Filament\App\Resources\TeamRoleResource;
 use App\Filament\App\Resources\TeamRoleResource\Pages\CreateTeamRole;
+use App\Filament\App\Resources\TeamRoleResource\Pages\EditTeamRole;
 use App\Filament\App\Resources\TeamRoleResource\Pages\ListTeamRoles;
 use App\Models\Team;
 use App\Models\User;
@@ -116,5 +117,24 @@ class TeamRoleResourceTest extends TestCase
         $this->assertNotNull($role);
         $this->assertTrue($role->hasPermissionTo('view_contact'));
         $this->assertFalse($role->hasPermissionTo('manage_roles'));
+    }
+
+    public function test_admin_can_edit_and_delete_a_custom_role(): void
+    {
+        $this->actAsAdmin();
+        $role = SpatieRole::create(['name' => 'Before', 'guard_name' => 'web', 'team_id' => $this->team->id]);
+
+        Livewire::test(EditTeamRole::class, ['record' => $role->getKey()])
+            ->fillForm(['name' => 'After', 'permissions' => []])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $role->refresh();
+        $this->assertSame('After', $role->name);
+
+        Livewire::test(ListTeamRoles::class)
+            ->callTableAction('delete', $role);
+
+        $this->assertDatabaseMissing('roles', ['id' => $role->id]);
     }
 }

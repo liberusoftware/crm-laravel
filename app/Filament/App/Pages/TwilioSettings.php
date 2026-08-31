@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Pages;
 
+use App\Models\OAuthConfiguration;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Config;
 class TwilioSettings extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
 
     protected string $view = 'filament.app.pages.twilio-settings';
 
@@ -22,9 +25,9 @@ class TwilioSettings extends Page
 
     public function mount(): void
     {
-        $this->sid = config('services.twilio.sid');
-        $this->auth_token = config('services.twilio.auth_token');
-        $this->phone_number = config('services.twilio.phone_number');
+        $configuration = OAuthConfiguration::getConfig('twilio');
+        $this->sid = $configuration?->client_id ?? config('services.twilio.sid');
+        $this->phone_number = $configuration?->additional_settings['phone_number'] ?? config('services.twilio.phone_number');
     }
 
     public function form(Schema $schema): Schema
@@ -49,12 +52,20 @@ class TwilioSettings extends Page
     {
         $this->validate();
 
-        // Update the configuration
+        OAuthConfiguration::query()->updateOrCreate(
+            ['service_name' => 'twilio'],
+            [
+                'user_id' => auth()->id(),
+                'client_id' => $this->sid,
+                'client_secret' => $this->auth_token,
+                'additional_settings' => ['phone_number' => $this->phone_number],
+                'is_active' => true,
+            ],
+        );
+
         Config::set('services.twilio.sid', $this->sid);
         Config::set('services.twilio.auth_token', $this->auth_token);
         Config::set('services.twilio.phone_number', $this->phone_number);
-
-        // You might want to save these settings to the database or .env file for persistence
 
         Notification::make()
             ->title('Twilio settings updated successfully')

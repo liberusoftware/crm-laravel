@@ -6,4 +6,10 @@ namespace Liberu\CRM\Referrals\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class ReferralsFilamentServiceProvider extends ServiceProvider {}
+final class ReferralsFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(ReferralsFilamentPlugin::class);
+    }
+}

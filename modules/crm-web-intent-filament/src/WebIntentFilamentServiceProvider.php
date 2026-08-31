@@ -6,4 +6,10 @@ namespace Liberu\CRM\WebIntent\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class WebIntentFilamentServiceProvider extends ServiceProvider {}
+final class WebIntentFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(WebIntentFilamentPlugin::class);
+    }
+}

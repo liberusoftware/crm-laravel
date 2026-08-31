@@ -11,6 +11,7 @@ use Liberu\CRM\AccountPlanning\Actions\TransitionRecord;
 use Liberu\CRM\AccountPlanning\Actions\UpsertRecord;
 use Liberu\CRM\AccountPlanning\Models\AccountPlanningRecord;
 use Liberu\CRM\AccountPlanning\Queries\AccountPlanningQuery;
+use Liberu\CRM\AccountPlanningApi\Http\Resources\AccountPlanningResource;
 
 final class AccountPlanningController extends Controller
 {
@@ -18,7 +19,12 @@ final class AccountPlanningController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        return response()->json($this->query->records($this->teamId(), $request->string('kind')->toString())->paginate(min(max($request->integer('per_page', 25), 1), 100)));
+        return AccountPlanningResource::collection($this->query->records($this->teamId(), $request->string('kind')->toString())->paginate(min(max($request->integer('per_page', 25), 1), 100)))->response();
+    }
+
+    public function show(int $record): AccountPlanningResource
+    {
+        return new AccountPlanningResource(AccountPlanningRecord::query()->forTeam($this->teamId())->findOrFail($record));
     }
 
     public function store(Request $request, UpsertRecord $upsert): JsonResponse
@@ -30,14 +36,21 @@ final class AccountPlanningController extends Controller
     {
         AccountPlanningRecord::query()->forTeam($this->teamId())->findOrFail($record);
 
-        return response()->json(['data' => $upsert->execute($this->teamId(), $this->validated($request, false), $record)]);
+        return (new AccountPlanningResource($upsert->execute($this->teamId(), $this->validated($request, false), $record)))->response();
     }
 
     public function transition(Request $request, int $record, TransitionRecord $transition): JsonResponse
     {
         $data = $request->validate(['status' => ['required', 'in:'.implode(',', AccountPlanningRecord::STATUSES)]]);
 
-        return response()->json(['data' => $transition->execute($this->teamId(), $record, $data['status'])]);
+        return (new AccountPlanningResource($transition->execute($this->teamId(), $record, $data['status'])))->response();
+    }
+
+    public function destroy(int $record, TransitionRecord $transition): JsonResponse
+    {
+        $transition->execute($this->teamId(), $record, 'archived');
+
+        return response()->json(null, 204);
     }
 
     private function teamId(): int

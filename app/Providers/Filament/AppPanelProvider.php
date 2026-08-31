@@ -51,6 +51,16 @@ class AppPanelProvider extends PanelProvider
             // ->emailVerification()
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors(app(ThemeColors::class)->forSite())
+            ->navigationGroups([
+                'CRM',
+                'Communication',
+                'Marketing',
+                'Advertising',
+                'Help Desk',
+                'Team',
+                'Settings',
+                'Account',
+            ])
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Profile')

@@ -11,7 +11,11 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\AccountBasedMarketing\Models\AccountBasedMarketingRecord;
+use Liberu\CRM\AccountBasedMarketingFilament\Resources\AccountBasedMarketingRecordResource\Pages\CreateAccountBasedMarketingRecord;
+use Liberu\CRM\AccountBasedMarketingFilament\Resources\AccountBasedMarketingRecordResource\Pages\EditAccountBasedMarketingRecord;
+use Liberu\CRM\AccountBasedMarketingFilament\Resources\AccountBasedMarketingRecordResource\Pages\ListAccountBasedMarketingRecords;
 
 final class AccountBasedMarketingRecordResource extends Resource
 {
@@ -40,6 +44,15 @@ final class AccountBasedMarketingRecordResource extends Resource
 
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListAccountBasedMarketingRecords::route('/'), 'create' => CreateAccountBasedMarketingRecord::route('/create'), 'edit' => EditAccountBasedMarketingRecord::route('/{record}/edit')];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 }

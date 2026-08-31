@@ -18,6 +18,8 @@ class ReportCustomizer extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-document-chart-bar';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
+
     protected string $view = 'filament.pages.report-customizer';
 
     public ?array $data = [];

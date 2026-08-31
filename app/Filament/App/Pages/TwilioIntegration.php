@@ -4,6 +4,7 @@ namespace App\Filament\App\Pages;
 
 use App\Models\Contact;
 use App\Models\Lead;
+use App\Models\OAuthConfiguration;
 use App\Services\TwilioService;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -16,6 +17,8 @@ use Twilio\Exceptions\RestException;
 class TwilioIntegration extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-phone';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Communication';
 
     protected string $view = 'filament.app.pages.twilio-integration';
 
@@ -159,6 +162,17 @@ class TwilioIntegration extends Page
             'auth_token' => 'required|string|min:1',
             'phone_number' => 'required|regex:/^\+[1-9]\d{1,14}$/',
         ]);
+
+        OAuthConfiguration::query()->updateOrCreate(
+            ['service_name' => 'twilio'],
+            [
+                'user_id' => auth()->id(),
+                'client_id' => $this->sid,
+                'client_secret' => $this->auth_token,
+                'additional_settings' => ['phone_number' => $this->phone_number],
+                'is_active' => true,
+            ],
+        );
 
         Config::set('services.twilio.sid', $this->sid);
         Config::set('services.twilio.auth_token', $this->auth_token);

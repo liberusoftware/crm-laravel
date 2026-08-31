@@ -8,6 +8,8 @@ use Liberu\CRM\AccountPlanningApi\Http\Controllers\AccountPlanningController;
 Route::middleware('auth:sanctum')->prefix('api/v1/crm/account-planning')->group(function (): void {
     Route::get('records', [AccountPlanningController::class, 'index']);
     Route::post('records', [AccountPlanningController::class, 'store']);
+    Route::get('records/{record}', [AccountPlanningController::class, 'show']);
     Route::patch('records/{record}', [AccountPlanningController::class, 'update']);
     Route::post('records/{record}/transition', [AccountPlanningController::class, 'transition']);
+    Route::delete('records/{record}', [AccountPlanningController::class, 'destroy']);
 });

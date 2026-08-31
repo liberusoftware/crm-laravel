@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\ManageGeneralSettings;
 use App\Filament\App\Pages;
+use App\Filament\App\Resources\TeamRoleResource;
 use App\Filament\Pages\ReportCustomizer;
 use App\Filament\Resources\TeamBackupResource;
 use App\Filament\Resources\TeamResource;
@@ -42,16 +43,24 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors(app(ThemeColors::class)->forSite())
+            ->navigationGroups([
+                'Administration',
+                'Teams',
+                'Team',
+                'Settings',
+            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->tenantMenu(fn (): bool => Filament::getTenant() !== null)
             ->resources([
                 TeamBackupResource::class,
                 TeamResource::class,
+                TeamRoleResource::class,
             ])
             ->authenticatedRoutes(function (Panel $panel): void {
                 TeamBackupResource::registerRoutes($panel);
                 TeamResource::registerRoutes($panel);
+                TeamRoleResource::registerRoutes($panel);
                 FoundationTeamResource::registerRoutes($panel);
                 ReportCustomizer::registerRoutes($panel);
                 ManageGeneralSettings::registerRoutes($panel);

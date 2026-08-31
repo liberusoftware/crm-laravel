@@ -7,7 +7,11 @@ namespace Liberu\CRM\MarketingDevelopmentFundsFilament\Resources;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\MarketingDevelopmentFunds\Models\MdfFund;
+use Liberu\CRM\MarketingDevelopmentFundsFilament\Resources\Pages\CreateMdfFund;
+use Liberu\CRM\MarketingDevelopmentFundsFilament\Resources\Pages\EditMdfFund;
+use Liberu\CRM\MarketingDevelopmentFundsFilament\Resources\Pages\ListMdfFunds;
 
 final class MdfFundResource extends Resource
 {
@@ -25,8 +29,17 @@ final class MdfFundResource extends Resource
         return $table->columns([]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListMdfFunds::route('/'), 'create' => CreateMdfFund::route('/create'), 'edit' => EditMdfFund::route('/{record}/edit')];
     }
 }

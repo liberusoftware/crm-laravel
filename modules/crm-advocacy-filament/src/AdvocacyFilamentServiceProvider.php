@@ -8,6 +8,11 @@ use Illuminate\Support\ServiceProvider;
 
 final class AdvocacyFilamentServiceProvider extends ServiceProvider
 {
+    public function register(): void
+    {
+        $this->app->singleton(AdvocacyFilamentPlugin::class);
+    }
+
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'crm-advocacy-filament');

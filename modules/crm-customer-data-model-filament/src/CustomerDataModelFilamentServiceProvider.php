@@ -6,4 +6,10 @@ namespace Liberu\CRM\CustomerDataModel\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class CustomerDataModelFilamentServiceProvider extends ServiceProvider {}
+final class CustomerDataModelFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(CustomerDataModelFilamentPlugin::class);
+    }
+}

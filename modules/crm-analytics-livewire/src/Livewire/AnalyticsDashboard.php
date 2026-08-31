@@ -11,6 +11,9 @@ final class AnalyticsDashboard extends Component
 {
     public function render(): mixed
     {
+        $teamId = auth()->user()?->current_team_id;
+        abort_unless($teamId !== null && (int) $teamId > 0, 403);
+
         return app('view')->make('module-crm-analytics-livewire::dashboard', ['assets' => app(AnalyticsQuery::class)->assets((int) auth()->user()->current_team_id)->get()]);
     }
 }

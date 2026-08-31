@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\LeadCapture\Filament\Resources\CaptureFormResource\Pages\CreateCaptureForm;
 use Liberu\CRM\LeadCapture\Filament\Resources\CaptureFormResource\Pages\ListCaptureForms;
 use Liberu\CRM\LeadCapture\Models\CaptureForm;
@@ -29,6 +30,15 @@ final class CaptureFormResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([TextColumn::make('kind')->badge(), TextColumn::make('name')->searchable(), TextColumn::make('slug'), TextColumn::make('status')->badge(), TextColumn::make('submissions_count')]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array

@@ -41,6 +41,8 @@ class TeamResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Teams';
+
     public static function canAccess(): bool
     {
         return (bool) auth()->user()?->hasRole(Role::SuperAdmin);
