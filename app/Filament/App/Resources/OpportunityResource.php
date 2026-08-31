@@ -31,6 +31,8 @@ class OpportunityResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-currency-dollar';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'CRM';
+
     #[\Override]
     public static function form(Schema $schema): Schema
     {

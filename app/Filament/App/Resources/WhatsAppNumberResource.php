@@ -33,6 +33,8 @@ class WhatsAppNumberResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-phone';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Communication';
+
     #[\Override]
     public static function form(Schema $schema): Schema
     {

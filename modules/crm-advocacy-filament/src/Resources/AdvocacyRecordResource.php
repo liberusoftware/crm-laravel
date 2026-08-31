@@ -11,7 +11,11 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\Advocacy\Models\AdvocacyRecord;
+use Liberu\CRM\AdvocacyFilament\Resources\Pages\CreateAdvocacyRecord;
+use Liberu\CRM\AdvocacyFilament\Resources\Pages\EditAdvocacyRecord;
+use Liberu\CRM\AdvocacyFilament\Resources\Pages\ListAdvocacyRecords;
 
 final class AdvocacyRecordResource extends Resource
 {
@@ -33,8 +37,17 @@ final class AdvocacyRecordResource extends Resource
         return $table->columns([TextColumn::make('kind')->badge(), TextColumn::make('name')->searchable(), TextColumn::make('status')->badge(), TextColumn::make('created_at')->dateTime()])->defaultSort('created_at', 'desc');
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListAdvocacyRecords::route('/'), 'create' => CreateAdvocacyRecord::route('/create'), 'edit' => EditAdvocacyRecord::route('/{record}/edit')];
     }
 }

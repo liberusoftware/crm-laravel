@@ -7,6 +7,7 @@ namespace Liberu\CRM\Core\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+/** @property int $team_id */
 final class Tag extends Model
 {
     protected $table = 'crm_core_tags';

@@ -28,6 +28,10 @@ class LeadResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-funnel';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'CRM';
+
+    protected static ?int $navigationSort = 3;
+
     #[\Override]
     public static function form(Schema $schema): Schema
     {

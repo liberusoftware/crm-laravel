@@ -15,6 +15,8 @@ class MailchimpIntegration extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-envelope';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Marketing';
+
     protected string $view = 'filament.app.pages.mailchimp-integration';
 
     public ?array $listData = [];

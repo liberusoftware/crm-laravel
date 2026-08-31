@@ -11,7 +11,11 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\Advertising\Models\AdvertisingRecord;
+use Liberu\CRM\AdvertisingFilament\Resources\Pages\CreateAdvertisingRecord;
+use Liberu\CRM\AdvertisingFilament\Resources\Pages\EditAdvertisingRecord;
+use Liberu\CRM\AdvertisingFilament\Resources\Pages\ListAdvertisingRecords;
 
 final class AdvertisingRecordResource extends Resource
 {
@@ -34,8 +38,17 @@ final class AdvertisingRecordResource extends Resource
         return $table->columns([TextColumn::make('kind')->badge(), TextColumn::make('name')->searchable(), TextColumn::make('platform')->badge(), TextColumn::make('status')->badge(), TextColumn::make('created_at')->dateTime()])->defaultSort('created_at', 'desc');
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListAdvertisingRecords::route('/'), 'create' => CreateAdvertisingRecord::route('/create'), 'edit' => EditAdvertisingRecord::route('/{record}/edit')];
     }
 }

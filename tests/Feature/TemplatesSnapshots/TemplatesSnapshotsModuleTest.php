@@ -12,6 +12,8 @@ use Liberu\CRM\TemplatesAndSnapshots\Actions\CreateSnapshot;
 use Liberu\CRM\TemplatesAndSnapshots\Actions\InstallSnapshot;
 use Liberu\CRM\TemplatesAndSnapshots\Actions\RollbackSnapshot;
 use Liberu\CRM\TemplatesAndSnapshots\Actions\ShareSnapshot;
+use Liberu\CRM\TemplatesAndSnapshots\Actions\UpdateSnapshot;
+use Liberu\CRM\TemplatesAndSnapshots\Models\SnapshotAudit;
 use Liberu\CRM\TemplatesAndSnapshots\Models\SnapshotBundle;
 use Liberu\CRM\TemplatesAndSnapshots\Models\SnapshotInstall;
 use Tests\TestCase;
@@ -67,5 +69,22 @@ final class TemplatesSnapshotsModuleTest extends TestCase
         app(InstallSnapshot::class)->execute($team->id, $owner->id, $bundle->id);
 
         self::assertSame(1, app(RollbackSnapshot::class)->execute($team->id, $owner->id, $bundle->id, 1)->getAttribute('version'));
+    }
+
+    public function test_draft_snapshots_can_be_updated_but_published_snapshots_are_immutable(): void
+    {
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $draft = app(CreateSnapshot::class)->execute($team->id, $owner->id, ['name' => 'Initial', 'payload' => ['version' => 1]]);
+
+        $updated = app(UpdateSnapshot::class)->execute($team->id, $owner->id, $draft->id, ['name' => 'Updated', 'payload' => ['version' => 2]]);
+
+        self::assertSame('Updated', $updated->getAttribute('name'));
+        self::assertSame(['version' => 2], $updated->getAttribute('payload'));
+        self::assertSame('snapshot_updated', SnapshotAudit::query()->where('team_id', $team->id)->latest('id')->value('event'));
+
+        $published = app(CreateSnapshot::class)->execute($team->id, $owner->id, ['name' => 'Published', 'payload' => ['version' => 1], 'status' => 'published']);
+        $this->expectException(ValidationException::class);
+        app(UpdateSnapshot::class)->execute($team->id, $owner->id, $published->id, ['payload' => ['version' => 2]]);
     }
 }

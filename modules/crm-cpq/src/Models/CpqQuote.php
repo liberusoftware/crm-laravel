@@ -9,11 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $team_id
  * @property int $owner_id
+ * @property string $name
  * @property string $status
+ * @property string $currency
+ * @property array<string, mixed> $configuration
  * @property array<int, mixed> $lines
  * @property float $subtotal
  * @property float $discount
  * @property float $total
+ * @property float|null $margin
  */
 final class CpqQuote extends Model
 {

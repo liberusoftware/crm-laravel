@@ -7,7 +7,11 @@ namespace Liberu\CRM\JourneyOrchestrationFilament\Resources;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\JourneyOrchestration\Models\Journey;
+use Liberu\CRM\JourneyOrchestrationFilament\Resources\Pages\CreateJourney;
+use Liberu\CRM\JourneyOrchestrationFilament\Resources\Pages\EditJourney;
+use Liberu\CRM\JourneyOrchestrationFilament\Resources\Pages\ListJourneys;
 
 final class JourneyResource extends Resource
 {
@@ -25,8 +29,17 @@ final class JourneyResource extends Resource
         return $table->columns([]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListJourneys::route('/'), 'create' => CreateJourney::route('/create'), 'edit' => EditJourney::route('/{record}/edit')];
     }
 }

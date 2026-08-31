@@ -36,6 +36,8 @@ class TeamBackupResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-archive-box-arrow-down';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Teams';
+
     public static function canAccess(): bool
     {
         return (bool) auth()->user()?->isAdmin();

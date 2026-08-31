@@ -12,6 +12,9 @@ final class FunnelDashboard extends Component
 {
     public function render(): View
     {
+        $teamId = auth()->user()?->current_team_id;
+        abort_unless($teamId !== null && (int) $teamId > 0, 403);
+
         return app('view')->make('module-crm-landing-pages-and-funnels::dashboard', ['funnels' => app(FunnelQuery::class)->forTeam((int) auth()->user()->current_team_id)->paginate(25)]);
     }
 }

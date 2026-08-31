@@ -35,6 +35,17 @@ paths:
       operationId: crm.core.delete
       security: [{sanctum: []}]
       responses: {'204': {description: Archived}}
+  /api/v1/crm/crm-core/tags:
+    get: {operationId: crm.core.tags.list, security: [{sanctum: []}], responses: {'200': {description: Tags}}}
+    post: {operationId: crm.core.tags.create, security: [{sanctum: []}], responses: {'201': {description: Tag}}}
+  /api/v1/crm/crm-core/{id}/timeline:
+    get: {operationId: crm.core.timeline, security: [{sanctum: []}], responses: {'200': {description: Timeline}}}
+  /api/v1/crm/crm-core/{id}/notes:
+    post: {operationId: crm.core.notes.create, security: [{sanctum: []}], responses: {'201': {description: Note}}}
+  /api/v1/crm/crm-core/{id}/relationships:
+    post: {operationId: crm.core.relationships.create, security: [{sanctum: []}], responses: {'201': {description: Relationship}}}
+  /api/v1/crm/crm-core/{id}/favorite:
+    post: {operationId: crm.core.favorite, security: [{sanctum: []}], responses: {'200': {description: Favorite state}}}
 components:
   securitySchemes: {sanctum: {type: http, scheme: bearer, bearerFormat: Sanctum}}
   schemas:

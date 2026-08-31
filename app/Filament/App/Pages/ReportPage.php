@@ -15,6 +15,8 @@ class ReportPage extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-document-chart-bar';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'CRM';
+
     protected string $view = 'filament.app.pages.report-page';
 
     public ?array $data = [];

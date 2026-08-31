@@ -6,4 +6,10 @@ namespace Liberu\CRM\ProposalsAndQuotes\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class ProposalsAndQuotesFilamentServiceProvider extends ServiceProvider {}
+final class ProposalsAndQuotesFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(ProposalsAndQuotesFilamentPlugin::class);
+    }
+}

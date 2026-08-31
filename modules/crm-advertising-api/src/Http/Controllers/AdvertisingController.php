@@ -11,6 +11,7 @@ use Liberu\CRM\Advertising\Actions\TransitionRecord;
 use Liberu\CRM\Advertising\Actions\UpsertRecord;
 use Liberu\CRM\Advertising\Models\AdvertisingRecord;
 use Liberu\CRM\Advertising\Queries\AdvertisingQuery;
+use Liberu\CRM\AdvertisingApi\Http\Resources\AdvertisingResource;
 
 final class AdvertisingController extends Controller
 {
@@ -18,26 +19,38 @@ final class AdvertisingController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        return response()->json($this->query->records($this->teamId(), $request->string('kind')->toString())->paginate(min(max($request->integer('per_page', 25), 1), 100)));
+        return AdvertisingResource::collection($this->query->records($this->teamId(), $request->string('kind')->toString())->paginate(min(max($request->integer('per_page', 25), 1), 100)))->response();
     }
 
     public function store(Request $request, UpsertRecord $upsert): JsonResponse
     {
-        return response()->json(['data' => $upsert->execute($this->teamId(), $this->validated($request))], 201);
+        return (new AdvertisingResource($upsert->execute($this->teamId(), $this->validated($request))))->response()->setStatusCode(201);
+    }
+
+    public function show(int $record): AdvertisingResource
+    {
+        return new AdvertisingResource(AdvertisingRecord::query()->forTeam($this->teamId())->findOrFail($record));
     }
 
     public function update(Request $request, int $record, UpsertRecord $upsert): JsonResponse
     {
         AdvertisingRecord::query()->forTeam($this->teamId())->findOrFail($record);
 
-        return response()->json(['data' => $upsert->execute($this->teamId(), $this->validated($request, false), $record)]);
+        return new AdvertisingResource($upsert->execute($this->teamId(), $this->validated($request, false), $record));
     }
 
     public function transition(Request $request, int $record, TransitionRecord $transition): JsonResponse
     {
         $data = $request->validate(['status' => ['required', 'in:'.implode(',', AdvertisingRecord::STATUSES)]]);
 
-        return response()->json(['data' => $transition->execute($this->teamId(), $record, $data['status'])]);
+        return new AdvertisingResource($transition->execute($this->teamId(), $record, $data['status']));
+    }
+
+    public function destroy(int $record, TransitionRecord $transition): JsonResponse
+    {
+        $transition->execute($this->teamId(), $record, 'archived');
+
+        return response()->json(null, 204);
     }
 
     private function teamId(): int

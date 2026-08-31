@@ -6,4 +6,10 @@ namespace Liberu\CRM\RevenueLifecycle\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class RevenueLifecycleFilamentServiceProvider extends ServiceProvider {}
+final class RevenueLifecycleFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(RevenueLifecycleFilamentPlugin::class);
+    }
+}

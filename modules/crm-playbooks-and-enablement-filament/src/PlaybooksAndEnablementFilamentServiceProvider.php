@@ -6,4 +6,10 @@ namespace Liberu\CRM\PlaybooksAndEnablement\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class PlaybooksAndEnablementFilamentServiceProvider extends ServiceProvider {}
+final class PlaybooksAndEnablementFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(PlaybooksAndEnablementFilamentPlugin::class);
+    }
+}

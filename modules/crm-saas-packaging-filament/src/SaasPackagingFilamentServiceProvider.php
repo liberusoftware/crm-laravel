@@ -6,4 +6,10 @@ namespace Liberu\CRM\SaasPackaging\Filament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class SaasPackagingFilamentServiceProvider extends ServiceProvider {}
+final class SaasPackagingFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(SaasPackagingFilamentPlugin::class);
+    }
+}

@@ -20,7 +20,11 @@ class CRMEventNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
+        $fromAddress = (string) (config('mail.from.address') ?: 'noreply@example.com');
+        $fromName = (string) (config('mail.from.name') ?: config('app.name', 'CRM'));
+
         return (new MailMessage())
+            ->from($fromAddress, $fromName)
             ->subject("CRM Event: {$this->event}")
             ->line("A new CRM event has occurred: {$this->event}")
             ->line('Details: '.$this->getEventDetails())

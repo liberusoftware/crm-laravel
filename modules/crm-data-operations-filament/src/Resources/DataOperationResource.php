@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\DataOperations\Filament\Resources\DataOperationResource\Pages\CreateDataOperation;
 use Liberu\CRM\DataOperations\Filament\Resources\DataOperationResource\Pages\EditDataOperation;
 use Liberu\CRM\DataOperations\Filament\Resources\DataOperationResource\Pages\ListDataOperations;
@@ -30,6 +31,15 @@ final class DataOperationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([TextColumn::make('kind')->badge(), TextColumn::make('status')->badge(), TextColumn::make('source')->searchable(), TextColumn::make('processed_rows')->label('Processed'), TextColumn::make('failed_rows')->label('Failed'), TextColumn::make('created_at')->dateTime()]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array

@@ -19,6 +19,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
@@ -53,6 +54,53 @@ class TeamRoleResource extends Resource
     // Spatie Role has no `team` ownership relation, so opt out of Filament's
     // automatic tenant scoping and scope to roles.team_id manually below.
     protected static bool $isScopedToTenant = false;
+
+    public static function canAccess(): bool
+    {
+        $user = Auth::user();
+
+        return $user instanceof User && $user->hasAdminAccess();
+    }
+
+    public static function canViewAny(): bool
+    {
+        return self::adminPanelAccess() || parent::canViewAny();
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return self::adminPanelAccess() || parent::canView($record);
+    }
+
+    public static function canCreate(): bool
+    {
+        return self::adminPanelAccess() || parent::canCreate();
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return self::adminPanelAccess() || parent::canEdit($record);
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return self::adminPanelAccess() || parent::canDelete($record);
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return self::adminPanelAccess() || parent::canDeleteAny();
+    }
+
+    private static function adminPanelAccess(): bool
+    {
+        return self::isAdminPath() && self::canAccess();
+    }
+
+    private static function isAdminPath(): bool
+    {
+        return request()->is('admin') || request()->is('admin/*');
+    }
 
     /**
      * Permissions a team admin may grant to a custom role: everything except

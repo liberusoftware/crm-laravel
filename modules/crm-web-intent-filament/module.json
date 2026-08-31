@@ -10,5 +10,6 @@
   "suggests": [],
   "capabilities": ["crm.web-intent.filament"],
   "default_enabled": false,
-  "features": ["Intent visit resource", "Intent alerts resource"]
+  "features": ["Intent visit resource", "Intent alerts resource"],
+  "presentation": {"filament": {"app": ["Liberu\\CRM\\WebIntent\\Filament\\WebIntentFilamentPlugin"]}}
 }

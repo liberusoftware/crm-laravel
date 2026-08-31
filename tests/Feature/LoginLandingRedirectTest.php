@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Responses\RegisterResponse;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Liberu\Foundation\Organizations\Models\Team;
@@ -36,4 +37,16 @@ it('sends a normal user to the app panel after login', function () {
     $this->actingAs($user)
         ->get('/dashboard')
         ->assertRedirect(route('filament.app.pages.dashboard', ['tenant' => $user->currentTeam]));
+});
+
+it('sends a sales representative through setup after registration', function () {
+    $user = seedTeamUser(superAdmin: false);
+    setPermissionsTeamId($user->current_team_id);
+    Role::firstOrCreate(['name' => 'sales_rep', 'guard_name' => 'web', 'team_id' => $user->current_team_id]);
+    $user->assignRole('sales_rep');
+    $this->actingAs($user);
+
+    $response = (new RegisterResponse())->toResponse(request()->create('/register', 'POST'));
+
+    expect($response->getTargetUrl())->toBe(url('/app/'.$user->current_team_id.'/setup-wizard'));
 });

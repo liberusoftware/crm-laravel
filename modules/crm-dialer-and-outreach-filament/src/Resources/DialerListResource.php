@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Liberu\CRM\DialerAndOutreachFilament\Resources;
 
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\DialerAndOutreach\Models\DialerList;
+use Liberu\CRM\DialerAndOutreachFilament\Resources\Pages\CreateDialerList;
+use Liberu\CRM\DialerAndOutreachFilament\Resources\Pages\EditDialerList;
+use Liberu\CRM\DialerAndOutreachFilament\Resources\Pages\ListDialerLists;
 
 final class DialerListResource extends Resource
 {
@@ -13,8 +17,17 @@ final class DialerListResource extends Resource
 
     protected static ?string $navigationLabel = 'Dialer lists';
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListDialerLists::route('/'), 'create' => CreateDialerList::route('/create'), 'edit' => EditDialerList::route('/{record}/edit')];
     }
 }

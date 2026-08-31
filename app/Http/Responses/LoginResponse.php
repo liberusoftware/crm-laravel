@@ -11,8 +11,8 @@ use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 class LoginResponse implements LoginResponseContract
 {
     protected array $roleRedirects = [
+        Role::SuperAdmin->value => '/admin',
         Role::Admin->value => '/admin',
-        Role::Free->value => '/app',
     ];
 
     protected function shouldRedirect(Request $request, string $redirect): bool

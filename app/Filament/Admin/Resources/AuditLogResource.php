@@ -22,6 +22,8 @@ class AuditLogResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Administration';
+
     #[\Override]
     public static function form(Schema $schema): Schema
     {

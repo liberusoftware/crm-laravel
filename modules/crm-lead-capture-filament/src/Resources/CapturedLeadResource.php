@@ -7,7 +7,11 @@ namespace Liberu\CRM\LeadCaptureFilament\Resources;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\LeadCapture\Models\CapturedLead;
+use Liberu\CRM\LeadCaptureFilament\Resources\Pages\CreateCapturedLead;
+use Liberu\CRM\LeadCaptureFilament\Resources\Pages\EditCapturedLead;
+use Liberu\CRM\LeadCaptureFilament\Resources\Pages\ListCapturedLeads;
 
 final class CapturedLeadResource extends Resource
 {
@@ -25,8 +29,17 @@ final class CapturedLeadResource extends Resource
         return $table->columns([]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListCapturedLeads::route('/'), 'create' => CreateCapturedLead::route('/create'), 'edit' => EditCapturedLead::route('/{record}/edit')];
     }
 }

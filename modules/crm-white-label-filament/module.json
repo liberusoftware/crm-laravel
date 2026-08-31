@@ -10,5 +10,6 @@
   "suggests": [],
   "capabilities": ["crm.white-label.filament"],
   "default_enabled": false,
-  "features": ["White-label settings resource"]
+  "features": ["White-label settings resource"],
+  "presentation": {"filament": {"app": ["Liberu\\CRM\\WhiteLabel\\Filament\\WhiteLabelFilamentPlugin"]}}
 }

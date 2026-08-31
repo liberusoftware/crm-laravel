@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Liberu\CRM\Activities\Filament\Resources\ActivityResource\Pages\CreateActivity;
@@ -46,6 +47,15 @@ final class ActivityResource extends Resource
                 DB::table('crm_activities')->whereIn('id', $records->pluck('id'))->update(['status' => 'completed', 'completed_at' => now(), 'updated_at' => now()]);
             }),
         ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array

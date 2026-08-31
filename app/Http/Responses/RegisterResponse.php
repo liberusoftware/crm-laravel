@@ -3,6 +3,8 @@
 namespace App\Http\Responses;
 
 use App\Enums\Role;
+use App\Filament\App\Pages\SetupWizard;
+use App\Models\Team;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +13,8 @@ use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 class RegisterResponse implements RegisterResponseContract
 {
     protected array $roleRedirects = [
+        Role::SuperAdmin->value => '/admin',
         Role::Admin->value => '/admin',
-        Role::Free->value => '/app',
     ];
 
     protected function shouldRedirect(Request $request, string $redirect): bool
@@ -36,6 +38,10 @@ class RegisterResponse implements RegisterResponseContract
         }
 
         $redirect = '/app';
+
+        if ($user->currentTeam instanceof Team) {
+            $redirect = SetupWizard::getUrl(['tenant' => $user->currentTeam]);
+        }
 
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false], 200)

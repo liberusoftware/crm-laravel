@@ -7,7 +7,11 @@ namespace Liberu\CRM\OmnichannelServiceFilament\Resources;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\OmnichannelService\Models\Conversation;
+use Liberu\CRM\OmnichannelServiceFilament\Resources\Pages\CreateConversation;
+use Liberu\CRM\OmnichannelServiceFilament\Resources\Pages\EditConversation;
+use Liberu\CRM\OmnichannelServiceFilament\Resources\Pages\ListConversations;
 
 final class ConversationResource extends Resource
 {
@@ -25,8 +29,17 @@ final class ConversationResource extends Resource
         return $table->columns([]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
+    }
+
     public static function getPages(): array
     {
-        return [];
+        return ['index' => ListConversations::route('/'), 'create' => CreateConversation::route('/create'), 'edit' => EditConversation::route('/{record}/edit')];
     }
 }

@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: CRM Account Planning API
+  version: 1.0.0
+paths:
+  /api/v1/crm/account-planning/records:
+    get:
+      operationId: crm.account.planning.list
+      security: [{ sanctum: [] }]
+      parameters:
+        - { name: kind, in: query, schema: { type: string } }
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 25 } }
+      responses:
+        '200': { $ref: '#/components/responses/ResourceCollection' }
+    post:
+      operationId: crm.account.planning.create
+      security: [{ sanctum: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/AccountPlanningRequest' } }
+      responses:
+        '201': { $ref: '#/components/responses/Resource' }
+  /api/v1/crm/account-planning/records/{record}:
+    parameters:
+      - { name: record, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: crm.account.planning.get
+      security: [{ sanctum: [] }]
+      responses:
+        '200': { $ref: '#/components/responses/Resource' }
+        '404': { $ref: '#/components/responses/Problem' }
+    patch:
+      operationId: crm.account.planning.update
+      security: [{ sanctum: [] }]
+      parameters:
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/AccountPlanningRequest' } }
+      responses:
+        '200': { $ref: '#/components/responses/Resource' }
+    delete:
+      operationId: crm.account.planning.archive
+      security: [{ sanctum: [] }]
+      responses:
+        '204': { description: Record archived. }
+  /api/v1/crm/account-planning/records/{record}/transition:
+    post:
+      operationId: crm.account.planning.transition
+      security: [{ sanctum: [] }]
+      parameters:
+        - { name: record, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { type: string, enum: [draft, active, paused, completed, archived] }
+      responses:
+        '200': { $ref: '#/components/responses/Resource' }
+components:
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      schema: { type: string, minLength: 16, maxLength: 255 }
+  securitySchemes:
+    sanctum: { type: http, scheme: bearer, bearerFormat: Sanctum }
+  schemas:
+    AccountPlanningRequest:
+      type: object
+      properties:
+        kind: { type: string, enum: [account_hierarchy, stakeholder, influence_map, whitespace, account_plan, objective, risk, mutual_action_plan, coordination] }
+        name: { type: string, maxLength: 255 }
+        status: { type: string, enum: [draft, active, paused, completed, archived] }
+        account_id: { type: integer, minimum: 1, nullable: true }
+        owner_id: { type: integer, minimum: 1, nullable: true }
+        payload: { type: object, additionalProperties: true }
+        starts_at: { type: string, format: date-time, nullable: true }
+        ends_at: { type: string, format: date-time, nullable: true }
+    AccountPlanningResource:
+      type: object
+      required: [id, type, attributes]
+      properties:
+        id: { type: string }
+        type: { type: string, const: crm-account-planning }
+        attributes: { $ref: '#/components/schemas/AccountPlanningRequest' }
+    Resource:
+      type: object
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/AccountPlanningResource' }
+    ResourceCollection:
+      type: object
+      required: [data]
+      properties:
+        data: { type: array, items: { $ref: '#/components/schemas/AccountPlanningResource' } }
+        links: { type: object, additionalProperties: true }
+        meta: { type: object, additionalProperties: true }
+    Problem:
+      type: object
+      required: [title, status]
+      properties:
+        title: { type: string }
+        detail: { type: string }
+        status: { type: integer }
+  responses:
+    Resource: { description: Account planning resource., content: { application/json: { schema: { $ref: '#/components/schemas/Resource' } } } }
+    ResourceCollection: { description: Paginated account planning resources., content: { application/json: { schema: { $ref: '#/components/schemas/ResourceCollection' } } } }
+    Problem: { description: RFC 9457 problem details., content: { application/problem+json: { schema: { $ref: '#/components/schemas/Problem' } } } }

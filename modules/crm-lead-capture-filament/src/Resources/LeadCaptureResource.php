@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Liberu\CRM\LeadCapture\Filament\Resources\LeadCaptureResource\Pages\CreateLeadCapture;
 use Liberu\CRM\LeadCapture\Filament\Resources\LeadCaptureResource\Pages\ListLeadCaptures;
 use Liberu\CRM\LeadCapture\Models\LeadCapture;
@@ -29,6 +30,15 @@ final class LeadCaptureResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([TextColumn::make('kind')->badge(), TextColumn::make('name')->searchable(), TextColumn::make('email')->searchable(), TextColumn::make('source')->badge(), TextColumn::make('status')->badge(), TextColumn::make('captured_at')->dateTime()]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $teamId = (int) auth()->user()?->current_team_id;
+
+        abort_unless($teamId > 0, 403);
+
+        return parent::getEloquentQuery()->where('team_id', $teamId);
     }
 
     public static function getPages(): array
