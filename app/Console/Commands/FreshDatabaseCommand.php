@@ -29,7 +29,6 @@ final class FreshDatabaseCommand extends LaravelFreshCommand
         if (! $repositoryExists) {
             $this->call('migrate:install', array_filter([
                 '--database' => $database,
-                '--force' => true,
             ]));
         }
 
