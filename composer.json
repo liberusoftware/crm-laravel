@@ -201,7 +201,11 @@
     "classmap": [
       "modules/*/src",
       "modules/*/database/factories",
-      "modules/*/database/seeders"
+      "modules/application/database/seeders",
+      "modules/identity-core/database/seeders",
+      "modules/organizations-teams/database/seeders",
+      "modules/roles-permissions/database/seeders",
+      "modules/settings/database/seeders"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"
