@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withCommands([
-        __DIR__.'/../app/Console/Commands',
+        ...glob(__DIR__.'/../modules/*/src/Legacy/Console/Commands') ?: [],
     ])
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([

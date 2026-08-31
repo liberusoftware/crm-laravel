@@ -32,7 +32,7 @@ class PortalPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        $panel = $panel
             ->id('portal')
             ->path('portal')
             ->login()
@@ -49,7 +49,6 @@ class PortalPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->discoverResources(in: app_path('Filament/Portal/Resources'), for: 'App\\Filament\\Portal\\Resources')
             ->pages([
                 Dashboard::class,
             ])
@@ -71,5 +70,11 @@ class PortalPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/Portal/Resources')) ?: [] as $path) {
+            $panel->discoverResources(in: $path, for: 'App\\Filament\\Portal\\Resources');
+        }
+
+        return $panel;
     }
 }

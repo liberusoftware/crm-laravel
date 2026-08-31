@@ -47,7 +47,7 @@ class ResourceEditPageMountTest extends TestCase
         $skipped = [];    // model has no factory
         $flagged = [];    // factory cannot seed a row -> model/migration drift
 
-        foreach (glob(app_path('Filament/App/Resources/*Resource.php')) as $file) {
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/App/Resources/*Resource.php')) ?: [] as $file) {
             $basename = basename($file, '.php');
 
             // Concurrent task owns DealResource — do not touch it here.

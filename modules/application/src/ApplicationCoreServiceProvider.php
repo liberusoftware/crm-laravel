@@ -23,6 +23,7 @@ final class ApplicationCoreServiceProvider extends ServiceProvider
     public function boot(EnvironmentValidator $validator): void
     {
         $validator->validate();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/health.php');
         $this->publishes([__DIR__.'/../config/application-core.php' => config_path('application-core.php')], 'application-core-config');
     }

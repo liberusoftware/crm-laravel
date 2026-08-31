@@ -69,13 +69,10 @@ class AppPanelProvider extends PanelProvider
                         ? url(EditProfile::getUrl())
                         : url($panel->getPath())),
             ])
-            ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
-            ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([
                 Dashboard::class,
                 EditProfile::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/App/Widgets/Home'), for: 'App\\Filament\\App\\Widgets\\Home')
             ->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
@@ -122,6 +119,14 @@ class AppPanelProvider extends PanelProvider
                             ? url(Pages\EditTeam::getUrl())
                             : url($panel->getPath())),
                 ]);
+        }
+
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/App/Resources')) ?: [] as $path) {
+            $panel->discoverResources(in: $path, for: 'App\\Filament\\App\\Resources');
+        }
+
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/App/Pages')) ?: [] as $path) {
+            $panel->discoverPages(in: $path, for: 'App\\Filament\\App\\Pages');
         }
 
         return $panel;

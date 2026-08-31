@@ -192,8 +192,6 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
             "Liberu\\Themes\\Base\\": "themes/base/src/",
             "Liberu\\Themes\\ClearSignal\\": "themes/clear-signal/src/",
             "Liberu\\Themes\\Dark\\": "themes/dark/src/",
@@ -204,7 +202,8 @@
         },
     "classmap": [
       "modules/*/src",
-      "modules/*/database/factories"
+      "modules/*/database/factories",
+      "modules/*/database/seeders"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"
@@ -214,6 +213,9 @@
         "psr-4": {
             "Tests\\": "tests/"
         },
+        "classmap": [
+            "modules/*/tests"
+        ],
         "files": [
             "tests/Stubs/TwilioStubs.php",
             "tests/Stubs/GoogleApiStubs.php",

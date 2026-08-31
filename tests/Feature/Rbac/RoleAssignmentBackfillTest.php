@@ -55,7 +55,7 @@ class RoleAssignmentBackfillTest extends TestCase
         ];
         DB::table('model_has_roles')->insert($rows);
 
-        $migration = require base_path('database/migrations/2026_07_06_000003_backfill_role_assignment_teams.php');
+        $migration = require base_path('modules/roles-permissions/database/migrations/2026_07_06_000003_backfill_role_assignment_teams.php');
         $migration->up();
 
         $this->assertDatabaseHas('model_has_roles', [
