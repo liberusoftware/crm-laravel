@@ -38,7 +38,7 @@ class ResourceCreatePageMountTest extends TestCase
         $failures = [];
         $covered = [];
 
-        foreach (glob(app_path('Filament/App/Resources/*Resource.php')) as $file) {
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/App/Resources/*Resource.php')) ?: [] as $file) {
             $class = 'App\\Filament\\App\\Resources\\'.basename($file, '.php');
 
             if (! class_exists($class) || ! isset($class::getPages()['create'])) {

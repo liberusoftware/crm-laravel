@@ -160,7 +160,7 @@ abstract class BaseModule implements ModuleInterface
             $record = Module::query()->where('name', $this->name)->first();
 
             if ($record) {
-                return (bool) $record->is_enabled;
+                return (bool) $record->getAttribute('is_enabled');
             }
         } catch (\Exception) {
             // DB not ready yet

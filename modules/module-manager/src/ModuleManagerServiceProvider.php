@@ -43,6 +43,7 @@ final class ModuleManagerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->publishes([__DIR__.'/../config/modules.php' => config_path('modules.php')], 'modules-config');
 
         if ($this->app->runningInConsole()) {

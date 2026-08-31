@@ -37,7 +37,7 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        $panel = $panel
             ->id('admin')
             ->path('admin')
             ->login()
@@ -49,8 +49,6 @@ class AdminPanelProvider extends PanelProvider
                 'Team',
                 'Settings',
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->tenantMenu(fn (): bool => Filament::getTenant() !== null)
             ->resources([
                 TeamBackupResource::class,
@@ -65,8 +63,6 @@ class AdminPanelProvider extends PanelProvider
                 ReportCustomizer::registerRoutes($panel);
                 ManageGeneralSettings::registerRoutes($panel);
             })
-            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
-            ->discoverWidgets(in: app_path('Filament/Admin/Widgets/Home'), for: 'App\\Filament\\Admin\\Widgets\\Home')
             ->tenant(Team::class, ownershipRelationship: 'team')
             ->navigation(fn (): bool => Filament::getTenant() !== null)
             ->pages([
@@ -97,6 +93,20 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationGroup('Administration'),
                 SettingsFilamentPlugin::make(),
             ]);
+
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/Resources')) ?: [] as $path) {
+            $panel->discoverResources(in: $path, for: 'App\\Filament\\Resources');
+        }
+
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/Admin/Resources')) ?: [] as $path) {
+            $panel->discoverResources(in: $path, for: 'App\\Filament\\Admin\\Resources');
+        }
+
+        foreach (glob(base_path('modules/*/src/Legacy/Filament/Admin/Pages')) ?: [] as $path) {
+            $panel->discoverPages(in: $path, for: 'App\\Filament\\Admin\\Pages');
+        }
+
+        return $panel;
     }
 
     public function boot(): void

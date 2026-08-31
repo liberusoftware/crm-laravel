@@ -94,7 +94,7 @@ return [
     */
 
     'policies' => [
-        'path' => app_path('Policies'),
+        'path' => base_path('modules/roles-permissions/src/Legacy/Policies'),
         'merge' => true,
         'generate' => true,
         'methods' => [
