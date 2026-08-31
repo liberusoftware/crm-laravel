@@ -30,7 +30,13 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+        run: composer install --no-interaction --prefer-dist --no-autoloader
+
+      - name: Restore tracked module source
+        run: |
+          git clean -fd modules themes
+          git restore --source=HEAD -- modules themes
+          composer dump-autoload --no-interaction --optimize
 
       # A release is a claim that this tree is the one the fleet resolves to. Both halves
       # of that claim are checked here rather than assumed from a green Tests run on main:
