@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\IsTenantModel;
+use Database\Factories\ConnectedAccountFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
@@ -20,6 +21,11 @@ class ConnectedAccount extends SocialstreamConnectedAccount
     use HasFactory;
     use HasTimestamps;
     use IsTenantModel;
+
+    protected static function newFactory(): ConnectedAccountFactory
+    {
+        return ConnectedAccountFactory::new();
+    }
 
     /**
      * The attributes that are mass assignable.

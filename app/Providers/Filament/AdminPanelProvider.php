@@ -28,6 +28,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Jetstream\Jetstream;
+use Liberu\Foundation\IdentityFilament\Resources\UserResource as FoundationUserResource;
 use Liberu\Foundation\Localization\Http\Middleware\SetLocale;
 use Liberu\Foundation\Organizations\Models\Team;
 use Liberu\Foundation\OrganizationsFilament\Resources\TeamResource as FoundationTeamResource;
@@ -54,12 +55,14 @@ class AdminPanelProvider extends PanelProvider
                 TeamBackupResource::class,
                 TeamResource::class,
                 TeamRoleResource::class,
+                FoundationUserResource::class,
             ])
             ->authenticatedRoutes(function (Panel $panel): void {
                 TeamBackupResource::registerRoutes($panel);
                 TeamResource::registerRoutes($panel);
                 TeamRoleResource::registerRoutes($panel);
                 FoundationTeamResource::registerRoutes($panel);
+                FoundationUserResource::registerRoutes($panel);
                 ReportCustomizer::registerRoutes($panel);
                 ManageGeneralSettings::registerRoutes($panel);
             })

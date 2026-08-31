@@ -24,7 +24,7 @@ final class CpqModuleTest extends TestCase
         parent::setUp();
         $this->app->register(CpqApiServiceProvider::class);
         (new CpqApiServiceProvider($this->app))->boot();
-        $this->app['view']->addNamespace('crm-cpq-livewire', __DIR__.'/../../../modules/crm-cpq-livewire/resources/views');
+        $this->app['view']->addNamespace('crm-cpq-livewire', __DIR__.'/../../../../crm-cpq-livewire/resources/views');
     }
 
     public function test_quote_pricing_and_approval_are_tenant_scoped(): void
