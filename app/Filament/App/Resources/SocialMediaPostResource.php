@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources;
 
+use App\Enums\SocialPlatform;
 use App\Filament\App\Resources\SocialMediaPostResource\Pages\CreateSocialMediaPost;
 use App\Filament\App\Resources\SocialMediaPostResource\Pages\EditSocialMediaPost;
 use App\Filament\App\Resources\SocialMediaPostResource\Pages\ListSocialMediaPosts;
@@ -71,13 +72,7 @@ class SocialMediaPostResource extends Resource
                                     ->minDate(now())
                                     ->withoutSeconds(),
                                 MultiSelect::make('platforms')
-                                    ->options([
-                                        'facebook' => 'Facebook',
-                                        'linkedin' => 'LinkedIn',
-                                        'twitter' => 'Twitter/X',
-                                        'instagram' => 'Instagram',
-                                        'youtube' => 'YouTube',
-                                    ])
+                                    ->options(SocialPlatform::options())
                                     ->required()
                                     ->helperText('Select the platforms where you want to publish')
                                     ->columns(2),
@@ -162,13 +157,7 @@ class SocialMediaPostResource extends Resource
                 SelectFilter::make('status')
                     ->options(SocialMediaPost::getStatuses()),
                 SelectFilter::make('platforms')
-                    ->options([
-                        'facebook' => 'Facebook',
-                        'linkedin' => 'LinkedIn',
-                        'twitter' => 'Twitter/X',
-                        'instagram' => 'Instagram',
-                        'youtube' => 'YouTube',
-                    ])
+                    ->options(SocialPlatform::options())
                     ->multiple(),
             ])
             ->recordActions([
