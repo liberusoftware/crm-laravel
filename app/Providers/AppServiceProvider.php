@@ -29,7 +29,9 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\Console\Migrations\FreshCommand;
 use Illuminate\Database\Console\Migrations\InstallCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
+use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Database\Console\Seeds\SeedCommand;
+use Illuminate\Database\Console\WipeCommand;
 use Illuminate\Foundation\Console\KeyGenerateCommand;
 use Illuminate\Foundation\Console\PackageDiscoverCommand;
 use Illuminate\Support\ServiceProvider;
@@ -54,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
                 InstallCommand::class,
                 KeyGenerateCommand::class,
                 MigrateCommand::class,
+                StatusCommand::class,
+                WipeCommand::class,
                 PackageDiscoverCommand::class,
                 SeedCommand::class,
             ]);

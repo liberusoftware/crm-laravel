@@ -33,6 +33,22 @@ RUN composer install \
     --ignore-platform-req=ext-pcntl
 
 ###########################################
+# Frontend assets stage
+###########################################
+FROM node:22-alpine AS frontend-assets
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY app ./app
+COPY resources ./resources
+COPY themes ./themes
+COPY postcss.config.cjs tailwind.config.js vite.config.js ./
+RUN npm run build
+
+###########################################
 # Main application stage
 ###########################################
 FROM php:${PHP_VERSION}-cli-alpine
@@ -134,6 +150,10 @@ COPY --chown=${USER}:${USER} composer.json composer.lock ./
 
 # Copy application code first so autoloader can resolve all files
 COPY --chown=${USER}:${USER} . .
+
+# The Vite manifest is intentionally ignored by Git; build and copy all hashed
+# assets into the image so production Blade views can resolve CSS and JS.
+COPY --chown=${USER}:${USER} --from=frontend-assets /app/public/build ./public/build
 
 # Generate optimized autoloader now that all app files are present
 RUN composer dump-autoload --classmap-authoritative --no-dev && \
