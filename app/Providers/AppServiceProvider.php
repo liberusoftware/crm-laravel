@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Console\Commands\BackupTeam;
 use App\Console\Commands\CloneTeam;
+use App\Console\Commands\FreshDatabaseCommand;
 use App\Console\Commands\ImportTeam;
 use App\Console\Commands\MakeModuleCommand;
 use App\Console\Commands\ModuleAutoloadCommand;
@@ -26,7 +27,6 @@ use App\Modules\ModuleServiceProvider;
 use App\Observers\AuditObserver;
 use App\Support\SsoLogoutState;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Database\Console\Migrations\FreshCommand;
 use Illuminate\Database\Console\Migrations\InstallCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Console\Migrations\StatusCommand;
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                FreshCommand::class,
+                FreshDatabaseCommand::class,
                 InstallCommand::class,
                 KeyGenerateCommand::class,
                 MigrateCommand::class,
