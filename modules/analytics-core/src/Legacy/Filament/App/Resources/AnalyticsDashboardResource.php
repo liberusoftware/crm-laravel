@@ -16,6 +16,10 @@ class AnalyticsDashboardResource extends Resource
 
     protected static ?string $navigationLabel = 'Analytics Dashboard';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'CRM';
+
+    protected static ?int $navigationSort = 7;
+
     #[\Override]
     public static function getWidgets(): array
     {

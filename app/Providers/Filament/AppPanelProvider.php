@@ -45,6 +45,7 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
+            ->sidebarCollapsibleOnDesktop()
             // ->login([AuthenticatedSessionController::class, 'create'])
             // ->registration()
             // ->passwordReset()
@@ -53,12 +54,12 @@ class AppPanelProvider extends PanelProvider
             ->colors(app(ThemeColors::class)->forSite())
             ->navigationGroups([
                 'CRM',
-                'Communication',
+                'Sales',
                 'Marketing',
-                'Advertising',
-                'Help Desk',
+                'Communication',
+                'Support',
                 'Team',
-                'Settings',
+                'Settings & integrations',
                 'Account',
             ])
             ->userMenuItems([

@@ -8,6 +8,7 @@ use App\Filament\App\Pages\EditProfile;
 use App\Filament\App\Pages\MailchimpIntegration;
 use App\Filament\App\Pages\PersonalAccessTokensPage;
 use App\Filament\App\Pages\ReportPage;
+use App\Filament\App\Pages\SetupWizard;
 use App\Filament\App\Pages\TwilioIntegration;
 use App\Filament\App\Pages\TwilioSettings;
 use App\Filament\App\Pages\UpdateProfileInformationPage;
@@ -61,6 +62,11 @@ class PageMountTest extends TestCase
     public function test_report_page_mounts(): void
     {
         $this->assertPageMounts(ReportPage::class);
+    }
+
+    public function test_setup_wizard_mounts(): void
+    {
+        $this->assertPageMounts(SetupWizard::class);
     }
 
     public function test_twilio_integration_page_mounts(): void

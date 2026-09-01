@@ -6,4 +6,10 @@ namespace Liberu\CRM\BusinessProcessManagementFilament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class BusinessProcessManagementFilamentServiceProvider extends ServiceProvider {}
+final class BusinessProcessManagementFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(BusinessProcessManagementFilamentPlugin::class);
+    }
+}

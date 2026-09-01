@@ -41,13 +41,14 @@ class AdminPanelProvider extends PanelProvider
         $panel = $panel
             ->id('admin')
             ->path('admin')
+            ->sidebarCollapsibleOnDesktop()
             ->login()
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors(app(ThemeColors::class)->forSite())
             ->navigationGroups([
                 'Administration',
                 'Teams',
-                'Team',
+                'Security & access',
                 'Settings',
             ])
             ->tenantMenu(fn (): bool => Filament::getTenant() !== null)

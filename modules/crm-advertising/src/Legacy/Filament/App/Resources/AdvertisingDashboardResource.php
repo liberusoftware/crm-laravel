@@ -16,6 +16,10 @@ class AdvertisingDashboardResource extends Resource
 
     protected static ?string $navigationLabel = 'Advertising Dashboard';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Marketing';
+
+    protected static ?int $navigationSort = 1;
+
     #[\Override]
     public static function getWidgets(): array
     {

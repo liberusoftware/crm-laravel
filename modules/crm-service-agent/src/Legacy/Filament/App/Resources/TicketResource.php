@@ -35,7 +35,7 @@ class TicketResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Help Desk';
+    protected static string|\UnitEnum|null $navigationGroup = 'Support';
 
     protected static ?int $navigationSort = 1;
 

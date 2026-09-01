@@ -7,6 +7,7 @@ namespace App\Filament\App\Pages;
 use App\Models\OAuthConfiguration;
 use App\Models\Team;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -16,12 +17,14 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class SetupWizard extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-sparkles';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings & integrations';
 
     protected static ?int $navigationSort = 1;
 
@@ -34,6 +37,8 @@ class SetupWizard extends Page
     /** @var array<string, mixed> */
     public array $data = [];
 
+    public bool $saved = false;
+
     public function mount(): void
     {
         $team = Filament::getTenant();
@@ -45,6 +50,8 @@ class SetupWizard extends Page
         $twilio = OAuthConfiguration::getConfig('twilio');
         $whatsapp = OAuthConfiguration::getConfig('whatsapp');
         $helpdesk = OAuthConfiguration::getConfig('helpdesk');
+        $zernio = OAuthConfiguration::getConfig('zernio');
+        $mailchimp = OAuthConfiguration::getConfig('mailchimp');
         $this->data = [
             'team_name' => $team instanceof Team ? $team->name : '',
             'setup_social' => $facebook !== null || $google !== null || $linkedin !== null || $twitter !== null,
@@ -56,7 +63,9 @@ class SetupWizard extends Page
             'google_client_id' => $google?->client_id,
             'linkedin_client_id' => $linkedin?->client_id,
             'twitter_client_id' => $twitter?->client_id,
-            'mailchimp_server_prefix' => OAuthConfiguration::getConfig('mailchimp')?->client_id,
+            'zernio_api_key' => $zernio?->client_secret,
+            'mailchimp_api_key' => $mailchimp?->client_secret,
+            'mailchimp_server_prefix' => $mailchimp?->client_id,
             'email_provider' => $microsoft !== null && $google === null ? 'microsoft' : 'google',
             'email_client_id' => ($microsoft ?? $google)?->client_id,
             'twilio_sid' => $twilio?->client_id,
@@ -75,6 +84,16 @@ class SetupWizard extends Page
         return $schema
             ->components([
                 Wizard::make([
+                    Step::make('Welcome')
+                        ->description('Get your workspace ready')
+                        ->schema([
+                            Section::make('A quick start for your team')
+                                ->description('Set the workspace identity first, then add only the services you plan to use. You can return here or use Settings & integrations at any time.')
+                                ->icon('heroicon-o-sparkles'),
+                            Placeholder::make('security_note')
+                                ->label('Credential security')
+                                ->content('Secrets are encrypted before they are stored. OAuth consent and connected accounts are completed after this wizard.'),
+                        ]),
                     Step::make('Team')
                         ->description('Name your workspace')
                         ->schema([
@@ -135,48 +154,55 @@ class SetupWizard extends Page
         $data = $this->data;
         $this->validateSetup($data);
 
-        $team = Filament::getTenant();
-        if ($team instanceof Team) {
-            $team->update(['name' => $data['team_name']]);
-        }
+        try {
+            DB::transaction(function () use ($data): void {
+                $team = Filament::getTenant();
+                if ($team instanceof Team) {
+                    $team->update(['name' => $data['team_name']]);
+                }
 
-        if ($data['setup_social']) {
-            foreach (['facebook', 'google', 'linkedin', 'twitter'] as $provider) {
-                $this->saveOAuth($provider, (string) ($data[$provider.'_client_id'] ?? ''), $data[$provider.'_client_secret'] ?? null);
-            }
-            if (filled($data['zernio_api_key'] ?? null)) {
-                $this->saveOAuth('zernio', 'api', $data['zernio_api_key']);
-            }
-            if (filled($data['mailchimp_api_key'] ?? null) || filled($data['mailchimp_server_prefix'] ?? null)) {
-                $this->saveOAuth('mailchimp', (string) ($data['mailchimp_server_prefix'] ?? ''), $data['mailchimp_api_key'] ?? null);
-            }
-        }
+                if ($data['setup_social']) {
+                    foreach (['facebook', 'google', 'linkedin', 'twitter'] as $provider) {
+                        $this->saveOAuth($provider, (string) ($data[$provider.'_client_id'] ?? ''), $data[$provider.'_client_secret'] ?? null);
+                    }
+                    if (filled($data['zernio_api_key'] ?? null)) {
+                        $this->saveOAuth('zernio', 'api', $data['zernio_api_key']);
+                    }
+                    if (filled($data['mailchimp_api_key'] ?? null) || filled($data['mailchimp_server_prefix'] ?? null)) {
+                        $this->saveOAuth('mailchimp', (string) ($data['mailchimp_server_prefix'] ?? ''), $data['mailchimp_api_key'] ?? null);
+                    }
+                }
 
-        if ($data['setup_voip']) {
-            $this->saveOAuth('twilio', $data['twilio_sid'], $data['twilio_auth_token'] ?? null, ['phone_number' => $data['twilio_phone_number']]);
-        }
+                if ($data['setup_voip']) {
+                    $this->saveOAuth('twilio', $data['twilio_sid'], $data['twilio_auth_token'] ?? null, ['phone_number' => $data['twilio_phone_number']]);
+                }
 
-        if ($data['setup_whatsapp']) {
-            $this->saveOAuth('whatsapp', $data['whatsapp_phone_number_id'] ?? 'business', $data['whatsapp_access_token'] ?? null, [
-                'api_url' => $data['whatsapp_api_url'],
-                'phone_number_id' => $data['whatsapp_phone_number_id'],
-            ]);
-        }
+                if ($data['setup_whatsapp']) {
+                    $this->saveOAuth('whatsapp', $data['whatsapp_phone_number_id'] ?? 'business', $data['whatsapp_access_token'] ?? null, [
+                        'api_url' => $data['whatsapp_api_url'],
+                        'phone_number_id' => $data['whatsapp_phone_number_id'],
+                    ]);
+                }
 
-        if ($data['setup_email']) {
-            $provider = strtolower((string) ($data['email_provider'] ?? 'google'));
-            $this->saveOAuth($provider, $data['email_client_id'], $data['email_client_secret'] ?? null);
-        }
+                if ($data['setup_email']) {
+                    $provider = strtolower((string) ($data['email_provider'] ?? 'google'));
+                    $this->saveOAuth($provider, $data['email_client_id'], $data['email_client_secret'] ?? null);
+                }
 
-        if ($data['setup_helpdesk']) {
-            $this->saveOAuth('helpdesk', $data['imap_username'], $data['imap_password'] ?? null, [
-                'host' => $data['imap_host'],
-                'username' => $data['imap_username'],
-                'smtp_host' => $data['smtp_host'],
-            ]);
-        }
+                if ($data['setup_helpdesk']) {
+                    $this->saveOAuth('helpdesk', $data['imap_username'], $data['imap_password'] ?? null, [
+                        'host' => $data['imap_host'],
+                        'username' => $data['imap_username'],
+                        'smtp_host' => $data['smtp_host'],
+                    ]);
+                }
+            });
 
-        Notification::make()->title('CRM setup saved')->body('Your credentials are encrypted at rest. Complete each provider’s OAuth consent step before syncing data.')->success()->send();
+            $this->saved = true;
+            Notification::make()->title('CRM setup saved')->body('Your credentials are encrypted at rest. Complete each provider’s OAuth consent step before syncing data.')->success()->send();
+        } catch (Throwable) {
+            Notification::make()->title('Setup could not be saved')->body('No changes were kept. Check the form and try again.')->danger()->send();
+        }
     }
 
     private static function credential(string $provider, string $idLabel, string $secretLabel): Section

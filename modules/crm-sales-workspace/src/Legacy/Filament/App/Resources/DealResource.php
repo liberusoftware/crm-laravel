@@ -35,7 +35,7 @@ class DealResource extends Resource
 
     protected static ?string $navigationLabel = 'Deals';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'CRM';
+    protected static string|\UnitEnum|null $navigationGroup = 'Sales';
 
     protected static ?int $navigationSort = 4;
 

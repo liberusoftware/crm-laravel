@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Liberu\CRM\AIReceptionAndConversationApi\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Liberu\CRM\AIReceptionAndConversation\Actions\ActivateReceptionAgent;
 use Liberu\CRM\AIReceptionAndConversation\Actions\CreateReceptionAgent;
@@ -16,48 +17,52 @@ use Liberu\CRM\AIReceptionAndConversation\Models\ReceptionConversation;
 
 final class ReceptionController extends Controller
 {
-    private function context(): array
+    private function context(Request $request): array
     {
-        $user = request()->user();
+        $user = $request->user();
+        abort_unless($user !== null, 401);
+        $teamId = (int) $user->getAttribute('current_team_id');
+        abort_unless($teamId > 0, 403);
 
-        return [(int) $user->current_team_id, (int) $user->id];
+        return [$teamId, (int) $user->getKey()];
     }
 
-    public function agents(): JsonResponse
+    public function agents(Request $request): JsonResponse
     {
-        [$teamId] = $this->context();
+        [$teamId] = $this->context($request);
+        $agents = ReceptionAgent::query()->where('team_id', $teamId)->latest()->paginate(min($request->integer('per_page', 25), 100));
 
-        return response()->json(ReceptionAgent::query()->where('team_id', $teamId)->latest()->get());
+        return response()->json(['data' => $agents->getCollection()->map(fn (ReceptionAgent $agent): array => $agent->toArray())->values(), 'meta' => ['current_page' => $agents->currentPage(), 'last_page' => $agents->lastPage(), 'per_page' => $agents->perPage(), 'total' => $agents->total()]]);
     }
 
-    public function createAgent(CreateReceptionAgent $action): JsonResponse
+    public function createAgent(Request $request, CreateReceptionAgent $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, request()->all()), 201);
+        return response()->json(['data' => $action->execute($teamId, $actorId, $request->all())->toArray()], 201);
     }
 
-    public function activate(ReceptionAgent $agent, ActivateReceptionAgent $action): JsonResponse
+    public function activate(Request $request, ReceptionAgent $agent, ActivateReceptionAgent $action): JsonResponse
     {
-        return response()->json($action->execute($this->context()[0], $agent));
+        return response()->json(['data' => $action->execute($this->context($request)[0], $agent)->toArray()]);
     }
 
-    public function start(ReceptionAgent $agent, StartReceptionConversation $action): JsonResponse
+    public function start(Request $request, ReceptionAgent $agent, StartReceptionConversation $action): JsonResponse
     {
-        return response()->json($action->execute($this->context()[0], $agent, request()->all()), 201);
+        return response()->json(['data' => $action->execute($this->context($request)[0], $agent, $request->all())->toArray()], 201);
     }
 
-    public function turn(ReceptionConversation $conversation, RecordReceptionTurn $action): JsonResponse
+    public function turn(Request $request, ReceptionConversation $conversation, RecordReceptionTurn $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, $conversation, request()->all()));
+        return response()->json(['data' => $action->execute($teamId, $actorId, $conversation, $request->all())->toArray()]);
     }
 
-    public function handoff(ReceptionConversation $conversation, RequestReceptionHandoff $action): JsonResponse
+    public function handoff(Request $request, ReceptionConversation $conversation, RequestReceptionHandoff $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, $conversation, (string) request('reason')));
+        return response()->json(['data' => $action->execute($teamId, $actorId, $conversation, (string) $request->input('reason'))->toArray()]);
     }
 }

@@ -13,7 +13,7 @@ class TwilioSettings extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings & integrations';
 
     protected string $view = 'filament.app.pages.twilio-settings';
 
