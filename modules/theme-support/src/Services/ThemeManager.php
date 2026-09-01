@@ -197,7 +197,12 @@ final class ThemeManager
 
     public function activeEntries(): array
     {
-        return array_values(array_unique(array_filter([$this->activeCssEntry(), $this->getThemeJs(), 'resources/js/app.js'])));
+        return array_values(array_unique(array_filter([
+            'resources/css/app.css',
+            $this->activeCssEntry(),
+            $this->getThemeJs(),
+            'resources/js/app.js',
+        ])));
     }
 
     public function assetUrl(string $path, ?string $theme = null): string
