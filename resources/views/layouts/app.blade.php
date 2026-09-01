@@ -2,7 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @php
-        if (app('theme')->getActiveTheme() === config('theme.default')) {
+        $hasThemePreference = session()->has('theme_preference')
+            || (auth()->check() && is_string(auth()->user()->theme_preference) && auth()->user()->theme_preference !== '');
+
+        if (! $hasThemePreference && app('theme')->getActiveTheme() === config('theme.default')) {
             app('theme')->selectForSurface('portal');
         }
     @endphp
@@ -18,8 +21,7 @@
     @endif
 
     <!-- Styles -->
-    @vite('resources/css/app.css')
-    @themeCss
+    @themeVite
     @livewireStyles
 </head>
 <body class="font-sans antialiased">
@@ -88,8 +90,6 @@
     </div>
 
     <!-- Scripts -->
-    @vite('resources/js/app.js')
-    @themeJs
     @livewireScripts
 
     <script>

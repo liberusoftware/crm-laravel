@@ -10332,11 +10332,11 @@
         },
         {
             "name": "liberusoftware/theme-crm",
-            "version": "1.1.0",
+            "version": "1.3.0",
             "dist": {
                 "type": "path",
                 "url": "themes/theme-crm",
-                "reference": "c3e1bc6cb8e4588337540018a273d8966df4fd23"
+                "reference": "9c1c04aaad773b74770d2e7201604de6925d75e2"
             },
             "require": {
                 "liberusoftware/theme-base": "^2.0",
