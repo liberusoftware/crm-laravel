@@ -26,5 +26,4 @@
         @endforeach
     </div>
 </main>
-<script src="https://js.stripe.com/v3/" defer></script>
 @endsection
