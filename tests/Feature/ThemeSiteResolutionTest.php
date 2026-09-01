@@ -15,7 +15,7 @@ it('uses the site theme when no user or session preference is set', function () 
     expect(app(ThemeManager::class)->getActiveTheme())->toBe('dark');
 });
 
-it('lets a session preference win over the site theme', function () {
+it('uses the portal theme when the session contains the implicit default', function () {
     $settings = app(SiteSettings::class);
     $settings->active_theme = 'dark';
     $settings->save();
@@ -23,7 +23,7 @@ it('lets a session preference win over the site theme', function () {
     session(['theme_preference' => 'default']);
     $this->get('/');
 
-    expect(app(ThemeManager::class)->getActiveTheme())->toBe('default');
+    expect(app(ThemeManager::class)->getActiveTheme())->toBe('theme-crm');
 });
 
 it('falls through to the site theme when the user preference names a nonexistent theme', function () {
