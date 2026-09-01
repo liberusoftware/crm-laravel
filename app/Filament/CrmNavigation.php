@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament;
 
+use Filament\Navigation\NavigationGroup;
 use Filament\Panel;
 use Filament\Resources\Resource;
 
@@ -12,20 +13,24 @@ final class CrmNavigation
     public function configure(Panel $panel): void
     {
         $panel->navigationGroups([
-            'CRM',
-            'Sales',
-            'Marketing',
-            'Communication',
-            'Support',
-            'Operations',
-            'Data & intelligence',
-            'Team',
-            'Settings & integrations',
-            'Account',
+            NavigationGroup::make('CRM')->icon('heroicon-o-squares-2x2')->collapsed(),
+            NavigationGroup::make('Sales')->icon('heroicon-o-chart-bar')->collapsed(),
+            NavigationGroup::make('Marketing')->icon('heroicon-o-megaphone')->collapsed(),
+            NavigationGroup::make('Communication')->icon('heroicon-o-chat-bubble-left-right')->collapsed(),
+            NavigationGroup::make('Support')->icon('heroicon-o-lifebuoy')->collapsed(),
+            NavigationGroup::make('Operations')->icon('heroicon-o-cog-6-tooth')->collapsed(),
+            NavigationGroup::make('Data & intelligence')->icon('heroicon-o-light-bulb')->collapsed(),
+            NavigationGroup::make('Team')->icon('heroicon-o-user-group')->collapsed(),
+            NavigationGroup::make('Settings & integrations')->icon('heroicon-o-wrench-screwdriver')->collapsed(),
+            NavigationGroup::make('Account')->icon('heroicon-o-user-circle')->collapsed(),
         ])->collapsibleNavigationGroups();
 
         foreach ($panel->getResources() as $resource) {
             if (! is_a($resource, Resource::class, true)) {
+                continue;
+            }
+
+            if ($resource::getNavigationGroup() !== null) {
                 continue;
             }
 
