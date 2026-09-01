@@ -5,7 +5,7 @@
         $defaultTheme = config('theme.default');
         $sessionTheme = session('theme_preference');
         $userTheme = auth()->user()?->theme_preference;
-        $hasThemePreference = ($sessionTheme !== null)
+        $hasThemePreference = ($sessionTheme !== null && $sessionTheme !== $defaultTheme)
             || (is_string($userTheme) && $userTheme !== '' && $userTheme !== $defaultTheme);
 
         if (! $hasThemePreference && app('theme')->getActiveTheme() === config('theme.default')) {
