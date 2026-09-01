@@ -10332,11 +10332,11 @@
         },
         {
             "name": "liberusoftware/theme-crm",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "dist": {
                 "type": "path",
                 "url": "themes/theme-crm",
-                "reference": "ed39efa6f1e888041c295cfa68887704a2a54ddb"
+                "reference": "c3e1bc6cb8e4588337540018a273d8966df4fd23"
             },
             "require": {
                 "liberusoftware/theme-base": "^2.0",
@@ -10409,16 +10409,16 @@
         },
         {
             "name": "liberusoftware/theme-default",
-            "version": "1.5.2",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liberusoftware/theme-default.git",
-                "reference": "5943f51bb86cfef39172cf97b44d9352e101670e"
+                "reference": "a60802aff5e997d2ea4afbec16f7c4387e4dce71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liberusoftware/theme-default/zipball/5943f51bb86cfef39172cf97b44d9352e101670e",
-                "reference": "5943f51bb86cfef39172cf97b44d9352e101670e",
+                "url": "https://api.github.com/repos/liberusoftware/theme-default/zipball/a60802aff5e997d2ea4afbec16f7c4387e4dce71",
+                "reference": "a60802aff5e997d2ea4afbec16f7c4387e4dce71",
                 "shasum": ""
             },
             "require": {
@@ -10448,9 +10448,9 @@
             "description": "Liberu default public theme.",
             "support": {
                 "issues": "https://github.com/liberusoftware/theme-default/issues",
-                "source": "https://github.com/liberusoftware/theme-default/tree/1.5.2"
+                "source": "https://github.com/liberusoftware/theme-default/tree/1.6.0"
             },
-            "time": "2026-08-24T01:26:38+00:00"
+            "time": "2026-09-01T01:52:24+00:00"
         },
         {
             "name": "liberusoftware/theme-support",
