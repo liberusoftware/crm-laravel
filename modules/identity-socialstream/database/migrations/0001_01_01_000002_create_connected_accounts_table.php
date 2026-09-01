@@ -11,6 +11,10 @@ return new class() extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('connected_accounts')) {
+            return;
+        }
+
         Schema::create('connected_accounts', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id');
