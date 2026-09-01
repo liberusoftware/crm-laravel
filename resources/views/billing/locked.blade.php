@@ -11,7 +11,7 @@
         </div>
         <div class="mt-8 border-t border-slate-200 pt-6">
             <p class="mb-3 text-sm text-slate-600">Need to leave this account for now?</p>
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ filament()->getLogoutUrl() }}">
                 @csrf
                 <button type="submit" class="crm-button w-full justify-center border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 sm:w-auto">Log out</button>
             </form>
