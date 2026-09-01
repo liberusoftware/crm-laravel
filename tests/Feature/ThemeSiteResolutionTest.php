@@ -49,3 +49,11 @@ it('lets a valid user preference win over the site theme', function () {
 
     expect(app(ThemeManager::class)->getActiveTheme())->toBe('dark');
 });
+
+it('selects the portal theme for users with the implicit default preference', function () {
+    $user = User::factory()->create(['theme_preference' => 'default']);
+
+    $this->actingAs($user)->get('/');
+
+    expect(app(ThemeManager::class)->getActiveTheme())->toBe('theme-crm');
+});

@@ -2,8 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @php
-        $hasThemePreference = session()->has('theme_preference')
-            || (auth()->check() && is_string(auth()->user()->theme_preference) && auth()->user()->theme_preference !== '');
+        $defaultTheme = config('theme.default');
+        $sessionTheme = session('theme_preference');
+        $userTheme = auth()->user()?->theme_preference;
+        $hasThemePreference = ($sessionTheme !== null)
+            || (is_string($userTheme) && $userTheme !== '' && $userTheme !== $defaultTheme);
 
         if (! $hasThemePreference && app('theme')->getActiveTheme() === config('theme.default')) {
             app('theme')->selectForSurface('portal');

@@ -100,7 +100,6 @@ class TeamMemberResource extends Resource
                                     : [];
 
                                 return [
-                                    Role::Admin->value => 'Admin',
                                     Role::Manager->value => 'Manager',
                                     Role::SalesRep->value => 'Sales rep',
                                     Role::Free->value => 'Free',
@@ -159,7 +158,6 @@ class TeamMemberResource extends Resource
                     ->schema([
                         Select::make('role')
                             ->options([
-                                Role::Admin->value => 'Admin',
                                 Role::Manager->value => 'Manager',
                                 Role::SalesRep->value => 'Sales rep',
                                 Role::Free->value => 'Free',
