@@ -1,3 +1,14 @@
+@php
+    $defaultTheme = config('theme.default');
+    $sessionTheme = session('theme_preference');
+    $userTheme = auth()->user()?->theme_preference;
+    $hasThemePreference = ($sessionTheme !== null)
+        || (is_string($userTheme) && $userTheme !== '' && $userTheme !== $defaultTheme);
+
+    if (! $hasThemePreference && app('theme')->getActiveTheme() === config('theme.default')) {
+        app('theme')->selectForSurface('portal');
+    }
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ in_array(app()->getLocale(), config('localization.rtl_locales', []), true) ? 'rtl' : 'ltr' }}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><meta name="stripe-key" content="{{ config('services.stripe.key') }}"><title>@yield('title', config('app.name'))</title><link rel="canonical" href="{{ url()->current() }}">@themeVite @livewireStyles @stack('head')</head>
