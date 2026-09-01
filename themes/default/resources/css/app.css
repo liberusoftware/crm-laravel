@@ -1,2 +1,15 @@
 @import '../../../base/resources/css/app.css';
 @layer tokens { :root { --color-action-primary:#b45309;--color-action-primary-hover:#92400e;--color-focus:#0369a1; } }
+
+@layer base {
+    body { background: var(--color-canvas); color: var(--color-text); }
+    ::selection { background: var(--color-action-primary); color: var(--color-on-action); }
+}
+
+@layer components {
+    .default-shell { min-block-size: 100vh; background: var(--color-canvas); color: var(--color-text); }
+    .default-container { inline-size: min(100% - 2rem, 72rem); margin-inline: auto; }
+    .default-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--elevation-raised); }
+    .default-button { min-block-size: 2.75rem; border-radius: var(--radius-md); padding-inline: 1rem; background: var(--color-action-primary); color: var(--color-on-action); font: inherit; }
+    .default-button:hover { background: var(--color-action-primary-hover); }
+}

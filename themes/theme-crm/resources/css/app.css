@@ -41,6 +41,7 @@
     html { background: var(--color-canvas); }
     body { min-width: 320px; text-rendering: optimizeLegibility; }
     :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+    ::selection { background: var(--color-action-primary); color: var(--color-on-action); }
 }
 
 @layer components {
@@ -52,6 +53,13 @@
     .crm-button:disabled { cursor: not-allowed; opacity: .6; transform: none; }
     .crm-nav { display: flex; align-items: center; gap: .5rem; overflow-x: auto; scrollbar-width: thin; }
     .crm-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+    .crm-input { min-block-size: 2.75rem; inline-size: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); padding-inline: .75rem; }
+    .crm-input::placeholder { color: var(--color-text-muted); }
+    .crm-input:focus { border-color: var(--color-focus); outline: 3px solid color-mix(in srgb, var(--color-focus) 25%, transparent); }
+    .crm-table { inline-size: 100%; border-collapse: collapse; background: var(--color-surface); color: var(--color-text); }
+    .crm-table th, .crm-table td { border-block-end: 1px solid var(--color-border); padding: .75rem 1rem; text-align: start; }
+    .crm-table th { color: var(--color-text-muted); font-size: .8125rem; font-weight: 650; letter-spacing: .025em; text-transform: uppercase; }
+    .crm-table tbody tr:hover { background: var(--color-surface-muted); }
 }
 
 @media (max-width: 640px) {

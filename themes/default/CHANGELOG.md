@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0
+
+- Add accessible default shell, card, button, selection, and surface styles.
+
 ## 1.5.0 - 2026-08-07
 
 - Follows the shared root theme's rename from `liberu-base` to `base`: `parent`, the relative
