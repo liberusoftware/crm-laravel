@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Advertising\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -21,6 +22,8 @@ use Illuminate\Support\Carbon;
  */
 final class AdvertisingRecord extends Model
 {
+    use IsTenantModel;
+
     public const KINDS = ['ad_account_connection', 'campaign', 'lead_ad', 'crm_audience', 'offline_conversion', 'performance_sync', 'attribution'];
 
     public const STATUSES = ['draft', 'active', 'paused', 'completed', 'archived'];

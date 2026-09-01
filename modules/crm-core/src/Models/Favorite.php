@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Core\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 final class Favorite extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_core_favorites';
 
     protected $fillable = ['team_id', 'user_id'];

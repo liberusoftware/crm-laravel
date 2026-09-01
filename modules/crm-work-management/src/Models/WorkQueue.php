@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WorkManagement\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class WorkQueue extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_work_queues';
 
     protected $fillable = ['team_id', 'actor_id', 'name', 'description', 'status', 'rules'];

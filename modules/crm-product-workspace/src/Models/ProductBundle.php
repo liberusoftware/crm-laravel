@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ProductWorkspace\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /** @property int $team_id @property array $product_ids */
 final class ProductBundle extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_product_workspace_bundles';
 
     protected $guarded = [];

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\LeadCapture\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class CaptureForm extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_lead_capture_forms';
 
     protected $fillable = ['team_id', 'actor_id', 'kind', 'name', 'slug', 'status', 'schema', 'settings', 'submissions_count'];

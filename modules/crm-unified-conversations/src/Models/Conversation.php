@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\UnifiedConversations\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Conversation extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_conversations';
 
     protected $fillable = ['team_id', 'channel', 'external_id', 'subject', 'status', 'priority', 'assigned_to', 'last_message_at', 'metadata'];
