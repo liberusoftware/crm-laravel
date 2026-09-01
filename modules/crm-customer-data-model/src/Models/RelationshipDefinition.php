@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\CustomerDataModel\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class RelationshipDefinition extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_customer_data_relationships';
 
     protected $fillable = ['team_id', 'from_object_id', 'to_object_id', 'key', 'label', 'cardinality', 'config'];

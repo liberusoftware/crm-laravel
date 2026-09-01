@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\EventsAndWebinars\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class CrmEvent extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_events';
 
     protected $guarded = [];

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ConsentAndPreferences\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -13,6 +14,8 @@ use Illuminate\Support\Carbon;
  */
 final class SuppressionRecord extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_suppression_records';
 
     protected $fillable = ['team_id', 'subject_type', 'subject_id', 'channel', 'topic', 'reason', 'source', 'expires_at', 'withdrawn_at', 'actor_id'];

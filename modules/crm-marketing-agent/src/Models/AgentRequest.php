@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\MarketingAgent\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /** @property int $team_id @property string $kind @property string $status */
 final class AgentRequest extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_marketing_agent_requests';
 
     protected $guarded = [];

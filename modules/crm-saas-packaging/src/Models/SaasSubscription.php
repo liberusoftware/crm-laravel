@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\SaasPackaging\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -16,6 +17,8 @@ use Illuminate\Support\Carbon;
  */
 final class SaasSubscription extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_saas_subscriptions';
 
     protected $guarded = [];

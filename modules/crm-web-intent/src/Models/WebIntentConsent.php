@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WebIntent\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 final class WebIntentConsent extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_web_intent_consents';
 
     protected $fillable = ['team_id', 'visitor_key', 'purpose', 'status', 'policy_version', 'granted_at', 'revoked_at'];

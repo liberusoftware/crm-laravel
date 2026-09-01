@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Activities\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 final class ActivityGoal extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_activity_goals';
 
     protected $fillable = ['team_id', 'owner_id', 'name', 'kind', 'target', 'progress', 'starts_at', 'ends_at', 'status', 'criteria'];

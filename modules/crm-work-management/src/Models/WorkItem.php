@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WorkManagement\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -18,6 +19,8 @@ use Illuminate\Support\Carbon;
  */
 final class WorkItem extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_work_items';
 
     protected $fillable = ['team_id', 'actor_id', 'assigned_to', 'queue_id', 'title', 'description', 'status', 'priority', 'subject_type', 'subject_id', 'due_at', 'recurrence', 'next_run_at', 'version', 'metadata'];

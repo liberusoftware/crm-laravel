@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\AccountPlanning\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -21,6 +22,8 @@ use Illuminate\Support\Carbon;
  */
 final class AccountPlanningRecord extends Model
 {
+    use IsTenantModel;
+
     public const KINDS = ['account_hierarchy', 'stakeholder', 'influence_map', 'whitespace', 'account_plan', 'objective', 'risk', 'mutual_action_plan', 'coordination'];
 
     public const STATUSES = ['draft', 'active', 'paused', 'completed', 'archived'];

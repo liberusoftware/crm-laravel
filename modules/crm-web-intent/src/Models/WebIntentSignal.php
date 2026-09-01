@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WebIntent\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 final class WebIntentSignal extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_web_intent_signals';
 
     protected $fillable = ['team_id', 'visit_id', 'visitor_key', 'signal', 'points', 'metadata', 'occurred_at'];

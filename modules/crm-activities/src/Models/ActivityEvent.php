@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Activities\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 final class ActivityEvent extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_activity_events';
 
     protected $fillable = ['team_id', 'activity_id', 'actor_id', 'event', 'details'];

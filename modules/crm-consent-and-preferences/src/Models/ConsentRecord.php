@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ConsentAndPreferences\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -20,6 +21,8 @@ use Illuminate\Support\Carbon;
  */
 final class ConsentRecord extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_consent_records';
 
     protected $fillable = ['team_id', 'subject_type', 'subject_id', 'channel', 'topic', 'lawful_basis', 'status', 'source', 'proof', 'consented_at', 'expires_at', 'withdrawn_at', 'actor_id'];

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Core\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /** @property int $team_id */
 final class Tag extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_core_tags';
 
     protected $fillable = ['team_id', 'name', 'slug'];

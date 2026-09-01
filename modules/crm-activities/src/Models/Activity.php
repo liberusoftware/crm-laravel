@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Activities\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -22,6 +23,8 @@ use Illuminate\Support\Carbon;
  */
 final class Activity extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_activities';
 
     protected $fillable = ['team_id', 'actor_id', 'assigned_to', 'kind', 'status', 'title', 'description', 'subject_type', 'subject_id', 'starts_at', 'due_at', 'ends_at', 'recurrence', 'recurrence_until', 'reminder_at', 'queue', 'outcome', 'outcome_notes', 'metadata', 'completed_at'];
