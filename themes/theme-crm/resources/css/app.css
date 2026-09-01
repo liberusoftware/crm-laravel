@@ -134,6 +134,37 @@
     .crm-final-cta .crm-button { margin-block-start: 1.5rem; }
     .crm-cta-login { font-size: .875rem !important; }
     .crm-cta-login a { color: #fff; font-weight: 700; text-decoration: underline; }
+    .crm-billing { min-block-size: 100%; background: var(--color-canvas); }
+    .crm-billing-hero { padding-block: clamp(3.5rem, 7vw, 6rem); background: linear-gradient(135deg, #111a35, #283a8d); color: #fff; }
+    .crm-billing-hero h1 { max-inline-size: 15ch; margin: 0; font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 750; letter-spacing: -.05em; line-height: 1.02; }
+    .crm-billing-hero > .crm-container > p:not(.crm-eyebrow) { max-inline-size: 42rem; margin-block-start: 1.25rem; color: #d2d9f3; font-size: 1.05rem; line-height: 1.7; }
+    .crm-billing-points { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-block-start: 1.75rem; color: #eef0ff; font-size: .875rem; font-weight: 650; }
+    .crm-billing-points span, .crm-secure-note { display: inline-flex; align-items: center; gap: .45rem; }
+    .crm-billing-points svg, .crm-secure-note svg { inline-size: 1rem; block-size: 1rem; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+    .crm-billing-plans { padding-block: clamp(3rem, 6vw, 5.5rem); }
+    .crm-plan-grid { display: grid; align-items: stretch; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); max-inline-size: 68rem; margin-inline: auto; }
+    .crm-plan-card { position: relative; display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.25rem); border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); box-shadow: 0 1rem 2rem rgb(20 32 51 / .05); }
+    .crm-plan-card-featured { border: 2px solid #7180ed; box-shadow: 0 1.5rem 3rem rgb(67 85 217 / .15); }
+    .crm-plan-badge { position: absolute; inset-block-start: -.75rem; inset-inline-start: 1.5rem; border-radius: 999px; padding: .35rem .75rem; background: #4355d9; color: #fff; font-size: .7rem; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+    .crm-plan-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+    .crm-plan-kicker { margin: 0 0 .3rem; color: var(--color-text-muted); font-size: .75rem; font-weight: 650; text-transform: uppercase; }
+    .crm-plan-heading h2 { margin: 0; font-size: 1.65rem; letter-spacing: -.03em; }
+    .crm-plan-mark { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: .7rem; background: #edf0ff; color: #4355d9; }
+    .crm-plan-description { min-block-size: 3.25rem; margin-block: 1.25rem; color: var(--color-text-muted); font-size: .9rem; line-height: 1.55; }
+    .crm-plan-price { display: flex; align-items: baseline; gap: .35rem; margin-block-end: 1.5rem; }
+    .crm-plan-price strong { font-size: 2.25rem; letter-spacing: -.05em; }
+    .crm-plan-price span { color: var(--color-text-muted); font-size: .875rem; }
+    .crm-plan-features { display: grid; gap: .75rem; min-block-size: 8.5rem; margin: 0 0 1.75rem; padding: 0; color: var(--color-text-muted); font-size: .875rem; list-style: none; }
+    .crm-plan-features li { display: flex; gap: .6rem; }
+    .crm-plan-features li::before { flex: 0 0 auto; inline-size: 1rem; block-size: 1rem; border-radius: 999px; background: #e4e8ff; color: #4355d9; content: '✓'; font-size: .65rem; font-weight: 800; line-height: 1rem; text-align: center; }
+    .crm-plan-submit { inline-size: 100%; }
+    .crm-form-label { display: block; margin-block-end: .5rem; color: var(--color-text); font-size: .8rem; font-weight: 700; }
+    .crm-stripe-card { min-block-size: 3.2rem; margin-block-end: .75rem; padding: .9rem; border: 1px solid var(--color-border); border-radius: .6rem; background: var(--color-surface); }
+    .crm-stripe-card.StripeElement--focus { border-color: var(--color-focus); box-shadow: 0 0 0 3px rgb(29 114 216 / .15); }
+    .crm-stripe-error { min-block-size: 1.25rem; margin: .5rem 0 0; color: var(--color-error); font-size: .8rem; }
+    .crm-secure-note { margin: 1rem 0 0; color: var(--color-text-muted); font-size: .75rem; }
+    .crm-billing-footnote { margin: 2rem auto 0; color: var(--color-text-muted); font-size: .875rem; text-align: center; }
+    .crm-billing-footnote a { color: var(--color-action-primary); font-weight: 700; text-decoration: underline; }
 }
 
 @media (max-width: 640px) {
