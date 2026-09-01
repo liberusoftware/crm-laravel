@@ -1,5 +1,5 @@
 <div class="cs-auth">
-    <div>
+    <div class="cs-logo">
         {{ $logo }}
     </div>
 

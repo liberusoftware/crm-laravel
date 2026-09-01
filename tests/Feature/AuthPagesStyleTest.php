@@ -9,14 +9,18 @@ it('renders the login page in the Clear Signal style', function () {
     $this->get('/login')
         ->assertOk()
         ->assertSee('cs-card', false)          // shared Clear Signal card
-        ->assertSee('Back to home', false);    // shared authentication-card chrome
+        ->assertSee('Back to home', false)     // shared authentication-card chrome
+        ->assertSee('Welcome back', false)
+        ->assertSee('Create an account', false);
 });
 
 it('renders the registration page in the Clear Signal style', function () {
     $this->get('/register')
         ->assertOk()
         ->assertSee('cs-card', false)
-        ->assertSee('Back to home', false);
+        ->assertSee('Back to home', false)
+        ->assertSee('Create your account', false)
+        ->assertSee('Full name', false);
 });
 
 it('renders the forgot-password page', function () {

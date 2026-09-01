@@ -9,6 +9,6 @@
   "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-white-label": "^1.0" } },
   "suggests": [],
   "capabilities": ["crm.white-label.livewire"],
-  "default_enabled": false,
+  "default_enabled": true,
   "features": ["Interactive white-label settings"]
 }
