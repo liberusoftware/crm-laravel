@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Move Stripe payment initialization to the host application bundle to support every active theme.
+
 ## 1.2.0
 
 - Add the professional CRM home-page surface styles, dashboard preview, feature cards, workflow panel, and conversion CTA.
