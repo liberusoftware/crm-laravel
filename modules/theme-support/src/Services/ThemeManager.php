@@ -3,6 +3,7 @@
 namespace Liberu\Foundation\Theme\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Vite;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
@@ -233,7 +234,12 @@ final class ThemeManager
     {
         $css = $this->getThemeCss();
 
-        return $css && $this->viteHasAsset($css) ? $css : 'resources/css/app.css';
+        return $css && $this->viteCanResolveAsset($css) ? $css : 'resources/css/app.css';
+    }
+
+    public function viteCanResolveAsset(string $path): bool
+    {
+        return app(Vite::class)->isRunningHot() || $this->viteHasAsset($path);
     }
 
     public function viteHasAsset(string $path): bool

@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\App\Pages;
 use App\Filament\App\Pages\EditProfile;
+use App\Filament\ModulePlugins;
 use App\Http\Middleware\EnsureSsoWhenRequired;
 use App\Http\Middleware\TeamsPermission;
 use App\Listeners\CreatePersonalTeam;
@@ -78,6 +79,7 @@ class AppPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
+            ->plugins(app(ModulePlugins::class)->forPanel('app'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

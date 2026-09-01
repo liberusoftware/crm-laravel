@@ -7,6 +7,7 @@ namespace App\Providers\Filament;
 use App\Filament\Admin\Pages\ManageGeneralSettings;
 use App\Filament\App\Pages;
 use App\Filament\App\Resources\TeamRoleResource;
+use App\Filament\ModulePlugins;
 use App\Filament\Pages\ReportCustomizer;
 use App\Filament\Resources\TeamBackupResource;
 use App\Filament\Resources\TeamResource;
@@ -96,6 +97,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make()
                     ->navigationGroup('Administration'),
                 SettingsFilamentPlugin::make(),
+                ...app(ModulePlugins::class)->forPanel('admin'),
             ]);
 
         foreach (glob(base_path('modules/*/src/Legacy/Filament/Resources')) ?: [] as $path) {

@@ -9,7 +9,7 @@
   "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-white-label": "^1.0" } },
   "suggests": [],
   "capabilities": ["crm.white-label.filament"],
-  "default_enabled": false,
+  "default_enabled": true,
   "features": ["White-label settings resource"],
   "presentation": {"filament": {"app": ["Liberu\\CRM\\WhiteLabel\\Filament\\WhiteLabelFilamentPlugin"]}}
 }
