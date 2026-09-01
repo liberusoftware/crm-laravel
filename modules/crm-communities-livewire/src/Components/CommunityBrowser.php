@@ -18,8 +18,12 @@ final class CommunityBrowser extends Component
     public function render(CommunityQuery $query): View
     {
         $spaces = $query->spaces((int) auth()->user()?->getAttribute('current_team_id'))->when($this->search !== '', fn ($builder) => $builder->where('name', 'like', '%'.$this->search.'%'))->paginate(15);
+
         return view('crm-communities::community-browser', ['spaces' => $spaces]);
     }
 
-    public function updatedSearch(): void { $this->resetPage(); }
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
 }

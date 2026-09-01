@@ -10,8 +10,20 @@ use Liberu\CRM\CommunitiesFilament\Resources\CommunitySpaceResource;
 
 final class CommunitiesFilamentPlugin implements Plugin
 {
-    public static function make(): self { return new self(); }
-    public function getId(): string { return 'crm-communities'; }
-    public function register(Panel $panel): void { $panel->resources([CommunitySpaceResource::class]); }
+    public static function make(): self
+    {
+        return new self();
+    }
+
+    public function getId(): string
+    {
+        return 'crm-communities';
+    }
+
+    public function register(Panel $panel): void
+    {
+        $panel->resources([CommunitySpaceResource::class]);
+    }
+
     public function boot(Panel $panel): void {}
 }

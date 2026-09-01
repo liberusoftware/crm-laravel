@@ -16,6 +16,7 @@ final class CreateCommunitySpacePage extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $user = auth()->user();
+
         return app(CreateCommunitySpace::class)->execute((int) $user?->getAttribute('current_team_id'), (int) $user?->getKey(), (string) $data['name'], (string) $data['kind'], (array) ($data['settings'] ?? []));
     }
 }

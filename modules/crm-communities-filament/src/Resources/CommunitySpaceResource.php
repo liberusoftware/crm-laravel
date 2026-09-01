@@ -12,7 +12,6 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Liberu\CRM\Communities\Actions\CreateCommunitySpace;
 use Liberu\CRM\Communities\Models\CommunitySpace;
 use Liberu\CRM\CommunitiesFilament\Resources\CommunitySpaceResource\Pages\CreateCommunitySpacePage;
 use Liberu\CRM\CommunitiesFilament\Resources\CommunitySpaceResource\Pages\ListCommunitySpaces;
