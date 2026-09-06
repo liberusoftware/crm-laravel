@@ -13,7 +13,9 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -30,27 +32,39 @@ class OAuthConfigurationResource extends Resource
 
     protected static ?string $model = OAuthConfiguration::class;
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-puzzle-piece';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Settings & integrations';
 
-    protected static ?string $navigationLabel = 'Integrations';
+    protected static ?string $navigationLabel = 'Connected services';
+
+    protected static ?int $navigationSort = 2;
 
     #[\Override]
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                TextInput::make('service_name')
+                Select::make('service_name')
+                    ->options([
+                        'facebook' => 'Facebook', 'google' => 'Google', 'linkedin' => 'LinkedIn',
+                        'twitter' => 'X / Twitter', 'microsoft' => 'Microsoft 365', 'mailchimp' => 'Mailchimp',
+                        'twilio' => 'Twilio', 'whatsapp' => 'WhatsApp', 'helpdesk' => 'Helpdesk', 'zernio' => 'Zernio',
+                    ])
                     ->required()
-                    ->maxLength(255),
+                    ->native(false),
+                TextInput::make('account_name')->label('Connection name')->maxLength(255),
                 TextInput::make('client_id')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('client_secret')
-                    ->required()
-                    ->maxLength(255),
-                KeyValue::make('additional_settings'),
+                    ->password()
+                    ->revealable()
+                    ->required(fn (string $operation): bool => $operation === 'create')
+                    ->dehydrated(fn (?string $state): bool => filled($state))
+                    ->maxLength(65535),
+                Toggle::make('is_active')->default(true),
+                KeyValue::make('additional_settings')->label('Additional settings'),
             ]);
     }
 
