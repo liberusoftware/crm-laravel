@@ -12,6 +12,7 @@ use App\Filament\App\Pages\SetupWizard;
 use App\Filament\App\Pages\TwilioIntegration;
 use App\Filament\App\Pages\TwilioSettings;
 use App\Filament\App\Pages\VisualPipeline;
+use App\Models\OAuthConfiguration;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -66,6 +67,23 @@ class PageMountTest extends TestCase
     public function test_setup_wizard_mounts(): void
     {
         $this->assertPageMounts(SetupWizard::class);
+    }
+
+    public function test_setup_wizard_does_not_render_stored_api_secrets(): void
+    {
+        $team = $this->actingManagerWithTeam();
+        OAuthConfiguration::forceCreate([
+            'team_id' => $team->id,
+            'user_id' => auth()->id(),
+            'service_name' => 'zernio',
+            'client_id' => 'api',
+            'client_secret' => 'super-secret-api-key',
+            'is_active' => true,
+        ]);
+
+        $this->get('/app/'.$team->id.'/'.SetupWizard::getSlug())
+            ->assertSuccessful()
+            ->assertDontSee('super-secret-api-key');
     }
 
     public function test_twilio_integration_page_mounts(): void
