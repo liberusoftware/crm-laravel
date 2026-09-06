@@ -6,4 +6,10 @@ namespace Liberu\CRM\ChatAndBotsFilament;
 
 use Illuminate\Support\ServiceProvider;
 
-final class ChatAndBotsFilamentServiceProvider extends ServiceProvider {}
+final class ChatAndBotsFilamentServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->singleton(ChatAndBotsFilamentPlugin::class);
+    }
+}

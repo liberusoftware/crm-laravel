@@ -12,6 +12,12 @@ it('selects the built theme bundle when available and otherwise uses the applica
     expect($manager->activeCssEntry())->toBe($expected);
 });
 
+it('keeps the main Tailwind bundle when a theme bundle is active', function () {
+    $manager = app(ThemeManager::class);
+
+    expect($manager->activeEntries())->toContain('resources/css/app.css');
+});
+
 it('returns the theme bundle path when it is present in the Vite manifest', function () {
     $manifestPath = public_path('build/manifest.json');
     $backup = File::exists($manifestPath) ? File::get($manifestPath) : null;

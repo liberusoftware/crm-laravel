@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ChannelGateway\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class GatewayChannel extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_gateway_channels';
 
     protected $guarded = [];

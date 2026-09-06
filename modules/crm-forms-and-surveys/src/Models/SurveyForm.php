@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\FormsAndSurveys\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class SurveyForm extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_forms_surveys';
 
     protected $guarded = [];

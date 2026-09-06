@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\QuotasAndIncentives\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /** @property int $team_id */
 final class CommissionCredit extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_commission_credits';
 
     protected $guarded = [];

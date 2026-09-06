@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ChatAndBots\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class ChatBot extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_chat_bots';
 
     protected $guarded = [];

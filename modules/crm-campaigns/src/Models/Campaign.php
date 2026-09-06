@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Campaigns\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class Campaign extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_campaigns';
 
     protected $guarded = [];

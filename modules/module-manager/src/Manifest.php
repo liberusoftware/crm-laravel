@@ -133,6 +133,10 @@ final readonly class Manifest
     {
         $plugins = $this->data['presentation']['filament'][$panel] ?? [];
 
+        if (is_array($plugins) && isset($plugins['plugins'])) {
+            $plugins = $plugins['plugins'];
+        }
+
         return is_array($plugins) ? array_values(array_filter($plugins, 'is_string')) : [];
     }
 

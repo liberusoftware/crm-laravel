@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Routing\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -15,6 +16,8 @@ use Illuminate\Support\Carbon;
  */
 final class RoutingAssignment extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_routing_assignments';
 
     protected $guarded = [];

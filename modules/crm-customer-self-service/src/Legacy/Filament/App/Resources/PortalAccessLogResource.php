@@ -32,7 +32,7 @@ class PortalAccessLogResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Help Desk';
+    protected static string|\UnitEnum|null $navigationGroup = 'Support';
 
     protected static ?string $navigationLabel = 'Portal access log';
 

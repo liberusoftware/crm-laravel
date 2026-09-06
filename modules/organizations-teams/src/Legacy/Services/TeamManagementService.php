@@ -8,13 +8,51 @@ use App\Models\Team;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class TeamManagementService
 {
     /** Roles a team admin may assign to a member (super_admin is global, customer is portal). */
-    public const TEAM_ROLES = [Role::Admin, Role::Manager, Role::SalesRep, Role::Free];
+    public const TEAM_ROLES = [Role::Manager, Role::SalesRep, Role::Free];
+
+    public function createTeamMember(Team $team, string $name, string $email, string $password, Role $role): User
+    {
+        $actor = Auth::user();
+        setPermissionsTeamId($team->getKey());
+
+        if (! $actor instanceof User || (! $actor->ownsTeam($team) && ! $actor->hasRole(Role::Admin->value))) {
+            throw new InvalidArgumentException('You cannot manage members for this team.');
+        }
+
+        if (! in_array($role, self::TEAM_ROLES, true)) {
+            throw new InvalidArgumentException('That role cannot be assigned to a new team member.');
+        }
+
+        if (User::where('email', $email)->exists()) {
+            throw new InvalidArgumentException('That email address is already registered.');
+        }
+
+        if (mb_strlen($password) < 12) {
+            throw new InvalidArgumentException('Passwords must contain at least 12 characters.');
+        }
+
+        return DB::transaction(function () use ($team, $name, $email, $password, $role): User {
+            $user = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
+            $team->users()->attach($user, ['role' => 'member']);
+            $this->assignTeamRole($user, $team, $role);
+
+            app(AuditLogService::class)->record(
+                'team.member_added',
+                "Added {$email} to the team with role {$role->value}",
+                $user,
+            );
+
+            return $user;
+        });
+    }
 
     /**
      * Replace a member's team-scoped role. Removes any of the four team roles the

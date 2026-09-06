@@ -11,6 +11,7 @@ use App\Services\TeamManagementService;
 use Database\Seeders\RolesSeeder;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -67,5 +68,35 @@ class TeamAddMemberTest extends TestCase
         $this->assertTrue($this->team->fresh()->users->contains($target));
         setPermissionsTeamId($this->team->id);
         $this->assertTrue($target->fresh()->hasRole(Role::SalesRep->value));
+    }
+
+    public function test_admin_can_create_a_new_scoped_member_with_a_password(): void
+    {
+        $member = app(TeamManagementService::class)->createTeamMember(
+            $this->team,
+            'New teammate',
+            'created@example.com',
+            'Secure-password-42!',
+            Role::Manager,
+        );
+
+        $this->assertTrue($this->team->fresh()->users->contains($member));
+        $this->assertTrue(Hash::check('Secure-password-42!', $member->password));
+        setPermissionsTeamId($this->team->id);
+        $this->assertTrue($member->fresh()->hasRole(Role::Manager->value));
+        $this->assertFalse($member->fresh()->canAccessPanel(Filament::getPanel('admin')));
+    }
+
+    public function test_service_rejects_privileged_roles_for_new_members(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        app(TeamManagementService::class)->createTeamMember(
+            $this->team,
+            'Platform escape',
+            'escape@example.com',
+            'Secure-password-42!',
+            Role::Admin,
+        );
     }
 }

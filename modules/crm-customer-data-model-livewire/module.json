@@ -8,6 +8,6 @@
   "provider": "Liberu\\CRM\\CustomerDataModel\\Livewire\\CustomerDataModelLivewireServiceProvider",
   "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-crm-customer-data-model": "^1.0"}, "capabilities": {"crm.customer-data-model.schemas": "^1.0"}},
   "capabilities": ["crm.customer-data-model.livewire"],
-  "default_enabled": false,
+  "default_enabled": true,
   "features": ["Schema browser", "Field metadata", "Validation feedback"]
 }

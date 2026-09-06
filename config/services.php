@@ -110,6 +110,7 @@ return [
         'timeout' => (int) env('ZERNIO_TIMEOUT', 30),
         'retries' => (int) env('ZERNIO_RETRIES', 2),
         'mode' => env('ZERNIO_MODE', 'fallback'),
+        'direct_api_enabled' => (bool) env('ZERNIO_DIRECT_API_ENABLED', true),
         'profile_id' => env('ZERNIO_PROFILE_ID'),
         'account_ids' => [
             'twitter' => env('ZERNIO_TWITTER_ACCOUNT_ID'),
@@ -128,6 +129,30 @@ return [
             'snapchat' => env('ZERNIO_SNAPCHAT_ACCOUNT_ID'),
             'discord' => env('ZERNIO_DISCORD_ACCOUNT_ID'),
             'slack' => env('ZERNIO_SLACK_ACCOUNT_ID'),
+        ],
+    ],
+
+    'ai_reception' => [
+        'endpoint' => env('AI_RECEPTION_ENDPOINT'),
+        'api_key' => env('AI_RECEPTION_API_KEY'),
+        'language' => env('AI_RECEPTION_LANGUAGE', 'en-GB'),
+        'greeting' => env('AI_RECEPTION_GREETING', 'Hello, you have reached our team. How can I help you today?'),
+        'fallback_message' => env('AI_RECEPTION_FALLBACK_MESSAGE', 'Thank you. I have noted that and will connect you with a team member if needed. What else can I help with?'),
+        'no_input_message' => env('AI_RECEPTION_NO_INPUT_MESSAGE', 'I did not hear anything. Please call again when you are ready.'),
+    ],
+
+    'social' => [
+        'direct_base_urls' => [
+            'facebook' => env('FACEBOOK_GRAPH_API_URL', 'https://graph.facebook.com'),
+            'instagram' => env('INSTAGRAM_GRAPH_API_URL', 'https://graph.facebook.com'),
+            'linkedin' => env('LINKEDIN_API_URL', 'https://api.linkedin.com'),
+            'twitter' => env('TWITTER_API_URL', 'https://api.x.com/2'),
+            'youtube' => env('YOUTUBE_API_URL', 'https://www.googleapis.com/youtube/v3'),
+            'tiktok' => env('TIKTOK_API_URL', 'https://open.tiktokapis.com/v2'),
+            'pinterest' => env('PINTEREST_API_URL', 'https://api.pinterest.com/v5'),
+            'reddit' => env('REDDIT_API_URL', 'https://oauth.reddit.com'),
+            'threads' => env('THREADS_API_URL', 'https://graph.threads.net'),
+            'bluesky' => env('BLUESKY_API_URL', 'https://bsky.social/xrpc'),
         ],
     ],
 

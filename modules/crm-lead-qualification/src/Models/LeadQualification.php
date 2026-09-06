@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\LeadQualification\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class LeadQualification extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_lead_qualifications';
 
     protected $fillable = ['team_id', 'actor_id', 'subject_type', 'subject_id', 'framework_id', 'lifecycle_stage', 'fit_score', 'engagement_score', 'total_score', 'qualification_status', 'disqualification_reason', 'nurture_until', 'converted_at', 'version', 'metadata'];

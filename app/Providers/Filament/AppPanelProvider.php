@@ -6,6 +6,8 @@ namespace App\Providers\Filament;
 
 use App\Filament\App\Pages;
 use App\Filament\App\Pages\EditProfile;
+use App\Filament\CrmNavigation;
+use App\Filament\ModulePlugins;
 use App\Http\Middleware\EnsureSsoWhenRequired;
 use App\Http\Middleware\TeamsPermission;
 use App\Listeners\CreatePersonalTeam;
@@ -23,7 +25,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Widgets;
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -45,28 +46,30 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('18rem')
+            ->collapsedSidebarWidth('4rem')
+            ->breadcrumbs()
+            ->globalSearch()
+            ->globalSearchDebounce('300ms')
             // ->login([AuthenticatedSessionController::class, 'create'])
             // ->registration()
             // ->passwordReset()
             // ->emailVerification()
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors(app(ThemeColors::class)->forSite())
-            ->navigationGroups([
-                'CRM',
-                'Communication',
-                'Marketing',
-                'Advertising',
-                'Help Desk',
-                'Team',
-                'Settings',
-                'Account',
-            ])
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Profile')
                     ->icon('heroicon-o-user-circle')
-                    ->url(fn (): UrlGenerator|string => $this->shouldRegisterMenuItem()
+                    ->url(fn () => $this->shouldRegisterMenuItem()
                         ? url(EditProfile::getUrl())
+                        : url($panel->getPath())),
+                MenuItem::make()
+                    ->label('Setup wizard')
+                    ->icon('heroicon-o-sparkles')
+                    ->url(fn () => $this->shouldRegisterMenuItem()
+                        ? url(Pages\SetupWizard::getUrl())
                         : url($panel->getPath())),
             ])
             ->pages([
@@ -77,6 +80,7 @@ class AppPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
+            ->plugins(app(ModulePlugins::class)->forPanel('app'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -115,7 +119,7 @@ class AppPanelProvider extends PanelProvider
                     MenuItem::make()
                         ->label('Team Settings')
                         ->icon('heroicon-o-cog-6-tooth')
-                        ->url(fn (): UrlGenerator|string => $this->shouldRegisterMenuItem()
+                        ->url(fn () => $this->shouldRegisterMenuItem()
                             ? url(Pages\EditTeam::getUrl())
                             : url($panel->getPath())),
                 ]);
@@ -128,6 +132,8 @@ class AppPanelProvider extends PanelProvider
         foreach (glob(base_path('modules/*/src/Legacy/Filament/App/Pages')) ?: [] as $path) {
             $panel->discoverPages(in: $path, for: 'App\\Filament\\App\\Pages');
         }
+
+        app(CrmNavigation::class)->configure($panel);
 
         return $panel;
     }

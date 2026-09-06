@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\LearningAndCourses\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class LearningEnrollment extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_learning_enrollments';
 
     protected $guarded = [];

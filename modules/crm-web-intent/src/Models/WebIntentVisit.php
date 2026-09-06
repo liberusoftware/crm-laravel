@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WebIntent\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class WebIntentVisit extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_web_intent_visits';
 
     protected $fillable = ['team_id', 'visitor_key', 'session_key', 'ip_hash', 'user_agent_hash', 'landing_url', 'referrer', 'consent_status', 'score', 'intent_level', 'status', 'started_at', 'ended_at', 'metadata'];

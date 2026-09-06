@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\LeadQualification\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class QualificationFramework extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_lead_qualification_frameworks';
 
     protected $fillable = ['team_id', 'actor_id', 'name', 'status', 'mql_threshold', 'pql_threshold', 'sql_threshold', 'service_qualified_threshold', 'rules', 'settings'];

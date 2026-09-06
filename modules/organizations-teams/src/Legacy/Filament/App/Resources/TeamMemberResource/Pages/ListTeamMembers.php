@@ -15,6 +15,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Validation\Rules\Password;
 
 class ListTeamMembers extends ListRecords
 {
@@ -28,10 +29,14 @@ class ListTeamMembers extends ListRecords
                 ->label('Add member')
                 ->icon('heroicon-o-user-plus')
                 ->schema([
+                    TextInput::make('name')->maxLength(255),
                     TextInput::make('email')->email()->required(),
+                    TextInput::make('password')
+                        ->password()
+                        ->revealable()
+                        ->rule(Password::min(12)->mixedCase()->numbers()->symbols()),
                     Select::make('role')
                         ->options([
-                            Role::Admin->value => 'Admin',
                             Role::Manager->value => 'Manager',
                             Role::SalesRep->value => 'Sales rep',
                             Role::Free->value => 'Free',
@@ -40,16 +45,27 @@ class ListTeamMembers extends ListRecords
                 ])
                 ->action(function (array $data, TeamManagementService $service): void {
                     $tenant = Filament::getTenant();
-                    $user = User::where('email', $data['email'])->first();
-
-                    // Existing users only — creating a new account is onboarding / SSO.
-                    if (! $tenant instanceof Team || ! $user instanceof User) {
-                        Notification::make()->title('No user found with that email')->danger()->send();
+                    if (! $tenant instanceof Team) {
+                        Notification::make()->title('No active team selected')->danger()->send();
 
                         return;
                     }
 
-                    $service->addTeamMember($user, $tenant, Role::from($data['role']));
+                    $existing = User::where('email', (string) $data['email'])->first();
+                    if ($existing instanceof User && blank($data['password'] ?? null)) {
+                        $service->addTeamMember($existing, $tenant, Role::from((string) $data['role']));
+                        Notification::make()->title('Member added')->success()->send();
+
+                        return;
+                    }
+
+                    if (! $existing instanceof User && blank($data['password'] ?? null)) {
+                        Notification::make()->title('A password is required for a new account')->danger()->send();
+
+                        return;
+                    }
+
+                    $service->createTeamMember($tenant, (string) ($data['name'] ?? $data['email']), (string) $data['email'], (string) $data['password'], Role::from((string) $data['role']));
                     Notification::make()->title('Member added')->success()->send();
                 }),
         ];

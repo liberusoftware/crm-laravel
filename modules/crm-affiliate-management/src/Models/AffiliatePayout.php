@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\AffiliateManagement\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class AffiliatePayout extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_affiliate_payouts';
 
     protected $guarded = [];

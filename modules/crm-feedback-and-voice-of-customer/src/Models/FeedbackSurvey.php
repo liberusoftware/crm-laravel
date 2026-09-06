@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\FeedbackAndVoiceOfCustomer\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class FeedbackSurvey extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_feedback_surveys';
 
     protected $guarded = [];

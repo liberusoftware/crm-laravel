@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\LeadCapture\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /** @property int $team_id @property string $channel @property string $status */
 final class CapturedLead extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_lead_capture_leads';
 
     protected $guarded = [];

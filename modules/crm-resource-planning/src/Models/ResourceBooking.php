@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ResourcePlanning\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -14,6 +15,8 @@ use Illuminate\Support\Carbon;
  */
 final class ResourceBooking extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_resource_bookings';
 
     protected $guarded = [];

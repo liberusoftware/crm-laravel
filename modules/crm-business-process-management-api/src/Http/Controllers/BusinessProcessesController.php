@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Liberu\CRM\BusinessProcessManagementApi\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Liberu\CRM\BusinessProcessManagement\Actions\AdvanceProcess;
 use Liberu\CRM\BusinessProcessManagement\Actions\CreateProcess;
@@ -18,52 +19,57 @@ final class BusinessProcessesController extends Controller
 {
     public function __construct(private readonly ProcessQuery $query) {}
 
-    private function context(): array
+    private function context(Request $request): array
     {
-        $user = request()->user();
+        $user = $request->user();
+        abort_unless($user !== null, 401);
+        $teamId = (int) $user->getAttribute('current_team_id');
+        abort_unless($teamId > 0, 403);
 
-        return [(int) $user->current_team_id, (int) $user->id];
+        return [$teamId, (int) $user->getKey()];
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        [$teamId] = $this->context();
+        [$teamId] = $this->context($request);
+        $processes = $this->query->processes($teamId)->paginate(min($request->integer('per_page', 25), 100));
 
-        return response()->json($this->query->processes($teamId)->get());
+        return response()->json(['data' => $processes->getCollection()->map(fn (Process $process): array => $process->toArray())->values(), 'meta' => ['current_page' => $processes->currentPage(), 'last_page' => $processes->lastPage(), 'per_page' => $processes->perPage(), 'total' => $processes->total()]]);
     }
 
-    public function store(CreateProcess $action): JsonResponse
+    public function store(Request $request, CreateProcess $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, request()->all()), 201);
+        return response()->json(['data' => $action->execute($teamId, $actorId, $request->all())->toArray()], 201);
     }
 
-    public function publish(Process $process, PublishProcess $action): JsonResponse
+    public function publish(Request $request, Process $process, PublishProcess $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, $process));
+        return response()->json(['data' => $action->execute($teamId, $actorId, $process)->toArray()]);
     }
 
-    public function start(Process $process, StartProcess $action): JsonResponse
+    public function start(Request $request, Process $process, StartProcess $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, $process, (array) request('context', [])), 201);
+        return response()->json(['data' => $action->execute($teamId, $actorId, $process, (array) $request->input('context', []))->toArray()], 201);
     }
 
-    public function advance(ProcessRun $run, AdvanceProcess $action): JsonResponse
+    public function advance(Request $request, ProcessRun $run, AdvanceProcess $action): JsonResponse
     {
-        [$teamId, $actorId] = $this->context();
+        [$teamId, $actorId] = $this->context($request);
 
-        return response()->json($action->execute($teamId, $actorId, $run, (array) request('context', [])));
+        return response()->json(['data' => $action->execute($teamId, $actorId, $run, (array) $request->input('context', []))->toArray()]);
     }
 
-    public function runs(): JsonResponse
+    public function runs(Request $request): JsonResponse
     {
-        [$teamId] = $this->context();
+        [$teamId] = $this->context($request);
+        $runs = $this->query->runs($teamId)->with('events')->paginate(min($request->integer('per_page', 25), 100));
 
-        return response()->json($this->query->runs($teamId)->with('events')->get());
+        return response()->json(['data' => $runs->getCollection()->map(fn (ProcessRun $run): array => $run->toArray())->values(), 'meta' => ['current_page' => $runs->currentPage(), 'last_page' => $runs->lastPage(), 'per_page' => $runs->perPage(), 'total' => $runs->total()]]);
     }
 }

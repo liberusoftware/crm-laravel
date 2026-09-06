@@ -9,6 +9,6 @@
   "requires": { "php": "^8.5", "laravel": "^13.0", "packages": { "liberusoftware/module-crm-web-intent": "^1.0" } },
   "suggests": [],
   "capabilities": ["crm.web-intent.api"],
-  "default_enabled": false,
+  "default_enabled": true,
   "features": ["Visits", "Engagement", "Consent", "Identification", "Alerts", "Conversions", "Intent summary"]
 }

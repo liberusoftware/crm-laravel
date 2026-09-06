@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\ClientOnboarding\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class ClientOnboarding extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_client_onboardings';
 
     protected $guarded = [];

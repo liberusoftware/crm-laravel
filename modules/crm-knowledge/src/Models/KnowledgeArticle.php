@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Knowledge\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /** @property int $team_id @property string $status @property string $visibility */
 final class KnowledgeArticle extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_knowledge_articles';
 
     protected $guarded = [];

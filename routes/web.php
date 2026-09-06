@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AIReceptionTwilioController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ContactListController;
 use App\Http\Controllers\EmailTrackingController;
@@ -66,6 +67,7 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 // Twilio TwiML routes (public, Twilio callback, signature-verified)
 Route::post('/twilio/twiml/outbound', [TwilioController::class, 'handleOutboundCall'])->middleware('twilio.verify')->name('twilio.twiml.outbound');
 Route::post('/twilio/recording/callback', [TwilioController::class, 'handleRecordingCallback'])->middleware('twilio.verify')->name('twilio.recording.callback');
+Route::post('/twilio/ai-reception/{agentId}', [AIReceptionTwilioController::class, 'handle'])->middleware('twilio.verify')->name('twilio.ai-reception');
 
 // Email tracking routes (public, no auth required)
 Route::get('/email/track/pixel/{tracking_id}', [EmailTrackingController::class, 'pixel'])->name('email.tracking.pixel');
@@ -113,4 +115,4 @@ Route::middleware(['auth'])->group(function (): void {
     });
 });
 
-Route::post('/forms/{leadForm}/submit', [LeadFormController::class, 'submit'])->name('forms.submit');
+Route::post('/forms/{leadForm}/submit', [LeadFormController::class, 'submit'])->middleware('throttle:30,1')->name('forms.submit');

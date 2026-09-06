@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\CustomerDataModel\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class ObjectDefinition extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_customer_data_objects';
 
     protected $fillable = ['team_id', 'key', 'label', 'description', 'is_standard', 'status', 'current_version'];

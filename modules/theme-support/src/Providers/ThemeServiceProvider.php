@@ -86,13 +86,13 @@ class ThemeServiceProvider extends ServiceProvider
         // Vite inputs are deferred, so until themes/*/{css,js} are added to vite.config.js
         // input + built, these emit nothing rather than throwing "Unable to locate file
         // in Vite manifest". They light up automatically once the assets are built.
-        Blade::directive('themeCss', fn (): string => "<?php \$__p = app('theme')->getThemeCss(); if (\$__p && app('theme')->viteHasAsset(\$__p)) { echo app(\Illuminate\Foundation\Vite::class)(\$__p); } ?>");
+        Blade::directive('themeCss', fn (): string => "<?php \$__p = app('theme')->getThemeCss(); if (\$__p && app('theme')->viteCanResolveAsset(\$__p)) { echo app(\Illuminate\Foundation\Vite::class)(\$__p); } ?>");
 
-        Blade::directive('themeJs', fn (): string => "<?php \$__p = app('theme')->getThemeJs(); if (\$__p && app('theme')->viteHasAsset(\$__p)) { echo app(\Illuminate\Foundation\Vite::class)(\$__p); } ?>");
+        Blade::directive('themeJs', fn (): string => "<?php \$__p = app('theme')->getThemeJs(); if (\$__p && app('theme')->viteCanResolveAsset(\$__p)) { echo app(\Illuminate\Foundation\Vite::class)(\$__p); } ?>");
 
         Blade::directive('themeLayout', fn (string $expression): string => "<?php echo app('theme')->getLayout({$expression}); ?>");
 
         // Load the active theme's built CSS bundle (or app.css fallback) + main JS.
-        Blade::directive('themeVite', fn (): string => "<?php \$__entries = array_values(array_filter(app('theme')->activeEntries(), fn (string \$entry): bool => app('theme')->viteHasAsset(\$entry))); if (\$__entries !== []) { echo app(\Illuminate\Foundation\Vite::class)(\$__entries); } ?>");
+        Blade::directive('themeVite', fn (): string => "<?php \$__entries = array_values(array_filter(app('theme')->activeEntries(), fn (string \$entry): bool => app('theme')->viteCanResolveAsset(\$entry))); if (\$__entries !== []) { echo app(\Illuminate\Foundation\Vite::class)(\$__entries); } ?>");
     }
 }

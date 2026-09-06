@@ -49,6 +49,7 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'personal_team',
+        'setup_completed_at',
         'zernio_profile_id',
         'user_id',
         'portal_brand_name',
@@ -95,6 +96,7 @@ class Team extends JetstreamTeam
         return [
             'personal_team' => 'boolean',
             'archived_at' => 'datetime',
+            'setup_completed_at' => 'datetime',
         ];
     }
 

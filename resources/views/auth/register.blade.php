@@ -6,27 +6,32 @@
 
     <x-validation-errors class="mb-4" />
 
+    <div class="mb-6">
+        <p class="text-xl font-semibold tracking-tight">{{ __('Create your account') }}</p>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __('Set up your workspace in a few simple steps.') }}</p>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <div>
-            <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-label for="name" value="{{ __('Full name') }}" class="cs-label" />
+            <x-input id="name" class="cs-input mt-1 block" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Jane Smith" />
         </div>
 
         <div class="mt-4">
-            <x-label for="email" value="{{ __('Email') }}" />
-            <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-label for="email" value="{{ __('Email address') }}" class="cs-label" />
+            <x-input id="email" class="cs-input mt-1 block" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="you@example.com" />
         </div>
 
         <div class="mt-4">
-            <x-label for="password" value="{{ __('Password') }}" />
-            <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+            <x-label for="password" value="{{ __('Password') }}" class="cs-label" />
+            <x-input id="password" class="cs-input mt-1 block" type="password" name="password" required autocomplete="new-password" />
         </div>
 
         <div class="mt-4">
-            <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-            <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+            <x-label for="password_confirmation" value="{{ __('Confirm password') }}" class="cs-label" />
+            <x-input id="password_confirmation" class="cs-input mt-1 block" type="password" name="password_confirmation" required autocomplete="new-password" />
         </div>
 
         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -45,13 +50,13 @@
             </div>
         @endif
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="mt-6 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 
-            <x-button class="ms-4 bg-green-800 hover:bg-green-700 active:bg-green-900 focus:border-green-900 ring-green-300">
+            <x-button class="cs-btn cs-btn--primary w-full sm:w-auto">
                 {{ __('Register') }}
             </x-button>
         </div>

@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use Liberu\Foundation\Theme\Services\ThemeManager;
 
@@ -36,6 +37,27 @@ it('does not throw rendering themeCss/themeJs when the theme asset is not in the
     app(ThemeManager::class)->setTheme('dark');
 
     expect(Blade::render('@themeCss @themeJs'))->toBeString();
+});
+
+it('renders theme assets while the Vite development server is running', function () {
+    $hotFile = public_path('hot');
+    $backup = File::exists($hotFile) ? File::get($hotFile) : null;
+    File::put($hotFile, 'http://localhost:5173');
+
+    try {
+        app(ThemeManager::class)->setTheme('theme-crm');
+
+        expect(Blade::render("@php app('theme')->selectForSurface('portal') @endphp @themeVite"))
+            ->toContain('@vite/client')
+            ->toContain('themes/theme-crm/resources/css/app.css')
+            ->toContain('themes/theme-crm/resources/js/app.js');
+    } finally {
+        if ($backup === null) {
+            File::delete($hotFile);
+        } else {
+            File::put($hotFile, $backup);
+        }
+    }
 });
 
 it('persists set_theme to session and the authenticated user', function () {

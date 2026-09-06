@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\DataOperations\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 final class DataOperation extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_data_operations';
 
     protected $fillable = ['team_id', 'actor_id', 'kind', 'status', 'source', 'target', 'options', 'total_rows', 'processed_rows', 'failed_rows', 'failure_reason', 'started_at', 'completed_at'];

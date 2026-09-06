@@ -8,7 +8,7 @@
   "provider": "Liberu\\CRM\\CustomerDataModel\\Filament\\CustomerDataModelFilamentServiceProvider",
   "requires": {"php": "^8.5", "laravel": "^13.0", "packages": {"liberusoftware/module-crm-customer-data-model": "^1.0"}, "capabilities": {"crm.customer-data-model.schemas": "^1.0"}},
   "capabilities": ["crm.customer-data-model.filament"],
-  "default_enabled": false,
+  "default_enabled": true,
   "features": ["Object schemas", "Field definitions", "Schema publishing"],
   "presentation": {"filament": {"app": ["Liberu\\CRM\\CustomerDataModel\\Filament\\CustomerDataModelFilamentPlugin"]}}
 }

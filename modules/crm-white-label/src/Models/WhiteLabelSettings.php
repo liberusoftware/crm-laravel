@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WhiteLabel\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class WhiteLabelSettings extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_white_label_settings';
 
     protected $fillable = ['team_id', 'brand_name', 'custom_domain', 'theme', 'email_settings', 'application_settings', 'client_experience', 'provider', 'show_platform_attribution', 'version'];

@@ -13,5 +13,9 @@ parameters:
     paths:
         - app/
 
+    scanFiles:
+        - modules/crm-ai-reception-and-conversation/src/Services/ReceptionResponder.php
+        - modules/crm-unified-conversations/src/Actions/SyncExternalConversation.php
+
     level: 2
     reportUnmatchedIgnoredErrors: false

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\PredictiveModels\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class Prediction extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_predictive_predictions';
 
     protected $guarded = [];

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WebIntent\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 final class WebIntentIdentification extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_web_intent_identifications';
 
     protected $fillable = ['team_id', 'visitor_key', 'adapter', 'account_name', 'account_domain', 'confidence', 'status', 'metadata'];

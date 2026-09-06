@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Core\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 final class TimelineEntry extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_core_timeline';
 
     protected $fillable = ['team_id', 'actor_id', 'event_type', 'summary', 'payload'];

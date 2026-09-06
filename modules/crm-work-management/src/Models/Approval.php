@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\WorkManagement\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class Approval extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_work_approvals';
 
     protected $fillable = ['work_item_id', 'team_id', 'requested_by', 'reviewed_by', 'status', 'comment', 'reviewed_at'];

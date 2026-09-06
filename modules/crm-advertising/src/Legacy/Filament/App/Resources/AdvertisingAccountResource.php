@@ -39,7 +39,7 @@ class AdvertisingAccountResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Advertising';
+    protected static string|\UnitEnum|null $navigationGroup = 'Marketing';
 
     #[\Override]
     public static function form(Schema $schema): Schema

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\QuotasAndIncentives\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class Quota extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_quotas';
 
     protected $guarded = [];

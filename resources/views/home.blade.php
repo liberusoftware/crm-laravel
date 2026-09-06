@@ -1,153 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="crm-container py-8">
-    @if(config('saas.enabled'))
-        <section class="crm-card mb-8 overflow-hidden bg-slate-950 px-6 py-14 text-white sm:px-12" aria-labelledby="welcome-heading">
-            <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-300">Liberu CRM for growing teams</p>
-            <h1 id="welcome-heading" class="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl">Every relationship. One clear workspace.</h1>
-            <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-300">Bring contacts, pipeline, conversations, email, WhatsApp, and calling together so your team can move faster and give every customer a better experience.</p>
-            <div class="mt-8 flex flex-wrap gap-3">
-                <a href="{{ route('register') }}" class="crm-button inline-flex items-center bg-indigo-500 text-white">Start your 14-day trial</a>
-                <a href="{{ route('login') }}" class="crm-button inline-flex items-center border border-slate-600 text-white">Sign in</a>
+<div class="crm-home">
+    <section class="crm-hero" aria-labelledby="hero-heading">
+        <div class="crm-container crm-hero-grid">
+            <div class="crm-hero-copy">
+                <p class="crm-eyebrow">The clear workspace for customer-led teams</p>
+                <h1 id="hero-heading">Turn every conversation into your next opportunity.</h1>
+                <p class="crm-hero-lead">Liberu CRM brings contacts, sales, conversations, service, and reporting together so your team always knows what matters next.</p>
+                <div class="crm-hero-actions">
+                    <a href="{{ route('register') }}" class="crm-button crm-button-primary">{{ config('saas.enabled') ? 'Start your free trial' : 'Get started free' }} <span aria-hidden="true">→</span></a>
+                    <a href="#features" class="crm-button crm-button-secondary">Explore the workspace</a>
+                </div>
+                <p class="crm-hero-note">{{ config('saas.enabled') ? '14 days to see the difference. No long-term commitment.' : 'Self-hosted, open, and ready to make your own.' }}</p>
             </div>
-            <p class="mt-5 text-sm text-slate-400">Card required for uninterrupted access. Choose £19.99 monthly or £199.99 yearly after your trial.</p>
-        </section>
-        <section class="mb-8" aria-labelledby="saas-benefits-heading">
-            <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
-                <div><p class="text-sm font-semibold uppercase tracking-wide text-indigo-600">Built for momentum</p><h2 id="saas-benefits-heading" class="mt-1 text-2xl font-semibold">The tools your team needs, connected</h2></div>
-                <a href="{{ route('billing.index') }}" class="font-semibold text-indigo-600 hover:text-indigo-800">View plans →</a>
+            <div class="crm-dashboard-preview" aria-label="CRM workspace preview">
+                <div class="crm-preview-bar"><span class="crm-preview-dot"></span><span class="crm-preview-dot"></span><span class="crm-preview-dot"></span><span class="crm-preview-url">workspace / overview</span></div>
+                <div class="crm-preview-body">
+                    <div class="crm-preview-sidebar"><span class="crm-preview-logo">L</span><span class="crm-preview-line crm-preview-line-active"></span><span class="crm-preview-line"></span><span class="crm-preview-line"></span><span class="crm-preview-line"></span></div>
+                    <div class="crm-preview-content">
+                        <div class="crm-preview-heading"><div><span class="crm-preview-kicker">Monday, {{ now()->format('F j') }}</span><strong>Your workspace</strong></div><span class="crm-preview-avatar">JD</span></div>
+                        <div class="crm-preview-metrics"><div><span>Open deals</span><strong>£248k</strong><small>+18.4%</small></div><div><span>Active contacts</span><strong>1,284</strong><small>+12.8%</small></div><div><span>Tasks due</span><strong>24</strong><small>8 today</small></div></div>
+                        <div class="crm-preview-chart"><div class="crm-preview-chart-head"><strong>Pipeline momentum</strong><span>Last 30 days</span></div><div class="crm-bars"><i style="height: 34%"></i><i style="height: 52%"></i><i style="height: 44%"></i><i style="height: 68%"></i><i style="height: 61%"></i><i style="height: 82%"></i><i style="height: 94%"></i></div></div>
+                    </div>
+                </div>
             </div>
-            <div class="crm-grid">
+        </div>
+    </section>
+
+    <section class="crm-proof" aria-label="What Liberu CRM brings together">
+        <div class="crm-container crm-proof-row"><span>One connected workspace for</span><strong>Sales</strong><strong>Service</strong><strong>Operations</strong><strong>Growth</strong></div>
+    </section>
+
+    <section id="features" class="crm-section" aria-labelledby="features-heading">
+        <div class="crm-container">
+            <div class="crm-section-heading"><p class="crm-eyebrow">Everything in context</p><h2 id="features-heading">The tools your team needs to move from busywork to momentum.</h2><p>Stop switching between disconnected systems. Liberu CRM gives every team a shared view of the customer and a clear path forward.</p></div>
+            <div class="crm-feature-grid">
                 @foreach([
-                    ['title' => 'One customer view', 'text' => 'Keep context, activity, tasks, and deals together from first touch to renewal.'],
-                    ['title' => 'Conversations that convert', 'text' => 'Coordinate email, WhatsApp, SMS, and Twilio calling from one reliable workflow.'],
-                    ['title' => 'Ready for your team', 'text' => 'Use roles, approvals, automations, reporting, and integrations without stitching tools together.'],
-                ] as $benefit)
-                    <article class="crm-card p-6"><h3 class="text-lg font-semibold">{{ $benefit['title'] }}</h3><p class="mt-2 text-sm leading-6 text-slate-600">{{ $benefit['text'] }}</p></article>
+                    ['icon' => 'users', 'title' => 'Contacts & companies', 'text' => 'Build a complete customer record with people, companies, activity, notes, and custom fields in one place.'],
+                    ['icon' => 'chart', 'title' => 'Sales pipeline', 'text' => 'Manage leads, deals, stages, forecasts, and follow-ups with a pipeline your whole team can trust.'],
+                    ['icon' => 'message', 'title' => 'Unified conversations', 'text' => 'Bring email, WhatsApp, SMS, and calling into one workflow so every reply has the right context.'],
+                    ['icon' => 'check', 'title' => 'Tasks & workflows', 'text' => 'Turn repeatable work into accountable processes with tasks, reminders, automations, and approvals.'],
+                    ['icon' => 'support', 'title' => 'Helpdesk & knowledge base', 'text' => 'Resolve customer questions faster with tickets, shared answers, and a searchable knowledge base.'],
+                    ['icon' => 'report', 'title' => 'Reports & insights', 'text' => 'See what is working with dashboards, activity analytics, campaign performance, and actionable forecasts.'],
+                    ['icon' => 'team', 'title' => 'Teams & permissions', 'text' => 'Give every person the right access with teams, roles, permissions, and secure tenant isolation.'],
+                    ['icon' => 'plug', 'title' => 'Integrations & API', 'text' => 'Connect the tools you already use through social sign-in, webhooks, REST APIs, and extensible modules.'],
+                ] as $feature)
+                    <article class="crm-feature-card"><div class="crm-feature-icon" aria-hidden="true">@include('components.home-feature-icon', ['icon' => $feature['icon']])</div><h3>{{ $feature['title'] }}</h3><p>{{ $feature['text'] }}</p></article>
                 @endforeach
             </div>
-        </section>
-    @else
-        <section class="crm-card mb-8 bg-slate-950 px-6 py-12 text-white sm:px-10" aria-labelledby="welcome-heading">
-            <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">Liberu CRM · Free self-hosted edition</p>
-            <h1 id="welcome-heading" class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">A foundation you can build on.</h1>
-            <p class="mt-4 max-w-2xl text-lg text-slate-300">Run a capable CRM on your own infrastructure with customer relationships, sales activity, team operations, and integrations in one Laravel application.</p>
-            <div class="mt-8 flex flex-wrap gap-3"><a href="{{ route('register') }}" class="crm-button inline-flex items-center bg-teal-400 text-slate-950">Get started free</a><a href="{{ route('login') }}" class="crm-button inline-flex items-center border border-slate-600 text-white">Sign in</a></div>
-            <p class="mt-5 text-sm text-slate-400">Free mode is enabled for local and self-hosted deployments. No payment details are required.</p>
-        </section>
-    @endif
-
-    @auth
-        @if(session('success'))
-            <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-    @endauth
-
-    @auth
-        <div class="crm-card mb-6 p-6"><h2 class="text-2xl font-bold">Welcome back to {{ \App\Helpers\SiteSettingsHelper::get('name') }}</h2><p class="mt-2 text-slate-600">Manage your account and access your dashboard.</p></div>
-    @endauth
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        @auth
-            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Submit a Ticket</h2>
-                <x-validation-errors class="mb-4" />
-                <form action="{{ route('tickets.store') }}" method="POST">
-                    @csrf
-                    <div class="mb-4">
-                        <x-label for="subject" value="Subject" />
-                        <x-input id="subject" class="block mt-1 w-full" type="text" name="subject" required />
-                        <x-input-error for="subject" class="mt-1" />
-                    </div>
-                    <div class="mb-4">
-                        <x-label for="body" value="Description" />
-                        <textarea id="body" name="body" rows="4" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required></textarea>
-                        <x-input-error for="body" class="mt-1" />
-                    </div>
-                    <x-button class="bg-green-800 hover:bg-green-700 active:bg-green-900 focus:border-green-900 ring-green-300">
-                        Submit Ticket
-                    </x-button>
-                </form>
-            </div>
-        @else
-            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Submit a Ticket</h2>
-                <p class="text-gray-600 dark:text-gray-400">
-                    Please
-                    <a href="{{ Illuminate\Support\Facades\Route::has('login') ? route('login') : url('/admin/login') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
-                        log in
-                    </a>
-                    to submit a ticket.
-                </p>
-            </div>
-        @endauth
-
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Knowledge Base</h2>
-            @if($knowledgeBaseArticles->isNotEmpty())
-                <ul class="space-y-2">
-                    @foreach($knowledgeBaseArticles as $article)
-                        <li>
-                            <a href="{{ route('knowledge-base.show', $article) }}" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                                {{ $article->title }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            @else
-                <p class="text-gray-500 dark:text-gray-400 text-sm">No articles yet.</p>
-            @endif
         </div>
-    </div>
+    </section>
 
-    @auth
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-6">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Request a Quote</h2>
-            <x-validation-errors class="mb-4" />
-            <form action="{{ route('quote-requests.store') }}" method="POST">
-                @csrf
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <x-label for="name" value="Name" />
-                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" required />
-                        <x-input-error for="name" class="mt-1" />
-                    </div>
-                    <div>
-                        <x-label for="email" value="Email" />
-                        <x-input id="email" class="block mt-1 w-full" type="email" name="email" required />
-                        <x-input-error for="email" class="mt-1" />
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <x-label for="message" value="Message" />
-                    <textarea id="message" name="message" rows="4" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required></textarea>
-                    <x-input-error for="message" class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <x-button class="bg-green-800 hover:bg-green-700 active:bg-green-900 focus:border-green-900 ring-green-300">
-                        Request Quote
-                    </x-button>
-                </div>
-            </form>
-        </div>
-    @else
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-6">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Request a Quote</h2>
-            <p class="text-gray-600 dark:text-gray-400">
-                Please
-                <a href="{{ Illuminate\Support\Facades\Route::has('login') ? route('login') : url('/admin/login') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
-                    log in
-                </a>
-                to request a quote.
-            </p>
-        </div>
-    @endauth
+    <section class="crm-workflow-section" aria-labelledby="workflow-heading">
+        <div class="crm-container crm-workflow-grid"><div class="crm-workflow-panel"><p class="crm-eyebrow">A better way to work</p><h2 id="workflow-heading">Know what happened. Know what is next.</h2><p>From the first enquiry to renewal, your team sees the full story without hunting through inboxes or spreadsheets.</p><div class="crm-workflow-list"><div><span>01</span><p><strong>Capture</strong><br>Keep every lead and enquiry moving into one reliable system.</p></div><div><span>02</span><p><strong>Coordinate</strong><br>Give sales, service, and operations the same customer context.</p></div><div><span>03</span><p><strong>Grow</strong><br>Use real activity and pipeline data to focus your next best action.</p></div></div></div><div class="crm-quote-card"><span class="crm-quote-mark">“</span><blockquote>A CRM should make the right work obvious. Liberu gives our team the context to act with confidence.</blockquote><div class="crm-quote-person"><span class="crm-preview-avatar">LT</span><span><strong>Built for modern teams</strong><small>Simple enough to adopt. Powerful enough to grow.</small></span></div></div></div>
+    </section>
 
-    @unless(config('saas.enabled'))
-        <p class="mt-8 text-center text-sm text-slate-500">Clear Signal gives this self-hosted CRM its focused, accessible foundation. <a class="underline hover:text-slate-700" href="https://github.com/liberusoftware/boilerplate-laravel">Explore the foundation</a>.</p>
-    @endunless
+    <section class="crm-final-cta" aria-labelledby="cta-heading"><div class="crm-container"><p class="crm-eyebrow">Ready when you are</p><h2 id="cta-heading">Give your team one clear place to grow.</h2><p>Set up your workspace, invite your team, and start turning customer relationships into lasting momentum.</p><a href="{{ route('register') }}" class="crm-button crm-button-light">{{ config('saas.enabled') ? 'Start your free trial' : 'Create your free workspace' }} <span aria-hidden="true">→</span></a><p class="crm-cta-login">Already have an account? <a href="{{ route('login') }}">Sign in</a></p></div></section>
 </div>
 @endsection

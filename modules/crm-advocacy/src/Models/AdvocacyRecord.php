@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\Advocacy\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -21,6 +22,8 @@ use Illuminate\Support\Carbon;
  */
 final class AdvocacyRecord extends Model
 {
+    use IsTenantModel;
+
     public const KINDS = ['reference', 'testimonial', 'review', 'case_study_consent', 'speaker', 'advisory_board', 'nomination', 'request', 'recognition'];
 
     public const STATUSES = ['draft', 'requested', 'approved', 'active', 'completed', 'archived'];

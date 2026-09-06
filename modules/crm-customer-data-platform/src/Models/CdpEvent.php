@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\CustomerDataPlatform\Models;
 
+use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 
 /** @property int $team_id @property int $profile_id @property bool $consented */
 final class CdpEvent extends Model
 {
+    use IsTenantModel;
+
     protected $table = 'crm_cdp_events';
 
     protected $guarded = [];

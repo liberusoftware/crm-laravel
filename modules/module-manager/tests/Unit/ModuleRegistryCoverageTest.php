@@ -51,6 +51,15 @@ it('exposes and normalizes all manifest metadata', function () {
         ->and($manifest->toArray()['path'])->toBe($manifest->path);
 });
 
+it('reads nested Filament plugin metadata', function () {
+    $manifest = makeCoverageManifest([
+        'category' => 'presentation',
+        'presentation' => ['filament' => ['app' => ['plugins' => [TestCase::class]]]],
+    ]);
+
+    expect($manifest->filamentPlugins('app'))->toBe([TestCase::class]);
+});
+
 it('rejects malformed manifests', function (array $mutation, string $message) {
     $data = [
         'name' => 'example', 'display_name' => 'Example', 'description' => 'Test',
