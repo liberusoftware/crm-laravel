@@ -203,7 +203,6 @@
     "classmap": [
       "modules/*/src",
       "modules/*/database/factories",
-      "modules/application/database/seeders/DatabaseSeeder.php",
       "modules/identity-core/database/seeders/UserSeeder.php",
       "modules/organizations-teams/database/seeders/TeamSeeder.php",
       "modules/roles-permissions/database/seeders/PermissionsSeeder.php",
