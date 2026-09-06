@@ -45,6 +45,7 @@ RUN npm ci
 COPY app ./app
 COPY resources ./resources
 COPY themes ./themes
+COPY --from=composer-deps /app/vendor/filament/filament/resources/css ./vendor/filament/filament/resources/css
 COPY postcss.config.cjs tailwind.config.js vite.config.js ./
 RUN npm run build
 
