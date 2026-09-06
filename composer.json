@@ -173,7 +173,7 @@
         "spatie/laravel-menu": "^4.2",
         "spatie/laravel-permission": "^7.0",
         "stancl/tenancy": "^3.10",
-        "stripe/stripe-php": "^17.0",
+        "stripe/stripe-php": "^21.3",
         "twilio/sdk": "*",
         "webklex/laravel-imap": "^6.2"
     },
@@ -233,9 +233,6 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
