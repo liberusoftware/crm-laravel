@@ -202,13 +202,7 @@
         },
     "classmap": [
       "modules/*/src",
-      "modules/*/database/factories",
-      "modules/identity-core/database/seeders/UserSeeder.php",
-      "modules/organizations-teams/database/seeders/TeamSeeder.php",
-      "modules/roles-permissions/database/seeders/PermissionsSeeder.php",
-      "modules/roles-permissions/database/seeders/RolesSeeder.php",
-      "modules/settings/database/seeders/MenuSeeder.php",
-      "modules/settings/database/seeders/SiteSettingsSeeder.php"
+      "modules/*/database/factories"
     ],
     "files": [
       "modules/theme-support/src/Support/theme_helpers.php"
