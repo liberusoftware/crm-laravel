@@ -12,6 +12,13 @@ class EditOAuthConfiguration extends EditRecord
 {
     protected static string $resource = OAuthConfigurationResource::class;
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['client_secret'] = '';
+
+        return $data;
+    }
+
     #[\Override]
     protected function getHeaderActions(): array
     {

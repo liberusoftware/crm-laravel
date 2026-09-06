@@ -65,6 +65,12 @@ class AppPanelProvider extends PanelProvider
                     ->url(fn () => $this->shouldRegisterMenuItem()
                         ? url(EditProfile::getUrl())
                         : url($panel->getPath())),
+                MenuItem::make()
+                    ->label('Setup wizard')
+                    ->icon('heroicon-o-sparkles')
+                    ->url(fn () => $this->shouldRegisterMenuItem()
+                        ? url(Pages\SetupWizard::getUrl())
+                        : url($panel->getPath())),
             ])
             ->pages([
                 Dashboard::class,

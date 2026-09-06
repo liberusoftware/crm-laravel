@@ -6,6 +6,7 @@ namespace App\Filament\App\Pages;
 
 use App\Models\OAuthConfiguration;
 use App\Models\Team;
+use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
@@ -54,6 +55,8 @@ class SetupWizard extends Page
         $mailchimp = OAuthConfiguration::getConfig('mailchimp');
         $this->data = [
             'team_name' => $team instanceof Team ? $team->name : '',
+            'account_name' => Filament::auth()->user()?->getAttribute('name'),
+            'account_email' => Filament::auth()->user()?->getAttribute('email'),
             'setup_social' => $facebook !== null || $google !== null || $linkedin !== null || $twitter !== null,
             'setup_voip' => $twilio !== null,
             'setup_whatsapp' => $whatsapp !== null,
@@ -95,9 +98,17 @@ class SetupWizard extends Page
                                 ->content('Secrets are encrypted before they are stored. OAuth consent and connected accounts are completed after this wizard.'),
                         ]),
                     Step::make('Team')
-                        ->description('Name your workspace')
+                        ->description('Set up your account and workspace')
                         ->schema([
-                            TextInput::make('team_name')->label('Team name')->required()->maxLength(255),
+                            Section::make('Your account')
+                                ->description('This information is used for your profile and team invitations.')
+                                ->schema([
+                                    TextInput::make('account_name')->label('Your name')->required()->maxLength(255),
+                                    TextInput::make('account_email')->label('Email address')->email()->required()->maxLength(255),
+                                ])->columns(2),
+                            Section::make('Workspace')->schema([
+                                TextInput::make('team_name')->label('Team name')->required()->maxLength(255),
+                            ]),
                         ]),
                     Step::make('Social media')
                         ->description('Connect publishing and advertising accounts')
@@ -161,6 +172,14 @@ class SetupWizard extends Page
                     $team->update(['name' => $data['team_name']]);
                 }
 
+                $user = Filament::auth()->user();
+                if ($user instanceof User) {
+                    $user->forceFill([
+                        'name' => $data['account_name'],
+                        'email' => $data['account_email'],
+                    ])->save();
+                }
+
                 if ($data['setup_social']) {
                     foreach (['facebook', 'google', 'linkedin', 'twitter'] as $provider) {
                         $this->saveOAuth($provider, (string) ($data[$provider.'_client_id'] ?? ''), $data[$provider.'_client_secret'] ?? null);
@@ -195,6 +214,10 @@ class SetupWizard extends Page
                         'username' => $data['imap_username'],
                         'smtp_host' => $data['smtp_host'],
                     ]);
+                }
+
+                if ($team instanceof Team) {
+                    $team->update(['setup_completed_at' => now()]);
                 }
             });
 

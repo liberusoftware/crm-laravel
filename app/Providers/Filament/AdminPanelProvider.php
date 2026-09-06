@@ -17,6 +17,7 @@ use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages as FilamentPage;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -47,11 +48,12 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors(app(ThemeColors::class)->forSite())
             ->navigationGroups([
-                'Administration',
-                'Teams',
-                'Security & access',
-                'Settings',
+                NavigationGroup::make('Administration')->icon('heroicon-o-building-office')->collapsed(),
+                NavigationGroup::make('Teams')->icon('heroicon-o-user-group')->collapsed(),
+                NavigationGroup::make('Security & access')->icon('heroicon-o-shield-check')->collapsed(),
+                NavigationGroup::make('Settings')->icon('heroicon-o-cog-6-tooth')->collapsed(),
             ])
+            ->collapsibleNavigationGroups()
             ->tenantMenu(fn (): bool => Filament::getTenant() !== null)
             ->resources([
                 TeamBackupResource::class,
