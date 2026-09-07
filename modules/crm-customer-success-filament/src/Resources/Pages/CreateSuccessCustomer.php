@@ -10,4 +10,11 @@ use Liberu\CRM\CustomerSuccessFilament\Resources\SuccessCustomerResource;
 final class CreateSuccessCustomer extends CreateRecord
 {
     protected static string $resource = SuccessCustomerResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['team_id'] = (int) auth()->user()?->getAttribute('current_team_id');
+
+        return $data;
+    }
 }
