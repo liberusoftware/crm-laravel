@@ -8,7 +8,12 @@ use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/** @property int $team_id @property string $channel @property string $status */
+/**
+ * @property int $team_id
+ * @property string $external_key
+ * @property string $channel
+ * @property string $status
+ */
 final class CapturedLead extends Model
 {
     use IsTenantModel;

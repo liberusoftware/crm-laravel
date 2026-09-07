@@ -23,8 +23,14 @@ final class MoveOpportunity
 
         return DB::transaction(function () use ($teamId, $actorId, $id, $data) {
             $opp = Opportunity::query()->where('team_id', $teamId)->lockForUpdate()->findOrFail($id);
+            if ($opp->status !== 'open') {
+                throw ValidationException::withMessages(['status' => 'Closed opportunities cannot be moved.']);
+            }
             $stage = SalesStage::query()->whereKey($data['stage_id'])->where('pipeline_id', $opp->pipeline_id)->firstOrFail();
             $old = $opp->stage_id;
+            if ((int) $old === (int) $stage->id) {
+                throw ValidationException::withMessages(['stage_id' => 'The opportunity is already in this stage.']);
+            }
             $opp->stage_id = $stage->id;
             $opp->probability = $stage->probability;
             $opp->last_stage_at = now();

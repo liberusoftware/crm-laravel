@@ -8,6 +8,7 @@ Route::middleware('auth:sanctum')->prefix('api/v1/crm/sales-pipelines')->group(f
     Route::post('/pipelines', [PipelineController::class, 'pipeline']);
     Route::post('/stages', [PipelineController::class, 'stage']);
     Route::get('/opportunities', [PipelineController::class, 'opportunities']);
+    Route::get('/opportunities/rotting', [PipelineController::class, 'rottingOpportunities']);
     Route::post('/opportunities', [PipelineController::class, 'opportunity']);
     Route::post('/opportunities/{opportunity}/move', [PipelineController::class, 'move']);
     Route::post('/opportunities/{opportunity}/close/{status}', [PipelineController::class, 'close'])->whereIn('status', ['won', 'lost']);

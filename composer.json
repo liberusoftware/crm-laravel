@@ -213,7 +213,8 @@
             "Tests\\": "tests/"
         },
         "classmap": [
-            "modules/*/tests"
+            "modules/*/tests",
+            "modules/*/database/seeders"
         ],
         "files": [
             "tests/Stubs/TwilioStubs.php",

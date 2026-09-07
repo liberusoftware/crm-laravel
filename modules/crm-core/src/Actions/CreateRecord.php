@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Liberu\CRM\Core\Actions;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
 use Liberu\CRM\Core\Enums\RecordType;
 use Liberu\CRM\Core\Models\Record;
@@ -26,6 +27,7 @@ final class CreateRecord
         }
 
         return DB::transaction(function () use ($type, $teamId, $name, $data, $ownerId): Record {
+            $this->ensureOwnerBelongsToTeam($teamId, $ownerId);
             $record = Record::query()->create([
                 'record_type' => $type,
                 'team_id' => $teamId,
@@ -44,5 +46,25 @@ final class CreateRecord
 
             return $record;
         });
+    }
+
+    private function ensureOwnerBelongsToTeam(int $teamId, ?int $ownerId): void
+    {
+        if ($ownerId === null) {
+            return;
+        }
+
+        $belongsToTeam = DB::table('team_user')
+            ->where('team_id', $teamId)
+            ->where('user_id', $ownerId)
+            ->exists()
+            || DB::table('teams')
+                ->where('id', $teamId)
+                ->where('user_id', $ownerId)
+                ->exists();
+
+        if (! $belongsToTeam) {
+            throw ValidationException::withMessages(['owner_id' => 'Owner must belong to this team.']);
+        }
     }
 }

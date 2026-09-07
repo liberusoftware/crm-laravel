@@ -7,6 +7,7 @@ namespace Liberu\CRM\SalesEngagementApi\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Liberu\CRM\SalesEngagement\Actions\AddStep;
+use Liberu\CRM\SalesEngagement\Actions\CompleteEngagementTask;
 use Liberu\CRM\SalesEngagement\Actions\CreateSequence;
 use Liberu\CRM\SalesEngagement\Actions\EnrollContact;
 use Liberu\CRM\SalesEngagement\Actions\RecordEngagementEvent;
@@ -17,9 +18,9 @@ final class EngagementController extends Controller
 {
     private function team(Request $r): int
     {
-        abort_unless($r->user()?->current_team_id !== null, 403);
+        abort_unless($r->user()?->getAttribute('current_team_id') !== null, 403);
 
-        return (int) $r->user()->current_team_id;
+        return (int) $r->user()->getAttribute('current_team_id');
     }
 
     public function sequences(Request $r, EngagementQuery $q)
@@ -50,6 +51,16 @@ final class EngagementController extends Controller
     public function stop(Request $r, int $enrollment, string $reason, StopEnrollment $a)
     {
         return response()->json(['data' => $a->execute($this->team($r), (int) $r->user()->id, $enrollment, $reason)]);
+    }
+
+    public function tasks(Request $request, EngagementQuery $query)
+    {
+        return response()->json(['data' => $query->tasks($this->team($request))->paginate(25)]);
+    }
+
+    public function complete(Request $request, int $task, CompleteEngagementTask $action)
+    {
+        return response()->json(['data' => $action->execute($this->team($request), (int) $request->user()->id, $task)]);
     }
 
     public function event(Request $r, RecordEngagementEvent $a)

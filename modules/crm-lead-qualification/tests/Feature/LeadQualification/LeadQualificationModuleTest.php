@@ -23,8 +23,10 @@ final class LeadQualificationModuleTest extends TestCase
         $other = Team::factory()->create();
         $lead = app(UpsertLead::class)->execute($team->id, $owner->id, ['external_key' => 'lead-1']);
         app(ScoreLead::class)->execute($team->id, $owner->id, $lead, ['fit_score' => 90, 'engagement_score' => 80, 'qualification' => 'SQL']);
+        $lead->update(['nurture' => true]);
         app(RecordQualificationEvent::class)->execute($team->id, $owner->id, $lead, ['kind' => 'conversion', 'to_value' => 'deal-1', 'reason' => 'Accepted']);
         $this->assertDatabaseHas('crm_lead_qualification_leads', ['team_id' => $team->id, 'qualification' => 'SQL', 'stage' => 'converted', 'conversion_reference' => 'deal-1']);
+        $this->assertFalse($lead->refresh()->nurture);
         $this->assertDatabaseHas('crm_lead_qualification_events', ['team_id' => $team->id, 'kind' => 'conversion']);
         $this->assertDatabaseMissing('crm_lead_qualification_leads', ['team_id' => $other->id, 'external_key' => 'lead-1']);
     }
@@ -47,6 +49,7 @@ final class LeadQualificationModuleTest extends TestCase
             'reason' => 'Outside target market',
         ]);
         $this->assertSame('disqualified', $lead->refresh()->stage);
+        $this->assertFalse($lead->nurture);
         $this->assertSame('Outside target market', $lead->disqualification_reason);
         $this->assertSame(2, $lead->events()->count());
     }

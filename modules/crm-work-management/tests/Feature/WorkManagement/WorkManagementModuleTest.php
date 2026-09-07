@@ -72,4 +72,19 @@ final class WorkManagementModuleTest extends TestCase
         $this->expectException(ValidationException::class);
         app(UpdateWorkItem::class)->execute($item, 11, ['status' => 'in_progress'], 99);
     }
+
+    public function test_work_item_updates_cannot_change_tenant_or_use_unknown_priority(): void
+    {
+        $item = app(CreateWorkItem::class)->execute(7, 11, ['title' => 'One']);
+
+        try {
+            app(UpdateWorkItem::class)->execute($item, 11, ['team_id' => 8]);
+            self::fail('Tenant reassignment should be rejected.');
+        } catch (ValidationException) {
+            self::assertSame(7, $item->fresh()->team_id);
+        }
+
+        $this->expectException(ValidationException::class);
+        app(UpdateWorkItem::class)->execute($item, 11, ['priority' => 'critical']);
+    }
 }
