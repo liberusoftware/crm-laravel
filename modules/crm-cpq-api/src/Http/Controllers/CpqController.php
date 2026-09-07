@@ -33,9 +33,9 @@ final class CpqController extends Controller
     {
         $u = request()->user();
 
-        abort_unless($u !== null && (int) $u->current_team_id > 0 && (int) $u->id > 0, 403);
+        abort_unless($u !== null && (int) $u->getAttribute('current_team_id') > 0 && (int) $u->getAuthIdentifier() > 0, 403);
 
-        return [(int) $u->current_team_id, (int) $u->id];
+        return [(int) $u->getAttribute('current_team_id'), (int) $u->getAuthIdentifier()];
     }
 
     public function store(PriceQuote $action): JsonResponse
