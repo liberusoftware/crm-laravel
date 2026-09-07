@@ -16,8 +16,8 @@ final class CreateCpqQuote extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $user = auth()->user();
-        abort_unless($user !== null && (int) $user->current_team_id > 0, 403);
+        abort_unless($user !== null && (int) $user->getAttribute('current_team_id') > 0, 403);
 
-        return app(PriceQuote::class)->execute((int) $user->current_team_id, (int) $user->getAuthIdentifier(), $data);
+        return app(PriceQuote::class)->execute((int) $user->getAttribute('current_team_id'), (int) $user->getAuthIdentifier(), $data);
     }
 }

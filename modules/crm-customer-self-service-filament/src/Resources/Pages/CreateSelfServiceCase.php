@@ -10,4 +10,11 @@ use Liberu\CRM\CustomerSelfServiceFilament\Resources\SelfServiceCaseResource;
 final class CreateSelfServiceCase extends CreateRecord
 {
     protected static string $resource = SelfServiceCaseResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['team_id'] = (int) auth()->user()?->getAttribute('current_team_id');
+
+        return $data;
+    }
 }

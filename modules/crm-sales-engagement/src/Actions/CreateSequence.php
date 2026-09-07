@@ -14,7 +14,9 @@ final class CreateSequence
     {
         if (! app(EngagementPolicy::class)->canManage($teamId, $actorId)) {
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
-        }validator($data, ['name' => ['required', 'string', 'max:255'], 'timezone' => ['required', 'timezone'], 'throttle' => ['nullable', 'array'], 'stop_rules' => ['nullable', 'array'], 'experiment' => ['nullable', 'array']])->validate();
+        }
+
+        $data = validator($data, ['name' => ['required', 'string', 'max:255'], 'timezone' => ['required', 'timezone'], 'throttle' => ['nullable', 'array'], 'stop_rules' => ['nullable', 'array:reply,meeting'], 'stop_rules.reply' => ['sometimes', 'boolean'], 'stop_rules.meeting' => ['sometimes', 'boolean'], 'experiment' => ['nullable', 'array']])->validate();
 
         return EngagementSequence::query()->create(array_merge($data, ['team_id' => $teamId, 'status' => 'draft']));
     }

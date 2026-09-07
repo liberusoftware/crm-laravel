@@ -208,7 +208,7 @@ Use the Workflow models and WorkflowAutomationService to create automated workfl
 | **Live Chat** | ✓ | ✓ | ✅ COMPLETE |
 | **Chatbots** | ✓ | ✓ | ✅ COMPLETE |
 | **Custom Reports** | ✓ | ✓ | ✅ COMPLETE |
-| **Visual Workflow Builder** | ✓ | - | ⏳ PLANNED |
+| **Visual Workflow Builder** | ✓ | ✓ | ✅ COMPLETE |
 | **AI Features** | ✓ | - | ⏳ PLANNED |
 | **Mobile App** | ✓ | - | ⏳ PLANNED |
 
@@ -285,10 +285,9 @@ Test files should cover:
 
 ### Short Term
 1. Filament resources for all new features
-2. Visual workflow builder
-3. Email analytics dashboard
-4. Chatbot builder UI
-5. Automated tests
+2. Email analytics dashboard
+3. Chatbot builder UI
+4. Automated tests
 
 ### Medium Term
 1. AI-powered features

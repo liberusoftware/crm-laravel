@@ -26,4 +26,25 @@ final class PipelineQuery
     {
         return Opportunity::query()->where('team_id', $teamId)->latest();
     }
+
+    public function rottingOpportunities(int $teamId)
+    {
+        $stages = SalesStage::query()->whereHas('pipeline', fn ($query) => $query->where('team_id', $teamId))
+            ->whereNotNull('rotting_days')->get(['id', 'rotting_days']);
+
+        if ($stages->isEmpty()) {
+            return Opportunity::query()->whereKey(0);
+        }
+
+        return Opportunity::query()->where('team_id', $teamId)->where('status', 'open')
+            ->where(function ($query) use ($stages): void {
+                foreach ($stages as $stage) {
+                    $query->orWhere(function ($stageQuery) use ($stage): void {
+                        $stageQuery->where('stage_id', $stage->id)
+                            ->whereNotNull('last_stage_at')
+                            ->where('last_stage_at', '<=', now()->subDays((int) $stage->rotting_days));
+                    });
+                }
+            })->latest('last_stage_at');
+    }
 }
