@@ -6,6 +6,7 @@ namespace Liberu\CRM\CustomerDataModel\Filament;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Liberu\CRM\CustomerDataModel\Filament\Resources\FieldDefinitionResource;
 use Liberu\CRM\CustomerDataModel\Filament\Resources\ObjectDefinitionResource;
 
 final class CustomerDataModelFilamentPlugin implements Plugin
@@ -22,7 +23,7 @@ final class CustomerDataModelFilamentPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->resources([ObjectDefinitionResource::class]);
+        $panel->resources([ObjectDefinitionResource::class, FieldDefinitionResource::class]);
     }
 
     public function boot(Panel $panel): void {}
