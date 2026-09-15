@@ -22,6 +22,27 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\TeamInvitationController as JetstreamTeamInvitationController;
 
 // Health check endpoints (for Kubernetes liveness/readiness probes)
+Route::get('/health', function () {
+    try {
+        DB::connection()->getPdo();
+
+        return response()->json([
+            'status' => 'ok',
+            'checks' => [
+                'application' => 'ok',
+                'database' => 'ok',
+            ],
+        ]);
+    } catch (Exception) {
+        return response()->json([
+            'status' => 'degraded',
+            'checks' => [
+                'application' => 'ok',
+                'database' => 'unavailable',
+            ],
+        ], 503);
+    }
+})->name('health');
 Route::get('/health/startup', fn () => response()->json(['status' => 'starting']))->name('health.startup');
 Route::get('/health/live', fn () => response()->json(['status' => 'live']))->name('health.live');
 Route::get('/health/ready', function () {
