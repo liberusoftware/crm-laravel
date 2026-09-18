@@ -144,6 +144,19 @@ Keep business logic in actions and services, enforce access through policies, an
 
 Please report security vulnerabilities privately through the repository maintainers rather than opening a public issue.
 
+## Health Check
+
+The application exposes a unified health endpoint at `/health` for monitoring and deployment checks.
+
+GET /health
+
+A healthy application returns HTTP 200 with both application and database checks marked as ok.
+
+If the database is unavailable, the endpoint returns HTTP 503 with the database check marked as unavailable.
+
+The existing `/health/live`, `/health/startup`, and `/health/ready` endpoints remain available for Kubernetes-specific probes.
+
+
 ## License
 
 Liberu CRM is released under the [MIT License](https://opensource.org/license/mit/).
@@ -151,3 +164,5 @@ Liberu CRM is released under the [MIT License](https://opensource.org/license/mi
 ## Liberu Software
 
 Liberu CRM is maintained by [Liberu Software](https://www.liberu.co.uk). Visit the [Liberu website](https://www.liberu.co.uk) for product and support information.
+
+
