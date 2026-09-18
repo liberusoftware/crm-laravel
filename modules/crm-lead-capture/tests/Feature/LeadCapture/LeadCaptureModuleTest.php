@@ -7,8 +7,10 @@ namespace Tests\Feature\LeadCapture;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Liberu\CRM\LeadCapture\Actions\CaptureLead;
 use Liberu\CRM\LeadCapture\Actions\RecordCaptureEvent;
+use Liberu\CRM\LeadCapture\Events\LeadCaptured;
 use Tests\TestCase;
 
 final class LeadCaptureModuleTest extends TestCase
@@ -25,5 +27,20 @@ final class LeadCaptureModuleTest extends TestCase
         $this->assertDatabaseHas('crm_lead_capture_leads', ['team_id' => $team->id, 'channel' => 'qr', 'source' => 'spring-event']);
         $this->assertDatabaseHas('crm_lead_capture_events', ['team_id' => $team->id, 'kind' => 'qr_scanned']);
         $this->assertDatabaseMissing('crm_lead_capture_leads', ['team_id' => $other->id, 'external_key' => 'qr-1']);
+    }
+
+    public function test_replayed_external_captures_preserve_terminal_status(): void
+    {
+        Event::fake([LeadCaptured::class]);
+        $owner = User::factory()->create();
+        $team = Team::factory()->create(['user_id' => $owner->id]);
+        $capture = app(CaptureLead::class)->execute($team->id, $owner->id, ['external_key' => 'form-1', 'channel' => 'form', 'name' => 'Taylor']);
+        $capture->update(['status' => 'converted']);
+
+        $replayed = app(CaptureLead::class)->execute($team->id, $owner->id, ['external_key' => 'form-1', 'channel' => 'form', 'name' => 'Taylor Updated']);
+
+        self::assertSame('converted', $replayed->status);
+        self::assertSame('Taylor Updated', $replayed->name);
+        Event::assertDispatchedTimes(LeadCaptured::class, 2);
     }
 }

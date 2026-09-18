@@ -12,6 +12,6 @@ final class EngagementPolicy
     {
         $team = Team::query()->find($teamId);
 
-        return $team !== null && ((int) $team->user_id === $userId || $team->users()->whereKey($userId)->wherePivotIn('role', ['admin', 'manager', 'sales rep'])->exists());
+        return $team !== null && ((int) $team->getAttribute('user_id') === $userId || $team->users()->whereKey($userId)->wherePivotIn('role', ['admin', 'manager', 'sales rep'])->exists());
     }
 }

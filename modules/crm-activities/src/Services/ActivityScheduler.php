@@ -19,8 +19,11 @@ final class ActivityScheduler
             'daily' => $activity->due_at->copy()->addDay(),
             'weekly' => $activity->due_at->copy()->addWeek(),
             'monthly' => $activity->due_at->copy()->addMonth(),
-            default => $activity->due_at->copy(),
+            default => null,
         };
+        if ($due === null) {
+            return null;
+        }
         if ($activity->recurrence_until?->isBefore($due)) {
             return null;
         }

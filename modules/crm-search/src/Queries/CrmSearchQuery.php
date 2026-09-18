@@ -12,7 +12,17 @@ final class CrmSearchQuery
 {
     public function search(int $teamId, string $term)
     {
-        return SearchDocument::query()->where('team_id', $teamId)->where(fn ($query) => $query->where('title', 'like', '%'.$term.'%')->orWhere('content', 'like', '%'.$term.'%'))->latest('indexed_at');
+        $term = trim($term);
+        $query = SearchDocument::query()->where('team_id', $teamId);
+
+        if ($term === '') {
+            return $query->whereKey(0);
+        }
+
+        return $query
+            ->where(fn ($builder) => $builder->where('title', 'like', '%'.$term.'%')->orWhere('content', 'like', '%'.$term.'%'))
+            ->orderByRaw('CASE WHEN title LIKE ? THEN 0 WHEN title LIKE ? THEN 1 ELSE 2 END', [$term, $term.'%'])
+            ->latest('indexed_at');
     }
 
     public function views(int $teamId, int $userId)

@@ -33,16 +33,16 @@ final class QuoteBuilder extends Component
     public function save(PriceQuote $priceQuote): void
     {
         $user = auth()->user();
-        abort_unless($user !== null && (int) $user->current_team_id > 0, 403);
+        abort_unless($user !== null && (int) $user->getAttribute('current_team_id') > 0, 403);
         $this->validate(['name' => ['nullable', 'string', 'max:255'], 'currency' => ['required', Rule::in(['USD', 'EUR', 'GBP'])], 'lines' => ['required', 'array', 'min:1'], 'lines.*.description' => ['required', 'string', 'max:255'], 'lines.*.unit_price' => ['required', 'numeric', 'min:0'], 'lines.*.quantity' => ['required', 'numeric', 'gt:0'], 'lines.*.discount' => ['nullable', 'numeric', 'min:0']]);
-        $priceQuote->execute((int) $user->current_team_id, (int) $user->getAuthIdentifier(), ['name' => $this->name, 'currency' => $this->currency, 'lines' => $this->lines]);
+        $priceQuote->execute((int) $user->getAttribute('current_team_id'), (int) $user->getAuthIdentifier(), ['name' => $this->name, 'currency' => $this->currency, 'lines' => $this->lines]);
         $this->reset('name');
         $this->dispatch('cpq-quote-saved');
     }
 
     public function render(): View
     {
-        abort_unless((int) auth()->user()?->current_team_id > 0, 403);
+        abort_unless((int) auth()->user()?->getAttribute('current_team_id') > 0, 403);
 
         return view('crm-cpq-livewire::quote-builder');
     }

@@ -10,4 +10,5 @@ Route::middleware('auth:sanctum')->prefix('api/v1/crm/forecasting')->group(funct
     Route::post('categories', [ForecastingController::class, 'storeCategory']);
     Route::post('forecasts', [ForecastingController::class, 'store']);
     Route::post('forecasts/{forecast}/submit', [ForecastingController::class, 'submit']);
+    Route::post('forecasts/{forecast}/adjustments', [ForecastingController::class, 'adjust']);
 });

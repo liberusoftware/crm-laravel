@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $team_id
+ * @property string $status
  */
 final class EngagementSequence extends Model
 {

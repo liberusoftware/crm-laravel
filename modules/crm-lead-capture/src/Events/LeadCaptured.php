@@ -7,11 +7,11 @@ namespace Liberu\CRM\LeadCapture\Events;
 use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Liberu\CRM\LeadCapture\Models\LeadCapture;
+use Liberu\CRM\LeadCapture\Models\CapturedLead;
 
 final class LeadCaptured implements ShouldDispatchAfterCommit
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public readonly LeadCapture $capture) {}
+    public function __construct(public readonly CapturedLead $capture) {}
 }

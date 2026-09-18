@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Liberu\CRM\SalesPipelines\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class SalesPipeline extends Model
 {
@@ -15,5 +16,10 @@ final class SalesPipeline extends Model
     protected function casts(): array
     {
         return ['active' => 'boolean'];
+    }
+
+    public function stages(): HasMany
+    {
+        return $this->hasMany(SalesStage::class, 'pipeline_id')->orderBy('position');
     }
 }

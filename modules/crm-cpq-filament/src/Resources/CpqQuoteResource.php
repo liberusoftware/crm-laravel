@@ -49,7 +49,7 @@ final class CpqQuoteResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $teamId = (int) auth()->user()?->current_team_id;
+        $teamId = (int) auth()->user()?->getAttribute('current_team_id');
 
         abort_unless($teamId > 0, 403);
 

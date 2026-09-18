@@ -7,6 +7,8 @@ namespace Liberu\CRM\SalesPipelines\Filament;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Liberu\CRM\SalesPipelines\Filament\Resources\OpportunityResource;
+use Liberu\CRM\SalesPipelines\Filament\Resources\PipelineResource;
+use Liberu\CRM\SalesPipelines\Filament\Resources\StageResource;
 
 final class SalesPipelinesFilamentPlugin implements Plugin
 {
@@ -22,7 +24,7 @@ final class SalesPipelinesFilamentPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->resources([OpportunityResource::class]);
+        $panel->resources([PipelineResource::class, StageResource::class, OpportunityResource::class]);
     }
 
     public function boot(Panel $panel): void {}

@@ -16,10 +16,15 @@ final class UpdateSequence
             throw ValidationException::withMessages(['authorization' => 'Not authorized.']);
         }
 
-        validator($data, [
+        $data = validator($data, [
             'name' => ['required', 'string', 'max:255'],
             'status' => ['required', 'in:draft,active,paused'],
             'timezone' => ['required', 'timezone'],
+            'throttle' => ['nullable', 'array'],
+            'experiment' => ['nullable', 'array'],
+            'stop_rules' => ['nullable', 'array:reply,meeting'],
+            'stop_rules.reply' => ['sometimes', 'boolean'],
+            'stop_rules.meeting' => ['sometimes', 'boolean'],
         ])->validate();
 
         $sequence = EngagementSequence::query()->where('team_id', $teamId)->findOrFail($sequenceId);

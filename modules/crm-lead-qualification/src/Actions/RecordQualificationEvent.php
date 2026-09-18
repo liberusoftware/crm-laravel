@@ -23,9 +23,9 @@ final class RecordQualificationEvent
             $event = QualificationEvent::query()->create(['team_id' => $teamId, 'lead_id' => $lead->id, 'actor_id' => $userId, ...$data]);
 
             match ($data['kind']) {
-                'disqualification' => $lead->update(['stage' => 'disqualified', 'disqualification_reason' => $data['reason'] ?? null]),
+                'disqualification' => $lead->update(['stage' => 'disqualified', 'nurture' => false, 'disqualification_reason' => $data['reason'] ?? null]),
                 'nurture' => $lead->update(['stage' => 'nurture', 'nurture' => true]),
-                'conversion' => $lead->update(['stage' => 'converted', 'conversion_reference' => $data['to_value'] ?? null]),
+                'conversion' => $lead->update(['stage' => 'converted', 'nurture' => false, 'conversion_reference' => $data['to_value'] ?? null]),
                 default => null,
             };
 

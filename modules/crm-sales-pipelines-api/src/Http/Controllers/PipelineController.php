@@ -17,9 +17,9 @@ final class PipelineController extends Controller
 {
     private function team(Request $r): int
     {
-        abort_unless($r->user()?->current_team_id !== null, 403);
+        abort_unless($r->user()?->getAttribute('current_team_id') !== null, 403);
 
-        return (int) $r->user()->current_team_id;
+        return (int) $r->user()->getAttribute('current_team_id');
     }
 
     public function pipelines(Request $r, PipelineQuery $q)
@@ -40,6 +40,11 @@ final class PipelineController extends Controller
     public function opportunities(Request $r, PipelineQuery $q)
     {
         return response()->json(['data' => $q->opportunities($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+    }
+
+    public function rottingOpportunities(Request $r, PipelineQuery $q)
+    {
+        return response()->json(['data' => $q->rottingOpportunities($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
     }
 
     public function opportunity(Request $r, CreateOpportunity $a)

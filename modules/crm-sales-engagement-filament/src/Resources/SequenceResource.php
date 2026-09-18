@@ -6,6 +6,7 @@ namespace Liberu\CRM\SalesEngagement\Filament\Resources;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -22,7 +23,13 @@ final class SequenceResource extends Resource
 
     public static function form(Schema $s): Schema
     {
-        return $s->components([TextInput::make('name')->required(), Select::make('status')->options(['draft' => 'Draft', 'active' => 'Active', 'paused' => 'Paused']), TextInput::make('timezone')->required()]);
+        return $s->components([
+            TextInput::make('name')->required(),
+            Select::make('status')->options(['draft' => 'Draft', 'active' => 'Active', 'paused' => 'Paused']),
+            TextInput::make('timezone')->required(),
+            Toggle::make('stop_rules.reply')->label('Stop when the contact replies')->default(true),
+            Toggle::make('stop_rules.meeting')->label('Stop when the contact books a meeting')->default(true),
+        ]);
     }
 
     public static function table(Table $t): Table
@@ -32,7 +39,7 @@ final class SequenceResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $id = auth()->user()?->current_team_id;
+        $id = auth()->user()?->getAttribute('current_team_id');
         abort_unless($id !== null, 403);
 
         return parent::getEloquentQuery()->where('team_id', $id);
