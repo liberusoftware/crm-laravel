@@ -56,7 +56,7 @@ it('registers broadcast authorization and the legacy application panel', functio
 });
 
 it('groups support, intelligence and uncategorized resources without overriding existing groups', function () {
-    $panel = Panel::make()->id('host-navigation')->resources([Ticket::class, Search::class, Neutral::class]);
+    $panel = Panel::make()->id('host-navigation')->resources([stdClass::class, Ticket::class, Search::class, Neutral::class]);
     (new CrmNavigation())->configure($panel);
     expect(Ticket::getNavigationGroup())->toBe('Support')
         ->and(Search::getNavigationGroup())->toBe('Data & intelligence')

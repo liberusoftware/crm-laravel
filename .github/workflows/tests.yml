@@ -51,8 +51,11 @@ jobs:
       - name: Run static analysis
         run: composer analyse -- --no-progress
 
-      - name: Run tests
-        run: php artisan test --coverage-clover=coverage.xml
+      - name: Run full test suite
+        run: php -d pcov.enabled=0 vendor/bin/pest --no-coverage
+
+      - name: Measure host coverage
+        run: php artisan test tests/Feature/HostModuleLifecycleTest.php tests/Feature/HostProviderBehaviorTest.php --coverage-clover=coverage.xml
 
       - name: Enforce release-scope coverage
         run: php scripts/check-coverage coverage.xml 100
