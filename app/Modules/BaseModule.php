@@ -71,7 +71,6 @@ abstract class BaseModule implements ModuleInterface
     public function enable(): void
     {
         $this->persistState(true);
-        Cache::forget("module.{$this->name}.enabled");
         $this->onEnable();
         ModuleEnabled::dispatch($this);
     }
@@ -79,7 +78,6 @@ abstract class BaseModule implements ModuleInterface
     public function disable(): void
     {
         $this->persistState(false);
-        Cache::forget("module.{$this->name}.enabled");
         $this->onDisable();
         ModuleDisabled::dispatch($this);
     }
@@ -181,6 +179,7 @@ abstract class BaseModule implements ModuleInterface
                     'installed_at' => $enabled ? now() : null,
                 ]
             );
+            Cache::forget("module.{$this->name}.enabled");
         } catch (\Exception) {
             // Fallback to cache-only when DB unavailable
             Cache::put("module.{$this->name}.enabled", $enabled);
@@ -193,7 +192,8 @@ abstract class BaseModule implements ModuleInterface
 
         if (File::exists($migrationsPath)) {
             Artisan::call('migrate', [
-                '--path' => 'app/Modules/'.$this->name.'/database/migrations',
+                '--path' => $migrationsPath,
+                '--realpath' => true,
                 '--force' => true,
             ]);
         }

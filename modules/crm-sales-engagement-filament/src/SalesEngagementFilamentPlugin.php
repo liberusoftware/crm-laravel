@@ -6,7 +6,6 @@ namespace Liberu\CRM\SalesEngagement\Filament;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Liberu\CRM\SalesEngagement\Filament\Resources\EngagementTaskResource;
 use Liberu\CRM\SalesEngagement\Filament\Resources\SequenceResource;
 
 final class SalesEngagementFilamentPlugin implements Plugin
@@ -23,7 +22,7 @@ final class SalesEngagementFilamentPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->resources([SequenceResource::class, EngagementTaskResource::class]);
+        $panel->resources([SequenceResource::class]);
     }
 
     public function boot(Panel $panel): void {}

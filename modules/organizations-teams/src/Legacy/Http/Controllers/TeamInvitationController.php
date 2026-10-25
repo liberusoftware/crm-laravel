@@ -53,7 +53,10 @@ class TeamInvitationController extends Controller
                 __('You are not authorized to accept this invitation.')
             );
 
-            $role = Role::tryFrom((string) $invitation->role);
+            $invitationRole = (string) $invitation->role;
+            $role = in_array($invitationRole, ['admin', 'editor'], true)
+                ? Role::SalesRep
+                : Role::tryFrom($invitationRole);
             abort_unless($role !== null && in_array($role, TeamManagementService::TEAM_ROLES, true), 403);
 
             $team = $invitation->team;
@@ -61,6 +64,9 @@ class TeamInvitationController extends Controller
                 $user->getKey() => ['role' => $role->value],
             ]);
             TeamMemberAdded::dispatch($team, $user);
+            if ($role !== Role::SalesRep) {
+                app(TeamManagementService::class)->changeTeamRole($user, $team, $role);
+            }
             $user->switchTeam($team);
             $invitation->delete();
         });

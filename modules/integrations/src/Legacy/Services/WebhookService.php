@@ -116,6 +116,7 @@ class WebhookService
             'secret' => $data['secret'] ?? Str::random(32),
             'is_active' => $data['is_active'] ?? true,
             'team_id' => $data['team_id'] ?? null,
+            'user_id' => $data['user_id'] ?? null,
         ]);
     }
 
