@@ -1,4 +1,4 @@
-name: Docker
+name: Laravel
 
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 90
 
     steps:
       - name: Checkout repository
@@ -63,6 +63,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Login to Docker Hub
+        if: vars.PUBLISH_DOCKER == 'true'
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -87,8 +88,8 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          push: true
+          push: ${{ vars.PUBLISH_DOCKER == 'true' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=liberu/crm:buildcache
-          cache-to: type=registry,ref=liberu/crm:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -45,7 +45,7 @@ RUN npm ci
 COPY app ./app
 COPY resources ./resources
 COPY themes ./themes
-COPY --from=composer-deps /app/vendor/filament/filament/resources/css ./vendor/filament/filament/resources/css
+COPY --from=composer-deps /app/vendor ./vendor
 COPY postcss.config.cjs tailwind.config.js vite.config.js ./
 RUN npm run build
 
@@ -151,6 +151,8 @@ COPY --chown=${USER}:${USER} composer.json composer.lock ./
 
 # Copy application code first so autoloader can resolve all files
 COPY --chown=${USER}:${USER} . .
+COPY --chown=${USER}:${USER} --from=composer-deps /app/modules ./modules
+COPY --chown=${USER}:${USER} --from=composer-deps /app/themes ./themes
 
 # The Vite manifest is intentionally ignored by Git; build and copy all hashed
 # assets into the image so production Blade views can resolve CSS and JS.
