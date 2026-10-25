@@ -1,7 +1,7 @@
 {
     "name": "liberu-crm/crm-laravel",
     "type": "project",
-    "description": "Liberu CRM — an open-source, multi-tenant customer relationship management application for managing contacts, companies, leads, opportunities, deals, tasks, communications, campaigns, and support work.",
+    "description": "Liberu CRM \u2014 an open-source, multi-tenant customer relationship management application for managing contacts, companies, leads, opportunities, deals, tasks, communications, campaigns, and support work.",
     "keywords": [
         "laravel",
         "crm",
@@ -13,3492 +13,529 @@
     "license": "MIT",
     "repositories": [
         {
+            "type": "path",
+            "url": "modules/*",
+            "options": {
+                "symlink": false,
+                "versions": {
+                    "liberusoftware/activity-comments": "1.4.2",
+                    "liberusoftware/activity-comments-api": "1.0.0",
+                    "liberusoftware/activity-comments-filament": "1.0.1",
+                    "liberusoftware/activity-comments-livewire": "1.0.1",
+                    "liberusoftware/analytics-contracts": "1.0.0",
+                    "liberusoftware/analytics-core": "1.4.1",
+                    "liberusoftware/analytics-core-api": "1.0.0",
+                    "liberusoftware/analytics-core-filament": "1.0.1",
+                    "liberusoftware/analytics-core-livewire": "1.0.1",
+                    "liberusoftware/analytics-google": "1.4.1",
+                    "liberusoftware/analytics-google-api": "1.0.0",
+                    "liberusoftware/analytics-google-filament": "1.0.1",
+                    "liberusoftware/analytics-google-livewire": "1.0.1",
+                    "liberusoftware/analytics-meta": "1.4.1",
+                    "liberusoftware/analytics-meta-api": "1.0.0",
+                    "liberusoftware/analytics-meta-filament": "1.0.1",
+                    "liberusoftware/analytics-meta-livewire": "1.0.1",
+                    "liberusoftware/api-access": "1.4.1",
+                    "liberusoftware/api-access-api": "1.0.0",
+                    "liberusoftware/api-access-filament": "1.0.1",
+                    "liberusoftware/api-access-livewire": "1.0.1",
+                    "liberusoftware/application": "1.4.1",
+                    "liberusoftware/application-api": "1.0.0",
+                    "liberusoftware/application-filament": "1.0.1",
+                    "liberusoftware/application-livewire": "1.0.1",
+                    "liberusoftware/audit": "1.4.1",
+                    "liberusoftware/audit-api": "1.0.0",
+                    "liberusoftware/audit-filament": "1.0.1",
+                    "liberusoftware/audit-livewire": "1.0.1",
+                    "liberusoftware/module-crm-account-based-marketing": "1.0.0",
+                    "liberusoftware/module-crm-account-based-marketing-api": "1.0.0",
+                    "liberusoftware/module-crm-account-based-marketing-filament": "1.0.0",
+                    "liberusoftware/module-crm-account-based-marketing-livewire": "1.0.0",
+                    "liberusoftware/module-crm-account-planning": "1.0.0",
+                    "liberusoftware/module-crm-account-planning-api": "1.0.0",
+                    "liberusoftware/module-crm-account-planning-filament": "1.0.0",
+                    "liberusoftware/module-crm-account-planning-livewire": "1.0.0",
+                    "liberusoftware/module-crm-activities": "1.0.0",
+                    "liberusoftware/module-crm-activities-api": "1.0.0",
+                    "liberusoftware/module-crm-activities-filament": "1.0.0",
+                    "liberusoftware/module-crm-activities-livewire": "1.0.0",
+                    "liberusoftware/module-crm-advertising": "1.0.0",
+                    "liberusoftware/module-crm-advertising-api": "1.0.0",
+                    "liberusoftware/module-crm-advertising-filament": "1.0.0",
+                    "liberusoftware/module-crm-advertising-livewire": "1.0.0",
+                    "liberusoftware/module-crm-advocacy": "1.0.0",
+                    "liberusoftware/module-crm-advocacy-api": "1.0.0",
+                    "liberusoftware/module-crm-advocacy-filament": "1.0.0",
+                    "liberusoftware/module-crm-advocacy-livewire": "1.0.0",
+                    "liberusoftware/module-crm-affiliate-management": "1.0.0",
+                    "liberusoftware/module-crm-affiliate-management-api": "1.0.0",
+                    "liberusoftware/module-crm-affiliate-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-affiliate-management-livewire": "1.0.0",
+                    "liberusoftware/module-crm-agency-workspace": "1.0.0",
+                    "liberusoftware/module-crm-agency-workspace-api": "1.0.0",
+                    "liberusoftware/module-crm-agency-workspace-filament": "1.0.0",
+                    "liberusoftware/module-crm-agency-workspace-livewire": "1.0.0",
+                    "liberusoftware/module-crm-ai-reception-and-conversation": "1.0.0",
+                    "liberusoftware/module-crm-ai-reception-and-conversation-api": "1.0.0",
+                    "liberusoftware/module-crm-ai-reception-and-conversation-filament": "1.0.0",
+                    "liberusoftware/module-crm-ai-reception-and-conversation-livewire": "1.0.0",
+                    "liberusoftware/module-crm-analytics": "1.0.0",
+                    "liberusoftware/module-crm-analytics-api": "1.0.0",
+                    "liberusoftware/module-crm-analytics-filament": "1.0.0",
+                    "liberusoftware/module-crm-analytics-livewire": "1.0.0",
+                    "liberusoftware/module-crm-attribution": "1.0.0",
+                    "liberusoftware/module-crm-attribution-api": "1.0.0",
+                    "liberusoftware/module-crm-attribution-filament": "1.0.0",
+                    "liberusoftware/module-crm-attribution-livewire": "1.0.0",
+                    "liberusoftware/module-crm-automation-pack": "1.0.0",
+                    "liberusoftware/module-crm-automation-pack-api": "1.0.0",
+                    "liberusoftware/module-crm-automation-pack-filament": "1.0.0",
+                    "liberusoftware/module-crm-automation-pack-livewire": "1.0.0",
+                    "liberusoftware/module-crm-business-process-management": "1.0.0",
+                    "liberusoftware/module-crm-business-process-management-api": "1.0.0",
+                    "liberusoftware/module-crm-business-process-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-business-process-management-livewire": "1.0.0",
+                    "liberusoftware/module-crm-campaigns": "1.0.0",
+                    "liberusoftware/module-crm-campaigns-api": "1.0.0",
+                    "liberusoftware/module-crm-campaigns-filament": "1.0.0",
+                    "liberusoftware/module-crm-campaigns-livewire": "1.0.0",
+                    "liberusoftware/module-crm-case-management": "1.0.0",
+                    "liberusoftware/module-crm-case-management-api": "1.0.0",
+                    "liberusoftware/module-crm-case-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-case-management-livewire": "1.0.0",
+                    "liberusoftware/module-crm-channel-gateway": "1.0.0",
+                    "liberusoftware/module-crm-channel-gateway-api": "1.0.0",
+                    "liberusoftware/module-crm-channel-gateway-filament": "1.0.0",
+                    "liberusoftware/module-crm-channel-gateway-livewire": "1.0.0",
+                    "liberusoftware/module-crm-channel-sales": "1.0.0",
+                    "liberusoftware/module-crm-channel-sales-api": "1.0.0",
+                    "liberusoftware/module-crm-channel-sales-filament": "1.0.0",
+                    "liberusoftware/module-crm-channel-sales-livewire": "1.0.0",
+                    "liberusoftware/module-crm-chat-and-bots": "1.0.0",
+                    "liberusoftware/module-crm-chat-and-bots-api": "1.0.0",
+                    "liberusoftware/module-crm-chat-and-bots-filament": "1.0.0",
+                    "liberusoftware/module-crm-chat-and-bots-livewire": "1.0.0",
+                    "liberusoftware/module-crm-client-onboarding": "1.0.0",
+                    "liberusoftware/module-crm-client-onboarding-api": "1.0.0",
+                    "liberusoftware/module-crm-client-onboarding-filament": "1.0.0",
+                    "liberusoftware/module-crm-client-onboarding-livewire": "1.0.0",
+                    "liberusoftware/module-crm-collaboration": "1.0.0",
+                    "liberusoftware/module-crm-collaboration-api": "1.0.0",
+                    "liberusoftware/module-crm-collaboration-filament": "1.0.0",
+                    "liberusoftware/module-crm-collaboration-livewire": "1.0.0",
+                    "liberusoftware/module-crm-communities": "1.0.0",
+                    "liberusoftware/module-crm-communities-api": "1.0.0",
+                    "liberusoftware/module-crm-communities-filament": "1.0.0",
+                    "liberusoftware/module-crm-communities-livewire": "1.0.0",
+                    "liberusoftware/module-crm-consent-and-preferences": "1.0.0",
+                    "liberusoftware/module-crm-consent-and-preferences-api": "1.0.0",
+                    "liberusoftware/module-crm-consent-and-preferences-filament": "1.0.0",
+                    "liberusoftware/module-crm-consent-and-preferences-livewire": "1.0.0",
+                    "liberusoftware/module-crm-contact-center": "1.0.0",
+                    "liberusoftware/module-crm-contact-center-api": "1.0.0",
+                    "liberusoftware/module-crm-contact-center-filament": "1.0.0",
+                    "liberusoftware/module-crm-contact-center-livewire": "1.0.0",
+                    "liberusoftware/module-crm-contracts": "1.0.0",
+                    "liberusoftware/module-crm-contracts-api": "1.0.0",
+                    "liberusoftware/module-crm-contracts-filament": "1.0.0",
+                    "liberusoftware/module-crm-contracts-livewire": "1.0.0",
+                    "liberusoftware/module-crm-conversation-analytics": "1.0.0",
+                    "liberusoftware/module-crm-conversation-analytics-api": "1.0.0",
+                    "liberusoftware/module-crm-conversation-analytics-filament": "1.0.0",
+                    "liberusoftware/module-crm-conversation-analytics-livewire": "1.0.0",
+                    "liberusoftware/module-crm-conversation-intelligence": "1.0.0",
+                    "liberusoftware/module-crm-conversation-intelligence-api": "1.0.0",
+                    "liberusoftware/module-crm-conversation-intelligence-filament": "1.0.0",
+                    "liberusoftware/module-crm-conversation-intelligence-livewire": "1.0.0",
+                    "liberusoftware/module-crm-conversion-optimization": "1.0.0",
+                    "liberusoftware/module-crm-conversion-optimization-api": "1.0.0",
+                    "liberusoftware/module-crm-conversion-optimization-filament": "1.0.0",
+                    "liberusoftware/module-crm-conversion-optimization-livewire": "1.0.0",
+                    "liberusoftware/module-crm-copilot": "1.0.0",
+                    "liberusoftware/module-crm-copilot-api": "1.0.0",
+                    "liberusoftware/module-crm-copilot-filament": "1.0.0",
+                    "liberusoftware/module-crm-copilot-livewire": "1.0.0",
+                    "liberusoftware/module-crm-core": "1.0.0",
+                    "liberusoftware/module-crm-core-api": "1.0.0",
+                    "liberusoftware/module-crm-core-filament": "1.0.0",
+                    "liberusoftware/module-crm-core-livewire": "1.0.0",
+                    "liberusoftware/module-crm-cpq": "1.0.0",
+                    "liberusoftware/module-crm-cpq-api": "1.0.0",
+                    "liberusoftware/module-crm-cpq-filament": "1.0.0",
+                    "liberusoftware/module-crm-cpq-livewire": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-model": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-model-api": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-model-filament": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-model-livewire": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-platform": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-platform-api": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-platform-filament": "1.0.0",
+                    "liberusoftware/module-crm-customer-data-platform-livewire": "1.0.0",
+                    "liberusoftware/module-crm-customer-self-service": "1.0.0",
+                    "liberusoftware/module-crm-customer-self-service-api": "1.0.0",
+                    "liberusoftware/module-crm-customer-self-service-filament": "1.0.0",
+                    "liberusoftware/module-crm-customer-self-service-livewire": "1.0.0",
+                    "liberusoftware/module-crm-customer-success": "1.0.0",
+                    "liberusoftware/module-crm-customer-success-api": "1.0.0",
+                    "liberusoftware/module-crm-customer-success-filament": "1.0.0",
+                    "liberusoftware/module-crm-customer-success-livewire": "1.0.0",
+                    "liberusoftware/module-crm-data-operations": "1.0.0",
+                    "liberusoftware/module-crm-data-operations-api": "1.0.0",
+                    "liberusoftware/module-crm-data-operations-filament": "1.0.0",
+                    "liberusoftware/module-crm-data-operations-livewire": "1.0.0",
+                    "liberusoftware/module-crm-deal-registration": "1.0.0",
+                    "liberusoftware/module-crm-deal-registration-api": "1.0.0",
+                    "liberusoftware/module-crm-deal-registration-filament": "1.0.0",
+                    "liberusoftware/module-crm-deal-registration-livewire": "1.0.0",
+                    "liberusoftware/module-crm-dialer-and-outreach": "1.0.0",
+                    "liberusoftware/module-crm-dialer-and-outreach-api": "1.0.0",
+                    "liberusoftware/module-crm-dialer-and-outreach-filament": "1.0.0",
+                    "liberusoftware/module-crm-dialer-and-outreach-livewire": "1.0.0",
+                    "liberusoftware/module-crm-documents": "1.0.0",
+                    "liberusoftware/module-crm-documents-api": "1.0.0",
+                    "liberusoftware/module-crm-documents-filament": "1.0.0",
+                    "liberusoftware/module-crm-documents-livewire": "1.0.0",
+                    "liberusoftware/module-crm-email-marketing": "1.0.0",
+                    "liberusoftware/module-crm-email-marketing-api": "1.0.0",
+                    "liberusoftware/module-crm-email-marketing-filament": "1.0.0",
+                    "liberusoftware/module-crm-email-marketing-livewire": "1.0.0",
+                    "liberusoftware/module-crm-email-productivity": "1.0.0",
+                    "liberusoftware/module-crm-email-productivity-api": "1.0.0",
+                    "liberusoftware/module-crm-email-productivity-filament": "1.0.0",
+                    "liberusoftware/module-crm-email-productivity-livewire": "1.0.0",
+                    "liberusoftware/module-crm-enrichment": "1.0.0",
+                    "liberusoftware/module-crm-enrichment-api": "1.0.0",
+                    "liberusoftware/module-crm-enrichment-filament": "1.0.0",
+                    "liberusoftware/module-crm-enrichment-livewire": "1.0.0",
+                    "liberusoftware/module-crm-events-and-webinars": "1.0.0",
+                    "liberusoftware/module-crm-events-and-webinars-api": "1.0.0",
+                    "liberusoftware/module-crm-events-and-webinars-filament": "1.0.0",
+                    "liberusoftware/module-crm-events-and-webinars-livewire": "1.0.0",
+                    "liberusoftware/module-crm-feedback-and-voice-of-customer": "1.0.0",
+                    "liberusoftware/module-crm-feedback-and-voice-of-customer-api": "1.0.0",
+                    "liberusoftware/module-crm-feedback-and-voice-of-customer-filament": "1.0.0",
+                    "liberusoftware/module-crm-feedback-and-voice-of-customer-livewire": "1.0.0",
+                    "liberusoftware/module-crm-field-service-coordination": "1.0.0",
+                    "liberusoftware/module-crm-field-service-coordination-api": "1.0.0",
+                    "liberusoftware/module-crm-field-service-coordination-filament": "1.0.0",
+                    "liberusoftware/module-crm-field-service-coordination-livewire": "1.0.0",
+                    "liberusoftware/module-crm-forecasting": "1.0.0",
+                    "liberusoftware/module-crm-forecasting-api": "1.0.0",
+                    "liberusoftware/module-crm-forecasting-filament": "1.0.0",
+                    "liberusoftware/module-crm-forecasting-livewire": "1.0.0",
+                    "liberusoftware/module-crm-forms-and-surveys": "1.0.0",
+                    "liberusoftware/module-crm-forms-and-surveys-api": "1.0.0",
+                    "liberusoftware/module-crm-forms-and-surveys-filament": "1.0.0",
+                    "liberusoftware/module-crm-forms-and-surveys-livewire": "1.0.0",
+                    "liberusoftware/module-crm-goals-and-performance": "1.0.0",
+                    "liberusoftware/module-crm-goals-and-performance-api": "1.0.0",
+                    "liberusoftware/module-crm-goals-and-performance-filament": "1.0.0",
+                    "liberusoftware/module-crm-goals-and-performance-livewire": "1.0.0",
+                    "liberusoftware/module-crm-journey-orchestration": "1.0.0",
+                    "liberusoftware/module-crm-journey-orchestration-api": "1.0.0",
+                    "liberusoftware/module-crm-journey-orchestration-filament": "1.0.0",
+                    "liberusoftware/module-crm-journey-orchestration-livewire": "1.0.0",
+                    "liberusoftware/module-crm-knowledge": "1.0.0",
+                    "liberusoftware/module-crm-knowledge-api": "1.0.0",
+                    "liberusoftware/module-crm-knowledge-filament": "1.0.0",
+                    "liberusoftware/module-crm-knowledge-livewire": "1.0.0",
+                    "liberusoftware/module-crm-landing-pages-and-funnels": "1.0.0",
+                    "liberusoftware/module-crm-landing-pages-and-funnels-api": "1.0.0",
+                    "liberusoftware/module-crm-landing-pages-and-funnels-filament": "1.0.0",
+                    "liberusoftware/module-crm-landing-pages-and-funnels-livewire": "1.0.0",
+                    "liberusoftware/module-crm-lead-capture": "1.0.0",
+                    "liberusoftware/module-crm-lead-capture-api": "1.0.0",
+                    "liberusoftware/module-crm-lead-capture-filament": "1.0.0",
+                    "liberusoftware/module-crm-lead-capture-livewire": "1.0.0",
+                    "liberusoftware/module-crm-lead-qualification": "1.0.0",
+                    "liberusoftware/module-crm-lead-qualification-api": "1.0.0",
+                    "liberusoftware/module-crm-lead-qualification-filament": "1.0.0",
+                    "liberusoftware/module-crm-lead-qualification-livewire": "1.0.0",
+                    "liberusoftware/module-crm-learning-and-courses": "1.0.0",
+                    "liberusoftware/module-crm-learning-and-courses-api": "1.0.0",
+                    "liberusoftware/module-crm-learning-and-courses-filament": "1.0.0",
+                    "liberusoftware/module-crm-learning-and-courses-livewire": "1.0.0",
+                    "liberusoftware/module-crm-loyalty": "1.0.0",
+                    "liberusoftware/module-crm-loyalty-api": "1.0.0",
+                    "liberusoftware/module-crm-loyalty-filament": "1.0.0",
+                    "liberusoftware/module-crm-loyalty-livewire": "1.0.0",
+                    "liberusoftware/module-crm-marketing-agent": "1.0.0",
+                    "liberusoftware/module-crm-marketing-agent-api": "1.0.0",
+                    "liberusoftware/module-crm-marketing-agent-filament": "1.0.0",
+                    "liberusoftware/module-crm-marketing-agent-livewire": "1.0.0",
+                    "liberusoftware/module-crm-marketing-development-funds": "1.0.0",
+                    "liberusoftware/module-crm-marketing-development-funds-api": "1.0.0",
+                    "liberusoftware/module-crm-marketing-development-funds-filament": "1.0.0",
+                    "liberusoftware/module-crm-marketing-development-funds-livewire": "1.0.0",
+                    "liberusoftware/module-crm-marketing-resources": "1.0.0",
+                    "liberusoftware/module-crm-marketing-resources-api": "1.0.0",
+                    "liberusoftware/module-crm-marketing-resources-filament": "1.0.0",
+                    "liberusoftware/module-crm-marketing-resources-livewire": "1.0.0",
+                    "liberusoftware/module-crm-memberships": "1.0.0",
+                    "liberusoftware/module-crm-memberships-api": "1.0.0",
+                    "liberusoftware/module-crm-memberships-filament": "1.0.0",
+                    "liberusoftware/module-crm-memberships-livewire": "1.0.0",
+                    "liberusoftware/module-crm-mobile-messaging": "1.0.0",
+                    "liberusoftware/module-crm-mobile-messaging-api": "1.0.0",
+                    "liberusoftware/module-crm-mobile-messaging-filament": "1.0.0",
+                    "liberusoftware/module-crm-mobile-messaging-livewire": "1.0.0",
+                    "liberusoftware/module-crm-omnichannel-service": "1.0.0",
+                    "liberusoftware/module-crm-omnichannel-service-api": "1.0.0",
+                    "liberusoftware/module-crm-omnichannel-service-filament": "1.0.0",
+                    "liberusoftware/module-crm-omnichannel-service-livewire": "1.0.0",
+                    "liberusoftware/module-crm-orders-and-payments-workspace": "1.0.0",
+                    "liberusoftware/module-crm-orders-and-payments-workspace-api": "1.0.0",
+                    "liberusoftware/module-crm-orders-and-payments-workspace-filament": "1.0.0",
+                    "liberusoftware/module-crm-orders-and-payments-workspace-livewire": "1.0.0",
+                    "liberusoftware/module-crm-partner-relationship-management": "1.0.0",
+                    "liberusoftware/module-crm-partner-relationship-management-api": "1.0.0",
+                    "liberusoftware/module-crm-partner-relationship-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-partner-relationship-management-livewire": "1.0.0",
+                    "liberusoftware/module-crm-personalization": "1.0.0",
+                    "liberusoftware/module-crm-personalization-api": "1.0.0",
+                    "liberusoftware/module-crm-personalization-filament": "1.0.0",
+                    "liberusoftware/module-crm-personalization-livewire": "1.0.0",
+                    "liberusoftware/module-crm-playbooks-and-enablement": "1.0.0",
+                    "liberusoftware/module-crm-playbooks-and-enablement-api": "1.0.0",
+                    "liberusoftware/module-crm-playbooks-and-enablement-filament": "1.0.0",
+                    "liberusoftware/module-crm-playbooks-and-enablement-livewire": "1.0.0",
+                    "liberusoftware/module-crm-predictive-models": "1.0.0",
+                    "liberusoftware/module-crm-predictive-models-api": "1.0.0",
+                    "liberusoftware/module-crm-predictive-models-filament": "1.0.0",
+                    "liberusoftware/module-crm-predictive-models-livewire": "1.0.0",
+                    "liberusoftware/module-crm-product-workspace": "1.0.0",
+                    "liberusoftware/module-crm-product-workspace-api": "1.0.0",
+                    "liberusoftware/module-crm-product-workspace-filament": "1.0.0",
+                    "liberusoftware/module-crm-product-workspace-livewire": "1.0.0",
+                    "liberusoftware/module-crm-projects": "1.0.0",
+                    "liberusoftware/module-crm-projects-api": "1.0.0",
+                    "liberusoftware/module-crm-projects-filament": "1.0.0",
+                    "liberusoftware/module-crm-projects-livewire": "1.0.0",
+                    "liberusoftware/module-crm-proposals-and-quotes": "1.0.0",
+                    "liberusoftware/module-crm-proposals-and-quotes-api": "1.0.0",
+                    "liberusoftware/module-crm-proposals-and-quotes-filament": "1.0.0",
+                    "liberusoftware/module-crm-proposals-and-quotes-livewire": "1.0.0",
+                    "liberusoftware/module-crm-prospecting": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-agent": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-agent-api": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-agent-filament": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-agent-livewire": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-api": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-filament": "1.0.0",
+                    "liberusoftware/module-crm-prospecting-livewire": "1.0.0",
+                    "liberusoftware/module-crm-quotas-and-incentives": "1.0.0",
+                    "liberusoftware/module-crm-quotas-and-incentives-api": "1.0.0",
+                    "liberusoftware/module-crm-quotas-and-incentives-filament": "1.0.0",
+                    "liberusoftware/module-crm-quotas-and-incentives-livewire": "1.0.0",
+                    "liberusoftware/module-crm-referrals": "1.0.0",
+                    "liberusoftware/module-crm-referrals-api": "1.0.0",
+                    "liberusoftware/module-crm-referrals-filament": "1.0.0",
+                    "liberusoftware/module-crm-referrals-livewire": "1.0.0",
+                    "liberusoftware/module-crm-reputation-management": "1.0.0",
+                    "liberusoftware/module-crm-reputation-management-api": "1.0.0",
+                    "liberusoftware/module-crm-reputation-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-reputation-management-livewire": "1.0.0",
+                    "liberusoftware/module-crm-resource-planning": "1.0.0",
+                    "liberusoftware/module-crm-resource-planning-api": "1.0.0",
+                    "liberusoftware/module-crm-resource-planning-filament": "1.0.0",
+                    "liberusoftware/module-crm-resource-planning-livewire": "1.0.0",
+                    "liberusoftware/module-crm-revenue-intelligence": "1.0.0",
+                    "liberusoftware/module-crm-revenue-intelligence-api": "1.0.0",
+                    "liberusoftware/module-crm-revenue-intelligence-filament": "1.0.0",
+                    "liberusoftware/module-crm-revenue-intelligence-livewire": "1.0.0",
+                    "liberusoftware/module-crm-revenue-lifecycle": "1.0.0",
+                    "liberusoftware/module-crm-revenue-lifecycle-api": "1.0.0",
+                    "liberusoftware/module-crm-revenue-lifecycle-filament": "1.0.0",
+                    "liberusoftware/module-crm-revenue-lifecycle-livewire": "1.0.0",
+                    "liberusoftware/module-crm-routing": "1.0.0",
+                    "liberusoftware/module-crm-routing-api": "1.0.0",
+                    "liberusoftware/module-crm-routing-filament": "1.0.0",
+                    "liberusoftware/module-crm-routing-livewire": "1.0.0",
+                    "liberusoftware/module-crm-saas-packaging": "1.0.0",
+                    "liberusoftware/module-crm-saas-packaging-api": "1.0.0",
+                    "liberusoftware/module-crm-saas-packaging-filament": "1.0.0",
+                    "liberusoftware/module-crm-saas-packaging-livewire": "1.0.0",
+                    "liberusoftware/module-crm-sales-engagement": "1.0.0",
+                    "liberusoftware/module-crm-sales-engagement-api": "1.0.0",
+                    "liberusoftware/module-crm-sales-engagement-filament": "1.0.0",
+                    "liberusoftware/module-crm-sales-engagement-livewire": "1.0.0",
+                    "liberusoftware/module-crm-sales-pipelines": "1.0.0",
+                    "liberusoftware/module-crm-sales-pipelines-api": "1.0.0",
+                    "liberusoftware/module-crm-sales-pipelines-filament": "1.0.0",
+                    "liberusoftware/module-crm-sales-pipelines-livewire": "1.0.0",
+                    "liberusoftware/module-crm-sales-workspace": "1.0.0",
+                    "liberusoftware/module-crm-sales-workspace-api": "1.0.0",
+                    "liberusoftware/module-crm-sales-workspace-filament": "1.0.0",
+                    "liberusoftware/module-crm-sales-workspace-livewire": "1.0.0",
+                    "liberusoftware/module-crm-sandbox-and-release-management": "1.0.0",
+                    "liberusoftware/module-crm-sandbox-and-release-management-api": "1.0.0",
+                    "liberusoftware/module-crm-sandbox-and-release-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-sandbox-and-release-management-livewire": "1.0.0",
+                    "liberusoftware/module-crm-scheduling": "1.0.0",
+                    "liberusoftware/module-crm-scheduling-api": "1.0.0",
+                    "liberusoftware/module-crm-scheduling-filament": "1.0.0",
+                    "liberusoftware/module-crm-scheduling-livewire": "1.0.0",
+                    "liberusoftware/module-crm-search": "1.0.0",
+                    "liberusoftware/module-crm-search-api": "1.0.0",
+                    "liberusoftware/module-crm-search-filament": "1.0.0",
+                    "liberusoftware/module-crm-search-livewire": "1.0.0",
+                    "liberusoftware/module-crm-segmentation": "1.0.0",
+                    "liberusoftware/module-crm-segmentation-api": "1.0.0",
+                    "liberusoftware/module-crm-segmentation-filament": "1.0.0",
+                    "liberusoftware/module-crm-segmentation-livewire": "1.0.0",
+                    "liberusoftware/module-crm-service-agent": "1.0.0",
+                    "liberusoftware/module-crm-service-agent-api": "1.0.0",
+                    "liberusoftware/module-crm-service-agent-filament": "1.0.0",
+                    "liberusoftware/module-crm-service-agent-livewire": "1.0.0",
+                    "liberusoftware/module-crm-service-analytics": "1.0.0",
+                    "liberusoftware/module-crm-service-analytics-api": "1.0.0",
+                    "liberusoftware/module-crm-service-analytics-filament": "1.0.0",
+                    "liberusoftware/module-crm-service-analytics-livewire": "1.0.0",
+                    "liberusoftware/module-crm-sla-and-entitlements": "1.0.0",
+                    "liberusoftware/module-crm-sla-and-entitlements-api": "1.0.0",
+                    "liberusoftware/module-crm-sla-and-entitlements-filament": "1.0.0",
+                    "liberusoftware/module-crm-sla-and-entitlements-livewire": "1.0.0",
+                    "liberusoftware/module-crm-telephony": "1.0.0",
+                    "liberusoftware/module-crm-telephony-api": "1.0.0",
+                    "liberusoftware/module-crm-telephony-filament": "1.0.0",
+                    "liberusoftware/module-crm-telephony-livewire": "1.0.0",
+                    "liberusoftware/module-crm-templates-and-snapshots": "1.0.0",
+                    "liberusoftware/module-crm-templates-and-snapshots-api": "1.0.0",
+                    "liberusoftware/module-crm-templates-and-snapshots-filament": "1.0.0",
+                    "liberusoftware/module-crm-templates-and-snapshots-livewire": "1.0.0",
+                    "liberusoftware/module-crm-territories-and-ownership": "1.0.0",
+                    "liberusoftware/module-crm-territories-and-ownership-api": "1.0.0",
+                    "liberusoftware/module-crm-territories-and-ownership-filament": "1.0.0",
+                    "liberusoftware/module-crm-territories-and-ownership-livewire": "1.0.0",
+                    "liberusoftware/module-crm-unified-conversations": "1.0.0",
+                    "liberusoftware/module-crm-unified-conversations-api": "1.0.0",
+                    "liberusoftware/module-crm-unified-conversations-filament": "1.0.0",
+                    "liberusoftware/module-crm-unified-conversations-livewire": "1.0.0",
+                    "liberusoftware/module-crm-usage-wallet-and-rebilling": "1.0.0",
+                    "liberusoftware/module-crm-usage-wallet-and-rebilling-api": "1.0.0",
+                    "liberusoftware/module-crm-usage-wallet-and-rebilling-filament": "1.0.0",
+                    "liberusoftware/module-crm-usage-wallet-and-rebilling-livewire": "1.0.0",
+                    "liberusoftware/module-crm-web-intent": "1.0.0",
+                    "liberusoftware/module-crm-web-intent-api": "1.0.0",
+                    "liberusoftware/module-crm-web-intent-filament": "1.0.0",
+                    "liberusoftware/module-crm-web-intent-livewire": "1.0.0",
+                    "liberusoftware/module-crm-white-label": "1.0.0",
+                    "liberusoftware/module-crm-white-label-api": "1.0.0",
+                    "liberusoftware/module-crm-white-label-filament": "1.0.0",
+                    "liberusoftware/module-crm-white-label-livewire": "1.0.0",
+                    "liberusoftware/module-crm-work-management": "1.0.0",
+                    "liberusoftware/module-crm-work-management-api": "1.0.0",
+                    "liberusoftware/module-crm-work-management-filament": "1.0.0",
+                    "liberusoftware/module-crm-work-management-livewire": "1.0.0",
+                    "liberusoftware/currency-context": "1.4.1",
+                    "liberusoftware/currency-context-api": "1.0.0",
+                    "liberusoftware/currency-context-filament": "1.0.1",
+                    "liberusoftware/currency-context-livewire": "1.0.1",
+                    "liberusoftware/developer-experience": "1.4.1",
+                    "liberusoftware/developer-experience-api": "1.0.0",
+                    "liberusoftware/developer-experience-filament": "1.0.1",
+                    "liberusoftware/developer-experience-livewire": "1.0.1",
+                    "liberusoftware/feature-flags": "1.4.1",
+                    "liberusoftware/feature-flags-api": "1.0.0",
+                    "liberusoftware/feature-flags-filament": "1.0.1",
+                    "liberusoftware/feature-flags-livewire": "1.0.1",
+                    "liberusoftware/files-media": "1.4.1",
+                    "liberusoftware/files-media-api": "1.0.0",
+                    "liberusoftware/files-media-filament": "1.0.1",
+                    "liberusoftware/files-media-livewire": "1.0.1",
+                    "liberusoftware/identity-core": "1.4.1",
+                    "liberusoftware/identity-core-api": "1.0.0",
+                    "liberusoftware/identity-core-filament": "1.4.1",
+                    "liberusoftware/identity-core-livewire": "1.0.1",
+                    "liberusoftware/identity-socialstream": "1.4.1",
+                    "liberusoftware/import-export": "1.4.1",
+                    "liberusoftware/import-export-api": "1.0.0",
+                    "liberusoftware/import-export-filament": "1.0.1",
+                    "liberusoftware/import-export-livewire": "1.0.1",
+                    "liberusoftware/integrations": "1.4.1",
+                    "liberusoftware/integrations-api": "1.0.0",
+                    "liberusoftware/integrations-filament": "1.0.1",
+                    "liberusoftware/integrations-livewire": "1.0.1",
+                    "liberusoftware/jetstream-bridge": "1.4.1",
+                    "liberusoftware/jetstream-bridge-api": "1.0.0",
+                    "liberusoftware/jetstream-bridge-filament": "1.0.1",
+                    "liberusoftware/jetstream-bridge-livewire": "1.0.1",
+                    "liberusoftware/localization-contracts": "1.0.0",
+                    "liberusoftware/localization-core": "1.4.1",
+                    "liberusoftware/localization-core-api": "1.0.0",
+                    "liberusoftware/localization-core-filament": "1.0.1",
+                    "liberusoftware/localization-core-livewire": "1.4.1",
+                    "liberusoftware/localization-mymemory": "1.4.1",
+                    "liberusoftware/module-manager": "1.4.2",
+                    "liberusoftware/module-manager-api": "1.0.0",
+                    "liberusoftware/module-manager-filament": "1.4.1",
+                    "liberusoftware/module-manager-livewire": "1.0.1",
+                    "liberusoftware/notifications": "1.4.1",
+                    "liberusoftware/notifications-api": "1.0.0",
+                    "liberusoftware/notifications-filament": "1.0.1",
+                    "liberusoftware/notifications-livewire": "1.0.1",
+                    "liberusoftware/observability": "1.4.1",
+                    "liberusoftware/observability-api": "1.0.0",
+                    "liberusoftware/observability-filament": "1.0.1",
+                    "liberusoftware/observability-livewire": "1.0.1",
+                    "liberusoftware/organizations-teams": "1.4.1",
+                    "liberusoftware/organizations-teams-api": "1.0.0",
+                    "liberusoftware/organizations-teams-filament": "1.4.1",
+                    "liberusoftware/organizations-teams-livewire": "1.0.1",
+                    "liberusoftware/profiles": "1.4.1",
+                    "liberusoftware/profiles-api": "1.0.0",
+                    "liberusoftware/profiles-filament": "1.0.1",
+                    "liberusoftware/profiles-livewire": "1.0.1",
+                    "liberusoftware/roles-permissions": "1.4.1",
+                    "liberusoftware/roles-permissions-api": "1.0.0",
+                    "liberusoftware/roles-permissions-filament": "1.4.1",
+                    "liberusoftware/roles-permissions-livewire": "1.0.1",
+                    "liberusoftware/scheduler-queues": "1.4.1",
+                    "liberusoftware/scheduler-queues-api": "1.0.0",
+                    "liberusoftware/scheduler-queues-filament": "1.0.1",
+                    "liberusoftware/scheduler-queues-livewire": "1.0.1",
+                    "liberusoftware/search": "1.5.1",
+                    "liberusoftware/search-api": "1.4.1",
+                    "liberusoftware/search-filament": "1.0.1",
+                    "liberusoftware/search-livewire": "1.0.1",
+                    "liberusoftware/sessions-devices": "1.4.1",
+                    "liberusoftware/sessions-devices-api": "1.0.0",
+                    "liberusoftware/sessions-devices-filament": "1.4.1",
+                    "liberusoftware/sessions-devices-livewire": "1.0.1",
+                    "liberusoftware/settings": "1.4.1",
+                    "liberusoftware/settings-api": "1.0.0",
+                    "liberusoftware/settings-filament": "1.4.1",
+                    "liberusoftware/settings-livewire": "1.0.1",
+                    "liberusoftware/theme-support": "1.4.3",
+                    "liberusoftware/theme-support-livewire": "1.4.1",
+                    "liberusoftware/two-factor-authentication": "1.4.1",
+                    "liberusoftware/two-factor-authentication-api": "1.0.0",
+                    "liberusoftware/two-factor-authentication-filament": "1.0.1",
+                    "liberusoftware/two-factor-authentication-livewire": "1.0.1",
+                    "liberusoftware/webhooks": "1.4.2",
+                    "liberusoftware/webhooks-api": "1.0.0",
+                    "liberusoftware/webhooks-filament": "1.0.1",
+                    "liberusoftware/webhooks-livewire": "1.0.1"
+                }
+            }
+        },
+        {
+            "type": "path",
+            "url": "themes/*",
+            "options": {
+                "symlink": false,
+                "versions": {
+                    "liberusoftware/theme-base": "2.0.1",
+                    "liberusoftware/theme-clear-signal": "1.5.1",
+                    "liberusoftware/theme-dark": "1.5.1",
+                    "liberusoftware/theme-default": "1.6.0",
+                    "liberusoftware/theme-crm": "1.3.0"
+                }
+            }
+        },
+        {
             "type": "vcs",
             "url": "https://github.com/liberusoftware/composer-installer.git"
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-contracts"
-        },
-        {
-            "type": "path",
-            "url": "modules/localization-contracts"
-        },
-        {
-            "type": "path",
-            "url": "themes/theme-crm"
-        },
-        {
-            "type": "path",
-            "url": "modules/activity-comments-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/activity-comments-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/activity-comments-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/activity-comments",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-core-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-core-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-core-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-core",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-google-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-google-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-google-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-google",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-meta-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-meta-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-meta-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/analytics-meta",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/api-access-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/api-access-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/api-access-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/api-access",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/application-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/application-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/application-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/application",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/audit-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/audit-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/audit-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/audit",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-account-based-marketing-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-account-based-marketing-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-account-based-marketing-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-account-based-marketing",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-account-planning-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-account-planning-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-account-planning-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-account-planning",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-activities-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-activities-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-activities-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-activities",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-advertising-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-advertising-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-advertising-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-advertising",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-advocacy-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-advocacy-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-advocacy-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-advocacy",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-affiliate-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-affiliate-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-affiliate-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-affiliate-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-agency-workspace-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-agency-workspace-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-agency-workspace-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-agency-workspace",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-ai-reception-and-conversation-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-ai-reception-and-conversation-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-ai-reception-and-conversation-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-ai-reception-and-conversation",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-analytics-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-analytics-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-analytics-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-analytics",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-attribution-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-attribution-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-attribution-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-attribution",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-automation-pack-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-automation-pack-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-automation-pack-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-automation-pack",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-business-process-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-business-process-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-business-process-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-business-process-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-campaigns-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-campaigns-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-campaigns-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-campaigns",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-case-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-case-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-case-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-case-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-channel-gateway-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-channel-gateway-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-channel-gateway-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-channel-gateway",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-channel-sales-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-channel-sales-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-channel-sales-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-channel-sales",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-chat-and-bots-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-chat-and-bots-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-chat-and-bots-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-chat-and-bots",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-client-onboarding-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-client-onboarding-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-client-onboarding-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-client-onboarding",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-collaboration-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-collaboration-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-collaboration-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-collaboration",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-communities-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-communities-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-communities-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-communities",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-consent-and-preferences-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-consent-and-preferences-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-consent-and-preferences-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-consent-and-preferences",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-contact-center-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-contact-center-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-contact-center-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-contact-center",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-contracts-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-contracts-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-contracts-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-contracts",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversation-analytics-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversation-analytics-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversation-analytics-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-conversation-analytics",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversation-intelligence-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversation-intelligence-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversation-intelligence-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-conversation-intelligence",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversion-optimization-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversion-optimization-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-conversion-optimization-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-conversion-optimization",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-copilot-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-copilot-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-copilot-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-copilot",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-core-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-core-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-core-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-core",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-cpq-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-cpq-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-cpq-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-cpq",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-data-model-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-data-model-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-data-model-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-data-model",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-data-platform-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-data-platform-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-data-platform-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-data-platform",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-self-service-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-self-service-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-self-service-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-self-service",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-success-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-success-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-customer-success-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-customer-success",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-data-operations-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-data-operations-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-data-operations-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-data-operations",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-deal-registration-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-deal-registration-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-deal-registration-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-deal-registration",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-dialer-and-outreach-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-dialer-and-outreach-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-dialer-and-outreach-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-dialer-and-outreach",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-documents-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-documents-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-documents-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-documents",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-email-marketing-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-email-marketing-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-email-marketing-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-email-marketing",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-email-productivity-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-email-productivity-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-email-productivity-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-email-productivity",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-enrichment-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-enrichment-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-enrichment-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-enrichment",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-events-and-webinars-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-events-and-webinars-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-events-and-webinars-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-events-and-webinars",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-feedback-and-voice-of-customer-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-feedback-and-voice-of-customer-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-feedback-and-voice-of-customer-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-feedback-and-voice-of-customer",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-field-service-coordination-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-field-service-coordination-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-field-service-coordination-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-field-service-coordination",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-loyalty",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-forecasting-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-forecasting-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-forecasting-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-forecasting",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-forms-and-surveys-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-forms-and-surveys-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-forms-and-surveys-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-forms-and-surveys",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-goals-and-performance-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-goals-and-performance-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-goals-and-performance-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-goals-and-performance",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-journey-orchestration-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-journey-orchestration-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-journey-orchestration-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-journey-orchestration",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-knowledge-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-knowledge-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-knowledge-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-knowledge",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-landing-pages-and-funnels-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-landing-pages-and-funnels-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-landing-pages-and-funnels-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-landing-pages-and-funnels",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-capture-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-capture-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-capture-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-capture",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-qualification-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-qualification-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-qualification-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-lead-qualification",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-learning-and-courses-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-learning-and-courses-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-learning-and-courses-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-learning-and-courses",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-loyalty-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-loyalty-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-loyalty-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-agent-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-agent-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-agent-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-agent",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-development-funds-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-development-funds-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-development-funds-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-development-funds",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-resources-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-resources-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-resources-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-marketing-resources",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-memberships-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-memberships-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-memberships-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-memberships",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-mobile-messaging-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-mobile-messaging-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-mobile-messaging-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-mobile-messaging",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-omnichannel-service-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-omnichannel-service-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-omnichannel-service-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-omnichannel-service",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-orders-and-payments-workspace-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-orders-and-payments-workspace-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-orders-and-payments-workspace-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-orders-and-payments-workspace",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-partner-relationship-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-partner-relationship-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-partner-relationship-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-partner-relationship-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-personalization-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-personalization-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-personalization-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-personalization",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-playbooks-and-enablement-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-playbooks-and-enablement-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-playbooks-and-enablement-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-playbooks-and-enablement",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-predictive-models-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-predictive-models-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-predictive-models-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-predictive-models",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-product-workspace-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-product-workspace-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-product-workspace-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-product-workspace",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-projects-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-projects-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-projects-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-projects",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-proposals-and-quotes-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-proposals-and-quotes-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-proposals-and-quotes-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-proposals-and-quotes",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-agent-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-agent-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-agent-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-agent",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-prospecting",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-quotas-and-incentives-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-quotas-and-incentives-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-quotas-and-incentives-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-quotas-and-incentives",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-referrals-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-referrals-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-referrals-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-referrals",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-reputation-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-reputation-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-reputation-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-reputation-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-resource-planning-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-resource-planning-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-resource-planning-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-resource-planning",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-intelligence-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-intelligence-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-intelligence-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-intelligence",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-lifecycle-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-lifecycle-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-lifecycle-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-revenue-lifecycle",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-routing-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-routing-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-routing-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-routing",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-saas-packaging-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-saas-packaging-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-saas-packaging-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-saas-packaging",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-engagement-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-engagement-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-engagement-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-engagement",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-pipelines-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-pipelines-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-pipelines-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-pipelines",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-workspace-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-workspace-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-workspace-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sales-workspace",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sandbox-and-release-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sandbox-and-release-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sandbox-and-release-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sandbox-and-release-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-scheduling-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-scheduling-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-scheduling-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-scheduling",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-search-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-search-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-crm-search-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-search",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-segmentation-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-segmentation-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-segmentation-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-segmentation",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-agent-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-agent-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-agent-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-agent",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-analytics-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-analytics-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-analytics-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-service-analytics",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sla-and-entitlements-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sla-and-entitlements-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sla-and-entitlements-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-sla-and-entitlements",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-telephony-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-telephony-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-telephony-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-telephony",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-templates-and-snapshots-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-templates-and-snapshots-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-templates-and-snapshots-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-templates-and-snapshots",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-territories-and-ownership-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-territories-and-ownership-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-territories-and-ownership-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-territories-and-ownership",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-unified-conversations-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-unified-conversations-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-unified-conversations-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-unified-conversations",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-usage-wallet-and-rebilling-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-usage-wallet-and-rebilling-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-usage-wallet-and-rebilling-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-usage-wallet-and-rebilling",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-web-intent-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-web-intent-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-web-intent-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-web-intent",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-white-label-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-white-label-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-white-label-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-white-label",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-work-management-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-work-management-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-work-management-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/crm-work-management",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/currency-context-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/currency-context-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/currency-context-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/currency-context",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/developer-experience-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/developer-experience-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/developer-experience-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/developer-experience",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/feature-flags-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/feature-flags-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/feature-flags-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/feature-flags",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/files-media-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/files-media-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/files-media-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/files-media",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/identity-core-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/identity-core-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/identity-core-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/identity-core",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/identity-socialstream",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/import-export-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/import-export-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/import-export-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/import-export",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/integrations-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/integrations-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/integrations-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/integrations",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/jetstream-bridge-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/jetstream-bridge-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/jetstream-bridge-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/jetstream-bridge",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/localization-core-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/localization-core-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/localization-core-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/localization-core",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/localization-mymemory",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-manager-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-manager-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-manager-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/module-manager",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/notifications-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/notifications-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/notifications-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/notifications",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/observability-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/observability-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/observability-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/observability",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/organizations-teams-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/organizations-teams-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/organizations-teams-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/organizations-teams",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/profiles-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/profiles-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/profiles-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/profiles",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/roles-permissions-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/roles-permissions-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/roles-permissions-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/roles-permissions",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/scheduler-queues-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/scheduler-queues-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/scheduler-queues-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/scheduler-queues",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/search-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/search-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/search-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/search",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/sessions-devices-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/sessions-devices-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/sessions-devices-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/sessions-devices",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/settings-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/settings-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/settings-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/settings",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/theme-support-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/theme-support",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/two-factor-authentication-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/two-factor-authentication-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/two-factor-authentication-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/two-factor-authentication",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/webhooks-api",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/webhooks-filament",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/webhooks-livewire",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "modules/webhooks",
-            "options": {
-                "symlink": true
-            }
         }
     ],
     "require": {
@@ -3650,8 +687,388 @@
         "spatie/laravel-permission": "^7.0",
         "stancl/tenancy": "^3.10",
         "stripe/stripe-php": "^21.3",
-        "twilio/sdk": "*",
-        "webklex/laravel-imap": "^6.2"
+        "twilio/sdk": "^8.12",
+        "webklex/laravel-imap": "^6.2",
+        "liberusoftware/module-crm-account-based-marketing": "^1.0.0",
+        "liberusoftware/module-crm-account-based-marketing-api": "^1.0.0",
+        "liberusoftware/module-crm-account-based-marketing-filament": "^1.0.0",
+        "liberusoftware/module-crm-account-based-marketing-livewire": "^1.0.0",
+        "liberusoftware/module-crm-account-planning": "^1.0.0",
+        "liberusoftware/module-crm-account-planning-api": "^1.0.0",
+        "liberusoftware/module-crm-account-planning-filament": "^1.0.0",
+        "liberusoftware/module-crm-account-planning-livewire": "^1.0.0",
+        "liberusoftware/module-crm-activities": "^1.0.0",
+        "liberusoftware/module-crm-activities-api": "^1.0.0",
+        "liberusoftware/module-crm-activities-filament": "^1.0.0",
+        "liberusoftware/module-crm-activities-livewire": "^1.0.0",
+        "liberusoftware/module-crm-advertising": "^1.0.0",
+        "liberusoftware/module-crm-advertising-api": "^1.0.0",
+        "liberusoftware/module-crm-advertising-filament": "^1.0.0",
+        "liberusoftware/module-crm-advertising-livewire": "^1.0.0",
+        "liberusoftware/module-crm-advocacy": "^1.0.0",
+        "liberusoftware/module-crm-advocacy-api": "^1.0.0",
+        "liberusoftware/module-crm-advocacy-filament": "^1.0.0",
+        "liberusoftware/module-crm-advocacy-livewire": "^1.0.0",
+        "liberusoftware/module-crm-affiliate-management": "^1.0.0",
+        "liberusoftware/module-crm-affiliate-management-api": "^1.0.0",
+        "liberusoftware/module-crm-affiliate-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-affiliate-management-livewire": "^1.0.0",
+        "liberusoftware/module-crm-agency-workspace": "^1.0.0",
+        "liberusoftware/module-crm-agency-workspace-api": "^1.0.0",
+        "liberusoftware/module-crm-agency-workspace-filament": "^1.0.0",
+        "liberusoftware/module-crm-agency-workspace-livewire": "^1.0.0",
+        "liberusoftware/module-crm-ai-reception-and-conversation": "^1.0.0",
+        "liberusoftware/module-crm-ai-reception-and-conversation-api": "^1.0.0",
+        "liberusoftware/module-crm-ai-reception-and-conversation-filament": "^1.0.0",
+        "liberusoftware/module-crm-ai-reception-and-conversation-livewire": "^1.0.0",
+        "liberusoftware/module-crm-analytics": "^1.0.0",
+        "liberusoftware/module-crm-analytics-api": "^1.0.0",
+        "liberusoftware/module-crm-analytics-filament": "^1.0.0",
+        "liberusoftware/module-crm-analytics-livewire": "^1.0.0",
+        "liberusoftware/module-crm-attribution": "^1.0.0",
+        "liberusoftware/module-crm-attribution-api": "^1.0.0",
+        "liberusoftware/module-crm-attribution-filament": "^1.0.0",
+        "liberusoftware/module-crm-attribution-livewire": "^1.0.0",
+        "liberusoftware/module-crm-automation-pack": "^1.0.0",
+        "liberusoftware/module-crm-automation-pack-api": "^1.0.0",
+        "liberusoftware/module-crm-automation-pack-filament": "^1.0.0",
+        "liberusoftware/module-crm-automation-pack-livewire": "^1.0.0",
+        "liberusoftware/module-crm-business-process-management": "^1.0.0",
+        "liberusoftware/module-crm-business-process-management-api": "^1.0.0",
+        "liberusoftware/module-crm-business-process-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-business-process-management-livewire": "^1.0.0",
+        "liberusoftware/module-crm-campaigns": "^1.0.0",
+        "liberusoftware/module-crm-campaigns-api": "^1.0.0",
+        "liberusoftware/module-crm-campaigns-filament": "^1.0.0",
+        "liberusoftware/module-crm-campaigns-livewire": "^1.0.0",
+        "liberusoftware/module-crm-case-management": "^1.0.0",
+        "liberusoftware/module-crm-case-management-api": "^1.0.0",
+        "liberusoftware/module-crm-case-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-case-management-livewire": "^1.0.0",
+        "liberusoftware/module-crm-channel-gateway": "^1.0.0",
+        "liberusoftware/module-crm-channel-gateway-api": "^1.0.0",
+        "liberusoftware/module-crm-channel-gateway-filament": "^1.0.0",
+        "liberusoftware/module-crm-channel-gateway-livewire": "^1.0.0",
+        "liberusoftware/module-crm-channel-sales": "^1.0.0",
+        "liberusoftware/module-crm-channel-sales-api": "^1.0.0",
+        "liberusoftware/module-crm-channel-sales-filament": "^1.0.0",
+        "liberusoftware/module-crm-channel-sales-livewire": "^1.0.0",
+        "liberusoftware/module-crm-chat-and-bots": "^1.0.0",
+        "liberusoftware/module-crm-chat-and-bots-api": "^1.0.0",
+        "liberusoftware/module-crm-chat-and-bots-filament": "^1.0.0",
+        "liberusoftware/module-crm-chat-and-bots-livewire": "^1.0.0",
+        "liberusoftware/module-crm-client-onboarding": "^1.0.0",
+        "liberusoftware/module-crm-client-onboarding-api": "^1.0.0",
+        "liberusoftware/module-crm-client-onboarding-filament": "^1.0.0",
+        "liberusoftware/module-crm-client-onboarding-livewire": "^1.0.0",
+        "liberusoftware/module-crm-collaboration": "^1.0.0",
+        "liberusoftware/module-crm-collaboration-api": "^1.0.0",
+        "liberusoftware/module-crm-collaboration-filament": "^1.0.0",
+        "liberusoftware/module-crm-collaboration-livewire": "^1.0.0",
+        "liberusoftware/module-crm-communities": "^1.0.0",
+        "liberusoftware/module-crm-communities-api": "^1.0.0",
+        "liberusoftware/module-crm-communities-filament": "^1.0.0",
+        "liberusoftware/module-crm-communities-livewire": "^1.0.0",
+        "liberusoftware/module-crm-consent-and-preferences": "^1.0.0",
+        "liberusoftware/module-crm-consent-and-preferences-api": "^1.0.0",
+        "liberusoftware/module-crm-consent-and-preferences-filament": "^1.0.0",
+        "liberusoftware/module-crm-consent-and-preferences-livewire": "^1.0.0",
+        "liberusoftware/module-crm-contact-center": "^1.0.0",
+        "liberusoftware/module-crm-contact-center-api": "^1.0.0",
+        "liberusoftware/module-crm-contact-center-filament": "^1.0.0",
+        "liberusoftware/module-crm-contact-center-livewire": "^1.0.0",
+        "liberusoftware/module-crm-contracts": "^1.0.0",
+        "liberusoftware/module-crm-contracts-api": "^1.0.0",
+        "liberusoftware/module-crm-contracts-filament": "^1.0.0",
+        "liberusoftware/module-crm-contracts-livewire": "^1.0.0",
+        "liberusoftware/module-crm-conversation-analytics": "^1.0.0",
+        "liberusoftware/module-crm-conversation-analytics-api": "^1.0.0",
+        "liberusoftware/module-crm-conversation-analytics-filament": "^1.0.0",
+        "liberusoftware/module-crm-conversation-analytics-livewire": "^1.0.0",
+        "liberusoftware/module-crm-conversation-intelligence": "^1.0.0",
+        "liberusoftware/module-crm-conversation-intelligence-api": "^1.0.0",
+        "liberusoftware/module-crm-conversation-intelligence-filament": "^1.0.0",
+        "liberusoftware/module-crm-conversation-intelligence-livewire": "^1.0.0",
+        "liberusoftware/module-crm-conversion-optimization": "^1.0.0",
+        "liberusoftware/module-crm-conversion-optimization-api": "^1.0.0",
+        "liberusoftware/module-crm-conversion-optimization-filament": "^1.0.0",
+        "liberusoftware/module-crm-conversion-optimization-livewire": "^1.0.0",
+        "liberusoftware/module-crm-copilot": "^1.0.0",
+        "liberusoftware/module-crm-copilot-api": "^1.0.0",
+        "liberusoftware/module-crm-copilot-filament": "^1.0.0",
+        "liberusoftware/module-crm-copilot-livewire": "^1.0.0",
+        "liberusoftware/module-crm-core": "^1.0.0",
+        "liberusoftware/module-crm-core-api": "^1.0.0",
+        "liberusoftware/module-crm-core-filament": "^1.0.0",
+        "liberusoftware/module-crm-core-livewire": "^1.0.0",
+        "liberusoftware/module-crm-cpq": "^1.0.0",
+        "liberusoftware/module-crm-cpq-api": "^1.0.0",
+        "liberusoftware/module-crm-cpq-filament": "^1.0.0",
+        "liberusoftware/module-crm-cpq-livewire": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-model": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-model-api": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-model-filament": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-model-livewire": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-platform": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-platform-api": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-platform-filament": "^1.0.0",
+        "liberusoftware/module-crm-customer-data-platform-livewire": "^1.0.0",
+        "liberusoftware/module-crm-customer-self-service": "^1.0.0",
+        "liberusoftware/module-crm-customer-self-service-api": "^1.0.0",
+        "liberusoftware/module-crm-customer-self-service-filament": "^1.0.0",
+        "liberusoftware/module-crm-customer-self-service-livewire": "^1.0.0",
+        "liberusoftware/module-crm-customer-success": "^1.0.0",
+        "liberusoftware/module-crm-customer-success-api": "^1.0.0",
+        "liberusoftware/module-crm-customer-success-filament": "^1.0.0",
+        "liberusoftware/module-crm-customer-success-livewire": "^1.0.0",
+        "liberusoftware/module-crm-data-operations": "^1.0.0",
+        "liberusoftware/module-crm-data-operations-api": "^1.0.0",
+        "liberusoftware/module-crm-data-operations-filament": "^1.0.0",
+        "liberusoftware/module-crm-data-operations-livewire": "^1.0.0",
+        "liberusoftware/module-crm-deal-registration": "^1.0.0",
+        "liberusoftware/module-crm-deal-registration-api": "^1.0.0",
+        "liberusoftware/module-crm-deal-registration-filament": "^1.0.0",
+        "liberusoftware/module-crm-deal-registration-livewire": "^1.0.0",
+        "liberusoftware/module-crm-dialer-and-outreach": "^1.0.0",
+        "liberusoftware/module-crm-dialer-and-outreach-api": "^1.0.0",
+        "liberusoftware/module-crm-dialer-and-outreach-filament": "^1.0.0",
+        "liberusoftware/module-crm-dialer-and-outreach-livewire": "^1.0.0",
+        "liberusoftware/module-crm-documents": "^1.0.0",
+        "liberusoftware/module-crm-documents-api": "^1.0.0",
+        "liberusoftware/module-crm-documents-filament": "^1.0.0",
+        "liberusoftware/module-crm-documents-livewire": "^1.0.0",
+        "liberusoftware/module-crm-email-marketing": "^1.0.0",
+        "liberusoftware/module-crm-email-marketing-api": "^1.0.0",
+        "liberusoftware/module-crm-email-marketing-filament": "^1.0.0",
+        "liberusoftware/module-crm-email-marketing-livewire": "^1.0.0",
+        "liberusoftware/module-crm-email-productivity": "^1.0.0",
+        "liberusoftware/module-crm-email-productivity-api": "^1.0.0",
+        "liberusoftware/module-crm-email-productivity-filament": "^1.0.0",
+        "liberusoftware/module-crm-email-productivity-livewire": "^1.0.0",
+        "liberusoftware/module-crm-enrichment": "^1.0.0",
+        "liberusoftware/module-crm-enrichment-api": "^1.0.0",
+        "liberusoftware/module-crm-enrichment-filament": "^1.0.0",
+        "liberusoftware/module-crm-enrichment-livewire": "^1.0.0",
+        "liberusoftware/module-crm-events-and-webinars": "^1.0.0",
+        "liberusoftware/module-crm-events-and-webinars-api": "^1.0.0",
+        "liberusoftware/module-crm-events-and-webinars-filament": "^1.0.0",
+        "liberusoftware/module-crm-events-and-webinars-livewire": "^1.0.0",
+        "liberusoftware/module-crm-feedback-and-voice-of-customer": "^1.0.0",
+        "liberusoftware/module-crm-feedback-and-voice-of-customer-api": "^1.0.0",
+        "liberusoftware/module-crm-feedback-and-voice-of-customer-filament": "^1.0.0",
+        "liberusoftware/module-crm-feedback-and-voice-of-customer-livewire": "^1.0.0",
+        "liberusoftware/module-crm-field-service-coordination": "^1.0.0",
+        "liberusoftware/module-crm-field-service-coordination-api": "^1.0.0",
+        "liberusoftware/module-crm-field-service-coordination-filament": "^1.0.0",
+        "liberusoftware/module-crm-field-service-coordination-livewire": "^1.0.0",
+        "liberusoftware/module-crm-forecasting": "^1.0.0",
+        "liberusoftware/module-crm-forecasting-api": "^1.0.0",
+        "liberusoftware/module-crm-forecasting-filament": "^1.0.0",
+        "liberusoftware/module-crm-forecasting-livewire": "^1.0.0",
+        "liberusoftware/module-crm-forms-and-surveys": "^1.0.0",
+        "liberusoftware/module-crm-forms-and-surveys-api": "^1.0.0",
+        "liberusoftware/module-crm-forms-and-surveys-filament": "^1.0.0",
+        "liberusoftware/module-crm-forms-and-surveys-livewire": "^1.0.0",
+        "liberusoftware/module-crm-goals-and-performance": "^1.0.0",
+        "liberusoftware/module-crm-goals-and-performance-api": "^1.0.0",
+        "liberusoftware/module-crm-goals-and-performance-filament": "^1.0.0",
+        "liberusoftware/module-crm-goals-and-performance-livewire": "^1.0.0",
+        "liberusoftware/module-crm-journey-orchestration": "^1.0.0",
+        "liberusoftware/module-crm-journey-orchestration-api": "^1.0.0",
+        "liberusoftware/module-crm-journey-orchestration-filament": "^1.0.0",
+        "liberusoftware/module-crm-journey-orchestration-livewire": "^1.0.0",
+        "liberusoftware/module-crm-knowledge": "^1.0.0",
+        "liberusoftware/module-crm-knowledge-api": "^1.0.0",
+        "liberusoftware/module-crm-knowledge-filament": "^1.0.0",
+        "liberusoftware/module-crm-knowledge-livewire": "^1.0.0",
+        "liberusoftware/module-crm-landing-pages-and-funnels": "^1.0.0",
+        "liberusoftware/module-crm-landing-pages-and-funnels-api": "^1.0.0",
+        "liberusoftware/module-crm-landing-pages-and-funnels-filament": "^1.0.0",
+        "liberusoftware/module-crm-landing-pages-and-funnels-livewire": "^1.0.0",
+        "liberusoftware/module-crm-lead-capture": "^1.0.0",
+        "liberusoftware/module-crm-lead-capture-api": "^1.0.0",
+        "liberusoftware/module-crm-lead-capture-filament": "^1.0.0",
+        "liberusoftware/module-crm-lead-capture-livewire": "^1.0.0",
+        "liberusoftware/module-crm-lead-qualification": "^1.0.0",
+        "liberusoftware/module-crm-lead-qualification-api": "^1.0.0",
+        "liberusoftware/module-crm-lead-qualification-filament": "^1.0.0",
+        "liberusoftware/module-crm-lead-qualification-livewire": "^1.0.0",
+        "liberusoftware/module-crm-learning-and-courses": "^1.0.0",
+        "liberusoftware/module-crm-learning-and-courses-api": "^1.0.0",
+        "liberusoftware/module-crm-learning-and-courses-filament": "^1.0.0",
+        "liberusoftware/module-crm-learning-and-courses-livewire": "^1.0.0",
+        "liberusoftware/module-crm-loyalty": "^1.0.0",
+        "liberusoftware/module-crm-loyalty-api": "^1.0.0",
+        "liberusoftware/module-crm-loyalty-filament": "^1.0.0",
+        "liberusoftware/module-crm-loyalty-livewire": "^1.0.0",
+        "liberusoftware/module-crm-marketing-agent": "^1.0.0",
+        "liberusoftware/module-crm-marketing-agent-api": "^1.0.0",
+        "liberusoftware/module-crm-marketing-agent-filament": "^1.0.0",
+        "liberusoftware/module-crm-marketing-agent-livewire": "^1.0.0",
+        "liberusoftware/module-crm-marketing-development-funds": "^1.0.0",
+        "liberusoftware/module-crm-marketing-development-funds-api": "^1.0.0",
+        "liberusoftware/module-crm-marketing-development-funds-filament": "^1.0.0",
+        "liberusoftware/module-crm-marketing-development-funds-livewire": "^1.0.0",
+        "liberusoftware/module-crm-marketing-resources": "^1.0.0",
+        "liberusoftware/module-crm-marketing-resources-api": "^1.0.0",
+        "liberusoftware/module-crm-marketing-resources-filament": "^1.0.0",
+        "liberusoftware/module-crm-marketing-resources-livewire": "^1.0.0",
+        "liberusoftware/module-crm-memberships": "^1.0.0",
+        "liberusoftware/module-crm-memberships-api": "^1.0.0",
+        "liberusoftware/module-crm-memberships-filament": "^1.0.0",
+        "liberusoftware/module-crm-memberships-livewire": "^1.0.0",
+        "liberusoftware/module-crm-mobile-messaging": "^1.0.0",
+        "liberusoftware/module-crm-mobile-messaging-api": "^1.0.0",
+        "liberusoftware/module-crm-mobile-messaging-filament": "^1.0.0",
+        "liberusoftware/module-crm-mobile-messaging-livewire": "^1.0.0",
+        "liberusoftware/module-crm-omnichannel-service": "^1.0.0",
+        "liberusoftware/module-crm-omnichannel-service-api": "^1.0.0",
+        "liberusoftware/module-crm-omnichannel-service-filament": "^1.0.0",
+        "liberusoftware/module-crm-omnichannel-service-livewire": "^1.0.0",
+        "liberusoftware/module-crm-orders-and-payments-workspace": "^1.0.0",
+        "liberusoftware/module-crm-orders-and-payments-workspace-api": "^1.0.0",
+        "liberusoftware/module-crm-orders-and-payments-workspace-filament": "^1.0.0",
+        "liberusoftware/module-crm-orders-and-payments-workspace-livewire": "^1.0.0",
+        "liberusoftware/module-crm-partner-relationship-management": "^1.0.0",
+        "liberusoftware/module-crm-partner-relationship-management-api": "^1.0.0",
+        "liberusoftware/module-crm-partner-relationship-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-partner-relationship-management-livewire": "^1.0.0",
+        "liberusoftware/module-crm-personalization": "^1.0.0",
+        "liberusoftware/module-crm-personalization-api": "^1.0.0",
+        "liberusoftware/module-crm-personalization-filament": "^1.0.0",
+        "liberusoftware/module-crm-personalization-livewire": "^1.0.0",
+        "liberusoftware/module-crm-playbooks-and-enablement": "^1.0.0",
+        "liberusoftware/module-crm-playbooks-and-enablement-api": "^1.0.0",
+        "liberusoftware/module-crm-playbooks-and-enablement-filament": "^1.0.0",
+        "liberusoftware/module-crm-playbooks-and-enablement-livewire": "^1.0.0",
+        "liberusoftware/module-crm-predictive-models": "^1.0.0",
+        "liberusoftware/module-crm-predictive-models-api": "^1.0.0",
+        "liberusoftware/module-crm-predictive-models-filament": "^1.0.0",
+        "liberusoftware/module-crm-predictive-models-livewire": "^1.0.0",
+        "liberusoftware/module-crm-product-workspace": "^1.0.0",
+        "liberusoftware/module-crm-product-workspace-api": "^1.0.0",
+        "liberusoftware/module-crm-product-workspace-filament": "^1.0.0",
+        "liberusoftware/module-crm-product-workspace-livewire": "^1.0.0",
+        "liberusoftware/module-crm-projects": "^1.0.0",
+        "liberusoftware/module-crm-projects-api": "^1.0.0",
+        "liberusoftware/module-crm-projects-filament": "^1.0.0",
+        "liberusoftware/module-crm-projects-livewire": "^1.0.0",
+        "liberusoftware/module-crm-proposals-and-quotes": "^1.0.0",
+        "liberusoftware/module-crm-proposals-and-quotes-api": "^1.0.0",
+        "liberusoftware/module-crm-proposals-and-quotes-filament": "^1.0.0",
+        "liberusoftware/module-crm-proposals-and-quotes-livewire": "^1.0.0",
+        "liberusoftware/module-crm-prospecting": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-agent": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-agent-api": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-agent-filament": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-agent-livewire": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-api": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-filament": "^1.0.0",
+        "liberusoftware/module-crm-prospecting-livewire": "^1.0.0",
+        "liberusoftware/module-crm-quotas-and-incentives": "^1.0.0",
+        "liberusoftware/module-crm-quotas-and-incentives-api": "^1.0.0",
+        "liberusoftware/module-crm-quotas-and-incentives-filament": "^1.0.0",
+        "liberusoftware/module-crm-quotas-and-incentives-livewire": "^1.0.0",
+        "liberusoftware/module-crm-referrals": "^1.0.0",
+        "liberusoftware/module-crm-referrals-api": "^1.0.0",
+        "liberusoftware/module-crm-referrals-filament": "^1.0.0",
+        "liberusoftware/module-crm-referrals-livewire": "^1.0.0",
+        "liberusoftware/module-crm-reputation-management": "^1.0.0",
+        "liberusoftware/module-crm-reputation-management-api": "^1.0.0",
+        "liberusoftware/module-crm-reputation-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-reputation-management-livewire": "^1.0.0",
+        "liberusoftware/module-crm-resource-planning": "^1.0.0",
+        "liberusoftware/module-crm-resource-planning-api": "^1.0.0",
+        "liberusoftware/module-crm-resource-planning-filament": "^1.0.0",
+        "liberusoftware/module-crm-resource-planning-livewire": "^1.0.0",
+        "liberusoftware/module-crm-revenue-intelligence": "^1.0.0",
+        "liberusoftware/module-crm-revenue-intelligence-api": "^1.0.0",
+        "liberusoftware/module-crm-revenue-intelligence-filament": "^1.0.0",
+        "liberusoftware/module-crm-revenue-intelligence-livewire": "^1.0.0",
+        "liberusoftware/module-crm-revenue-lifecycle": "^1.0.0",
+        "liberusoftware/module-crm-revenue-lifecycle-api": "^1.0.0",
+        "liberusoftware/module-crm-revenue-lifecycle-filament": "^1.0.0",
+        "liberusoftware/module-crm-revenue-lifecycle-livewire": "^1.0.0",
+        "liberusoftware/module-crm-routing": "^1.0.0",
+        "liberusoftware/module-crm-routing-api": "^1.0.0",
+        "liberusoftware/module-crm-routing-filament": "^1.0.0",
+        "liberusoftware/module-crm-routing-livewire": "^1.0.0",
+        "liberusoftware/module-crm-saas-packaging": "^1.0.0",
+        "liberusoftware/module-crm-saas-packaging-api": "^1.0.0",
+        "liberusoftware/module-crm-saas-packaging-filament": "^1.0.0",
+        "liberusoftware/module-crm-saas-packaging-livewire": "^1.0.0",
+        "liberusoftware/module-crm-sales-engagement": "^1.0.0",
+        "liberusoftware/module-crm-sales-engagement-api": "^1.0.0",
+        "liberusoftware/module-crm-sales-engagement-filament": "^1.0.0",
+        "liberusoftware/module-crm-sales-engagement-livewire": "^1.0.0",
+        "liberusoftware/module-crm-sales-pipelines": "^1.0.0",
+        "liberusoftware/module-crm-sales-pipelines-api": "^1.0.0",
+        "liberusoftware/module-crm-sales-pipelines-filament": "^1.0.0",
+        "liberusoftware/module-crm-sales-pipelines-livewire": "^1.0.0",
+        "liberusoftware/module-crm-sales-workspace": "^1.0.0",
+        "liberusoftware/module-crm-sales-workspace-api": "^1.0.0",
+        "liberusoftware/module-crm-sales-workspace-filament": "^1.0.0",
+        "liberusoftware/module-crm-sales-workspace-livewire": "^1.0.0",
+        "liberusoftware/module-crm-sandbox-and-release-management": "^1.0.0",
+        "liberusoftware/module-crm-sandbox-and-release-management-api": "^1.0.0",
+        "liberusoftware/module-crm-sandbox-and-release-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-sandbox-and-release-management-livewire": "^1.0.0",
+        "liberusoftware/module-crm-scheduling": "^1.0.0",
+        "liberusoftware/module-crm-scheduling-api": "^1.0.0",
+        "liberusoftware/module-crm-scheduling-filament": "^1.0.0",
+        "liberusoftware/module-crm-scheduling-livewire": "^1.0.0",
+        "liberusoftware/module-crm-search": "^1.0.0",
+        "liberusoftware/module-crm-search-api": "^1.0.0",
+        "liberusoftware/module-crm-search-filament": "^1.0.0",
+        "liberusoftware/module-crm-search-livewire": "^1.0.0",
+        "liberusoftware/module-crm-segmentation": "^1.0.0",
+        "liberusoftware/module-crm-segmentation-api": "^1.0.0",
+        "liberusoftware/module-crm-segmentation-filament": "^1.0.0",
+        "liberusoftware/module-crm-segmentation-livewire": "^1.0.0",
+        "liberusoftware/module-crm-service-agent": "^1.0.0",
+        "liberusoftware/module-crm-service-agent-api": "^1.0.0",
+        "liberusoftware/module-crm-service-agent-filament": "^1.0.0",
+        "liberusoftware/module-crm-service-agent-livewire": "^1.0.0",
+        "liberusoftware/module-crm-service-analytics": "^1.0.0",
+        "liberusoftware/module-crm-service-analytics-api": "^1.0.0",
+        "liberusoftware/module-crm-service-analytics-filament": "^1.0.0",
+        "liberusoftware/module-crm-service-analytics-livewire": "^1.0.0",
+        "liberusoftware/module-crm-sla-and-entitlements": "^1.0.0",
+        "liberusoftware/module-crm-sla-and-entitlements-api": "^1.0.0",
+        "liberusoftware/module-crm-sla-and-entitlements-filament": "^1.0.0",
+        "liberusoftware/module-crm-sla-and-entitlements-livewire": "^1.0.0",
+        "liberusoftware/module-crm-telephony": "^1.0.0",
+        "liberusoftware/module-crm-telephony-api": "^1.0.0",
+        "liberusoftware/module-crm-telephony-filament": "^1.0.0",
+        "liberusoftware/module-crm-telephony-livewire": "^1.0.0",
+        "liberusoftware/module-crm-templates-and-snapshots": "^1.0.0",
+        "liberusoftware/module-crm-templates-and-snapshots-api": "^1.0.0",
+        "liberusoftware/module-crm-templates-and-snapshots-filament": "^1.0.0",
+        "liberusoftware/module-crm-templates-and-snapshots-livewire": "^1.0.0",
+        "liberusoftware/module-crm-territories-and-ownership": "^1.0.0",
+        "liberusoftware/module-crm-territories-and-ownership-api": "^1.0.0",
+        "liberusoftware/module-crm-territories-and-ownership-filament": "^1.0.0",
+        "liberusoftware/module-crm-territories-and-ownership-livewire": "^1.0.0",
+        "liberusoftware/module-crm-unified-conversations": "^1.0.0",
+        "liberusoftware/module-crm-unified-conversations-api": "^1.0.0",
+        "liberusoftware/module-crm-unified-conversations-filament": "^1.0.0",
+        "liberusoftware/module-crm-unified-conversations-livewire": "^1.0.0",
+        "liberusoftware/module-crm-usage-wallet-and-rebilling": "^1.0.0",
+        "liberusoftware/module-crm-usage-wallet-and-rebilling-api": "^1.0.0",
+        "liberusoftware/module-crm-usage-wallet-and-rebilling-filament": "^1.0.0",
+        "liberusoftware/module-crm-usage-wallet-and-rebilling-livewire": "^1.0.0",
+        "liberusoftware/module-crm-web-intent": "^1.0.0",
+        "liberusoftware/module-crm-web-intent-api": "^1.0.0",
+        "liberusoftware/module-crm-web-intent-filament": "^1.0.0",
+        "liberusoftware/module-crm-web-intent-livewire": "^1.0.0",
+        "liberusoftware/module-crm-white-label": "^1.0.0",
+        "liberusoftware/module-crm-white-label-api": "^1.0.0",
+        "liberusoftware/module-crm-white-label-filament": "^1.0.0",
+        "liberusoftware/module-crm-white-label-livewire": "^1.0.0",
+        "liberusoftware/module-crm-work-management": "^1.0.0",
+        "liberusoftware/module-crm-work-management-api": "^1.0.0",
+        "liberusoftware/module-crm-work-management-filament": "^1.0.0",
+        "liberusoftware/module-crm-work-management-livewire": "^1.0.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

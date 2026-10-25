@@ -136,8 +136,8 @@ class ModuleManager
 
     public function rebuild(): void
     {
-        $this->modules = collect();
         $this->clearCache();
+        $this->modules = collect();
         $this->loadModules();
     }
 

@@ -125,8 +125,9 @@ class SocialstreamServiceProvider extends ServiceProvider
             $serviceName = $provider->getAttribute('service_name');
 
             if ($serviceName === 'twilio') {
-                Socialite::extend($serviceName, fn () => new TwilioProvider(
-                    $this->app['request'],
+                $request = $this->app['request'];
+                Socialite::extend($serviceName, static fn () => new TwilioProvider(
+                    $request,
                     $provider->getAttribute('client_id'),
                     $provider->getAttribute('client_secret'),
                     config('app.url').'/oauth/twilio/callback'
@@ -142,9 +143,10 @@ class SocialstreamServiceProvider extends ServiceProvider
             $providerConfig = $this->socialProviders[$serviceName];
             $driverName = $providerConfig['driver'];
             $scopes = $providerConfig['scopes'];
+            $providerClass = $this->getSocialiteProviderClass($driverName);
 
             // Register the service_name as an alias that delegates to the correct driver
-            Socialite::extend($serviceName, function () use ($provider, $driverName, $scopes) {
+            Socialite::extend($serviceName, static function () use ($provider, $providerClass, $driverName, $scopes) {
                 $config = [
                     'client_id' => $provider->getAttribute('client_id'),
                     'client_secret' => $provider->getAttribute('client_secret'),
@@ -152,7 +154,7 @@ class SocialstreamServiceProvider extends ServiceProvider
                 ];
 
                 $driver = Socialite::buildProvider(
-                    $this->getSocialiteProviderClass($driverName),
+                    $providerClass,
                     $config
                 );
 

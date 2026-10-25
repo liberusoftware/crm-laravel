@@ -119,7 +119,7 @@ class TeamInvitationTest extends TestCase
             'token' => Str::random(40),
         ]);
 
-        $this->actingAs($invitedUser)->post('/team-invitations/'.$invitation->id.'/accept');
+        $this->actingAs($invitedUser)->post('/team-invitations/'.$invitation->id.'/accept')->assertRedirect();
 
         $this->assertCount(1, $team->fresh()->users);
 

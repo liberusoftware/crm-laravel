@@ -1,13 +1,14 @@
 <?php
 
-it('renders the Clear Signal landing at /', function () {
+it('renders the CRM landing at /', function () {
+    config()->set('saas.enabled', false);
     $response = $this->get('/');
 
     $response->assertOk();
-    $response->assertSee('A foundation you', false); // hero headline
-    $response->assertSee('Get started free', false);       // primary CTA
-    $response->assertSee('Clear Signal', false);            // brand system
-    $response->assertSee('https://github.com/liberusoftware/boilerplate-laravel', false);
+    $response->assertSee('Turn every conversation into your next opportunity.', false);
+    $response->assertSee('Get started free', false);
+    $response->assertSee('Liberu CRM', false);
+    $response->assertSee('href="#features"', false);
 });
 
 it('links the landing CTAs to the real auth routes', function () {

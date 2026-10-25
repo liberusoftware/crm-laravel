@@ -15,7 +15,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 90
 
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
@@ -30,13 +30,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist --no-autoloader
-
-      - name: Restore tracked module source
-        run: |
-          git clean -fd modules themes
-          git restore --source=HEAD -- modules themes
-          composer dump-autoload --no-interaction --optimize
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       # A release is a claim that this tree is the one the fleet resolves to. Both halves
       # of that claim are checked here rather than assumed from a green Tests run on main:

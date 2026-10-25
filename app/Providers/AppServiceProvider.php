@@ -34,6 +34,7 @@ use Illuminate\Database\Console\Seeds\SeedCommand;
 use Illuminate\Database\Console\WipeCommand;
 use Illuminate\Foundation\Console\KeyGenerateCommand;
 use Illuminate\Foundation\Console\PackageDiscoverCommand;
+use Illuminate\Foundation\Console\VendorPublishCommand;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 use Liberu\Foundation\ModuleManager\ModuleDiscovery;
@@ -60,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
                 WipeCommand::class,
                 PackageDiscoverCommand::class,
                 SeedCommand::class,
+                VendorPublishCommand::class,
             ]);
             $this->commands([
                 BackupTeam::class,

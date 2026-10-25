@@ -10,13 +10,9 @@ use Livewire\Livewire;
 
 final class CaseManagementLivewireServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        Livewire::component('crm-case-management::case-browser', CaseBrowser::class);
-    }
-
     public function boot(): void
     {
+        Livewire::component('crm-case-management::case-browser', CaseBrowser::class);
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'crm-case-management');
     }
 }
