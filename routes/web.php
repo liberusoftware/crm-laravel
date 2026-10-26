@@ -52,14 +52,14 @@ Route::middleware('throttle:30,1')->group(function (): void {
 // SAML SP metadata (the XML handed to a team's IdP) — static, unthrottled.
 Route::get('/saml/{team}/metadata', SamlMetadataController::class)->name('saml.metadata');
 
-// Contact list API routes (no auth required for testing and public access)
+// Contact list routes
 // Specific routes must be defined before the wildcard {created_at?} route to avoid conflicts
 Route::delete('/contacts/bulk/delete', [ContactListController::class, 'bulkDelete'])->name('contacts.bulk.delete')->middleware('auth');
-Route::get('/contacts/autocomplete', [ContactListController::class, 'autocomplete'])->name('contacts.autocomplete');
+Route::get('/contacts/autocomplete', [ContactListController::class, 'autocomplete'])->name('contacts.autocomplete')->middleware('auth');
 // Optional {created_at?} path parameter ensures Carbon objects are serialized via __toString()
 // when passed to route() helper, unlike query string params which are skipped by http_build_query()
 Route::get('/contacts/{created_at?}', [ContactListController::class, 'index'])->name('contacts.list')
-    ->where('created_at', '.+');
+    ->where('created_at', '.+')->middleware('auth');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');

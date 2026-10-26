@@ -12,7 +12,10 @@ class ContactListController extends Controller
 {
     public function index(Request $request, ?string $created_at = null): View
     {
-        $query = Contact::query();
+        $teamId = $request->user()?->currentTeam?->getKey();
+        abort_unless($teamId, 403);
+
+        $query = Contact::query()->where('team_id', $teamId);
 
         if ($request->filled('search')) {
             $term = $request->string('search')->toString();
@@ -42,13 +45,16 @@ class ContactListController extends Controller
 
     public function bulkDelete(Request $request): JsonResponse
     {
+        $teamId = $request->user()?->currentTeam?->getKey();
+        abort_unless($teamId, 403);
+
         $validated = $request->validate([
             'ids' => 'required|array|min:1',
             'ids.*' => 'integer|exists:contacts,id',
         ]);
 
         $count = Contact::whereIn('id', $validated['ids'])
-            ->byTeam($request->user()?->currentTeam?->id)
+            ->where('team_id', $teamId)
             ->delete();
 
         return response()->json(['deleted' => $count]);
@@ -56,6 +62,9 @@ class ContactListController extends Controller
 
     public function autocomplete(Request $request): JsonResponse
     {
+        $teamId = $request->user()?->currentTeam?->getKey();
+        abort_unless($teamId, 403);
+
         $term = $request->string('query')->toString();
 
         $contacts = Contact::where(fn ($q) => $q
@@ -63,6 +72,7 @@ class ContactListController extends Controller
             // email is encrypted — exact match via the blind index only.
             ->orWhere('email_hash', Contact::hashEmail($term))
         )
+            ->where('team_id', $teamId)
             ->limit(10)
             ->get(['id', 'name', 'email']);
 

@@ -2,9 +2,13 @@
 
 namespace Tests\Unit;
 
+use App\Http\Controllers\ContactListController;
 use App\Models\Contact;
+use App\Models\Team;
 use App\Models\User;
+use App\Support\TenantContext;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -23,7 +27,7 @@ class ListContactsTest extends TestCase
 
     public function test_bulk_delete_action(): void
     {
-        $user = User::factory()->create();
+        $user = auth()->user();
         $contacts = Contact::factory()->count(5)->create();
         $deleteIds = $contacts->pluck('id')->toArray();
 
@@ -98,8 +102,64 @@ class ListContactsTest extends TestCase
         }
     }
 
+    public function test_guests_cannot_read_contacts(): void
+    {
+        auth()->forgetGuards();
+        TenantContext::clear();
+
+        $this->getJson(route('contacts.list'))->assertUnauthorized();
+        $this->getJson(route('contacts.list', ['created_at' => '2026-01-01']))->assertUnauthorized();
+        $this->getJson(route('contacts.autocomplete'))->assertUnauthorized();
+    }
+
+    public function test_reads_are_team_scoped_without_tenant_context(): void
+    {
+        $mine = Contact::factory()->create(['name' => 'Shared Name']);
+        $foreign = Contact::factory()->create([
+            'team_id' => Team::factory()->create()->id,
+            'name' => 'Shared Name',
+        ]);
+        TenantContext::clear();
+
+        foreach ([[], ['search' => 'Shared'], ['search' => $foreign->email]] as $parameters) {
+            $this->get(route('contacts.list', $parameters))
+                ->assertSuccessful()
+                ->assertViewHas('contacts', fn ($contacts) => ! $contacts->contains('id', $foreign->id));
+        }
+
+        $this->getJson(route('contacts.autocomplete', ['query' => 'Shared']))
+            ->assertOk()->assertJsonCount(1)->assertJsonPath('0.id', $mine->id);
+        $this->getJson(route('contacts.autocomplete', ['query' => $foreign->email]))
+            ->assertOk()->assertExactJson([]);
+    }
+
+    public function test_users_without_a_team_cannot_read_contacts(): void
+    {
+        $this->actingAs(User::factory()->create());
+        TenantContext::clear();
+
+        $this->getJson(route('contacts.list'))->assertForbidden();
+        $this->getJson(route('contacts.autocomplete'))->assertForbidden();
+    }
+
+    public function test_contact_controller_rejects_guests_without_route_authentication(): void
+    {
+        Route::middleware('web')->get('/test-public-contacts', [ContactListController::class, 'index']);
+        Route::middleware('web')->get('/test-public-contacts-autocomplete', [ContactListController::class, 'autocomplete']);
+        auth()->forgetGuards();
+        TenantContext::clear();
+
+        $this->getJson('/test-public-contacts')->assertForbidden();
+        $this->getJson('/test-public-contacts-autocomplete')->assertForbidden();
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        $user = User::factory()->withPersonalTeam()->create();
+        $user->switchTeam($user->ownedTeams()->first());
+        $this->actingAs($user);
+        TenantContext::set($user->current_team_id);
     }
 }
