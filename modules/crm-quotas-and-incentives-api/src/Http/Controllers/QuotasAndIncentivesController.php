@@ -45,7 +45,7 @@ final class QuotasAndIncentivesController extends Controller
 
     public function credits(Request $r, QuotaQuery $q)
     {
-        return response()->json(['data' => $q->credits($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->credits($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function credit(Request $r, CreditCommission $a)

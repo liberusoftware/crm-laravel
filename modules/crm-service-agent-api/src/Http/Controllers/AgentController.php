@@ -26,7 +26,7 @@ final class AgentController extends Controller
 
     public function cases(Request $r, AgentQuery $q)
     {
-        return response()->json(['data' => $q->cases($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->cases($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function storeCase(Request $r, CreateAgentCase $a)

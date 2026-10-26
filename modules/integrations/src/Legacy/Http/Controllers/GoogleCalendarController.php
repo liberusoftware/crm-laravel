@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class GoogleCalendarController extends Controller
 {
@@ -17,12 +18,19 @@ class GoogleCalendarController extends Controller
         $client->setAuthConfig(config('services.google.credentials_path'));
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri(route('google.callback'));
+        $state = Str::random(64);
+        session(['google_calendar_oauth_state' => $state]);
+        $client->setState($state);
 
         return redirect($client->createAuthUrl());
     }
 
     public function handleGoogleCallback(Request $request)
     {
+        $expectedState = $request->session()->pull('google_calendar_oauth_state');
+        $state = $request->input('state');
+        abort_unless(is_string($expectedState) && $expectedState !== '' && is_string($state) && hash_equals($expectedState, $state), 403);
+
         $client = new Google_Client();
         $client->setAuthConfig(config('services.google.credentials_path'));
         $client->setRedirectUri(route('google.callback'));

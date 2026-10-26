@@ -13,6 +13,8 @@ class AdvertisingAccount extends Model
     use HasFactory;
     use IsTenantModel;
 
+    protected $hidden = ['access_token', 'refresh_token'];
+
     protected $fillable = [
         'team_id',
         'name',

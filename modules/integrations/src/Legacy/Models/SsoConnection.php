@@ -19,6 +19,8 @@ class SsoConnection extends Model
     use HasFactory;
     use IsTenantModel;
 
+    protected $hidden = ['client_secret'];
+
     protected $fillable = [
         'team_id',
         'provider',

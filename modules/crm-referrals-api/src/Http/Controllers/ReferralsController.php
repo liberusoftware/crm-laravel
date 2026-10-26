@@ -33,7 +33,7 @@ final class ReferralsController extends Controller
 
     public function referrals(Request $r, ReferralQuery $q)
     {
-        return response()->json(['data' => $q->referrals($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->referrals($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function referral(Request $r, CreateReferral $a)

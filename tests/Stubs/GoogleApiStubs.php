@@ -6,9 +6,31 @@
 if (! class_exists('Google_Client')) {
     class Google_Client
     {
+        private ?string $redirectUri = null;
+
+        private ?string $state = null;
+
         public function setAuthConfig($config): void {}
 
         public function addScope($scope): void {}
+
+        public function setRedirectUri(string $uri): void
+        {
+            $this->redirectUri = $uri;
+        }
+
+        public function setState(string $state): void
+        {
+            $this->state = $state;
+        }
+
+        public function createAuthUrl(): string
+        {
+            return 'https://accounts.google.com/o/oauth2/auth?'.http_build_query([
+                'redirect_uri' => $this->redirectUri,
+                'state' => $this->state,
+            ]);
+        }
     }
 }
 

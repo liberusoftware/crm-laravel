@@ -23,7 +23,7 @@ final class AnalyticsController extends Controller
     {
         $team = $this->team($r);
 
-        return response()->json(['data' => $q->snapshots($team)->paginate((int) $r->integer('per_page', 50))]);
+        return response()->json(['data' => $q->snapshots($team)->paginate(min(100, max(1, $r->integer('per_page', 50))))]);
     }
 
     public function metric(Request $r, string $metric, AnalyticsQuery $q)

@@ -2,6 +2,8 @@
 
 return [
 
+    'seed_admin_password' => env('SEED_ADMIN_PASSWORD'),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     'env' => env('APP_ENV', 'production'),

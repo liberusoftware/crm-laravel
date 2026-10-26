@@ -43,7 +43,7 @@ final class RoutingController extends Controller
 
     public function assignments(Request $r, RoutingQuery $q)
     {
-        return response()->json(['data' => $q->assignments($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->assignments($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function assign(Request $r, AssignSubject $a)

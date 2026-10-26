@@ -34,7 +34,7 @@ final class ReleaseController extends Controller
 
     public function changesets(Request $r, ReleaseQuery $q)
     {
-        return response()->json(['data' => $q->changesets($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->changesets($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function changeset(Request $r, CreateChangeset $a)

@@ -2,10 +2,9 @@
 // Standalone installer UI (no Laravel bootstrap required for the pre-composer steps).
 // Place this file at public/installer.php
 //
-// Security:
-// - Set INSTALLER_ENABLED=true in .env to enable this UI.
-// - Optionally set INSTALLER_KEY in .env and provide ?key=... or send key in POST to authenticate.
-// - Remove/disable after use.
+// Enable with INSTALLER_ENABLED=true and a nonempty INSTALLER_KEY.
+// Authentication uses a dedicated session; keys are never accepted in URLs.
+// Remove or disable this installer after setup.
 
 function dotenv_get($key)
 {
@@ -52,40 +51,68 @@ function enabled()
     return in_array($val, ['1', 'true', 'on', 'yes'], true);
 }
 
-function check_key()
+function check_key(): bool
 {
     $required = dotenv_get('INSTALLER_KEY');
     if ($required === false || $required === '') {
-        return true;
-    } // not configured
-    $provided = $_REQUEST['key'] ?? null;
+        return false;
+    }
+    $fingerprint = hash('sha256', (string) $required);
+    $provided = $_POST['key'] ?? $_SERVER['HTTP_X_INSTALLER_KEY'] ?? null;
+    if (is_string($provided) && hash_equals((string) $required, $provided)) {
+        session_regenerate_id(true);
+        $_SESSION['installer_auth'] = $fingerprint;
+    }
 
-    return is_string($provided) && hash_equals((string) $required, (string) $provided);
+    return is_string($_SESSION['installer_auth'] ?? null)
+        && hash_equals($fingerprint, $_SESSION['installer_auth']);
 }
+
+header('Cache-Control: no-store');
+header('Referrer-Policy: no-referrer');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
 
 if (! enabled()) {
     http_response_code(403);
-    echo '<!doctype html><html><body><h2>Installer disabled</h2><p>Set INSTALLER_ENABLED=true in your .env to enable.</p></body></html>';
+    echo '<!doctype html><html><body><h2>Installer disabled</h2></body></html>';
     exit;
 }
 
+session_name('liberu_installer_'.substr(hash('sha256', __DIR__), 0, 12));
+session_start([
+    'use_strict_mode' => true,
+    'use_only_cookies' => true,
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict',
+    'cookie_secure' => ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+]);
+
 if (! check_key()) {
-    // Simple prompt page for key
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key'])) {
-        // redirect with key in query for convenient requests (short-lived)
-        $key = urlencode($_POST['key']);
-        $uri = strtok($_SERVER['REQUEST_URI'], '?');
-        header("Location: {
-$uri}?key={
-$key}");
-        exit;
-    }
-    echo '<!doctype html><html><body style="font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif">';
-    echo '<h2>Installer - Authentication</h2>';
-    echo '<form method="POST"><label>Installer Key: <input name="key" type="password" /></label> <button type="submit">Unlock</button></form>';
+    http_response_code(403);
+    echo '<!doctype html><html><body><h2>Installer Authentication</h2>';
+    echo '<form method="POST" action="installer.php"><label>Installer Key: <input name="key" type="password" autocomplete="off" /></label> <button type="submit">Unlock</button></form>';
     echo '</body></html>';
     exit;
 }
+
+if (isset($_POST['key']) && ! isset($_REQUEST['action'])) {
+    header('Location: installer.php', true, 303);
+    exit;
+}
+
+$_SESSION['installer_csrf'] ??= bin2hex(random_bytes(32));
+$installerCsrf = $_SESSION['installer_csrf'];
+if (isset($_REQUEST['action']) && $_REQUEST['action'] !== 'status') {
+    $providedCsrf = $_SERVER['HTTP_X_INSTALLER_CSRF'] ?? null;
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ! is_string($providedCsrf) || ! hash_equals($installerCsrf, $providedCsrf)) {
+        http_response_code(403);
+        header('Content-Type: application/json');
+        echo json_encode(['ok' => false, 'message' => 'Invalid installer CSRF token']);
+        exit;
+    }
+}
+session_write_close();
 
 // Helper to run a shell command and return output and exit code
 function run_cmd($cmd, &$output = null)
@@ -860,7 +887,7 @@ function escapeJs(text) {
 
 async function checkStatus(){
   try {
-    const res = await fetch(window.location.pathname + '?action=status&key=' + encodeURIComponent(getKey()));
+    const res = await installerFetch(window.location.pathname + '?action=status');
     const j = await res.json();
     
     // Update status display
@@ -883,9 +910,13 @@ async function checkStatus(){
   }
 }
 
-function getKey() {
-  const qp = new URLSearchParams(window.location.search);
-  return qp.get('key') || '';
+const installerCsrf = <?= json_encode($installerCsrf, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+
+function installerFetch(url, options = {}) {
+  return fetch(url, {
+    ...options,
+    headers: {...(options.headers || {}), 'X-Installer-CSRF': installerCsrf}
+  });
 }
 
 async function run(action){
@@ -911,7 +942,7 @@ async function run(action){
   append("⏳ Starting " + action + "...");
   
   try {
-    const res = await fetch(window.location.pathname + '?action=' + encodeURIComponent(action) + '&key=' + encodeURIComponent(getKey()), { method: 'POST' });
+    const res = await installerFetch(window.location.pathname + '?action=' + encodeURIComponent(action) + '', { method: 'POST' });
     const j = await res.json();
     
     if (j.skipped) {
@@ -1022,7 +1053,7 @@ function saveSettings(){
     db_password: document.getElementById('db_password').value,
   };
   append("Saving settings...");
-  fetch(window.location.pathname + '?action=save_settings&key=' + encodeURIComponent(getKey()), {
+  installerFetch(window.location.pathname + '?action=save_settings', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(payload)
@@ -1044,7 +1075,7 @@ function testDb(){
     db_password: document.getElementById('db_password').value,
   };
   append("Testing DB connection...");
-  fetch(window.location.pathname + '?action=test_db&key=' + encodeURIComponent(getKey()), {
+  installerFetch(window.location.pathname + '?action=test_db', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(payload)
@@ -1076,7 +1107,7 @@ function createUsers(){
     };
   });
   append("Creating users...");
-  fetch(window.location.pathname + '?action=create_users&key=' + encodeURIComponent(getKey()), {
+  installerFetch(window.location.pathname + '?action=create_users', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify({ users })
@@ -1089,7 +1120,7 @@ function createUsers(){
 async function listModules(){
   append("Listing modules...");
   try {
-    const res = await fetch(window.location.pathname + '?action=list_modules&key=' + encodeURIComponent(getKey()), { method: 'POST' });
+    const res = await installerFetch(window.location.pathname + '?action=list_modules', { method: 'POST' });
     const j = await res.json();
     
     if (j.modules) {
@@ -1189,7 +1220,7 @@ function displayModulesTable(output) {
 async function enableModule(moduleName){
   append(`Enabling module: ${moduleName}...`);
   try {
-    const res = await fetch(window.location.pathname + '?action=enable_module&key=' + encodeURIComponent(getKey()), {
+    const res = await installerFetch(window.location.pathname + '?action=enable_module', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ module_name: moduleName })
@@ -1207,7 +1238,7 @@ async function enableModule(moduleName){
 async function installModule(moduleName){
   append(`Installing module: ${moduleName}...`);
   try {
-    const res = await fetch(window.location.pathname + '?action=install_module&key=' + encodeURIComponent(getKey()), {
+    const res = await installerFetch(window.location.pathname + '?action=install_module', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ module_name: moduleName })
