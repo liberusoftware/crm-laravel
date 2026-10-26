@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-deal-registration-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DealRegistrationFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DealRegistrationFilament\\DealRegistrationFilamentServiceProvider"]},"liberu":{"name":"module-crm-deal-registration-filament"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-email-marketing-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EmailMarketingApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EmailMarketingApi\\EmailMarketingApiServiceProvider"]},"liberu":{"name":"module-crm-email-marketing-api"}}}

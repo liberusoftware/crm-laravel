@@ -1,0 +1,1 @@
+<section aria-labelledby="success-heading"><h2 id="success-heading">Customer success</h2><ul>@forelse($customers as $customer)<li>{{ $customer->customer_key }} — health {{ $customer->health_score }} — {{ $customer->lifecycle }}</li>@empty<li>No customers.</li>@endforelse</ul><p>Open risks: {{ $risks->count() }}</p></section>

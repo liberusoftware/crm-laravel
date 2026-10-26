@@ -1,0 +1,1 @@
+<section aria-labelledby="cdp-heading"><h2 id="cdp-heading">Customer data platform</h2><p>{{ $profiles->count() }} unified profiles</p><ul>@forelse($audiences as $audience)<li>{{ $audience->name }} — {{ $audience->status }}</li>@empty<li>No audiences.</li>@endforelse</ul></section>

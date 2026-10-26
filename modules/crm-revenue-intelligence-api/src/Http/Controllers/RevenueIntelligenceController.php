@@ -22,7 +22,7 @@ final class RevenueIntelligenceController extends Controller
 
     public function insights(Request $r, RevenueIntelligenceQuery $q)
     {
-        return response()->json(['data' => $q->insights($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->insights($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function insight(Request $r, RecordInsight $a)

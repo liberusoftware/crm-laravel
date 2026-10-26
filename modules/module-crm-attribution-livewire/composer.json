@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-attribution-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AttributionLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AttributionLivewire\\AttributionLivewireServiceProvider"]},"liberu":{"name":"module-crm-attribution-livewire"}}}

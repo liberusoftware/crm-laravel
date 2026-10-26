@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-case-management-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CaseManagementApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CaseManagementApi\\CaseManagementApiServiceProvider"]},"liberu":{"name":"module-crm-case-management-api"}}}

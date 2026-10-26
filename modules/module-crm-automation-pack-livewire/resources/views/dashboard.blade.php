@@ -1,0 +1,1 @@
+<section aria-labelledby="automation-heading"><h2 id="automation-heading">CRM Automation</h2><ul>@forelse($recipes as $recipe)<li>{{ $recipe->name }} — {{ $recipe->status }} — v{{ $recipe->version }}</li>@empty<li>No automation recipes.</li>@endforelse</ul></section>

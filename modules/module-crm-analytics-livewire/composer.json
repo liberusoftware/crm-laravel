@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-analytics-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AnalyticsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AnalyticsLivewire\\AnalyticsLivewireServiceProvider"]},"liberu":{"name":"module-crm-analytics-livewire"}}}

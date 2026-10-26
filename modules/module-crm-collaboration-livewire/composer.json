@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-collaboration-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CollaborationLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CollaborationLivewire\\CollaborationLivewireServiceProvider"]},"liberu":{"name":"module-crm-collaboration-livewire"}}}

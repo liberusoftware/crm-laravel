@@ -34,7 +34,7 @@ final class ReputationManagementController extends Controller
 
     public function requests(Request $r, ReputationQuery $q)
     {
-        return response()->json(['data' => $q->requests($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->requests($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function request(Request $r, CreateReviewRequest $a)
@@ -44,7 +44,7 @@ final class ReputationManagementController extends Controller
 
     public function reviews(Request $r, ReputationQuery $q)
     {
-        return response()->json(['data' => $q->reviews($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->reviews($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function review(Request $r, RecordReview $a)

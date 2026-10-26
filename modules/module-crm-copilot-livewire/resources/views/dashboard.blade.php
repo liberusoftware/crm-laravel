@@ -1,0 +1,1 @@
+<section aria-labelledby="copilot-heading"><h2 id="copilot-heading">CRM Copilot</h2><p>Requests require confirmation before record changes or task creation.</p><ul>@forelse($requests as $request)<li>{{ $request->kind }} — {{ $request->status }}</li>@empty<li>No copilot requests.</li>@endforelse</ul></section>

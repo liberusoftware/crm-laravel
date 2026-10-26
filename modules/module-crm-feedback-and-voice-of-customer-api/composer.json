@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-feedback-and-voice-of-customer-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\FeedbackAndVoiceOfCustomerApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\FeedbackAndVoiceOfCustomerApi\\FeedbackAndVoiceOfCustomerApiServiceProvider"]},"liberu":{"name":"module-crm-feedback-and-voice-of-customer-api"}}}

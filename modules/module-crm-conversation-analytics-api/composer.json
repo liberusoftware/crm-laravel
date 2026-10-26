@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-conversation-analytics-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ConversationAnalyticsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ConversationAnalyticsApi\\ConversationAnalyticsApiServiceProvider"]},"liberu":{"name":"module-crm-conversation-analytics-api"}}}

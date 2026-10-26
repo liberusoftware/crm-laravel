@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-advertising-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AdvertisingLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AdvertisingLivewire\\AdvertisingLivewireServiceProvider"]},"liberu":{"name":"module-crm-advertising-livewire"}}}

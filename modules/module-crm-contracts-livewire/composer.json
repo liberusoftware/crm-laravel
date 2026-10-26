@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-contracts-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ContractsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ContractsLivewire\\ContractsLivewireServiceProvider"]},"liberu":{"name":"module-crm-contracts-livewire"}}}

@@ -5,7 +5,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.5",
-    "livewire/livewire": "^4.0",
+    "livewire/livewire": "^4.4.8",
     "liberusoftware/feature-flags": "^1.0"
   },
   "autoload": {
@@ -29,7 +29,7 @@
   },
   "require-dev": {
     "liberusoftware/package-testbench": "^1.7",
-    "pestphp/pest": "^5.0"
+    "pestphp/pest": "^5.3.3"
   },
   "scripts": {
     "test": "pest"

@@ -21,7 +21,7 @@ final class WorkspaceController extends Controller
 
     public function feed(Request $r, WorkspaceQuery $q)
     {
-        return response()->json(['data' => $q->feed($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->feed($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function overdue(Request $r, WorkspaceQuery $q)

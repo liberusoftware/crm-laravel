@@ -39,12 +39,12 @@ final class PipelineController extends Controller
 
     public function opportunities(Request $r, PipelineQuery $q)
     {
-        return response()->json(['data' => $q->opportunities($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->opportunities($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function rottingOpportunities(Request $r, PipelineQuery $q)
     {
-        return response()->json(['data' => $q->rottingOpportunities($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->rottingOpportunities($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function opportunity(Request $r, CreateOpportunity $a)

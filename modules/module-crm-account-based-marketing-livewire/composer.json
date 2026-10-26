@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-account-based-marketing-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AccountBasedMarketingLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AccountBasedMarketingLivewire\\AccountBasedMarketingLivewireServiceProvider"]},"liberu":{"name":"module-crm-account-based-marketing-livewire"}}}

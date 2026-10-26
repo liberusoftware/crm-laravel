@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-case-management-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CaseManagementLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CaseManagementLivewire\\CaseManagementLivewireServiceProvider"]},"liberu":{"name":"module-crm-case-management-livewire"}}}

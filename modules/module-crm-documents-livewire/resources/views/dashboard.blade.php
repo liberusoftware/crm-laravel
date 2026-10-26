@@ -1,0 +1,1 @@
+<section aria-labelledby="documents-heading"><h2 id="documents-heading">Documents</h2><ul>@forelse($documents as $document)<li>{{ $document->name }} — {{ $document->kind }} — {{ $document->storage_provider }}</li>@empty<li>No documents.</li>@endforelse</ul></section>

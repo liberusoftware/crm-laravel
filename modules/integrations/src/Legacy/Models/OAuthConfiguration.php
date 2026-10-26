@@ -18,6 +18,8 @@ class OAuthConfiguration extends Model
 
     protected $table = 'oauth_configurations';
 
+    protected $hidden = ['client_secret', 'access_token', 'refresh_token'];
+
     protected $fillable = [
         'user_id',
         'service_name',

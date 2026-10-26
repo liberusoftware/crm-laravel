@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-automation-pack-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AutomationPackLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AutomationPackLivewire\\AutomationPackLivewireServiceProvider"]},"liberu":{"name":"module-crm-automation-pack-livewire"}}}

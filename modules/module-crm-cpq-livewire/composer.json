@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-cpq-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CPQLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CPQLivewire\\CpqLivewireServiceProvider"]},"liberu":{"name":"module-crm-cpq-livewire"}}}

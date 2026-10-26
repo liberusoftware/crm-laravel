@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-search-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CrmSearchLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CrmSearchLivewire\\CrmSearchLivewireServiceProvider"]},"liberu":{"name":"module-crm-search-livewire"}}}

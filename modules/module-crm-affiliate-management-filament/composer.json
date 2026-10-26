@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-affiliate-management-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AffiliateManagementFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AffiliateManagementFilament\\AffiliateManagementFilamentServiceProvider"]},"liberu":{"name":"module-crm-affiliate-management-filament"}}}

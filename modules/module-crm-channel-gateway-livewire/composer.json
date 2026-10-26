@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-channel-gateway-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ChannelGatewayLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ChannelGatewayLivewire\\ChannelGatewayLivewireServiceProvider"]},"liberu":{"name":"module-crm-channel-gateway-livewire"}}}

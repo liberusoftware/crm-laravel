@@ -45,7 +45,7 @@ final class ProspectingController extends Controller
 
     public function prospects(Request $r, ProspectingQuery $q)
     {
-        return response()->json(['data' => $q->prospects($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->prospects($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function prospect(Request $r, ImportProspect $a)

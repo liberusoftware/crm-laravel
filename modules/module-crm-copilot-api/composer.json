@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-copilot-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CopilotApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CopilotApi\\CopilotApiServiceProvider"]},"liberu":{"name":"module-crm-copilot-api"}}}

@@ -1,0 +1,1 @@
+<section aria-labelledby="field-service-heading"><h2 id="field-service-heading">Field appointments</h2><ul>@forelse($appointments as $appointment)<li>{{ $appointment->subject }} — {{ $appointment->status }} — {{ $appointment->starts_at }}</li>@empty<li>No appointments scheduled.</li>@endforelse</ul></section>

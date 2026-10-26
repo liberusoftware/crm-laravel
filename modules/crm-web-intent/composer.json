@@ -5,5 +5,5 @@
   "license": "MIT",
   "autoload": { "psr-4": { "Liberu\\CRM\\WebIntent\\": "src/" } },
   "extra": { "laravel": { "providers": ["Liberu\\CRM\\WebIntent\\WebIntentServiceProvider"] }, "liberu": { "name": "crm-web-intent" } },
-  "require": { "php": "^8.5", "illuminate/database": "^13.0", "illuminate/events": "^13.0", "illuminate/validation": "^13.0", "liberusoftware/module-manager": "^1.0" }
+  "require": { "php": "^8.5", "illuminate/database": "^13.38.0", "illuminate/events": "^13.38.0", "illuminate/validation": "^13.38.0", "liberusoftware/module-manager": "^1.0" }
 }

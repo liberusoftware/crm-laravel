@@ -42,7 +42,7 @@ final class SaasController extends Controller
 
     public function usage(Request $r, SaasQuery $q)
     {
-        return response()->json(['data' => $q->usage($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->usage($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function recordUsage(Request $r, RecordUsage $a)

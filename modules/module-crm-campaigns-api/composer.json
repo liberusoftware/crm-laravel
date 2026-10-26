@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-campaigns-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CampaignsApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CampaignsApi\\CampaignsApiServiceProvider"]},"liberu":{"name":"module-crm-campaigns-api"}}}

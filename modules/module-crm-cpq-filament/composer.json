@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-cpq-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CPQFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CPQFilament\\CpqFilamentServiceProvider"]},"liberu":{"name":"module-crm-cpq-filament"}}}

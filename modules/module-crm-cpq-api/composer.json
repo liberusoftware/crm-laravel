@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-cpq-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CPQApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CPQApi\\CpqApiServiceProvider"]},"liberu":{"name":"module-crm-cpq-api"}}}

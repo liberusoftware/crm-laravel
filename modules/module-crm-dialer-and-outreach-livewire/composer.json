@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-dialer-and-outreach-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DialerAndOutreachLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DialerAndOutreachLivewire\\DialerAndOutreachLivewireServiceProvider"]},"liberu":{"name":"module-crm-dialer-and-outreach-livewire"}}}

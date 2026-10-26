@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-customer-data-platform-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\CustomerDataPlatformFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\CustomerDataPlatformFilament\\CustomerDataPlatformFilamentServiceProvider"]},"liberu":{"name":"module-crm-customer-data-platform-filament"}}}

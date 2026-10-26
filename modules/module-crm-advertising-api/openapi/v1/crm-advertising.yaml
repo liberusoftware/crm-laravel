@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: CRM Advertising API
+  version: 1.0.0
+paths:
+  /api/v1/crm/advertising/records:
+    get:
+      operationId: crm.advertising.list
+      security: [{ sanctum: [] }]
+      parameters:
+        - { name: kind, in: query, schema: { type: string } }
+        - { name: per_page, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 25 } }
+      responses:
+        '200': { $ref: '#/components/responses/ResourceCollection' }
+    post:
+      operationId: crm.advertising.create
+      security: [{ sanctum: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/AdvertisingRequest' } }
+      responses:
+        '201': { $ref: '#/components/responses/Resource' }
+  /api/v1/crm/advertising/records/{record}:
+    parameters:
+      - { name: record, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: crm.advertising.get
+      security: [{ sanctum: [] }]
+      responses:
+        '200': { $ref: '#/components/responses/Resource' }
+    patch:
+      operationId: crm.advertising.update
+      security: [{ sanctum: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/AdvertisingRequest' } }
+      responses:
+        '200': { $ref: '#/components/responses/Resource' }
+    delete:
+      operationId: crm.advertising.archive
+      security: [{ sanctum: [] }]
+      responses:
+        '204': { description: Record archived. }
+  /api/v1/crm/advertising/records/{record}/transition:
+    post:
+      operationId: crm.advertising.transition
+      security: [{ sanctum: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { type: string, enum: [draft, active, paused, completed, archived] }
+      responses:
+        '200': { $ref: '#/components/responses/Resource' }
+components:
+  securitySchemes:
+    sanctum: { type: http, scheme: bearer, bearerFormat: Sanctum }
+  schemas:
+    AdvertisingRequest:
+      type: object
+      properties:
+        kind: { type: string, enum: [ad_account_connection, campaign, lead_ad, crm_audience, offline_conversion, performance_sync, attribution] }
+        name: { type: string, maxLength: 255 }
+        status: { type: string, enum: [draft, active, paused, completed, archived] }
+        external_id: { type: string, nullable: true, maxLength: 255 }
+        platform: { type: string, nullable: true, maxLength: 48 }
+        payload: { type: object, additionalProperties: true }
+        starts_at: { type: string, format: date-time, nullable: true }
+        ends_at: { type: string, format: date-time, nullable: true }
+    AdvertisingResource:
+      type: object
+      required: [id, type, attributes]
+      properties:
+        id: { type: string }
+        type: { type: string, const: crm-advertising }
+        attributes: { $ref: '#/components/schemas/AdvertisingRequest' }
+  responses:
+    Resource:
+      description: Authorized advertising record.
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [data]
+            properties:
+              data: { $ref: '#/components/schemas/AdvertisingResource' }
+    ResourceCollection:
+      description: Authorized advertising records.
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [data]
+            properties:
+              data:
+                type: array
+                items: { $ref: '#/components/schemas/AdvertisingResource' }

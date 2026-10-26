@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-advertising-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AdvertisingApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AdvertisingApi\\AdvertisingApiServiceProvider"]},"liberu":{"name":"module-crm-advertising-api"}}}

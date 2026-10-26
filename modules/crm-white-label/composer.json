@@ -5,5 +5,5 @@
   "license": "MIT",
   "autoload": { "psr-4": { "Liberu\\CRM\\WhiteLabel\\": "src/" } },
   "extra": { "laravel": { "providers": ["Liberu\\CRM\\WhiteLabel\\WhiteLabelServiceProvider"] }, "liberu": { "name": "crm-white-label" } },
-  "require": { "php": "^8.5", "illuminate/database": "^13.0", "illuminate/events": "^13.0", "illuminate/validation": "^13.0", "liberusoftware/module-manager": "^1.0" }
+  "require": { "php": "^8.5", "illuminate/database": "^13.38.0", "illuminate/events": "^13.38.0", "illuminate/validation": "^13.38.0", "liberusoftware/module-manager": "^1.0" }
 }

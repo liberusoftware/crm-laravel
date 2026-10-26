@@ -25,7 +25,7 @@ final class ProjectsController extends Controller
 
     public function projects(Request $r, ProjectQuery $q)
     {
-        return response()->json(['data' => $q->projects($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->projects($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function project(Request $r, CreateProject $a)

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-account-planning-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AccountPlanningLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AccountPlanningLivewire\\AccountPlanningLivewireServiceProvider"]},"liberu":{"name":"module-crm-account-planning-livewire"}}}

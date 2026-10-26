@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-email-productivity-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EmailProductivityLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EmailProductivityLivewire\\EmailProductivityLivewireServiceProvider"]},"liberu":{"name":"module-crm-email-productivity-livewire"}}}

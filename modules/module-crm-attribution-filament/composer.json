@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-attribution-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AttributionFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AttributionFilament\\AttributionFilamentServiceProvider"]},"liberu":{"name":"module-crm-attribution-filament"}}}

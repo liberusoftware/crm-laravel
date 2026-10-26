@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-conversion-optimization-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ConversionOptimizationFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ConversionOptimizationFilament\\ConversionOptimizationFilamentServiceProvider"]},"liberu":{"name":"module-crm-conversion-optimization-filament"}}}

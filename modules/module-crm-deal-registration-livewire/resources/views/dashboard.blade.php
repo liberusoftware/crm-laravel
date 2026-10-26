@@ -1,0 +1,1 @@
+<section aria-labelledby="deals-heading"><h2 id="deals-heading">Deal registration</h2><ul>@forelse($deals as $deal)<li>{{ $deal->company }} — {{ $deal->status }} — {{ $deal->territory }}</li>@empty<li>No registered deals.</li>@endforelse</ul></section>

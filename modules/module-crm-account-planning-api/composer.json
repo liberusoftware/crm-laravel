@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-account-planning-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\AccountPlanningApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\AccountPlanningApi\\AccountPlanningApiServiceProvider"]},"liberu":{"name":"module-crm-account-planning-api"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-events-and-webinars-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\EventsAndWebinarsFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\EventsAndWebinarsFilament\\EventsAndWebinarsFilamentServiceProvider"]},"liberu":{"name":"module-crm-events-and-webinars-filament"}}}

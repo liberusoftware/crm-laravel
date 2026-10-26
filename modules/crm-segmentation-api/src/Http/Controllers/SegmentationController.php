@@ -23,7 +23,7 @@ final class SegmentationController extends Controller
 
     public function index(Request $r, SegmentationQuery $q)
     {
-        return response()->json(['data' => $q->audiences($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->audiences($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function store(Request $r, CreateAudience $a)
@@ -38,7 +38,7 @@ final class SegmentationController extends Controller
 
     public function members(Request $r, int $audience, SegmentationQuery $q)
     {
-        return response()->json(['data' => $q->members($this->team($r), $audience)->paginate((int) $r->integer('per_page', 50))]);
+        return response()->json(['data' => $q->members($this->team($r), $audience)->paginate(min(100, max(1, $r->integer('per_page', 50))))]);
     }
 
     public function refresh(Request $r, int $audience, RefreshAudience $a)

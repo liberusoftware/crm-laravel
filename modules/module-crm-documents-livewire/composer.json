@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-documents-livewire","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\DocumentsLivewire\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\DocumentsLivewire\\DocumentsLivewireServiceProvider"]},"liberu":{"name":"module-crm-documents-livewire"}}}

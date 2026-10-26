@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-forecasting-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ForecastingFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ForecastingFilament\\ForecastingFilamentServiceProvider"]},"liberu":{"name":"module-crm-forecasting-filament"}}}

@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-conversation-intelligence-filament","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\ConversationIntelligenceFilament\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\ConversationIntelligenceFilament\\ConversationIntelligenceFilamentServiceProvider"]},"liberu":{"name":"module-crm-conversation-intelligence-filament"}}}

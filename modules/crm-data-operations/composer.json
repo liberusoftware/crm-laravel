@@ -4,7 +4,7 @@
     "type": "liberu-module",
     "require": {
         "php": "^8.5",
-        "illuminate/database": "^13.0",
+        "illuminate/database": "^13.38.0",
         "liberusoftware/module-manager": "^1.0",
         "liberusoftware/module-crm-core": "^1.0"
     },

@@ -40,7 +40,7 @@ final class EngagementController extends Controller
 
     public function enrollments(Request $r, EngagementQuery $q)
     {
-        return response()->json(['data' => $q->enrollments($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->enrollments($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function enroll(Request $r, EnrollContact $a)

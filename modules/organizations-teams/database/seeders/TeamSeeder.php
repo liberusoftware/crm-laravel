@@ -19,7 +19,7 @@ class TeamSeeder extends Seeder
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Admin User',
-                'password' => Hash::make(Str::random(32)),
+                'password' => Hash::make((string) (config('app.seed_admin_password') ?: Str::random(64))),
                 'email_verified_at' => now(),
             ],
         );

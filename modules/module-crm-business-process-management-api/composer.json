@@ -1,0 +1,1 @@
+{"name":"liberusoftware/module-crm-business-process-management-api","type":"liberu-module","autoload":{"psr-4":{"Liberu\\CRM\\BusinessProcessManagementApi\\":"src/"}},"extra":{"laravel":{"providers":["Liberu\\CRM\\BusinessProcessManagementApi\\BusinessProcessManagementApiServiceProvider"]},"liberu":{"name":"module-crm-business-process-management-api"}}}

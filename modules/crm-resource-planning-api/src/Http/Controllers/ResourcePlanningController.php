@@ -44,7 +44,7 @@ final class ResourcePlanningController extends Controller
 
     public function bookings(Request $r, ResourcePlanningQuery $q)
     {
-        return response()->json(['data' => $q->bookings($this->team($r))->paginate((int) $r->integer('per_page', 25))]);
+        return response()->json(['data' => $q->bookings($this->team($r))->paginate(min(100, max(1, $r->integer('per_page', 25))))]);
     }
 
     public function booking(Request $r, CreateBooking $a)
