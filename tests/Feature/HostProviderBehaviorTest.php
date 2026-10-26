@@ -15,6 +15,7 @@ use Filament\Panel;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Socialite\Facades\Socialite;
@@ -30,8 +31,16 @@ it('schedules publishing and analytics commands and loads console routes', funct
         ->and($events[0]->command)->toContain('social-media:publish-scheduled')
         ->and($events[0]->expression)->toBe('* * * * *')
         ->and($events[1]->command)->toContain('social-media:update-analytics')
-        ->and($events[1]->expression)->toBe('0 * * * *')
-        ->and($this->app->make(ConsoleKernel::class)->all())->toHaveKey('inspire');
+        ->and($events[1]->expression)->toBe('0 * * * *');
+
+    $configuredKernel = $this->app->make(ConsoleKernel::class);
+    Artisan::swap($kernel);
+    try {
+        expect($kernel->all())->toHaveKey('inspire');
+        $this->artisan('inspire')->assertExitCode(0);
+    } finally {
+        Artisan::swap($configuredKernel);
+    }
 });
 
 it('reports application exceptions through its registered callback', function () {
