@@ -13,6 +13,7 @@ use App\Providers\SocialstreamServiceProvider;
 use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\RateLimiter;
@@ -30,7 +31,7 @@ it('schedules publishing and analytics commands and loads console routes', funct
         ->and($events[0]->expression)->toBe('* * * * *')
         ->and($events[1]->command)->toContain('social-media:update-analytics')
         ->and($events[1]->expression)->toBe('0 * * * *')
-        ->and($kernel->all())->toHaveKey('inspire');
+        ->and($this->app->make(ConsoleKernel::class)->all())->toHaveKey('inspire');
 });
 
 it('reports application exceptions through its registered callback', function () {
