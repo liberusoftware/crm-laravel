@@ -26,7 +26,6 @@ use App\Modules\ModuleManager;
 use App\Modules\ModuleServiceProvider;
 use App\Observers\AuditObserver;
 use App\Support\SsoLogoutState;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\Console\Migrations\InstallCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Console\Migrations\StatusCommand;
@@ -95,13 +94,11 @@ class AppServiceProvider extends ServiceProvider
         Jetstream::useTeamModel(Team::class);
 
         if ($this->app->runningInConsole()) {
-            $kernel = $this->app->make(Kernel::class);
-            $artisan = \Closure::bind(fn () => $this->getArtisan(), $kernel, $kernel)();
-            $command = $artisan->get('db:seed');
-
-            if ($command !== null && ! $command->getDefinition()->hasOption('tenants')) {
-                $command->getDefinition()->addOption(new InputOption('tenants', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL));
-            }
+            $this->app->resolving(SeedCommand::class, function (SeedCommand $command): void {
+                if (! $command->getDefinition()->hasOption('tenants')) {
+                    $command->getDefinition()->addOption(new InputOption('tenants', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL));
+                }
+            });
         }
 
         // Audit core tenant models. Never observe AuditLog itself -> infinite recursion.

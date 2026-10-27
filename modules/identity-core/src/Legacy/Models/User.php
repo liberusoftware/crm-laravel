@@ -28,6 +28,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Liberu\Foundation\Observability\Contracts\ObservabilityActor;
 use Liberu\Foundation\Organizations\Contracts\OrganizationActor;
 use Liberu\Foundation\Search\Concerns\Searchable;
+use Liberu\Foundation\UsersRoles\Concerns\HasUserRoles;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 use Spatie\Permission\PermissionRegistrar;
@@ -47,6 +48,7 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
     use HasTeams {
         HasTeams::teams insteadof HasRoles;
     }
+    use HasUserRoles;
     use LogsActivity;
     use Notifiable;
     use Searchable;

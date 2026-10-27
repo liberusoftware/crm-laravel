@@ -6,7 +6,8 @@
   "require": {
     "php": "^8.5",
     "illuminate/support": "^13.38.0",
-    "liberusoftware/module-manager": "^1.0"
+    "liberusoftware/module-manager": "^1.0",
+    "liberusoftware/users-roles": "^1.0"
   },
   "autoload": {
     "psr-4": {

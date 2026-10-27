@@ -10,7 +10,8 @@
     "php": "^8.5",
     "laravel": "^13.0",
     "packages": {
-      "liberusoftware/module-manager": "^1.0"
+      "liberusoftware/module-manager": "^1.0",
+      "liberusoftware/users-roles": "^1.0"
     }
   },
   "suggests": {

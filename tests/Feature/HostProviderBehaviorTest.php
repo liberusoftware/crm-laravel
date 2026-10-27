@@ -34,6 +34,8 @@ it('schedules publishing and analytics commands and loads console routes', funct
         ->and($events[1]->expression)->toBe('0 * * * *');
 
     $configuredKernel = $this->app->make(ConsoleKernel::class);
+    expect($configuredKernel->all())->toHaveKey('inspire')
+        ->and($configuredKernel->all()['db:seed']->getDefinition()->hasOption('tenants'))->toBeTrue();
     Artisan::swap($kernel);
     try {
         expect($kernel->all())->toHaveKey('inspire');

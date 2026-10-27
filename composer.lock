@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71cafe25ebd4a17b778857b6a7249406",
+    "content-hash": "b05a94250045119789e676a55a489019",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -7525,11 +7525,12 @@
             "dist": {
                 "type": "path",
                 "url": "modules/identity-core",
-                "reference": "9efd022ea62c3e8215701a951e147141dc3f4cf6"
+                "reference": "2f4e58cf6f584ea629f323cbd88ce7975ca34d31"
             },
             "require": {
                 "illuminate/support": "^13.38.0",
                 "liberusoftware/module-manager": "^1.0",
+                "liberusoftware/users-roles": "^1.0",
                 "php": "^8.5"
             },
             "require-dev": {
@@ -22594,6 +22595,56 @@
                 "MIT"
             ],
             "description": "Two-Factor Authentication livewire presentation adapter.",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "liberusoftware/users-roles",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "modules/users-roles",
+                "reference": "5898198acaebd47b5494874eb18415fac6415c09"
+            },
+            "require": {
+                "illuminate/auth": "^13.0",
+                "illuminate/contracts": "^13.0",
+                "illuminate/database": "^13.0",
+                "illuminate/support": "^13.0",
+                "php": "^8.5",
+                "spatie/laravel-permission": "^8.0"
+            },
+            "require-dev": {
+                "liberusoftware/package-testbench": "^1.5",
+                "pestphp/pest": "^5.3.3"
+            },
+            "type": "liberu-module",
+            "extra": {
+                "liberu": {
+                    "name": "users-roles"
+                },
+                "laravel": {
+                    "providers": [
+                        "Liberu\\Foundation\\UsersRoles\\UsersRolesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Liberu\\Foundation\\UsersRoles\\": "src/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "pest"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Shared users, role lookup, user policies, and user factories.",
             "transport-options": {
                 "symlink": false,
                 "relative": true
