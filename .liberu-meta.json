@@ -4,13 +4,23 @@
     "genre": "boilerplate",
     "scriptsRepository": "boilerplate-scripts",
     "components": {
-        "modules": { "path": "modules", "repositoryPrefix": "module-" },
-        "themes": { "path": "themes", "repositoryPrefix": "theme-" },
-        "scripts": { "path": "scripts", "repository": "boilerplate-scripts" }
+        "modules": {
+            "path": "modules",
+            "repositoryPrefix": "module-"
+        },
+        "themes": {
+            "path": "themes",
+            "repositoryPrefix": "theme-"
+        },
+        "scripts": {
+            "path": "scripts",
+            "repository": "boilerplate-scripts"
+        }
     },
     "additionalPackages": {
         "liberusoftware/analytics-contracts": "analytics-contracts",
         "liberusoftware/localization-contracts": "localization-contracts",
-        "liberusoftware/composer-installer": "composer-installer"
+        "liberusoftware/composer-installer": "composer-installer",
+        "liberusoftware/webhooks-api": "module-foundation-webhooks-api"
     }
 }

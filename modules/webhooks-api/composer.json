@@ -17,12 +17,9 @@
   "extra": {
     "liberu": {
       "name": "webhooks-api"
-    },
-    "support": {
-      "source": "https://github.com/liberusoftware/module-webhooks-api"
     }
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "autoload-dev": {
     "psr-4": {
       "Liberu\\Foundation\\WebhooksApi\\Tests\\": "tests/"
@@ -39,6 +36,8 @@
     "allow-plugins": {
       "pestphp/pest-plugin": true
     }
+  },
+  "support": {
+    "source": "https://github.com/liberusoftware/module-foundation-webhooks-api"
   }
 }
-
