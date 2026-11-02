@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Liberu\Foundation\Tenancy\Tests;
 
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Auth\User;
 use Liberu\Foundation\Tenancy\Jobs\Middleware\RestoreTenantContext;
 use Liberu\Foundation\Tenancy\TenancyServiceProvider;
 use Liberu\Foundation\Tenancy\TenantContext;
@@ -64,5 +67,27 @@ class TenantContextTest extends TestCase
 
         $this->assertSame(23, $seen);
         $this->assertNull(TenantContext::currentId());
+    }
+
+    public function test_user_context_uses_the_current_team_relationship(): void
+    {
+        $user = new class() extends User
+        {
+            public function currentTeam(): BelongsTo
+            {
+                return $this->belongsTo(Model::class);
+            }
+        };
+        $team = new class() extends Model {};
+        $team->setAttribute('id', 23);
+        $user->setRelation('currentTeam', $team);
+
+        $this->assertSame(23, TenantContext::forUser($user));
+    }
+
+    public function test_user_without_team_support_has_no_context(): void
+    {
+        $this->assertNull(TenantContext::forUser(new User()));
+        $this->assertNull(TenantContext::forUser(null));
     }
 }

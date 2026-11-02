@@ -3,7 +3,7 @@
   "description": "Shared Filament and Jetstream team tenancy with scoped runtime context and Eloquent isolation.",
   "type": "liberu-module",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "require": {
     "php": "^8.5",
     "illuminate/support": "^13.0",

@@ -4,6 +4,7 @@ namespace Liberu\Foundation\Tenancy\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Liberu\Foundation\Tenancy\TenantContext;
 use Spatie\Permission\PermissionRegistrar;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +14,7 @@ class SetPermissionsTeamContext
     {
         $user = auth('sanctum')->user() ?? $request->user();
 
-        setPermissionsTeamId($user?->currentTeam?->getKey());
+        setPermissionsTeamId(TenantContext::forUser($user));
 
         return $next($request);
     }

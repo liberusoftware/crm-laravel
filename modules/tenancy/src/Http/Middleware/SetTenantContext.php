@@ -12,7 +12,7 @@ class SetTenantContext
     public function handle(Request $request, Closure $next): Response
     {
         $user = auth('sanctum')->user();
-        TenantContext::set($user?->currentTeam?->getKey());
+        TenantContext::set(TenantContext::forUser($user));
 
         return $next($request);
     }

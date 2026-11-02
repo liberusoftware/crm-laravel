@@ -7,7 +7,7 @@
 - **Filament** ^5.0 (admin panel), **Livewire** ^4.0, **Alpine.js**
 - **MySQL** 8.0 / **SQLite** / **PostgreSQL**, **Redis** 7
 - **Jetstream** (Livewire stack) + **Socialstream** (social auth)
-- **stancl/tenancy** ^3.10 (multi-tenancy)
+- **liberusoftware/tenancy** ^1.0 (Filament / Jetstream team tenancy)
 - **Laravel Reverb** ^1.0 (WebSockets), **Laravel Horizon** ^5.0 (queues)
 
 ## Key Directories
@@ -121,7 +121,7 @@ npm install && npm run build
 
 ### Database
 - Default driver: MySQL (configurable via `DB_CONNECTION`).
-- Multi-tenancy via `stancl/tenancy` v3.10.
+- Multi-tenancy via `liberusoftware/tenancy` with Filament / Jetstream teams.
 - 88 migrations, timestamped naming.
 
 ### Frontend
