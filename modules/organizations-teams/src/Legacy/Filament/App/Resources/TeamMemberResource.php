@@ -37,6 +37,13 @@ class TeamMemberResource extends Resource
         return 'team_member';
     }
 
+    #[\Override]
+    public static function canViewAny(): bool
+    {
+        // Team membership uses its own permission; the User policy governs platform accounts.
+        return static::userHasPermission('view');
+    }
+
     protected static ?string $model = User::class;
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user-group';

@@ -13,6 +13,7 @@ use App\Services\TeamManagementService;
 use Database\Seeders\RolesSeeder;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Gate;
 use InvalidArgumentException;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -92,6 +93,26 @@ class TeamRoleManagementTest extends TestCase
         $this->actingAs($manager);
 
         $this->assertFalse(TeamMemberResource::canAccess());
+    }
+
+    public function test_team_member_access_does_not_grant_platform_user_access(): void
+    {
+        $this->assertFalse(Gate::allows('viewAny', User::class));
+        $this->assertTrue(TeamMemberResource::canViewAny());
+
+        Livewire::test(ListTeamMembers::class)->assertSuccessful();
+    }
+
+    public function test_admin_permission_does_not_carry_into_another_team(): void
+    {
+        $otherTeam = Team::factory()->create();
+        $otherTeam->users()->attach($this->admin);
+        setPermissionsTeamId($otherTeam->id);
+        $this->admin->unsetRelation('roles')->unsetRelation('permissions');
+        Filament::setTenant($otherTeam);
+
+        $this->assertFalse(TeamMemberResource::canAccess());
+        Livewire::test(ListTeamMembers::class)->assertForbidden();
     }
 
     public function test_change_role_action_is_hidden_on_own_row(): void
