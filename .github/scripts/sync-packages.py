@@ -8,6 +8,7 @@ import re
 import subprocess
 import tarfile
 import tempfile
+import time
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -27,14 +28,29 @@ def request(url, payload=None, token=None, missing_ok=False):
     if payload is not None:
         headers['Content-Type'] = 'application/json'
         data = json.dumps(payload).encode()
-    try:
-        with urlopen(Request(url, data=data, headers=headers), timeout=60) as response:
-            return json.load(response)
-    except HTTPError as error:
-        if missing_ok and error.code == 404:
-            return None
-        # Do not expose request headers or credentials in error output.
-        raise RuntimeError(f'{url}: HTTP {error.code}') from None
+    for attempt in range(2):
+        try:
+            with urlopen(Request(url, data=data, headers=headers), timeout=60) as response:
+                return json.load(response)
+        except HTTPError as error:
+            if missing_ok and error.code == 404:
+                return None
+            limited = error.headers.get('X-RateLimit-Remaining') == '0'
+            retry_after = error.headers.get('Retry-After')
+            if attempt == 0 and url.startswith('https://api.github.com/') and error.code in (403, 429) and (limited or retry_after):
+                try:
+                    delay = int(retry_after) if retry_after else int(error.headers['X-RateLimit-Reset']) - int(time.time()) + 1
+                except (TypeError, ValueError, KeyError):
+                    delay = 60
+                delay = max(1, min(delay, 3601))
+                print(f'GitHub API rate limit: retrying in {delay} seconds', flush=True)
+                while delay > 0:
+                    interval = min(delay, 60)
+                    time.sleep(interval)
+                    delay -= interval
+                continue
+            # Do not expose request headers or credentials in error output.
+            raise RuntimeError(f'{url}: HTTP {error.code}') from None
 
 
 def github(path, payload=None, missing_ok=False):

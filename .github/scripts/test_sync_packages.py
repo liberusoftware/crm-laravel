@@ -6,10 +6,29 @@ import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
+import io
 
 spec = importlib.util.spec_from_file_location('sync_packages', Path(__file__).with_name('sync-packages.py'))
 sync = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sync)
+
+
+class RequestTests(unittest.TestCase):
+    def test_github_rate_limit_waits_until_reset_and_retries(self):
+        error = HTTPError('https://api.github.com/test', 403, 'rate limit',
+                          {'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1002'}, None)
+        with patch.object(sync, 'urlopen', side_effect=[error, io.BytesIO(b'{"ok": true}')]), \
+                patch.object(sync.time, 'time', return_value=1000), patch.object(sync.time, 'sleep') as sleep:
+            self.assertEqual(sync.request('https://api.github.com/test'), {'ok': True})
+        sleep.assert_called_once_with(3)
+
+    def test_permission_denial_does_not_retry(self):
+        error = HTTPError('https://api.github.com/test', 403, 'forbidden', {}, None)
+        with patch.object(sync, 'urlopen', side_effect=error), patch.object(sync.time, 'sleep') as sleep:
+            with self.assertRaisesRegex(RuntimeError, 'HTTP 403'):
+                sync.request('https://api.github.com/test')
+        sleep.assert_not_called()
 
 
 class VersionTests(unittest.TestCase):
