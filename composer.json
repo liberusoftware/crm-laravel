@@ -515,7 +515,8 @@
                     "liberusoftware/webhooks": "1.4.2",
                     "liberusoftware/webhooks-api": "1.0.0",
                     "liberusoftware/webhooks-filament": "1.0.1",
-                    "liberusoftware/webhooks-livewire": "1.0.1"
+                    "liberusoftware/webhooks-livewire": "1.0.1",
+                    "liberusoftware/tenancy": "1.0.0"
                 }
             }
         },
@@ -1564,6 +1565,7 @@
         "liberusoftware/settings-api": "^1.0",
         "liberusoftware/settings-filament": "^1.0",
         "liberusoftware/settings-livewire": "^1.0",
+        "liberusoftware/tenancy": "^1.0",
         "liberusoftware/theme-base": "^2.0",
         "liberusoftware/theme-clear-signal": "^1.0",
         "liberusoftware/theme-crm": "^1.0",
@@ -1587,7 +1589,6 @@
         "spatie/laravel-activitylog": "^5.1.3",
         "spatie/laravel-menu": "^4.2.2",
         "spatie/laravel-permission": "^8.3.2",
-        "stancl/tenancy": "^3.10.1",
         "stripe/stripe-php": "^21.3.2",
         "twilio/sdk": "^8.13.0",
         "webklex/laravel-imap": "^6.2.0"

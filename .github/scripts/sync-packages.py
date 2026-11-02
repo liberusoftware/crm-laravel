@@ -201,7 +201,9 @@ def main():
     head = git('rev-parse', 'HEAD')
     before = os.environ.get('SYNC_BEFORE', '')
     failures = []
-    for path in changed_packages(before, head):
+    paths = changed_packages(before, head)
+    paths.sort(key=lambda path: (path != 'modules/tenancy', path))
+    for path in paths:
         if not Path(path, 'composer.json').is_file():
             print(f'{path}: removed or no composer.json; leaving published repository intact')
             continue
