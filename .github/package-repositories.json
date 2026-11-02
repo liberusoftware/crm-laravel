@@ -1,0 +1,2512 @@
+{
+  "analytics-contracts": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "localization-contracts": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-activity-comments": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-activity-comments-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-activity-comments-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-activity-comments-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-core": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-core-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-core-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-core-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-google": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-google-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-google-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-google-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-meta": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-meta-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-meta-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-analytics-meta-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-api-access": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-api-access-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-api-access-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-api-access-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-application": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-application-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-application-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-application-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-audit": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-audit-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-audit-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-audit-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-based-marketing": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-based-marketing-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-based-marketing-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-based-marketing-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-planning": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-planning-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-planning-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-account-planning-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-activities": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-activities-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-activities-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-activities-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advertising": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advertising-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advertising-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advertising-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advocacy": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advocacy-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advocacy-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-advocacy-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-affiliate-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-affiliate-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-affiliate-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-affiliate-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-agency-workspace": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-agency-workspace-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-agency-workspace-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-agency-workspace-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-ai-reception-and-conversation": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-ai-reception-and-conversation-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-ai-reception-and-conversation-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-ai-reception-and-conversation-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-analytics": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-analytics-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-analytics-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-analytics-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-attribution": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-attribution-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-attribution-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-attribution-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-automation-pack": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-automation-pack-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-automation-pack-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-automation-pack-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-business-process-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-business-process-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-business-process-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-business-process-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-campaigns": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-campaigns-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-campaigns-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-campaigns-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-case-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-case-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-case-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-case-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-gateway": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-gateway-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-gateway-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-gateway-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-sales": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-sales-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-sales-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-channel-sales-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-chat-and-bots": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-chat-and-bots-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-chat-and-bots-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-chat-and-bots-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-client-onboarding": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-client-onboarding-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-client-onboarding-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-client-onboarding-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-collaboration": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-collaboration-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-collaboration-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-collaboration-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-communities": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-communities-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-communities-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-communities-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-consent-and-preferences": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-consent-and-preferences-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-consent-and-preferences-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-consent-and-preferences-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contact-center": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contact-center-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contact-center-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contact-center-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contracts": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contracts-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contracts-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-contracts-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-analytics": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-analytics-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-analytics-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-analytics-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-intelligence": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-intelligence-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-intelligence-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversation-intelligence-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversion-optimization": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversion-optimization-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversion-optimization-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-conversion-optimization-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-copilot": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-copilot-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-copilot-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-copilot-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-core": {
+    "archived": false,
+    "default_branch": "codex/module-sync-20260901",
+    "private": false
+  },
+  "module-crm-core-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-core-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-core-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-cpq": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-cpq-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-cpq-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-cpq-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-model": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-model-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-model-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-model-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-platform": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-platform-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-platform-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-data-platform-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-self-service": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-self-service-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-self-service-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-self-service-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-success": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-success-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-success-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-customer-success-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-data-operations": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-data-operations-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-data-operations-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-data-operations-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-deal-registration": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-deal-registration-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-deal-registration-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-deal-registration-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-dialer-and-outreach": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-dialer-and-outreach-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-dialer-and-outreach-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-dialer-and-outreach-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-documents": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-documents-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-documents-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-documents-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-marketing": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-marketing-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-marketing-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-marketing-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-productivity": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-productivity-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-productivity-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-email-productivity-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-enrichment": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-enrichment-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-enrichment-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-enrichment-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-events-and-webinars": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-events-and-webinars-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-events-and-webinars-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-events-and-webinars-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-feedback-and-voice-of-customer": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-feedback-and-voice-of-customer-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-feedback-and-voice-of-customer-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-feedback-and-voice-of-customer-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-field-service-coordination": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-field-service-coordination-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-field-service-coordination-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-field-service-coordination-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forecasting": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forecasting-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forecasting-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forecasting-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forms-and-surveys": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forms-and-surveys-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forms-and-surveys-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-forms-and-surveys-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-goals-and-performance": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-goals-and-performance-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-goals-and-performance-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-goals-and-performance-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-journey-orchestration": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-journey-orchestration-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-journey-orchestration-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-journey-orchestration-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-knowledge": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-knowledge-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-knowledge-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-knowledge-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-landing-pages-and-funnels": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-landing-pages-and-funnels-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-landing-pages-and-funnels-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-capture": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-capture-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-capture-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-qualification": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-qualification-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-qualification-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-lead-qualification-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-learning-and-courses": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-learning-and-courses-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-learning-and-courses-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-learning-and-courses-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-loyalty": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-loyalty-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-loyalty-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-loyalty-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-agent": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-agent-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-agent-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-agent-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-development-funds": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-development-funds-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-development-funds-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-development-funds-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-resources": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-resources-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-resources-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-marketing-resources-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-memberships": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-memberships-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-memberships-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-memberships-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-mobile-messaging": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-mobile-messaging-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-mobile-messaging-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-mobile-messaging-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-omnichannel-service": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-omnichannel-service-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-omnichannel-service-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-omnichannel-service-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-orders-and-payments-workspace": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-orders-and-payments-workspace-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-orders-and-payments-workspace-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-orders-and-payments-workspace-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-partner-relationship-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-partner-relationship-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-partner-relationship-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-partner-relationship-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-personalization": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-personalization-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-personalization-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-personalization-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-playbooks-and-enablement": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-playbooks-and-enablement-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-playbooks-and-enablement-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-playbooks-and-enablement-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-predictive-models": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-predictive-models-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-predictive-models-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-predictive-models-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-product-workspace": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-product-workspace-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-product-workspace-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-product-workspace-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-projects": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-projects-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-projects-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-projects-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-proposals-and-quotes": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-proposals-and-quotes-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-proposals-and-quotes-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-proposals-and-quotes-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-agent": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-agent-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-agent-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-agent-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-prospecting-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-quotas-and-incentives": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-quotas-and-incentives-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-quotas-and-incentives-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-quotas-and-incentives-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-referrals": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-referrals-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-referrals-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-referrals-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-reputation-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-reputation-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-reputation-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-reputation-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-resource-planning": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-resource-planning-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-resource-planning-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-resource-planning-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-intelligence": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-intelligence-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-intelligence-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-intelligence-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-lifecycle": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-lifecycle-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-lifecycle-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-revenue-lifecycle-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-routing": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-routing-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-routing-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-routing-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-saas-packaging": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-saas-packaging-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-saas-packaging-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-saas-packaging-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-engagement": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-engagement-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-engagement-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-engagement-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-pipelines": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-pipelines-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-pipelines-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-pipelines-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-workspace": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-workspace-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-workspace-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sales-workspace-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sandbox-and-release-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sandbox-and-release-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sandbox-and-release-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sandbox-and-release-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-scheduling": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-scheduling-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-scheduling-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-scheduling-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-search": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-search-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-search-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-search-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-segmentation": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-segmentation-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-segmentation-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-segmentation-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-agent": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-agent-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-agent-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-agent-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-analytics": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-analytics-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-analytics-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-service-analytics-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sla-and-entitlements": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sla-and-entitlements-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sla-and-entitlements-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-sla-and-entitlements-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-telephony": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-telephony-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-telephony-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-telephony-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-templates-and-snapshots": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-templates-and-snapshots-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-templates-and-snapshots-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-templates-and-snapshots-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-territories-and-ownership": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-territories-and-ownership-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-territories-and-ownership-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-territories-and-ownership-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-unified-conversations": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-unified-conversations-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-unified-conversations-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-unified-conversations-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-usage-wallet-and-rebilling": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-usage-wallet-and-rebilling-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-usage-wallet-and-rebilling-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-usage-wallet-and-rebilling-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-web-intent": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-web-intent-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-web-intent-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-web-intent-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-white-label": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-white-label-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-white-label-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-white-label-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-work-management": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-work-management-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-work-management-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-crm-work-management-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-currency-context": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-currency-context-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-currency-context-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-currency-context-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-developer-experience": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-developer-experience-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-developer-experience-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-developer-experience-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-feature-flags": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-feature-flags-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-feature-flags-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-feature-flags-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-files-media": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-files-media-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-files-media-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-files-media-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-identity-core": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-identity-core-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-identity-core-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-identity-core-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-identity-socialstream": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-import-export": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-import-export-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-import-export-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-import-export-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-integrations": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-integrations-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-integrations-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-integrations-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-jetstream-bridge": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-jetstream-bridge-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-jetstream-bridge-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-jetstream-bridge-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-localization-core": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-localization-core-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-localization-core-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-localization-core-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-localization-mymemory": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-module-manager": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-module-manager-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-module-manager-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-module-manager-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-notifications": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-notifications-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-notifications-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-notifications-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-observability": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-observability-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-observability-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-observability-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-organizations-teams": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-organizations-teams-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-organizations-teams-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-organizations-teams-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-profiles": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-profiles-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-profiles-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-profiles-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-roles-permissions": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-roles-permissions-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-roles-permissions-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-roles-permissions-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-scheduler-queues": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-scheduler-queues-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-scheduler-queues-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-scheduler-queues-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-search": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-search-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-search-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-search-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-sessions-devices": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-sessions-devices-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-sessions-devices-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-sessions-devices-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-settings": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-settings-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-settings-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-settings-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-theme-support": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-theme-support-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-two-factor-authentication": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-two-factor-authentication-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-two-factor-authentication-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-two-factor-authentication-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-users-roles": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-webhooks": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-webhooks-api": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-webhooks-filament": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "module-webhooks-livewire": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "theme-base": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "theme-clear-signal": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "theme-crm": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "theme-dark": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  },
+  "theme-default": {
+    "archived": false,
+    "default_branch": "main",
+    "private": false
+  }
+}

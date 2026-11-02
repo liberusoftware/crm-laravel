@@ -8,6 +8,20 @@
         "liberusoftware/module-manager": "^1.0",
         "liberusoftware/module-crm-core": "^1.0"
     },
-    "autoload": {"psr-4": {"Liberu\\CRM\\DataOperations\\": "src/"}},
-    "extra": {"laravel": {"providers": ["Liberu\\CRM\\DataOperations\\DataOperationsServiceProvider"]}, "liberu": {"name": "crm-data-operations"}}
+    "autoload": {
+        "psr-4": {
+            "Liberu\\CRM\\DataOperations\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Liberu\\CRM\\DataOperations\\DataOperationsServiceProvider"
+            ]
+        },
+        "liberu": {
+            "name": "crm-data-operations"
+        }
+    },
+    "license": "MIT"
 }

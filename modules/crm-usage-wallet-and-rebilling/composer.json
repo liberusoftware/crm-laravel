@@ -1,6 +1,21 @@
 {
   "name": "liberusoftware/module-crm-usage-wallet-and-rebilling",
   "type": "liberu-module",
-  "autoload": {"psr-4": {"Liberu\\CRM\\UsageWalletAndRebilling\\": "src/"}},
-  "extra": {"laravel": {"providers": ["Liberu\\CRM\\UsageWalletAndRebilling\\UsageWalletAndRebillingServiceProvider"]},"liberu":{"name":"crm-usage-wallet-and-rebilling"}}
+  "autoload": {
+    "psr-4": {
+      "Liberu\\CRM\\UsageWalletAndRebilling\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Liberu\\CRM\\UsageWalletAndRebilling\\UsageWalletAndRebillingServiceProvider"
+      ]
+    },
+    "liberu": {
+      "name": "crm-usage-wallet-and-rebilling"
+    }
+  },
+  "description": "Team-scoped usage wallets and rebilling",
+  "license": "MIT"
 }

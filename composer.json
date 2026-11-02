@@ -515,10 +515,12 @@
                     "liberusoftware/webhooks": "1.4.2",
                     "liberusoftware/webhooks-api": "1.0.0",
                     "liberusoftware/webhooks-filament": "1.0.1",
-                    "liberusoftware/webhooks-livewire": "1.0.1",
-                    "liberusoftware/tenancy": "1.0.0"
+                    "liberusoftware/webhooks-livewire": "1.0.1"
                 }
-            }
+            },
+            "exclude": [
+                "liberusoftware/tenancy"
+            ]
         },
         {
             "type": "path",
@@ -1039,7 +1041,10 @@
                     "liberusoftware/identity-core": "1.4.1",
                     "liberusoftware/module-manager": "1.4.2"
                 }
-            }
+            },
+            "exclude": [
+                "liberusoftware/tenancy"
+            ]
         },
         {
             "type": "path",

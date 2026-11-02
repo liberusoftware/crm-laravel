@@ -1,7 +1,26 @@
 {
   "name": "liberusoftware/module-crm-white-label-livewire",
   "type": "liberu-module",
-  "autoload": { "psr-4": { "Liberu\\CRM\\WhiteLabel\\Livewire\\": "src/" } },
-  "extra": { "laravel": { "providers": ["Liberu\\CRM\\WhiteLabel\\Livewire\\WhiteLabelLivewireServiceProvider"] }, "liberu": { "name": "crm-white-label-livewire" } },
-  "require": { "php": "^8.5", "livewire/livewire": "^4.4.8", "liberusoftware/module-crm-white-label": "^1.0" }
+  "autoload": {
+    "psr-4": {
+      "Liberu\\CRM\\WhiteLabel\\Livewire\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Liberu\\CRM\\WhiteLabel\\Livewire\\WhiteLabelLivewireServiceProvider"
+      ]
+    },
+    "liberu": {
+      "name": "crm-white-label-livewire"
+    }
+  },
+  "require": {
+    "php": "^8.5",
+    "livewire/livewire": "^4.4.8",
+    "liberusoftware/module-crm-white-label": "^1.0"
+  },
+  "description": "Livewire presentation package for CRM White Label.",
+  "license": "MIT"
 }

@@ -1,7 +1,26 @@
 {
   "name": "liberusoftware/module-crm-web-intent-filament",
   "type": "liberu-module",
-  "autoload": { "psr-4": { "Liberu\\CRM\\WebIntent\\Filament\\": "src/" } },
-  "extra": { "laravel": { "providers": ["Liberu\\CRM\\WebIntent\\Filament\\WebIntentFilamentServiceProvider"] }, "liberu": { "name": "crm-web-intent-filament" } },
-  "require": { "php": "^8.5", "filament/filament": "^5.11.0", "liberusoftware/module-crm-web-intent": "^1.0" }
+  "autoload": {
+    "psr-4": {
+      "Liberu\\CRM\\WebIntent\\Filament\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Liberu\\CRM\\WebIntent\\Filament\\WebIntentFilamentServiceProvider"
+      ]
+    },
+    "liberu": {
+      "name": "crm-web-intent-filament"
+    }
+  },
+  "require": {
+    "php": "^8.5",
+    "filament/filament": "^5.11.0",
+    "liberusoftware/module-crm-web-intent": "^1.0"
+  },
+  "description": "Filament presentation package for CRM Web Intent.",
+  "license": "MIT"
 }

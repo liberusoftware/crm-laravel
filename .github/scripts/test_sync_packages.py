@@ -54,7 +54,12 @@ class VersionTests(unittest.TestCase):
         with patch.object(sync.Path, 'exists', return_value=True), patch.object(
             sync.Path, 'read_text', return_value=json.dumps({'components': {'modules': {'repositoryPrefix': 'module-'}}})
         ):
-            self.assertEqual(sync.repository_name('modules/module-manager'), 'module-module-manager')
+            self.assertEqual(sync.repository_name('modules/module-manager'), 'module-manager')
+
+    def test_declared_major_can_release_a_compatible_maintenance_version(self):
+        self.assertEqual(sync.next_version(['v1.4.1', 'v2.0.0'], '1.4.1', 'fix: repair'), 'v1.4.2')
+        self.assertEqual(sync.next_version(['v1.0.0'], '0.1.0', 'fix: repair'), 'v0.1.0')
+        self.assertEqual(sync.next_version(['v0.1.2', 'v0.2.0'], '0.1.0', 'fix: repair'), 'v0.1.3')
 
 
 class PublishTests(unittest.TestCase):
@@ -108,7 +113,7 @@ class PublishTests(unittest.TestCase):
         return {'default_branch': 'main', 'private': False} if self.repo_exists else None
 
     def publish(self, before=''):
-        with patch.object(sync, 'git', self.git), patch.object(sync, 'github', self.github), patch.object(
+        with patch.object(sync, 'request', return_value=None), patch.object(sync, 'git', self.git), patch.object(sync, 'github', self.github), patch.object(
             sync, 'packagist', lambda *args: self.packagist_calls.append(args)
         ):
             sync.publish('modules/example', self.real_git('rev-parse', 'HEAD'), before)
@@ -183,6 +188,43 @@ class PublishTests(unittest.TestCase):
         self.publish()
         files = self.real_git('--git-dir=remote.git', 'ls-tree', '-r', '--name-only', 'main')
         self.assertNotIn('secret.env', files)
+
+    def test_source_signature_ignores_only_generated_versions(self):
+        head = self.real_git('rev-parse', 'HEAD')
+        original = sync.source_signature('modules/example', head)
+        composer = self.package / 'composer.json'
+        metadata = json.loads(composer.read_text())
+        metadata['version'] = '1.0.1'
+        composer.write_text(json.dumps(metadata))
+        head = self.commit('chore: record generated version')
+        self.assertEqual(original, sync.source_signature('modules/example', head))
+        (self.package / 'source.php').write_text('changed')
+        head = self.commit('fix: change implementation')
+        self.assertNotEqual(original, sync.source_signature('modules/example', head))
+
+    def test_tag_version_is_written_to_a_manifest_without_adding_a_composer_version(self):
+        (self.package / 'composer.json').write_text(json.dumps({'name': 'liberusoftware/example'}))
+        (self.package / 'module.json').write_text(json.dumps({'name': 'example', 'version': '1.0.0'}))
+        before = self.commit('fix: use tag versions')
+        self.publish()
+        (self.package / 'source.php').write_text('updated')
+        self.commit('fix: update implementation')
+        self.publish(before)
+        manifest = json.loads(self.real_git('--git-dir=remote.git', 'show', 'main:module.json'))
+        composer = json.loads(self.real_git('--git-dir=remote.git', 'show', 'main:composer.json'))
+        self.assertEqual(manifest['version'], '1.0.1')
+        self.assertNotIn('version', composer)
+        self.publish(before)
+        self.assertEqual(len(self.releases), 2)
+
+    def test_duplicate_directories_select_the_manifest_install_path(self):
+        duplicate = self.root / 'modules' / 'module-example'
+        duplicate.mkdir()
+        metadata = {'name': 'liberusoftware/example', 'extra': {'liberu': {'name': 'example'}}}
+        for path in (self.package, duplicate):
+            (path / 'composer.json').write_text(json.dumps(metadata))
+        self.assertEqual(sync.package_paths(['modules/example', 'modules/module-example']),
+                         {'liberusoftware/example': 'modules/example'})
 
 
 class PackagistTests(unittest.TestCase):
