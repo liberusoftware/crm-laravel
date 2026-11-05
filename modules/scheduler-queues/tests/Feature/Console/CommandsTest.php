@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Console;
 
+use App\Models\OAuthConfiguration;
 use App\Models\SocialMediaPost;
 use App\Models\Task;
 use App\Models\User;
@@ -11,6 +12,7 @@ use App\Notifications\TaskReminderNotification;
 use App\Services\FacebookService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
@@ -20,13 +22,15 @@ class CommandsTest extends TestCase
 
     public function test_publish_scheduled_posts_flips_due_post_to_published(): void
     {
-        // Mock the Facebook client so no real Graph call fires.
-        $this->mock(FacebookService::class)
-            ->shouldReceive('publishPost')
-            ->once()
-            ->andReturn(['id' => 'fb-post-123']);
+        config(['services.zernio.mode' => 'direct', 'services.facebook.graph_version' => 'v23.0']);
+        $owner = User::factory()->withPersonalTeam()->create();
+        $connection = new OAuthConfiguration();
+        $connection->forceFill(['team_id' => $owner->currentTeam->id, 'user_id' => $owner->id, 'service_name' => 'facebook', 'is_active' => true, 'access_token' => 'page-token', 'additional_settings' => ['publishing_id' => '123']])->save();
+        Http::fake(['graph.facebook.com/*' => Http::response(['id' => 'fb-post-123'], 201)]);
 
         $post = SocialMediaPost::factory()->create([
+            'team_id' => $owner->currentTeam->id,
+            'approved_at' => now(),
             'status' => SocialMediaPost::STATUS_SCHEDULED,
             'scheduled_at' => now()->subMinutes(10),
             'platforms' => ['facebook'],

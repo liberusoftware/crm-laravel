@@ -9,13 +9,16 @@ use App\Filament\App\Resources\SocialMediaPostResource\Pages\ListSocialMediaPost
 use App\Filament\App\Resources\SocialMediaPostResource\Pages\ViewSocialMediaPost;
 use App\Filament\Concerns\EnforcesResourcePermissions;
 use App\Models\SocialMediaPost;
-use App\Services\FacebookAdsService;
-use App\Services\LinkedInAdsService;
-use Exception;
+use App\Models\Team;
+use App\Services\Marketing\ContentAssistant;
+use App\Services\Marketing\PostTargets;
+use App\Services\Marketing\PostWorkflow;
+use App\Services\Marketing\WorkspaceAccess;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MultiSelect;
@@ -23,6 +26,7 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -33,7 +37,6 @@ use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Log;
 
 class SocialMediaPostResource extends Resource
 {
@@ -60,6 +63,18 @@ class SocialMediaPostResource extends Resource
                                     ->required()
                                     ->maxLength(65535)
                                     ->helperText('Write your post content here. Character limits vary by platform.')
+                                    ->hintAction(Action::make('assist')->label('AI writing assistant')->schema([
+                                        Textarea::make('brief')->label('What should this post achieve?')->required()->maxLength(5000),
+                                        Select::make('platform')->options(SocialPlatform::options())->required(),
+                                    ])->action(function (array $data, callable $set): void {
+                                        try {
+                                            $result = app(ContentAssistant::class)->generate(Filament::auth()->user(), Filament::getTenant(), $data + ['purpose' => 'post']);
+                                            $set('content', $result['content']);
+                                        } catch (\Throwable $exception) {
+                                            report($exception);
+                                            Notification::make()->title('Content could not be generated')->body('Your current draft has been kept. Please check the brief or try again later.')->danger()->send();
+                                        }
+                                    }))
                                     ->live()
                                     ->afterStateUpdated(fn ($state, callable $set) => $set('character_count', strlen((string) $state))),
                                 TextInput::make('character_count')
@@ -67,19 +82,18 @@ class SocialMediaPostResource extends Resource
                                     ->disabled()
                                     ->dehydrated(false),
                                 DateTimePicker::make('scheduled_at')
-                                    ->required()
+                                    ->timezone(fn () => data_get(Filament::getTenant()?->getAttribute('marketing_preferences'), 'timezone', 'UTC'))
                                     ->helperText('Schedule when this post should be published')
                                     ->minDate(now())
                                     ->withoutSeconds(),
                                 MultiSelect::make('platforms')
-                                    ->options(SocialPlatform::options())
+                                    ->options(fn () => Filament::getTenant() instanceof Team ? app(PostTargets::class)->options(Filament::getTenant()) : SocialPlatform::options())
                                     ->required()
                                     ->helperText('Select the platforms where you want to publish')
                                     ->columns(2),
                                 Select::make('status')
                                     ->options(SocialMediaPost::getStatuses())
-                                    ->required()
-                                    ->disabled(fn ($record): bool => $record && $record->status === SocialMediaPost::STATUS_PUBLISHED),
+                                    ->default('draft')->disabled()->dehydrated(false),
                             ])
                             ->columnSpan(2),
 
@@ -134,7 +148,7 @@ class SocialMediaPostResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('content')->limit(50),
-                TagsColumn::make('platforms'),
+                TagsColumn::make('platforms')->state(fn (SocialMediaPost $record) => array_map(fn ($target) => is_array($target) ? $target['platform'] : $target, $record->platforms)),
                 TextColumn::make('scheduled_at')
                     ->dateTime(),
                 BadgeColumn::make('status')
@@ -142,7 +156,9 @@ class SocialMediaPostResource extends Resource
                         'primary' => 'draft',
                         'warning' => 'scheduled',
                         'success' => 'published',
-                        'danger' => 'failed',
+                        'danger' => ['failed', 'publishing_unknown'],
+                        'info' => 'publishing',
+                        'gray' => 'cancelled',
                     ]),
                 TextColumn::make('likes')
                     ->sortable(),
@@ -150,6 +166,7 @@ class SocialMediaPostResource extends Resource
                     ->sortable(),
                 TextColumn::make('comments')
                     ->sortable(),
+                TextColumn::make('last_error')->label('Delivery note')->limit(100)->wrap()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -163,12 +180,25 @@ class SocialMediaPostResource extends Resource
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
-                Action::make('publish')
+                Action::make('approve')->label('Approve content')->requiresConfirmation()
+                    ->visible(fn (SocialMediaPost $record): bool => in_array($record->status, ['draft', 'scheduled'], true) && app(WorkspaceAccess::class)->canManage(Filament::auth()->user(), Filament::getTenant()))
+                    ->action(fn (SocialMediaPost $record) => app(PostWorkflow::class)->approve(Filament::auth()->user(), Filament::getTenant(), $record)),
+                Action::make('schedule')->label('Schedule post')->schema([
+                    DateTimePicker::make('scheduled_at')->required()->minDate(now())->timezone(fn () => data_get(Filament::getTenant()?->getAttribute('marketing_preferences'), 'timezone', 'UTC')),
+                ])->visible(fn (SocialMediaPost $record): bool => in_array($record->status, ['draft', 'scheduled'], true))
+                    ->action(fn (SocialMediaPost $record, array $data) => app(PostWorkflow::class)->schedule(Filament::auth()->user(), Filament::getTenant(), $record, $data['scheduled_at'])),
+                Action::make('reconcile')->label('Reconcile delivery')->schema([
+                    Select::make('resolution')->options(['published' => 'Confirmed published at provider', 'failed' => 'Confirmed not published at provider'])->required(),
+                    Textarea::make('evidence')->label('Provider verification and reference')->required()->minLength(10)->maxLength(1500),
+                ])->modalDescription('Check every target account before resolving an uncertain delivery. This action records your decision and does not send the post again.')
+                    ->visible(fn (SocialMediaPost $record): bool => $record->status === 'publishing_unknown' && app(WorkspaceAccess::class)->canManage(Filament::auth()->user(), Filament::getTenant()))
+                    ->action(fn (SocialMediaPost $record, array $data) => app(PostWorkflow::class)->reconcile(Filament::auth()->user(), Filament::getTenant(), $record, $data)),
+                Action::make('cancel')->label('Cancel scheduled post')->requiresConfirmation()->color('danger')
+                    ->visible(fn (SocialMediaPost $record): bool => $record->status === 'scheduled')
                     ->action(function (SocialMediaPost $record): void {
-                        self::publishPost($record);
-                    })
-                    ->requiresConfirmation()
-                    ->visible(fn (SocialMediaPost $record): bool => $record->status === SocialMediaPost::STATUS_SCHEDULED),
+                        abort_unless(static::canEdit($record), 403);
+                        SocialMediaPost::query()->whereKey($record->getKey())->where('status', 'scheduled')->update(['status' => 'cancelled']);
+                    }),
             ])
             ->toolbarActions([
                 DeleteBulkAction::make(),
@@ -192,44 +222,5 @@ class SocialMediaPostResource extends Resource
             'create' => CreateSocialMediaPost::route('/create'),
             'edit' => EditSocialMediaPost::route('/{record}/edit'),
         ];
-    }
-
-    protected static function publishPost(SocialMediaPost $post)
-    {
-        foreach ($post->platforms as $platform) {
-            try {
-                switch ($platform) {
-                    case 'facebook':
-                        $facebookService = new FacebookAdsService($post->advertising_account);
-                        $result = $facebookService->createAndSchedulePost($post->advertising_account->account_id, [
-                            'message' => $post->content,
-                            'scheduled_time' => $post->scheduled_at->timestamp,
-                            'link' => $post->link,
-                            'image' => $post->image,
-                        ]);
-                        $post->platform_post_ids['facebook'] = $result['post_id'];
-                        break;
-                    case 'linkedin':
-                        $linkedInService = new LinkedInAdsService($post->advertising_account);
-                        $result = $linkedInService->createAndSchedulePost($post->advertising_account->account_id, [
-                            'message' => $post->content,
-                            'scheduled_time' => $post->scheduled_at->format('c'),
-                            'link' => $post->link,
-                        ]);
-                        $post->platform_post_ids['linkedin'] = $result['id'];
-                        break;
-                        // Add cases for other platforms as needed
-                }
-            } catch (Exception $e) {
-                Log::error("Failed to publish post to $platform: ".$e->getMessage());
-                $post->status = SocialMediaPost::STATUS_FAILED;
-                $post->save();
-
-                return;
-            }
-        }
-
-        $post->status = SocialMediaPost::STATUS_PUBLISHED;
-        $post->save();
     }
 }

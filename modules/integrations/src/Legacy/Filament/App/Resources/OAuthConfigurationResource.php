@@ -9,6 +9,7 @@ use App\Filament\App\Resources\OAuthConfigurationResource\Pages\EditOAuthConfigu
 use App\Filament\App\Resources\OAuthConfigurationResource\Pages\ListOAuthConfigurations;
 use App\Filament\Concerns\EnforcesResourcePermissions;
 use App\Models\OAuthConfiguration;
+use App\Models\User;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -20,10 +21,41 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class OAuthConfigurationResource extends Resource
 {
     use EnforcesResourcePermissions;
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user() instanceof User && auth()->user()->isSuperAdmin();
+    }
+
+    public static function canCreate(): bool
+    {
+        return static::canViewAny();
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return static::canViewAny();
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return static::canViewAny();
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return static::canViewAny();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return static::canViewAny();
+    }
 
     public static function permissionResource(): string
     {

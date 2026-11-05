@@ -6,6 +6,8 @@ namespace App\Services\Zernio;
 
 use App\Models\SocialMediaPost;
 use App\Models\Team;
+use App\Services\Marketing\PlatformConfiguration;
+use Illuminate\Support\Facades\Storage;
 
 final class ZernioPublisher
 {
@@ -33,8 +35,9 @@ final class ZernioPublisher
             }
 
             if ($allowedAccounts !== null) {
-                $accountId = $accountId ?: ($allowedAccounts[$platformName] ?? null);
-                if (! is_string($accountId) || ($allowedAccounts[$platformName] ?? null) !== $accountId) {
+                $owned = $allowedAccounts[$platformName] ?? [];
+                $accountId = $accountId ?: (count($owned) === 1 ? $owned[0] : null);
+                if (! is_string($accountId) || ! in_array($accountId, $owned, true)) {
                     throw new ZernioException("The Zernio account for {$platformName} is not connected to this team.");
                 }
             }
@@ -49,6 +52,10 @@ final class ZernioPublisher
         $payload = [
             'content' => (string) $post->content,
             'platforms' => $targets,
+            'mediaItems' => array_values(array_filter([
+                filled($post->image_path) ? ['type' => 'image', 'url' => Storage::disk('public')->url($post->image_path)] : null,
+                filled($post->video_url) ? ['type' => 'video', 'url' => $post->video_url] : null,
+            ])),
         ];
         if ($post->scheduled_at !== null && $post->scheduled_at->isFuture()) {
             $payload['scheduledFor'] = $post->scheduled_at->toIso8601String();
@@ -66,7 +73,19 @@ final class ZernioPublisher
     public function canPublishForPost(SocialMediaPost $post): bool
     {
         try {
-            return $this->canPublish($post->platforms ?? []) && $this->allowedAccounts($post) !== [];
+            $allowed = $this->allowedAccounts($post);
+            if ($allowed === null) {
+                return $this->canPublish($post->platforms ?? []);
+            }
+            foreach ($post->platforms ?? [] as $platform) {
+                $name = is_string($platform) ? $platform : (string) ($platform['platform'] ?? '');
+                $id = is_array($platform) ? ($platform['account_id'] ?? null) : null;
+                if (! isset($allowed[$name]) || ($id !== null ? ! in_array($id, $allowed[$name], true) : count($allowed[$name]) !== 1)) {
+                    return false;
+                }
+            }
+
+            return ($post->platforms ?? []) !== [];
         } catch (ZernioException) {
             return false;
         }
@@ -74,7 +93,7 @@ final class ZernioPublisher
 
     public function canPublish(array $platforms): bool
     {
-        if ((string) config('services.zernio.api_key') === '') {
+        if ((string) app(PlatformConfiguration::class)->credential('zernio_api_key', config('services.zernio.api_key')) === '') {
             return false;
         }
 
@@ -91,11 +110,11 @@ final class ZernioPublisher
         return $platforms !== [];
     }
 
-    /** @return array<string, string>|null */
+    /** @return array<string, list<string>>|null */
     private function allowedAccounts(SocialMediaPost $post): ?array
     {
         $teamId = $post->getAttribute('team_id');
-        if (! $teamId || (string) config('services.zernio.api_key') === '') {
+        if (! $teamId || (string) app(PlatformConfiguration::class)->credential('zernio_api_key', config('services.zernio.api_key')) === '') {
             return null;
         }
 
@@ -112,7 +131,7 @@ final class ZernioPublisher
                 continue;
             }
 
-            $allowed[(string) $account['platform']] = (string) $account['_id'];
+            $allowed[(string) $account['platform']][] = (string) $account['_id'];
         }
 
         return $allowed;

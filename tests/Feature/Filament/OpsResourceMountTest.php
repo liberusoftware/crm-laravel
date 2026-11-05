@@ -68,9 +68,13 @@ class OpsResourceMountTest extends TestCase
 
     public function test_oauth_configuration_resource_index_mounts(): void
     {
-        // OAuth config holds client secrets — a security/settings resource that
-        // is admin-only under permission enforcement.
-        $this->assertResourceMounts(OAuthConfigurationResource::class, 'admin');
+        $this->assertResourceMounts(OAuthConfigurationResource::class, 'super_admin');
+    }
+
+    public function test_workspace_admin_cannot_mount_application_credentials(): void
+    {
+        $team = $this->actingWithTeam('admin');
+        $this->get('/app/'.$team->id.'/'.OAuthConfigurationResource::getSlug())->assertForbidden();
     }
 
     public function test_call_setting_resource_index_mounts(): void

@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property int|null $user_id
  * @property string $service_name
  * @property string|null $client_id
  * @property string|null $client_secret
+ * @property string|null $access_token
+ * @property array|null $additional_settings
+ * @property bool $is_active
  */
 class OAuthConfiguration extends Model
 {

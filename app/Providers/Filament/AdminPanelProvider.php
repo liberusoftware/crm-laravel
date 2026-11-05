@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\ManageGeneralSettings;
+use App\Filament\Admin\Pages\SetupWizard;
 use App\Filament\App\Pages;
 use App\Filament\App\Resources\TeamRoleResource;
 use App\Filament\ModulePlugins;
@@ -76,6 +77,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentPage\Dashboard::class,
                 Pages\EditProfile::class,
                 ReportCustomizer::class,
+                SetupWizard::class,
             ])
             ->widgets([
                 Widgets\AccountWidget::class,

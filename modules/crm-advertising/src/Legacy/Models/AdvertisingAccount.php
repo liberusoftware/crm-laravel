@@ -8,6 +8,13 @@ use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $team_id
+ * @property string $platform
+ * @property string $account_id
+ * @property string|null $access_token
+ * @property array|null $metadata
+ */
 class AdvertisingAccount extends Model
 {
     use HasFactory;

@@ -8,7 +8,7 @@ Artisan::command('inspire', function (): void {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('social-media:publish-scheduled')->everyMinute();
+Schedule::command('social-media:publish-scheduled')->everyMinute()->withoutOverlapping();
 Schedule::command('social-media:update-analytics')->hourly();
 Schedule::command('tasks:notify-overdue')->dailyAt('07:00');
 Schedule::command('backup:run')->dailyAt('02:00');

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DealController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\LeadImportController;
+use App\Http\Controllers\Api\MarketingController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\WebhookController;
 use App\Http\Controllers\WorkflowController;
@@ -25,6 +26,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', fn (Request $request) => $request->user());
 
 Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:api'])->group(function (): void {
+    Route::prefix('marketing')->controller(MarketingController::class)->group(function (): void {
+        Route::get('posts', 'index');
+        Route::post('posts', 'store');
+        Route::put('posts/{post}', 'update');
+        Route::post('posts/{post}/approve', 'approve');
+        Route::post('posts/{post}/schedule', 'schedule');
+        Route::post('posts/{post}/cancel', 'cancel');
+        Route::post('generate', 'generate')->middleware('throttle:10,1');
+        Route::post('campaigns/{campaign}/manage', 'campaign');
+    });
+
     // Core resources
     Route::apiResource('contacts', ContactController::class);
     Route::apiResource('deals', DealController::class);

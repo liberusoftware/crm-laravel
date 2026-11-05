@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Zernio;
 
+use App\Services\Marketing\PlatformConfiguration;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
 
 final class ZernioTenantService
@@ -108,13 +110,13 @@ final class ZernioTenantService
 
     public function provisionIfConfigured(Model $team): void
     {
-        if ((string) config('services.zernio.api_key') === '') {
+        if (app(PlatformConfiguration::class)->provider() !== 'zernio' || (string) app(PlatformConfiguration::class)->credential('zernio_api_key', config('services.zernio.api_key')) === '') {
             return;
         }
 
         try {
             $this->ensureProfile($team);
-        } catch (ZernioException $exception) {
+        } catch (ZernioException|ConnectionException $exception) {
             Log::error('Unable to provision the team Zernio profile.', [
                 'team_id' => $team->getKey(),
                 'error' => $exception->getMessage(),

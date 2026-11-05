@@ -19,7 +19,7 @@ class SocialMediaOAuthTest extends TestCase
      */
     public function test_create_view_includes_social_media_platforms(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->withPersonalTeam()->create();
         $this->actingAs($user);
 
         $response = $this->get(route('oauth.configurations.create'));
@@ -37,7 +37,7 @@ class SocialMediaOAuthTest extends TestCase
      */
     public function test_store_social_media_config_redirects_to_authenticate(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->withPersonalTeam()->create();
         $this->actingAs($user);
 
         $response = $this->post(route('oauth.configurations.store'), [
@@ -62,7 +62,7 @@ class SocialMediaOAuthTest extends TestCase
     #[DataProvider('socialMediaPlatformsProvider')]
     public function test_can_store_social_media_oauth_configuration(string $platform): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->withPersonalTeam()->create();
         $this->actingAs($user);
 
         $this->post(route('oauth.configurations.store'), [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Zernio;
 
+use App\Services\Marketing\PlatformConfiguration;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -12,7 +13,7 @@ final class ZernioClient
 {
     public function request(): PendingRequest
     {
-        $apiKey = (string) config('services.zernio.api_key');
+        $apiKey = (string) app(PlatformConfiguration::class)->credential('zernio_api_key', config('services.zernio.api_key'));
         if ($apiKey === '') {
             throw new ZernioException('Zernio is not configured.');
         }
@@ -21,8 +22,7 @@ final class ZernioClient
             ->acceptJson()
             ->asJson()
             ->withToken($apiKey)
-            ->timeout(max(1, (int) config('services.zernio.timeout', 30)))
-            ->retry(max(0, (int) config('services.zernio.retries', 2)), 200, throw: false);
+            ->timeout(max(1, (int) config('services.zernio.timeout', 30)));
     }
 
     /** @return array<string, mixed> */
@@ -110,15 +110,35 @@ final class ZernioClient
     }
 
     /** @param array<string, mixed> $payload @return array<string, mixed> */
-    public function createCampaign(array $payload): array
+    public function createCampaign(array $payload, ?string $idempotencyKey = null): array
     {
-        return $this->send('post', '/ads/campaigns', $payload);
+        return $this->send('post', '/ads/campaigns', $payload, [], $idempotencyKey ? ['Idempotency-Key' => $idempotencyKey] : []);
     }
 
     /** @param array<string, mixed> $payload @return array<string, mixed> */
     public function updateCampaign(string $campaignId, array $payload): array
     {
-        return $this->send('patch', '/ads/campaigns/'.rawurlencode($campaignId), $payload);
+        return $this->send('put', '/ads/campaigns/'.rawurlencode($campaignId), $payload);
+    }
+
+    public function listCampaigns(array $query = []): array
+    {
+        return $this->send('get', '/ads/campaigns', $query);
+    }
+
+    public function campaignStatus(string $id, array $payload): array
+    {
+        return $this->send('put', '/ads/campaigns/'.rawurlencode($id).'/status', $payload);
+    }
+
+    public function deleteCampaign(string $id, array $payload): array
+    {
+        return $this->send('delete', '/ads/campaigns/'.rawurlencode($id), $payload);
+    }
+
+    public function deletePost(string $id): array
+    {
+        return $this->send('delete', '/posts/'.rawurlencode($id));
     }
 
     /** @return array<string, mixed> */
@@ -169,15 +189,16 @@ final class ZernioClient
     }
 
     /** @param array<string, mixed> $payload @return array<string, mixed> */
-    private function send(string $method, string $uri, array $payload = [], array $query = []): array
+    private function send(string $method, string $uri, array $payload = [], array $query = [], array $headers = []): array
     {
         if ($query !== []) {
             $uri .= '?'.http_build_query($query);
         }
 
+        $request = $this->request()->withHeaders($headers);
         $response = $method === 'get'
-            ? $this->request()->get($uri, $payload)
-            : $this->request()->{$method}($uri, $payload);
+            ? $request->get($uri, $payload)
+            : $request->{$method}($uri, $payload);
 
         return $this->parse($response, $uri);
     }
@@ -191,7 +212,8 @@ final class ZernioClient
             return is_array($json) ? $json : [];
         }
 
-        $message = (string) ($response->json('error') ?? $response->reason());
+        $error = $response->json('error');
+        $message = is_string($error) ? $error : $response->reason();
         throw new ZernioException("Zernio request failed for {$uri}: {$message}", $response->status());
     }
 }

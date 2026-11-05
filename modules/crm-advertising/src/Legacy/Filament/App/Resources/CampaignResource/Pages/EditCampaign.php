@@ -19,4 +19,15 @@ class EditCampaign extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['metadata'] = array_replace($this->record->getAttribute('metadata') ?? [], array_intersect_key($data['metadata'] ?? [], array_flip(['ad_copy', 'headline', 'call_to_action'])));
+        if (filled($this->record->getAttribute('external_id'))) {
+            $data['external_id'] = $this->record->getAttribute('external_id');
+            $data['status'] = $this->record->getAttribute('status');
+        }
+
+        return $data;
+    }
 }

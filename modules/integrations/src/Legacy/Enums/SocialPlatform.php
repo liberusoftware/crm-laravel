@@ -18,6 +18,10 @@ enum SocialPlatform: string
     case Threads = 'threads';
     case GoogleBusiness = 'googlebusiness';
     case Telegram = 'telegram';
+    case Snapchat = 'snapchat';
+    case WhatsApp = 'whatsapp';
+    case Discord = 'discord';
+    case Slack = 'slack';
 
     public function label(): string
     {
@@ -34,6 +38,10 @@ enum SocialPlatform: string
             self::Threads => 'Threads',
             self::GoogleBusiness => 'Google Business',
             self::Telegram => 'Telegram',
+            self::Snapchat => 'Snapchat',
+            self::WhatsApp => 'WhatsApp',
+            self::Discord => 'Discord',
+            self::Slack => 'Slack',
         };
     }
 

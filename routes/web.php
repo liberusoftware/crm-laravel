@@ -109,9 +109,9 @@ Route::middleware(['auth'])->group(function (): void {
         Route::delete('/{configuration}', [OAuthConfigurationController::class, 'destroy'])->name('oauth.configurations.destroy');
     });
 
-    Route::prefix('oauth')->group(function (): void {
+    Route::prefix('social-connections/oauth')->group(function (): void {
         Route::get('/{service}/auth/{configId}', [OAuthConfigurationController::class, 'authenticate'])->name('oauth.authenticate');
-        Route::get('/{service}/callback', [OAuthConfigurationController::class, 'oauthCallback'])->name('oauth.configurations.callback');
+        Route::get('/{service}/callback', [OAuthConfigurationController::class, 'callback'])->name('oauth.configurations.callback');
     });
 });
 

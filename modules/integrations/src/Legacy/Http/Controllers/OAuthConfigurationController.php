@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\OAuthConfiguration;
+use App\Services\Marketing\PlatformConfiguration;
+use App\Services\Marketing\WorkspaceAccess;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -10,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\AbstractProvider;
+use Laravel\Socialite\Two\User;
 
 class OAuthConfigurationController extends Controller
 {
@@ -93,7 +97,10 @@ class OAuthConfigurationController extends Controller
             'additional_settings' => 'nullable|array',
         ]);
 
+        $team = Auth::user()->currentTeam;
+        abort_unless($team && app(WorkspaceAccess::class)->canManage(Auth::user(), $team), 403);
         $config = new OAuthConfiguration($validated);
+        $config->setAttribute('team_id', $team->getKey());
         $config->user_id = Auth::id();
         $config->save();
 
@@ -105,18 +112,33 @@ class OAuthConfigurationController extends Controller
 
     public function authenticate($service, $configId)
     {
-        session(['oauth_config_id' => $configId]);
+        $config = OAuthConfiguration::query()->whereKey($configId)->where('team_id', Auth::user()->getAttribute('current_team_id'))->where('user_id', Auth::id())->where('service_name', $service)->firstOrFail();
+        if (in_array($service, ['facebook', 'instagram', 'linkedin', 'twitter', 'youtube'], true)) {
+            abort_unless(app(PlatformConfiguration::class)->provider() === 'direct', 422);
+        }
+        session(['oauth_config_id' => $configId, 'oauth_config_service' => $service]);
 
         $driver = $this->serviceToDriver[$service] ?? $service;
 
         try {
+            $platform = app(PlatformConfiguration::class);
+            $credentialProvider = match ($service) {
+                'instagram' => 'facebook', 'youtube', 'google', 'gmail' => 'google', 'outlook', 'microsoft365' => 'microsoft', default => $service
+            };
+            $clientId = $platform->credential($credentialProvider.'_client_id');
+            $clientSecret = $platform->credential($credentialProvider.'_client_secret');
+            if ($clientId && $clientSecret) {
+                config(['services.'.$driver.'.client_id' => $clientId, 'services.'.$driver.'.client_secret' => $clientSecret]);
+            }
+            config(['services.'.$driver.'.redirect' => route('oauth.configurations.callback', ['service' => $service])]);
+            Socialite::forgetDrivers();
             $socialite = Socialite::driver($driver);
 
-            if (isset($this->serviceScopes[$service])) {
+            if (isset($this->serviceScopes[$service]) && $socialite instanceof AbstractProvider) {
                 $socialite->scopes($this->serviceScopes[$service]);
             }
 
-            if ($driver === 'google') {
+            if ($driver === 'google' && $socialite instanceof AbstractProvider) {
                 $socialite->with(['access_type' => 'offline', 'prompt' => 'consent']);
             }
 
@@ -132,11 +154,25 @@ class OAuthConfigurationController extends Controller
     public function callback($service)
     {
         try {
-            $configId = session('oauth_config_id');
-            $config = OAuthConfiguration::query()->whereKey($configId)->where('user_id', Auth::id())->firstOrFail();
+            abort_unless(session('oauth_config_service') === $service, 403);
+            $configId = session()->pull('oauth_config_id');
+            session()->forget('oauth_config_service');
+            $config = OAuthConfiguration::query()->whereKey($configId)->where('user_id', Auth::id())->where('team_id', Auth::user()->getAttribute('current_team_id'))->where('service_name', $service)->firstOrFail();
 
             $driver = $this->serviceToDriver[$service] ?? $service;
+            $platform = app(PlatformConfiguration::class);
+            $credentialProvider = match ($service) {
+                'instagram' => 'facebook', 'youtube', 'google', 'gmail' => 'google', 'outlook', 'microsoft365' => 'microsoft', default => $service
+            };
+            if ($platform->credential($credentialProvider.'_client_id') && $platform->credential($credentialProvider.'_client_secret')) {
+                config(['services.'.$driver.'.client_id' => $platform->credential($credentialProvider.'_client_id'), 'services.'.$driver.'.client_secret' => $platform->credential($credentialProvider.'_client_secret')]);
+            }
+            config(['services.'.$driver.'.redirect' => route('oauth.configurations.callback', ['service' => $service])]);
+            Socialite::forgetDrivers();
             $socialiteUser = Socialite::driver($driver)->user();
+            if (! $socialiteUser instanceof User) {
+                throw new \RuntimeException('This provider did not return a bearer-token account.');
+            }
 
             $additionalSettings = array_merge($config->additional_settings ?? [], [
                 'provider_id' => $socialiteUser->getId(),
@@ -171,7 +207,7 @@ class OAuthConfigurationController extends Controller
             Log::error("OAuth callback failed for {$service}: ".$e->getMessage());
 
             return redirect()->route('oauth.configurations.index')
-                ->with('error', 'Failed to connect account: '.$e->getMessage());
+                ->with('error', 'The account could not be connected. Please try again or contact your administrator.');
         }
     }
 

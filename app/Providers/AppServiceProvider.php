@@ -16,6 +16,7 @@ use App\Console\Commands\PublishScheduledPosts;
 use App\Console\Commands\RestoreTeam;
 use App\Console\Commands\SendReminders;
 use App\Console\Commands\UpdatePostAnalytics;
+use App\Http\Responses\PanelLoginResponse;
 use App\Models\Contact;
 use App\Models\Deal;
 use App\Models\Lead;
@@ -26,6 +27,7 @@ use App\Modules\ModuleManager;
 use App\Modules\ModuleServiceProvider;
 use App\Observers\AuditObserver;
 use App\Support\SsoLogoutState;
+use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Illuminate\Database\Console\Migrations\InstallCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Console\Migrations\StatusCommand;
@@ -50,6 +52,8 @@ class AppServiceProvider extends ServiceProvider
     #[\Override]
     public function register(): void
     {
+        $this->app->bind(LoginResponse::class, PanelLoginResponse::class);
+
         if ($this->app->runningInConsole()) {
             $this->commands([
                 FreshDatabaseCommand::class,

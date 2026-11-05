@@ -97,6 +97,7 @@ class Team extends JetstreamTeam
             'personal_team' => 'boolean',
             'archived_at' => 'datetime',
             'setup_completed_at' => 'datetime',
+            'marketing_preferences' => 'array',
         ];
     }
 

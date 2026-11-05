@@ -75,6 +75,8 @@ class AppPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
                 EditProfile::class,
+                Pages\MarketingConnections::class,
+                Pages\ContentCalendar::class,
             ])
             ->widgets([
                 Widgets\AccountWidget::class,

@@ -14,5 +14,6 @@ final class DialerAndOutreachLivewireServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'module-crm-dialer-and-outreach-livewire');
         Livewire::component('module-crm-dialer-and-outreach-livewire::dashboard', DialerDashboard::class);
+        Livewire::resolveMissingComponent(fn (string $name): ?string => $name === 'module-crm-dialer-and-outreach-livewire::dashboard' ? DialerDashboard::class : null);
     }
 }

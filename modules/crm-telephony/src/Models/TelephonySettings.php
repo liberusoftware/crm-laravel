@@ -6,7 +6,12 @@ namespace Liberu\CRM\Telephony\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/** @property int $version */
+/**
+ * @property int $version
+ * @property string|null $account_sid
+ * @property string|null $auth_token
+ * @property string|null $default_from_number
+ */
 final class TelephonySettings extends Model
 {
     protected $table = 'crm_telephony_settings';

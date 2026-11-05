@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Services\Marketing\PlatformConfiguration;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Liberu\CRM\UnifiedConversations\Actions\SyncExternalConversation;
@@ -13,7 +14,7 @@ final class ZernioWebhookController extends Controller
 {
     public function __invoke(Request $request, Team $team, SyncExternalConversation $sync): JsonResponse
     {
-        $secret = (string) config('services.zernio.webhook_secret');
+        $secret = (string) app(PlatformConfiguration::class)->credential('zernio_webhook_secret', config('services.zernio.webhook_secret'));
         $signature = (string) ($request->header('X-Zernio-Signature-256') ?? $request->header('X-Zernio-Signature'));
         $signature = str_starts_with($signature, 'sha256=') ? substr($signature, 7) : $signature;
         $payload = (string) $request->getContent();

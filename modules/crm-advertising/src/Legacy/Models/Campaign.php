@@ -9,6 +9,16 @@ use App\Traits\MasksFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property AdvertisingAccount|null $advertisingAccount
+ * @property string $name
+ * @property string|null $external_id
+ * @property string $status
+ * @property string|null $objective
+ * @property string|null $budget
+ * @property string|null $budget_type
+ * @property array|null $metadata
+ */
 class Campaign extends Model
 {
     use HasFactory;

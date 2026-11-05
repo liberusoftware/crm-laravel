@@ -1,5 +1,17 @@
 # Changelog
 
+## 12.1.0 — 2026-11-05
+
+- Add speech and keypad routing to sales, support, and human reception agents; retain assistant replies and provide an AI connection-failure fallback.
+- Add tenant-scoped Twilio auto dialing, campaign start/pause controls, local calling hours, signed attempt callbacks, consent checks, opt-out suppression, and duplicate-call safeguards.
+- Separate super-admin platform setup from workspace onboarding. Encrypt provider credentials and restrict platform API applications, provider selection, and AI service configuration to super admins.
+- Add direct/Zernio publishing selection, workspace account connections, explicit Zernio targets, reviewed AI drafts, a timezone-aware content calendar, and scheduling/approval/reconciliation workflows.
+- Add paused campaign creation, budget synchronization, activation, pausing, archival, analytics, and advertising-account setup. Keep provider-specific coverage explicit.
+
+Upgrade: run `php artisan migrate`, build frontend assets, and run the Laravel scheduler. Configure provider and optional AI gateway credentials through Platform setup. Workspace OAuth callbacks now use `/social-connections/oauth/{service}/callback`; login OAuth callbacks remain separate. Existing queued dialer calls require renewed consent where consent is mandatory.
+
+See `docs/marketing-and-onboarding.md` and `docs/ai-reception-and-auto-dialer.md` for setup, supported provider capabilities, and delivery reconciliation. Predictive dialing and network-specific ad-group/creative automation are not included.
+
 ## 2.0.1
 
 Security hardening from an OWASP audit (v2.0.1-rc.1–rc.3).

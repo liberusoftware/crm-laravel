@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $team_id
  * @property string $status
+ * @property string $name
+ * @property array<string,mixed>|null $policy
  * @property array<string,mixed>|null $knowledge
  * @property array<string,mixed>|null $tools
  */
