@@ -1570,7 +1570,7 @@
         "liberusoftware/settings-api": "^1.0",
         "liberusoftware/settings-filament": "^1.0",
         "liberusoftware/settings-livewire": "^1.0",
-        "liberusoftware/tenancy": "^1.0",
+        "liberusoftware/tenancy": "^1.0.1",
         "liberusoftware/theme-base": "^2.0",
         "liberusoftware/theme-clear-signal": "^1.0",
         "liberusoftware/theme-crm": "^1.0",
