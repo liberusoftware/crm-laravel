@@ -8,12 +8,14 @@ use App\Enums\Role;
 use App\Filament\App\Resources\TeamRoleResource\Pages\CreateTeamRole;
 use App\Filament\App\Resources\TeamRoleResource\Pages\EditTeamRole;
 use App\Filament\App\Resources\TeamRoleResource\Pages\ListTeamRoles;
-use App\Filament\Concerns\EnforcesResourcePermissions;
+use App\Filament\Forms\RolePermissionBuilder;
+use App\Models\Team;
 use App\Models\User;
+use App\Services\RoleConfigurationService;
+use App\Support\RolePermissionCatalog;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\TextInput;
+use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -21,8 +23,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
@@ -34,8 +34,6 @@ use Spatie\Permission\Models\Role as SpatieRole;
  */
 class TeamRoleResource extends Resource
 {
-    use EnforcesResourcePermissions;
-
     public static function permissionResource(): string
     {
         return 'team_role';
@@ -55,113 +53,79 @@ class TeamRoleResource extends Resource
     // automatic tenant scoping and scope to roles.team_id manually below.
     protected static bool $isScopedToTenant = false;
 
+    public static function team(): ?Team
+    {
+        $id = Filament::getTenant()?->getKey() ?? Auth::user()?->getAttribute('current_team_id');
+
+        return $id === null ? null : Team::query()->find($id);
+    }
+
     public static function canAccess(): bool
     {
         $user = Auth::user();
+        $team = self::team();
 
-        return $user instanceof User && $user->hasAdminAccess();
+        return $user instanceof User && $team !== null && app(RoleConfigurationService::class)->canManageTeam($user, $team);
     }
 
     public static function canViewAny(): bool
     {
-        return self::adminPanelAccess() || parent::canViewAny();
-    }
-
-    public static function canView(Model $record): bool
-    {
-        return self::adminPanelAccess() || parent::canView($record);
+        return self::canAccess();
     }
 
     public static function canCreate(): bool
     {
-        return self::adminPanelAccess() || parent::canCreate();
+        return self::canAccess();
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return self::canAccess() && self::team() !== null && (int) $record->getAttribute('team_id') === (int) self::team()->getKey()
+            && $record->getAttribute('guard_name') === 'web';
     }
 
     public static function canEdit(Model $record): bool
     {
-        return self::adminPanelAccess() || parent::canEdit($record);
+        return self::canView($record);
     }
 
     public static function canDelete(Model $record): bool
     {
-        return self::adminPanelAccess() || parent::canDelete($record);
+        return self::canView($record) && ! in_array(mb_strtolower($record->getAttribute('name')), Role::values(), true);
     }
 
     public static function canDeleteAny(): bool
     {
-        return self::adminPanelAccess() || parent::canDeleteAny();
+        return false;
     }
 
-    private static function adminPanelAccess(): bool
-    {
-        return self::isAdminPath() && self::canAccess();
-    }
-
-    private static function isAdminPath(): bool
-    {
-        return request()->is('admin') || request()->is('admin/*');
-    }
-
-    /**
-     * Permissions a team admin may grant to a custom role: everything except
-     * role/permission/user management (which would enable privilege escalation).
-     *
-     * @return array<string, string>
-     */
     public static function grantablePermissions(): array
     {
-        $query = Permission::query()
-            ->where('guard_name', 'web')
-            ->whereNotIn('name', ['manage_roles', 'manage_permissions', 'manage_users'])
-            ->where('name', 'not like', '%_role%')
-            ->where('name', 'not like', '%_permission%');
-
-        // Security / settings / audit resources are never grantable to a custom
-        // team role — a team admin can't hand a member SSO/SAML/OAuth/webhook
-        // config, audit-log or team-member access. (team_role[_log] are already
-        // excluded by the %_role% filter above.)
-        foreach (['sso_connection', 'saml_connection', 'oauth_configuration',
-            'webhook_delivery', 'audit_log', 'team_member', 'portal_branding',
-            'portal_access_log'] as $securityToken) {
-            $query->where('name', 'not like', '%_'.$securityToken);
-        }
-
-        return $query
-            ->orderBy('name')
-            ->pluck('name', 'name')
-            ->all();
+        return RolePermissionCatalog::options();
     }
 
     #[\Override]
     public static function getEloquentQuery(): Builder
     {
-        $teamId = Auth::user()?->currentTeam?->getKey();
+        $team = self::team();
 
-        return SpatieRole::query()->where('team_id', $teamId);
+        return SpatieRole::query()->where('guard_name', 'web')->where('team_id', $team?->getKey())
+            ->when($team === null, fn (Builder $query): Builder => $query->whereRaw('1 = 0'));
     }
 
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([
-            TextInput::make('name')
-                ->required()
-                ->maxLength(255)
-                // Custom roles can't shadow a system role name.
-                ->rule(Rule::notIn(Role::values())),
-            CheckboxList::make('permissions')
-                ->options(self::grantablePermissions())
-                ->columns(2)
-                ->searchable()
-                ->bulkToggleable()
-                ->helperText('Role and permission management cannot be granted to a custom role.'),
-        ]);
+        return $schema->components(RolePermissionBuilder::components());
     }
 
     #[\Override]
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('name')
+            ->emptyStateHeading('Build your first team role')
+            ->emptyStateDescription('Start with a Sales, Support, Social media or Advertising preset, then adjust permissions.')
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('permissions_count')->counts('permissions')->label('Permissions'),
@@ -169,7 +133,14 @@ class TeamRoleResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()->using(function (SpatieRole $record): bool {
+                    $user = Auth::user();
+                    $team = self::team();
+                    abort_unless($user instanceof User && $team !== null, 403);
+                    app(RoleConfigurationService::class)->delete($user, $team, $record);
+
+                    return true;
+                }),
             ]);
     }
 

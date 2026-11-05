@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources;
 use App\Actions\Portal\InvitePortalCustomer;
 use App\Actions\Portal\RevokePortalCustomer;
 use App\Exceptions\PortalOnboardingException;
+use App\Filament\Actions\ContactDialingActions;
 use App\Filament\App\Resources\ContactResource\Pages\CreateContact;
 use App\Filament\App\Resources\ContactResource\Pages\EditContact;
 use App\Filament\App\Resources\ContactResource\Pages\ListContacts;
@@ -29,12 +30,14 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Liberu\CRM\DialerAndOutreach\Queries\ContactCallHistory;
 
 class ContactResource extends Resource
 {
@@ -53,78 +56,99 @@ class ContactResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('last_name')
-                    ->maxLength(255),
-                // On edit, a masked-role viewer gets the read-only placeholder below
-                // instead of the real input. The hidden real field is neither
-                // validated nor dehydrated, so a save preserves the stored value.
-                TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255)
-                    ->visible(fn (string $operation): bool => $operation === 'create' || ! AccessContext::shouldMaskFields()),
-                Placeholder::make('email_masked')
-                    ->label('Email')
-                    ->content('[hidden]')
-                    ->visible(fn (string $operation): bool => $operation !== 'create' && AccessContext::shouldMaskFields()),
-                TextInput::make('phone_number')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255)
-                    ->visible(fn (string $operation): bool => $operation === 'create' || ! AccessContext::shouldMaskFields()),
-                Placeholder::make('phone_masked')
-                    ->label('Phone number')
-                    ->content('[hidden]')
-                    ->visible(fn (string $operation): bool => $operation !== 'create' && AccessContext::shouldMaskFields()),
-                Select::make('status')
-                    ->options([
-                        'active' => 'Active',
-                        'inactive' => 'Inactive',
-                        'lead' => 'Lead',
-                        'prospect' => 'Prospect',
+                Section::make('Contact details')
+                    ->description('Start with the person and how to reach them.')
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('last_name')
+                            ->maxLength(255),
+                        // On edit, a masked-role viewer gets the read-only placeholder below
+                        // instead of the real input. The hidden real field is neither
+                        // validated nor dehydrated, so a save preserves the stored value.
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255)
+                            ->visible(fn (string $operation): bool => $operation === 'create' || ! AccessContext::shouldMaskFields()),
+                        Placeholder::make('email_masked')
+                            ->label('Email')
+                            ->content('[hidden]')
+                            ->visible(fn (string $operation): bool => $operation !== 'create' && AccessContext::shouldMaskFields()),
+                        TextInput::make('phone_number')
+                            ->tel()
+                            ->required()
+                            ->maxLength(255)
+                            ->visible(fn (string $operation): bool => $operation === 'create' || ! AccessContext::shouldMaskFields()),
+                        Placeholder::make('phone_masked')
+                            ->label('Phone number')
+                            ->content('[hidden]')
+                            ->visible(fn (string $operation): bool => $operation !== 'create' && AccessContext::shouldMaskFields()),
                     ]),
-                Select::make('source')
-                    ->options([
-                        'website' => 'Website',
-                        'referral' => 'Referral',
-                        'social_media' => 'Social Media',
-                        'direct' => 'Direct',
-                        'other' => 'Other',
+                Section::make('Relationship')
+                    ->description('Track status, source and the linked company.')
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        Select::make('status')
+                            ->options([
+                                'active' => 'Active',
+                                'inactive' => 'Inactive',
+                                'lead' => 'Lead',
+                                'prospect' => 'Prospect',
+                            ]),
+                        Select::make('source')
+                            ->options([
+                                'website' => 'Website',
+                                'referral' => 'Referral',
+                                'social_media' => 'Social Media',
+                                'direct' => 'Direct',
+                                'other' => 'Other',
+                            ]),
+                        Select::make('lifecycle_stage')
+                            ->options([
+                                'subscriber' => 'Subscriber',
+                                'lead' => 'Lead',
+                                'marketing_qualified_lead' => 'Marketing Qualified Lead',
+                                'sales_qualified_lead' => 'Sales Qualified Lead',
+                                'opportunity' => 'Opportunity',
+                                'customer' => 'Customer',
+                                'evangelist' => 'Evangelist',
+                            ]),
+                        Select::make('company_id')
+                            ->label('Company')
+                            ->options(Company::pluck('name', 'id'))
+                            ->searchable()
+                            ->nullable(),
                     ]),
-                Select::make('industry')
-                    ->options([
-                        'Technology' => 'Technology',
-                        'Healthcare' => 'Healthcare',
-                        'Finance' => 'Finance',
-                        'Education' => 'Education',
-                        'Retail' => 'Retail',
-                        'Manufacturing' => 'Manufacturing',
-                        'Real Estate' => 'Real Estate',
-                        'Other' => 'Other',
+                Section::make('Company insights')
+                    ->description('Optional details for segmentation and account planning.')
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->collapsible()
+                    ->collapsed()
+                    ->schema([
+                        Select::make('industry')
+                            ->options([
+                                'Technology' => 'Technology',
+                                'Healthcare' => 'Healthcare',
+                                'Finance' => 'Finance',
+                                'Education' => 'Education',
+                                'Retail' => 'Retail',
+                                'Manufacturing' => 'Manufacturing',
+                                'Real Estate' => 'Real Estate',
+                                'Other' => 'Other',
+                            ]),
+                        TextInput::make('company_size')
+                            ->numeric(),
+                        TextInput::make('annual_revenue')
+                            ->numeric()
+                            ->prefix('$'),
+
                     ]),
-                TextInput::make('company_size')
-                    ->numeric(),
-                TextInput::make('annual_revenue')
-                    ->numeric()
-                    ->prefix('$'),
-                Select::make('lifecycle_stage')
-                    ->options([
-                        'subscriber' => 'Subscriber',
-                        'lead' => 'Lead',
-                        'marketing_qualified_lead' => 'Marketing Qualified Lead',
-                        'sales_qualified_lead' => 'Sales Qualified Lead',
-                        'opportunity' => 'Opportunity',
-                        'customer' => 'Customer',
-                        'evangelist' => 'Evangelist',
-                    ]),
-                Select::make('company_id')
-                    ->label('Company')
-                    ->options(Company::pluck('name', 'id'))
-                    ->searchable()
-                    ->nullable(),
             ]);
     }
 
@@ -132,11 +156,21 @@ class ContactResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query): Builder => app(ContactCallHistory::class)->withLastCalled($query))
+            ->searchPlaceholder('Search names or a full email address')
+            ->defaultSort('created_at', 'desc')
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->persistSortInSession()
+            ->striped()
+            ->emptyStateHeading('No contacts found')
+            ->emptyStateDescription('Create a contact to get started, or adjust your search and filters.')
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('last_name')
+                    ->toggleable()
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
@@ -161,17 +195,25 @@ class ContactResource extends Resource
                     })
                     ->sortable(),
                 TextColumn::make('lifecycle_stage')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->formatStateUsing(fn (?string $state): string => str($state ?? '')->replace('_', ' ')->title()->toString())
                     ->label('Lifecycle Stage')
                     ->sortable(),
                 TextColumn::make('company.name')
                     ->label('Company')
                     ->sortable(),
+                TextColumn::make('last_called')
+                    ->label('Last called')
+                    ->getStateUsing(fn (Contact $record): ?string => app(ContactCallHistory::class)->lastCalled($record))
+                    ->dateTime()
+                    ->placeholder('Never called'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                ContactDialingActions::lastCalledFilter(),
                 SelectFilter::make('status')
                     ->options([
                         'active' => 'Active',
@@ -211,6 +253,7 @@ class ContactResource extends Resource
                     ]),
             ])
             ->headerActions([
+                ContactDialingActions::manage(),
                 // Gated off for masked (`free`) roles: a CSV would otherwise
                 // bypass the email/phone_number masking applied in the UI.
                 ExportAction::make()
@@ -235,16 +278,7 @@ class ContactResource extends Resource
                             Notification::make()->title('Failed to send SMS')->danger()->send();
                         }
                     }),
-                Action::make('makeCall')
-                    ->icon('heroicon-o-phone')
-                    ->action(function (Contact $record, TwilioService $twilioService): void {
-                        $result = $twilioService->makeCall($record->phone_number, route('twilio.twiml.outbound'));
-                        if ($result) {
-                            Notification::make()->title('Call initiated successfully')->success()->send();
-                        } else {
-                            Notification::make()->title('Failed to initiate call')->danger()->send();
-                        }
-                    }),
+                ContactDialingActions::quick(),
                 Action::make('inviteToPortal')
                     ->label('Invite to portal')
                     ->icon('heroicon-o-user-plus')
@@ -293,19 +327,7 @@ class ContactResource extends Resource
                             ->title("Bulk SMS sent: {$successCount} successful, {$failCount} failed")
                             ->send();
                     }),
-                BulkAction::make('bulkMakeCall')
-                    ->icon('heroicon-o-phone')
-                    ->action(function (Collection $records, TwilioService $twilioService): void {
-                        $successCount = 0;
-                        $failCount = 0;
-                        foreach ($records as $record) {
-                            $result = $twilioService->makeCall($record->phone_number, route('twilio.twiml.outbound'));
-                            $result ? $successCount++ : $failCount++;
-                        }
-                        Notification::make()
-                            ->title("Bulk calls initiated: {$successCount} successful, {$failCount} failed")
-                            ->send();
-                    }),
+                ContactDialingActions::bulk(),
             ]);
     }
 

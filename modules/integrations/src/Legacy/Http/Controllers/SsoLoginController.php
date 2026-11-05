@@ -80,14 +80,14 @@ class SsoLoginController extends Controller
 
         // Sync the team role from the IdP's groups claim, if the connection maps
         // one. Only when it differs (avoids re-roling + auditing on every login);
-        // the owner is left as-is (changeTeamRole throws, caught).
+        // the owner is left as-is (provisionTeamRole throws, caught).
         $groups = $claims['groups'] ?? [];
         $mappedRole = is_array($groups) ? $connection->roleForGroups($groups) : null;
         if ($mappedRole !== null) {
             setPermissionsTeamId($team->getKey());
             if (! $user->hasRole($mappedRole->value)) {
                 try {
-                    app(TeamManagementService::class)->changeTeamRole($user, $team, $mappedRole);
+                    app(TeamManagementService::class)->provisionTeamRole($user, $team, $mappedRole);
                 } catch (InvalidArgumentException) {
                     // Owner or otherwise unassignable — keep the existing role.
                 }

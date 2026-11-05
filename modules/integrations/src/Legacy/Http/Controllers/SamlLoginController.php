@@ -79,14 +79,14 @@ class SamlLoginController extends Controller
 
         // Map the IdP's groups attribute to a team role, if the connection maps
         // one and it differs (avoids re-roling + auditing every login; the owner
-        // is left as-is — changeTeamRole throws, caught).
+        // is left as-is — provisionTeamRole throws, caught).
         $groups = $attributes['groups'] ?? [];
         $mappedRole = is_array($groups) ? $connection->roleForGroups($groups) : null;
         if ($mappedRole !== null) {
             setPermissionsTeamId($team->getKey());
             if (! $user->hasRole($mappedRole->value)) {
                 try {
-                    app(TeamManagementService::class)->changeTeamRole($user, $team, $mappedRole);
+                    app(TeamManagementService::class)->provisionTeamRole($user, $team, $mappedRole);
                 } catch (InvalidArgumentException) {
                     // Owner or otherwise unassignable — keep the existing role.
                 }

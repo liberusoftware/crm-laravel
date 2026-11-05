@@ -6,9 +6,12 @@ namespace Liberu\CRM\DialerAndOutreach\Models;
 
 use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $team_id
+ * @property int|null $contact_id
+ * @property Carbon|null $last_attempt_at
  * @property int $list_id
  * @property string $status
  * @property bool $consent_granted
@@ -27,6 +30,6 @@ final class DialerCall extends Model
 
     protected function casts(): array
     {
-        return ['consent_granted' => 'boolean', 'voicemail_dropped' => 'boolean', 'next_attempt_at' => 'datetime', 'completed_at' => 'datetime'];
+        return ['last_attempt_at' => 'datetime', 'consent_granted' => 'boolean', 'voicemail_dropped' => 'boolean', 'next_attempt_at' => 'datetime', 'completed_at' => 'datetime'];
     }
 }

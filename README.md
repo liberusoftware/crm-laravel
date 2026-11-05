@@ -104,6 +104,8 @@ The REST API is versioned under `/api/v1` and uses Laravel Sanctum authenticatio
 - [`docs/MODULAR_ARCHITECTURE.md`](docs/MODULAR_ARCHITECTURE.md) — module boundaries and extension points.
 - [`docs/UNIFIED_HELPDESK.md`](docs/UNIFIED_HELPDESK.md) — help desk and communication workflows.
 - [`docs/contact-management-ui-ux.md`](docs/contact-management-ui-ux.md) — contact management interface.
+- [`docs/contact-dialing.md`](docs/contact-dialing.md) — quick calling, bulk auto dialing and last-called filters.
+- [`docs/role-permissions.md`](docs/role-permissions.md) — team permission builder, role presets and platform administration.
 - [`docs/email-tracking.md`](docs/email-tracking.md) — email tracking configuration and behavior.
 - [`docs/oauth-authentication.md`](docs/oauth-authentication.md) — OAuth connection setup.
 - [`docs/workflow-automation.md`](docs/workflow-automation.md) — automation triggers and actions.

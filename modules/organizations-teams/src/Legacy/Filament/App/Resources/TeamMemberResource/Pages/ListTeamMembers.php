@@ -6,11 +6,11 @@ namespace App\Filament\App\Resources\TeamMemberResource\Pages;
 
 use App\Enums\Role;
 use App\Filament\App\Resources\TeamMemberResource;
+use App\Filament\App\Resources\TeamRoleResource;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\TeamManagementService;
 use Filament\Actions\Action;
-use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -44,7 +44,7 @@ class ListTeamMembers extends ListRecords
                         ->required(),
                 ])
                 ->action(function (array $data, TeamManagementService $service): void {
-                    $tenant = Filament::getTenant();
+                    $tenant = TeamRoleResource::team();
                     if (! $tenant instanceof Team) {
                         Notification::make()->title('No active team selected')->danger()->send();
 

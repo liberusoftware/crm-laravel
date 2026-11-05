@@ -9,6 +9,7 @@ use App\Filament\App\Resources\TeamMemberResource\Pages\ListTeamMembers;
 use App\Filament\Concerns\EnforcesResourcePermissions;
 use App\Models\Team;
 use App\Models\User;
+use App\Services\RoleConfigurationService;
 use App\Services\TeamManagementService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
@@ -40,8 +41,10 @@ class TeamMemberResource extends Resource
     #[\Override]
     public static function canViewAny(): bool
     {
-        // Team membership uses its own permission; the User policy governs platform accounts.
-        return static::userHasPermission('view');
+        $actor = Auth::user();
+        $team = TeamRoleResource::team();
+
+        return $actor instanceof User && $team !== null && app(RoleConfigurationService::class)->canManageTeam($actor, $team);
     }
 
     protected static ?string $model = User::class;
@@ -63,7 +66,7 @@ class TeamMemberResource extends Resource
     #[\Override]
     public static function getEloquentQuery(): Builder
     {
-        $tenant = Filament::getTenant();
+        $tenant = TeamRoleResource::team();
         $ids = $tenant instanceof Team ? $tenant->allUsers()->pluck('id')->all() : [];
 
         return User::query()->whereKey($ids);
@@ -91,7 +94,7 @@ class TeamMemberResource extends Resource
                     // the team owner's row (their role is immutable — changeTeamRole
                     // rejects it too).
                     ->visible(function (User $record): bool {
-                        $tenant = Filament::getTenant();
+                        $tenant = TeamRoleResource::team();
                         $ownerId = $tenant instanceof Team ? $tenant->getAttribute('user_id') : null;
 
                         return $record->getKey() !== Auth::id() && $record->getKey() !== $ownerId;
@@ -100,22 +103,11 @@ class TeamMemberResource extends Resource
                         Select::make('role')
                             // Four fixed team roles plus this team's custom roles
                             // (created via TeamRoleResource, team_id = tenant).
-                            ->options(function (): array {
-                                $tenant = Filament::getTenant();
-                                $custom = $tenant instanceof Team
-                                    ? SpatieRole::where('team_id', $tenant->getKey())->pluck('name', 'name')->all()
-                                    : [];
-
-                                return [
-                                    Role::Manager->value => 'Manager',
-                                    Role::SalesRep->value => 'Sales rep',
-                                    Role::Free->value => 'Free',
-                                ] + $custom;
-                            })
+                            ->options(fn (): array => self::assignableRoles())
                             ->required(),
                     ])
                     ->action(function (User $record, array $data, TeamManagementService $service): void {
-                        $tenant = Filament::getTenant();
+                        $tenant = TeamRoleResource::team();
                         if (! $tenant instanceof Team) {
                             return;
                         }
@@ -130,9 +122,8 @@ class TeamMemberResource extends Resource
                                 ->where('name', $value)
                                 ->first();
 
-                            if ($customRole) {
-                                $service->assignCustomRole($record, $tenant, $customRole);
-                            }
+                            abort_unless($customRole !== null, 422, 'Choose a role belonging to this team.');
+                            $service->assignCustomRole($record, $tenant, $customRole);
                         }
 
                         Notification::make()->title('Role updated')->success()->send();
@@ -145,13 +136,13 @@ class TeamMemberResource extends Resource
                     // Hidden on the acting admin's own row and the owner's row
                     // (the service rejects removing the owner too).
                     ->visible(function (User $record): bool {
-                        $tenant = Filament::getTenant();
+                        $tenant = TeamRoleResource::team();
                         $ownerId = $tenant instanceof Team ? $tenant->getAttribute('user_id') : null;
 
                         return $record->getKey() !== Auth::id() && $record->getKey() !== $ownerId;
                     })
                     ->action(function (User $record, TeamManagementService $service): void {
-                        $tenant = Filament::getTenant();
+                        $tenant = TeamRoleResource::team();
                         if ($tenant instanceof Team) {
                             $service->removeTeamMember($record, $tenant);
                             Notification::make()->title('Member removed')->success()->send();
@@ -164,20 +155,17 @@ class TeamMemberResource extends Resource
                     ->icon('heroicon-o-key')
                     ->schema([
                         Select::make('role')
-                            ->options([
-                                Role::Manager->value => 'Manager',
-                                Role::SalesRep->value => 'Sales rep',
-                                Role::Free->value => 'Free',
-                            ])
+                            ->options(fn (): array => self::assignableRoles())
                             ->required(),
                     ])
                     ->action(function (Collection $records, array $data, TeamManagementService $service): void {
-                        $tenant = Filament::getTenant();
+                        $tenant = TeamRoleResource::team();
                         if (! $tenant instanceof Team) {
                             return;
                         }
 
-                        $role = Role::from($data['role']);
+                        $value = $data['role'];
+                        $role = Role::tryFrom($value);
                         $ownerId = $tenant->getAttribute('user_id');
 
                         foreach ($records as $record) {
@@ -187,7 +175,12 @@ class TeamMemberResource extends Resource
                             }
 
                             try {
-                                $service->changeTeamRole($record, $tenant, $role);
+                                if ($role !== null) {
+                                    $service->changeTeamRole($record, $tenant, $role);
+                                } else {
+                                    $custom = SpatieRole::query()->where('team_id', $tenant->getKey())->where('guard_name', 'web')->where('name', $value)->firstOrFail();
+                                    $service->assignCustomRole($record, $tenant, $custom);
+                                }
                             } catch (\InvalidArgumentException) {
                                 // Owner or otherwise unassignable — skip.
                             }
@@ -198,6 +191,14 @@ class TeamMemberResource extends Resource
                     ->deselectRecordsAfterCompletion(),
             ])
             ->defaultSort('name');
+    }
+
+    public static function assignableRoles(): array
+    {
+        $team = TeamRoleResource::team();
+        $custom = $team === null ? [] : SpatieRole::query()->where('team_id', $team->getKey())->where('guard_name', 'web')->pluck('name', 'name')->all();
+
+        return [Role::Manager->value => 'Manager', Role::SalesRep->value => 'Sales rep', Role::Free->value => 'Free'] + $custom;
     }
 
     #[\Override]
