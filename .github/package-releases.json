@@ -641,11 +641,11 @@
   },
   "liberusoftware/module-crm-advertising": {
     "path": "modules/crm-advertising",
-    "reference": "de433be7767c9dd404cf05012e240498517edfc9",
+    "reference": "487b9ad16e91d4907765e200ee85e3aec340fe9c",
     "repository": "https://github.com/liberusoftware/module-crm-advertising",
-    "source_signature": "7ff78e630a87b0094ef698fae2ed4be2d35316c8d050dd3a13f8a9e1cf0f6b68",
-    "source_tree": "6c68f717bf6e62fd263b715ce6ee29cf38a49d72",
-    "version": "1.2.0"
+    "source_signature": "d7b32379a2ae216e88ec63bb4f36153bb9c26ad9045eba9b90eb18b9ffa09b0c",
+    "source_tree": "f26d4838b374f5c60000a1bc5375fcef148c99e0",
+    "version": "1.3.0"
   },
   "liberusoftware/module-crm-advertising-api": {
     "path": "modules/module-crm-advertising-api",
@@ -769,11 +769,11 @@
   },
   "liberusoftware/module-crm-ai-reception-and-conversation": {
     "path": "modules/crm-ai-reception-and-conversation",
-    "reference": "8c52081fed61d0d807ae1ebc9f0ddd1609c31d4d",
+    "reference": "cd379ab6d64925b098de39b56684f683e290f18d",
     "repository": "https://github.com/liberusoftware/module-crm-ai-reception-and-conversation",
-    "source_signature": "4f9b05b35d04ddb4a2d303892b2f0d91a6b7b5fb6c77c9532f5367e7010cad19",
-    "source_tree": "df0f8c83d989149de5b123f26db7a9944b83bb30",
-    "version": "1.1.0"
+    "source_signature": "a69a1e28c9b7043b15bb89477d10bbebc61d8e1afbdc92fc7ac2e15cd615cf2b",
+    "source_tree": "72310b21ec4f44e1733a61ef662340fc0f096e43",
+    "version": "1.2.0"
   },
   "liberusoftware/module-crm-ai-reception-and-conversation-api": {
     "path": "modules/module-crm-ai-reception-and-conversation-api",
@@ -3329,11 +3329,11 @@
   },
   "liberusoftware/module-crm-telephony": {
     "path": "modules/crm-telephony",
-    "reference": "b6fa58a860cd7e5dee045fdaeafacb01c6554ac0",
+    "reference": "751b2b8a02b41f765ad5c01737f89f05b1e1dcc1",
     "repository": "https://github.com/liberusoftware/module-crm-telephony",
-    "source_signature": "e9ea83fdeae34da0bf14ac9f71eec71715d37e94e44800ddcac3037f05237821",
-    "source_tree": "b1e249aef3f5fdcd80bc30dfc1db2a49c95c9bd5",
-    "version": "1.0.0"
+    "source_signature": "e8c78eade211d571366a20bed12a2119cac4c1e371152cb56fc9ab707e07e3c0",
+    "source_tree": "1310375acebc46aa0910081e4f04e8004c5dd0c3",
+    "version": "1.1.0"
   },
   "liberusoftware/module-crm-telephony-api": {
     "path": "modules/crm-telephony-api",
@@ -3681,11 +3681,11 @@
   },
   "liberusoftware/organizations-teams": {
     "path": "modules/organizations-teams",
-    "reference": "15cb4dc021eb8a1f21bd66addfee41053ffe0d0a",
+    "reference": "a683276241117635bc6e5c804bc781934dc8de00",
     "repository": "https://github.com/liberusoftware/module-organizations-teams",
-    "source_signature": "e4d8f20fc141ac317538086a60bb03796da5df452e3eb317607d3ae171b80bde",
-    "source_tree": "271bfa36066ff138be9d982e738aec01efc2d6eb",
-    "version": "1.7.0"
+    "source_signature": "d6c2142d8544b199b8f358cfcb4749fafe9a4d18d4d30af12ed588c82087a1da",
+    "source_tree": "591de756ae2980c9cd89297afab5dd07463ed2f1",
+    "version": "1.9.0"
   },
   "liberusoftware/organizations-teams-api": {
     "path": "modules/organizations-teams-api",
@@ -3777,11 +3777,11 @@
   },
   "liberusoftware/scheduler-queues": {
     "path": "modules/scheduler-queues",
-    "reference": "45844b3cad0134da074d65e607d3f97d3abecd63",
+    "reference": "5583216f6565d5cf33568e310b2d6527d523a297",
     "repository": "https://github.com/liberusoftware/module-scheduler-queues",
-    "source_signature": "fb7ea97b83d837f8f67d71c5eb91e4ae314036f97ab89e7b39998ec298305114",
-    "source_tree": "a165c885851b70d4378588c3af516716a0da7712",
-    "version": "1.5.0"
+    "source_signature": "760d848cae0478aa2bdae4fd304d4e9bade935412fc9bc9faeb3962be8c75156",
+    "source_tree": "2ac13df4d85a825ed18a73ceb2323d6061911c84",
+    "version": "1.6.0"
   },
   "liberusoftware/scheduler-queues-api": {
     "path": "modules/scheduler-queues-api",
@@ -4014,6 +4014,14 @@
     "source_signature": "d02023b9eb2058920a4505366f9698035ed9b33a40f4dccd50ca821d8b80e8c8",
     "source_tree": "1bdcfd6de23b470d742e5dd9b5d8a07e50fe6dad",
     "version": "1.5.0"
+  },
+  "liberusoftware/webhooks-api": {
+    "path": "modules/webhooks-api",
+    "reference": "483eb7d9bf6ffac8ad2640f1da5cc6c1c288f996",
+    "repository": "https://github.com/liberusoftware/module-foundation-webhooks-api",
+    "source_signature": "0320eca87d318bbe3236d8df1cc5a1548fff1845ab4141e9e2db430d1fdfdf86",
+    "source_tree": "d0c470314157fc9e2a69af4da6fcadd93108d96b",
+    "version": "1.0.2"
   },
   "liberusoftware/webhooks-filament": {
     "path": "modules/webhooks-filament",
