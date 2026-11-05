@@ -433,11 +433,11 @@
   },
   "liberusoftware/integrations": {
     "path": "modules/integrations",
-    "reference": "a66d4e9b3ab22e5212aeb26610397b52ac89879b",
+    "reference": "9b9ce32441b6cd4e6a68c7c07031ca9d9f297b4d",
     "repository": "https://github.com/liberusoftware/module-integrations",
-    "source_signature": "ec4f89e679a9802a12c09a4107613f5b92124e01f37065d8d95c0977f048d129",
-    "source_tree": "c8e6caf6cc8b348a50b0583db755ff64e548f718",
-    "version": "1.6.0"
+    "source_signature": "2cb40cf29a5f3b795e3e319c0379523f46c144de566ae5b6bc6270b310219856",
+    "source_tree": "5ff06c3bab68fbe44c525427d5e4f2ff2d737262",
+    "version": "1.8.0"
   },
   "liberusoftware/integrations-api": {
     "path": "modules/integrations-api",
@@ -1409,11 +1409,11 @@
   },
   "liberusoftware/module-crm-core": {
     "path": "modules/crm-core",
-    "reference": "dc149e1c6302af8fa68009ea53365dcc255cb7e9",
+    "reference": "b6464de79a6a2492b19cadaf0f793ca625b6356b",
     "repository": "https://github.com/liberusoftware/module-crm-core",
-    "source_signature": "51ef26d9e4123a308702ee292de5bafd66bb6a854378ddf9b996d4f41c447191",
-    "source_tree": "e2bfab2f7ff623fba24d7b5939c45f4ce6256bb0",
-    "version": "1.1.0"
+    "source_signature": "8ad1678f7743357f223dbb61f695028809450f93383eb174daf0b14ba80a5469",
+    "source_tree": "676c4308ca658e87108228f077b665b1d69518c9",
+    "version": "1.2.0"
   },
   "liberusoftware/module-crm-core-api": {
     "path": "modules/crm-core-api",
@@ -1665,11 +1665,11 @@
   },
   "liberusoftware/module-crm-dialer-and-outreach": {
     "path": "modules/crm-dialer-and-outreach",
-    "reference": "46c4a5d76e1dc27b8f74d2954358906357129f1e",
+    "reference": "65f4adb5e5cd4ad9b848bd2eff0c173cca7cb6c2",
     "repository": "https://github.com/liberusoftware/module-crm-dialer-and-outreach",
-    "source_signature": "60d400606c84758a323c76aa8b3941d72e9d78a19067d986c3c980d00a32a0f3",
-    "source_tree": "863e2f8d9518d9820bf4e3d3e2a8d732f5186afa",
-    "version": "1.1.0"
+    "source_signature": "30ccc828412fd0b1ef87c8b6da5b67b900c64b2703a93f9c257ec2f3f902812c",
+    "source_tree": "811bb2bdb22ac679eade527792d45123e47f0895",
+    "version": "1.2.0"
   },
   "liberusoftware/module-crm-dialer-and-outreach-api": {
     "path": "modules/module-crm-dialer-and-outreach-api",
@@ -2113,11 +2113,11 @@
   },
   "liberusoftware/module-crm-lead-capture": {
     "path": "modules/crm-lead-capture",
-    "reference": "128b572a054ecdb680d83eac088f1e56ddb7c13b",
+    "reference": "90e7052c9258f2daa0e00079ad7894b86e732ee6",
     "repository": "https://github.com/liberusoftware/module-crm-lead-capture",
-    "source_signature": "51200b67c70b1b1a06fcad14e747fdce8386079536ed25439f7f5b840e13d73a",
-    "source_tree": "bcb11d5951421e6d7cde6154afa8b610ff34cd1f",
-    "version": "1.0.0"
+    "source_signature": "15d0a49559177269b6e96a27e14c743d56f896324eaec8a3b05dd19bec5916f5",
+    "source_tree": "cc7938288ecd3929bc775c908276db2f98517a43",
+    "version": "1.1.0"
   },
   "liberusoftware/module-crm-lead-capture-api": {
     "path": "modules/crm-lead-capture-api",
@@ -3073,11 +3073,11 @@
   },
   "liberusoftware/module-crm-sales-workspace": {
     "path": "modules/crm-sales-workspace",
-    "reference": "583066c86018af9adbcc958c073dbe2a09821886",
+    "reference": "92e45591230916e3c0456def25749ed8cd7f02cb",
     "repository": "https://github.com/liberusoftware/module-crm-sales-workspace",
-    "source_signature": "d7385a2d1dba89598bf64a332cfa287355ae362261ebe9912ead81456bfb9a2e",
-    "source_tree": "d926f88f3764547e005c66c0055f1a84c7d98d07",
-    "version": "1.0.0"
+    "source_signature": "9d65c21e789adc70e4c2ec702a3db3ca19dc1c4084ad8d6e84fa3670482e9570",
+    "source_tree": "57b82c41e5366d4904f7200fe437edb278b42110",
+    "version": "1.1.0"
   },
   "liberusoftware/module-crm-sales-workspace-api": {
     "path": "modules/crm-sales-workspace-api",
@@ -3681,11 +3681,11 @@
   },
   "liberusoftware/organizations-teams": {
     "path": "modules/organizations-teams",
-    "reference": "a683276241117635bc6e5c804bc781934dc8de00",
+    "reference": "b57f654ab6967958b28dc5dea3bc5cc1429b87d4",
     "repository": "https://github.com/liberusoftware/module-organizations-teams",
-    "source_signature": "d6c2142d8544b199b8f358cfcb4749fafe9a4d18d4d30af12ed588c82087a1da",
-    "source_tree": "591de756ae2980c9cd89297afab5dd07463ed2f1",
-    "version": "1.9.0"
+    "source_signature": "beb552a5493deab509edee681316e7f9e307cff57a64d23d4872fa99062a8de5",
+    "source_tree": "cba64064c2b71cac5e712391794e0f3bfbf4edf4",
+    "version": "1.10.0"
   },
   "liberusoftware/organizations-teams-api": {
     "path": "modules/organizations-teams-api",
@@ -3745,11 +3745,11 @@
   },
   "liberusoftware/roles-permissions": {
     "path": "modules/roles-permissions",
-    "reference": "fce99963a5bab21d45fc163ae0d5661906f76b8d",
+    "reference": "f1eb827d80c2d085f2752bca85a6f34fd5737300",
     "repository": "https://github.com/liberusoftware/module-roles-permissions",
-    "source_signature": "f6f4c7f17cbf0539598396f630cd206ab33047052851facf196ac06877c90505",
-    "source_tree": "2477a0c56b079de7ee4b355337d7444d296919db",
-    "version": "1.5.0"
+    "source_signature": "b97ec343d70551f38abf0e2876ba600cb76ca4c8c9017b5d64dcae7b71c97e31",
+    "source_tree": "15fb0a4537019304be9f5a48e3e72eb8033b9baa",
+    "version": "1.7.0"
   },
   "liberusoftware/roles-permissions-api": {
     "path": "modules/roles-permissions-api",
