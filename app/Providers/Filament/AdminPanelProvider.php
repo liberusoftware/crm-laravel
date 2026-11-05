@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\ManageGeneralSettings;
 use App\Filament\Admin\Pages\SetupWizard;
+use App\Filament\Admin\Resources\RoleResource;
 use App\Filament\App\Pages;
 use App\Filament\App\Resources\TeamRoleResource;
 use App\Filament\ModulePlugins;
@@ -60,12 +61,14 @@ class AdminPanelProvider extends PanelProvider
                 TeamBackupResource::class,
                 TeamResource::class,
                 TeamRoleResource::class,
+                RoleResource::class,
                 FoundationUserResource::class,
             ])
             ->authenticatedRoutes(function (Panel $panel): void {
                 TeamBackupResource::registerRoutes($panel);
                 TeamResource::registerRoutes($panel);
                 TeamRoleResource::registerRoutes($panel);
+                RoleResource::registerRoutes($panel);
                 FoundationTeamResource::registerRoutes($panel);
                 FoundationUserResource::registerRoutes($panel);
                 ReportCustomizer::registerRoutes($panel);

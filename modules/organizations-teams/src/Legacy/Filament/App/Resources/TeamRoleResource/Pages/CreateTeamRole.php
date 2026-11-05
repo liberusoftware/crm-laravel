@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\App\Resources\TeamRoleResource\Pages;
 
 use App\Filament\App\Resources\TeamRoleResource;
-use Filament\Facades\Filament;
+use App\Models\User;
+use App\Services\RoleConfigurationService;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Models\Role as SpatieRole;
+use Illuminate\Validation\ValidationException;
 
 class CreateTeamRole extends CreateRecord
 {
@@ -17,18 +18,14 @@ class CreateTeamRole extends CreateRecord
     #[\Override]
     protected function handleRecordCreation(array $data): Model
     {
-        // Clamp to the grantable set server-side so a crafted request can't grant
-        // a management permission (anti-escalation).
-        $grantable = array_keys(TeamRoleResource::grantablePermissions());
-        $permissions = array_values(array_intersect($data['permissions'] ?? [], $grantable));
-        unset($data['permissions']);
+        $user = auth()->user();
+        $team = TeamRoleResource::team();
+        abort_unless($user instanceof User && $team !== null, 403);
 
-        $data['team_id'] = Filament::getTenant()?->getKey();
-        $data['guard_name'] = 'web';
-
-        $role = SpatieRole::create($data);
-        $role->syncPermissions($permissions);
-
-        return $role;
+        try {
+            return app(RoleConfigurationService::class)->save($user, $team, $data);
+        } catch (ValidationException $exception) {
+            throw ValidationException::withMessages(collect($exception->errors())->mapWithKeys(fn (array $messages, string $field): array => ['data.'.$field => $messages])->all());
+        }
     }
 }

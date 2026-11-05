@@ -21,8 +21,10 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class DealResource extends Resource
@@ -44,47 +46,61 @@ class DealResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                // Masked-role viewers get the read-only placeholder on edit; the
-                // hidden real field isn't validated or dehydrated, so a save keeps
-                // the stored value.
-                TextInput::make('value')
-                    ->numeric()
-                    ->prefix('$')
-                    ->visible(fn (string $operation): bool => $operation === 'create' || ! AccessContext::shouldMaskFields()),
-                Placeholder::make('value_masked')
-                    ->label('Value')
-                    ->content('[hidden]')
-                    ->visible(fn (string $operation): bool => $operation !== 'create' && AccessContext::shouldMaskFields()),
-                TextInput::make('stage')
-                    ->maxLength(255),
-                DatePicker::make('close_date')
-                    ->label('Close Date'),
-                TextInput::make('probability')
-                    ->numeric()
-                    ->suffix('%'),
-                Select::make('contact_id')
-                    ->relationship('contact', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('user_id')
-                    ->label('Owner')
-                    ->relationship('user', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('pipeline_id')
-                    ->relationship('pipeline', 'name')
-                    ->searchable()
-                    ->nullable(),
-                // `stage` is also a plain string column, so the `stage()` relation
-                // name collides — use options() instead of ->relationship() here.
-                Select::make('stage_id')
-                    ->label('Pipeline Stage')
-                    ->options(Stage::pluck('name', 'id'))
-                    ->searchable()
-                    ->nullable(),
+                Section::make('Deal overview')
+                    ->description('Set the opportunity value and expected outcome.')
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        // Masked-role viewers get the read-only placeholder on edit; the
+                        // hidden real field isn't validated or dehydrated, so a save keeps
+                        // the stored value.
+                        TextInput::make('value')
+                            ->numeric()
+                            ->prefix('$')
+                            ->visible(fn (string $operation): bool => $operation === 'create' || ! AccessContext::shouldMaskFields()),
+                        Placeholder::make('value_masked')
+                            ->label('Value')
+                            ->content('[hidden]')
+                            ->visible(fn (string $operation): bool => $operation !== 'create' && AccessContext::shouldMaskFields()),
+                        TextInput::make('stage')
+                            ->maxLength(255),
+                        DatePicker::make('close_date')
+                            ->label('Close Date'),
+                        TextInput::make('probability')
+                            ->numeric()
+                            ->minValue(0)
+                            ->maxValue(100)
+                            ->suffix('%'),
+                    ]),
+                Section::make('Relationships and pipeline')
+                    ->description('Connect this opportunity to a contact, owner and pipeline.')
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        Select::make('contact_id')
+                            ->relationship('contact', 'name')
+                            ->searchable()
+                            ->nullable(),
+                        Select::make('user_id')
+                            ->label('Owner')
+                            ->relationship('user', 'name')
+                            ->searchable()
+                            ->nullable(),
+                        Select::make('pipeline_id')
+                            ->relationship('pipeline', 'name')
+                            ->searchable()
+                            ->nullable(),
+                        // `stage` is also a plain string column, so the `stage()` relation
+                        // name collides — use options() instead of ->relationship() here.
+                        Select::make('stage_id')
+                            ->label('Pipeline Stage')
+                            ->options(Stage::pluck('name', 'id'))
+                            ->searchable()
+                            ->nullable(),
+                    ]),
             ]);
     }
 
@@ -92,6 +108,13 @@ class DealResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->persistSortInSession()
+            ->striped()
+            ->emptyStateHeading('No deals found')
+            ->emptyStateDescription('Create a deal to get started, or adjust your search and filters.')
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
@@ -102,21 +125,25 @@ class DealResource extends Resource
                         : '$'.number_format((float) $state, 2))
                     ->sortable(),
                 TextColumn::make('stage')
+                    ->badge()
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('close_date')
                     ->date()
                     ->sortable(),
                 TextColumn::make('probability')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->suffix('%')
                     ->sortable(),
                 TextColumn::make('contact.name')
                     ->label('Contact')
                     ->sortable(),
                 TextColumn::make('user.name')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Owner')
                     ->sortable(),
                 TextColumn::make('pipeline.name')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Pipeline')
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -125,7 +152,12 @@ class DealResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('pipeline_id')
+                    ->label('Pipeline')
+                    ->relationship('pipeline', 'name')
+                    ->searchable(),
+                SelectFilter::make('stage')
+                    ->options(fn (): array => Deal::query()->whereNotNull('stage')->distinct()->pluck('stage', 'stage')->all()),
             ])
             ->headerActions([
                 // Gated off for masked (`free`) roles: a CSV would otherwise

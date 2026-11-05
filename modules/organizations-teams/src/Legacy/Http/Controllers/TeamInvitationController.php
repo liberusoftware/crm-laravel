@@ -65,7 +65,7 @@ class TeamInvitationController extends Controller
             ]);
             TeamMemberAdded::dispatch($team, $user);
             if ($role !== Role::SalesRep) {
-                app(TeamManagementService::class)->changeTeamRole($user, $team, $role);
+                app(TeamManagementService::class)->provisionTeamRole($user, $team, $role);
             }
             $user->switchTeam($team);
             $invitation->delete();

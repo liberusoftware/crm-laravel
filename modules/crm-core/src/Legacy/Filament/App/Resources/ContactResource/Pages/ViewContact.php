@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\App\Resources\ContactResource\Pages;
 
+use App\Filament\Actions\ContactDialingActions;
 use App\Filament\App\Resources\ContactResource;
 use App\Models\Contact;
+use Filament\Actions\EditAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Schema;
@@ -13,6 +15,11 @@ use Filament\Schemas\Schema;
 class ViewContact extends ViewRecord
 {
     protected static string $resource = ContactResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [ContactDialingActions::quick(), EditAction::make()];
+    }
 
     public function infolist(Schema $schema): Schema
     {

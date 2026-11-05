@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\App\Resources\LeadResource\Pages;
 
+use App\Filament\Actions\ContactDialingActions;
 use App\Filament\App\Resources\LeadResource;
 use App\Models\Lead;
 use App\Support\AccessContext;
+use Filament\Actions\EditAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Schema;
@@ -14,6 +16,11 @@ use Filament\Schemas\Schema;
 class ViewLead extends ViewRecord
 {
     protected static string $resource = LeadResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [ContactDialingActions::quick(), EditAction::make()];
+    }
 
     public function infolist(Schema $schema): Schema
     {

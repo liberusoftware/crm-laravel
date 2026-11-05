@@ -74,13 +74,18 @@ class TeamRoleResourceTest extends TestCase
         $team = Team::factory()->create();
         $this->seed(RolesSeeder::class);
 
-        $admin = User::factory()->create();
+        $admin = User::factory()->create(['current_team_id' => $team->id]);
+        $team->users()->attach($admin);
+        $this->actingAs($admin);
+        Filament::setCurrentPanel(Filament::getPanel('app'));
+        Filament::setTenant($team);
         setPermissionsTeamId($team->id);
         $admin->assignRole('admin');
         $this->actingAs($admin);
         $this->assertTrue(TeamRoleResource::canAccess());
 
-        $rep = User::factory()->create();
+        $rep = User::factory()->create(['current_team_id' => $team->id]);
+        $team->users()->attach($rep);
         setPermissionsTeamId($team->id);
         $rep->assignRole('sales_rep');
         $this->actingAs($rep);

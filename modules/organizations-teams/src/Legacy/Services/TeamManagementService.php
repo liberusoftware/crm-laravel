@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\Branch;
 use App\Models\Team;
 use App\Models\User;
+use App\Support\RolePermissionCatalog;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,8 @@ class TeamManagementService
 
     public function createTeamMember(Team $team, string $name, string $email, string $password, Role $role): User
     {
-        $actor = Auth::user();
+        $this->authorizeMemberManagement($team);
         setPermissionsTeamId($team->getKey());
-
-        if (! $actor instanceof User || (! $actor->ownsTeam($team) && ! $actor->hasRole(Role::Admin->value))) {
-            throw new InvalidArgumentException('You cannot manage members for this team.');
-        }
 
         if (! in_array($role, self::TEAM_ROLES, true)) {
             throw new InvalidArgumentException('That role cannot be assigned to a new team member.');
@@ -55,21 +52,22 @@ class TeamManagementService
     }
 
     /**
-     * Replace a member's team-scoped role. Removes any of the four team roles the
-     * user holds in this team, then assigns the new one — never touching global
-     * super_admin/customer. Guards the role so the UI Select can't be bypassed.
-     */
-    /**
      * Add an existing user to a team with a team role. Attaches membership if
      * needed, then delegates to changeTeamRole (role guard + owner guard + audit).
      */
     public function addTeamMember(User $user, Team $team, Role $role): void
     {
-        if (! $user->belongsToTeam($team)) {
-            $team->users()->attach($user);
+        $this->authorizeMemberManagement($team);
+        if (! in_array($role, self::TEAM_ROLES, true)) {
+            throw new InvalidArgumentException('That role cannot be assigned to a team member.');
         }
-
-        $this->changeTeamRole($user, $team, $role);
+        DB::transaction(function () use ($user, $team, $role): void {
+            if (! $user->belongsToTeam($team)) {
+                $team->users()->attach($user);
+                $user->unsetRelation('teams');
+            }
+            $this->changeTeamRole($user, $team, $role);
+        });
     }
 
     /**
@@ -78,29 +76,38 @@ class TeamManagementService
      */
     public function removeTeamMember(User $user, Team $team): void
     {
+        $this->authorizeMemberManagement($team, $user);
         if ($user->getKey() === $team->getAttribute('user_id')) {
             throw new InvalidArgumentException('The team owner cannot be removed.');
         }
 
         setPermissionsTeamId($team->getKey());
 
-        foreach (self::TEAM_ROLES as $existing) {
-            if ($user->hasRole($existing->value)) {
-                $user->removeRole($existing->value);
-            }
-        }
+        DB::transaction(function () use ($user, $team): void {
+            $this->clearTeamRoles($user, $team);
 
-        $team->users()->detach($user);
+            $team->users()->detach($user);
 
-        app(AuditLogService::class)->record(
-            'team.member_removed',
-            "Removed {$user->getAttribute('email')} from the team",
-            $user,
-        );
+            app(AuditLogService::class)->record(
+                'team.member_removed',
+                "Removed {$user->getAttribute('email')} from the team",
+                $user,
+            );
+        });
     }
 
     public function changeTeamRole(User $user, Team $team, Role $role): void
     {
+        $this->authorizeMemberManagement($team, $user);
+        $this->provisionTeamRole($user, $team, $role);
+    }
+
+    /** Called only after invitation or identity-provider verification, before an actor session may exist. */
+    public function provisionTeamRole(User $user, Team $team, Role $role): void
+    {
+        if (! $team->users()->whereKey($user->getKey())->exists()) {
+            throw new InvalidArgumentException('The user is not a member of this team.');
+        }
         if (! in_array($role, self::TEAM_ROLES, true)) {
             throw new InvalidArgumentException("Role {$role->value} is not assignable to a team member.");
         }
@@ -112,23 +119,20 @@ class TeamManagementService
         }
 
         setPermissionsTeamId($team->getKey());
-        SpatieRole::firstOrCreate(['name' => $role->value, 'guard_name' => 'web', 'team_id' => null]);
+        $definition = SpatieRole::firstOrCreate(['name' => $role->value, 'guard_name' => 'web', 'team_id' => null]);
 
         $previous = $user->getRoleNames()->first() ?? 'none';
 
-        foreach (self::TEAM_ROLES as $existing) {
-            if ($user->hasRole($existing->value)) {
-                $user->removeRole($existing->value);
-            }
-        }
+        DB::transaction(function () use ($user, $team, $definition, $previous, $role): void {
+            $this->clearTeamRoles($user, $team);
+            $user->assignRole($definition);
 
-        $user->assignRole($role->value);
-
-        app(AuditLogService::class)->record(
-            'team.role_changed',
-            "Changed {$user->getAttribute('email')} from {$previous} to {$role->value}",
-            $user,
-        );
+            app(AuditLogService::class)->record(
+                'team.role_changed',
+                "Changed {$user->getAttribute('email')} from {$previous} to {$role->value}",
+                $user,
+            );
+        });
     }
 
     /**
@@ -140,6 +144,7 @@ class TeamManagementService
      */
     public function assignCustomRole(User $user, Team $team, SpatieRole $customRole): void
     {
+        $this->authorizeMemberManagement($team, $user);
         // Cast: the retrieved role's team_id may come back as a string on some
         // drivers, so compare as ints — a role from another team is not assignable.
         if ((int) $customRole->getAttribute('team_id') !== (int) $team->getKey()) {
@@ -155,28 +160,40 @@ class TeamManagementService
 
         $previous = $user->getRoleNames()->first() ?? 'none';
 
-        // Drop any fixed team role...
-        foreach (self::TEAM_ROLES as $existing) {
-            if ($user->hasRole($existing->value)) {
-                $user->removeRole($existing->value);
-            }
+        if ($customRole->guard_name !== 'web' || in_array(mb_strtolower($customRole->name), Role::values(), true)
+            || array_diff($customRole->getPermissionNames()->all(), array_keys(RolePermissionCatalog::options())) !== []) {
+            throw new InvalidArgumentException('This custom role contains permissions that cannot be assigned by a team owner.');
         }
-
-        // ...and any of this team's custom roles the member currently holds.
-        foreach (SpatieRole::where('team_id', $team->getKey())->pluck('name') as $name) {
-            if ($user->hasRole($name)) {
-                $user->removeRole($name);
-            }
-        }
-
         $newRole = $customRole->getAttribute('name');
-        $user->assignRole($newRole);
+        DB::transaction(function () use ($user, $team, $customRole, $previous, $newRole): void {
+            $customRole = SpatieRole::query()->whereKey($customRole->getKey())->lockForUpdate()->firstOrFail();
+            $this->clearTeamRoles($user, $team);
+            $user->assignRole($customRole);
 
-        app(AuditLogService::class)->record(
-            'team.role_changed',
-            "Changed {$user->getAttribute('email')} from {$previous} to {$newRole}",
-            $user,
-        );
+            app(AuditLogService::class)->record(
+                'team.role_changed',
+                "Changed {$user->getAttribute('email')} from {$previous} to {$newRole}",
+                $user,
+            );
+        });
+    }
+
+    private function authorizeMemberManagement(Team $team, ?User $member = null): void
+    {
+        $actor = Auth::user();
+        if (! $actor instanceof User || ! app(RoleConfigurationService::class)->canManageTeam($actor, $team)) {
+            throw new InvalidArgumentException('You cannot manage members for this team.');
+        }
+        if ($member !== null && (! $member->belongsToTeam($team) || $member->getKey() === $actor->getKey())) {
+            throw new InvalidArgumentException('Choose another member of this team.');
+        }
+    }
+
+    private function clearTeamRoles(User $user, Team $team): void
+    {
+        DB::table('model_has_roles')->where('team_id', $team->getKey())->where('model_type', $user->getMorphClass())
+            ->where('model_id', $user->getKey())->delete();
+        $user->unsetRelation('roles')->unsetRelation('permissions');
     }
 
     public function createDefaultTeamForUser(User $user): Team

@@ -23,6 +23,16 @@ class TeamRoleLogResource extends Resource
 {
     use EnforcesResourcePermissions;
 
+    public static function canAccess(): bool
+    {
+        return TeamRoleResource::canAccess();
+    }
+
+    public static function canViewAny(): bool
+    {
+        return self::canAccess();
+    }
+
     public static function permissionResource(): string
     {
         return 'team_role_log';
@@ -47,7 +57,7 @@ class TeamRoleLogResource extends Resource
     #[\Override]
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('action', 'like', 'team.%');
+        return parent::getEloquentQuery()->where('team_id', TeamRoleResource::team()?->getKey() ?? 0)->where('action', 'like', 'team.%');
     }
 
     #[\Override]

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Liberu\CRM\DialerAndOutreach\Actions;
 
+use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Liberu\CRM\DialerAndOutreach\Models\DialerCall;
 use Liberu\CRM\DialerAndOutreach\Models\DialerList;
+use Liberu\CRM\DialerAndOutreach\Queries\ContactCallHistory;
 use Liberu\CRM\DialerAndOutreach\Services\DialerPolicy;
 use Liberu\CRM\Telephony\Models\TelephonySettings;
 use Twilio\TwiML\VoiceResponse;
@@ -57,6 +61,7 @@ final class QueueDialerCall
             }
         }
         $call = DB::transaction(function () use ($teamId, $list): ?DialerCall {
+            TelephonySettings::query()->where('team_id', $teamId)->lockForUpdate()->firstOrFail();
             $lockedList = DialerList::query()->whereKey($list->id)->lockForUpdate()->firstOrFail();
             abort_unless($lockedList->status === 'active', 422);
             if (DialerCall::query()->where('team_id', $teamId)->where('list_id', $list->id)->whereIn('status', ['dispatching', 'in_progress', 'dispatch_unknown'])->exists()) {
@@ -79,7 +84,26 @@ final class QueueDialerCall
 
                 return null;
             }
-            $call->update(['status' => 'dispatching', 'attempts' => $call->attempts + 1]);
+            if ($call->contact_id !== null && isset($lockedList->compliance['cooldown_days'])) {
+                $actor = User::query()->find($list->owner_id);
+                $contact = Contact::query()->where('team_id', $teamId)->whereKey($call->contact_id)->lockForUpdate()->first();
+                $history = app(ContactCallHistory::class);
+                if ($actor === null || $contact === null || ! Gate::forUser($actor)->allows('update', $contact)
+                    || ! $history->notCalledSince(Contact::query()->whereKey($contact->id), $history->cutoff((int) $lockedList->compliance['cooldown_days']))->exists()) {
+                    $call->update(['status' => 'blocked']);
+
+                    return null;
+                }
+            }
+            $agentLists = DialerList::query()->where('team_id', $teamId)
+                ->where('script->agent_number', $lockedList->script['agent_number'])->select('id');
+            if (DialerCall::query()->where('team_id', $teamId)->whereIn('status', ['dispatching', 'in_progress', 'dispatch_unknown'])
+                ->where(function ($query) use ($agentLists, $call): void {
+                    $query->whereIn('list_id', $agentLists)->orWhere('phone', $call->phone);
+                })->exists()) {
+                return null;
+            }
+            $call->update(['status' => 'dispatching', 'attempts' => $call->attempts + 1, 'last_attempt_at' => now()]);
 
             return $call;
         });
