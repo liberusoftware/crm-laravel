@@ -4,7 +4,7 @@
 [![Install](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/install.yml/badge.svg)](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/install.yml)
 [![Docker](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/main.yml/badge.svg)](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/main.yml)
 [![Coverage](https://codecov.io/gh/liberusoftware/crm-laravel/branch/main/graph/badge.svg)](https://codecov.io/gh/liberusoftware/crm-laravel)
-[![Latest release](https://img.shields.io/github/v/release/liberusoftware/crm-laravel)](https://github.com/liberusoftware/project-crm-laravel-filament/releases)
+[![Latest release](https://img.shields.io/github/v/release/liberusoftware/project-crm-laravel-filament)](https://github.com/liberusoftware/project-crm-laravel-filament/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 
 Liberu CRM is an open-source, multi-tenant customer relationship management application for managing contacts, companies, leads, opportunities, deals, tasks, communications, campaigns, and support work in one place.
