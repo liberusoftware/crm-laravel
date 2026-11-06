@@ -3,7 +3,7 @@
 [![Tests](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/tests.yml/badge.svg)](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/tests.yml)
 [![Install](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/install.yml/badge.svg)](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/install.yml)
 [![Docker](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/main.yml/badge.svg)](https://github.com/liberusoftware/project-crm-laravel-filament/actions/workflows/main.yml)
-[![Coverage](https://codecov.io/gh/liberusoftware/crm-laravel/branch/main/graph/badge.svg)](https://codecov.io/gh/liberusoftware/crm-laravel)
+[![Coverage](https://codecov.io/gh/liberusoftware/project-crm-laravel-filament/branch/main/graph/badge.svg)](https://codecov.io/gh/liberusoftware/project-crm-laravel-filament)
 [![Latest release](https://img.shields.io/github/v/release/liberusoftware/project-crm-laravel-filament)](https://github.com/liberusoftware/project-crm-laravel-filament/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 
@@ -129,7 +129,7 @@ php artisan test --filter=ContactTest
 
 ### Coverage
 
-The `tests` workflow runs the complete PHPUnit suite with Xdebug, writes `coverage.xml`, and uploads the report to [Codecov](https://codecov.io/gh/liberusoftware/crm-laravel). Generate the same report locally with:
+The `tests` workflow runs the complete PHPUnit suite with Xdebug, writes `coverage.xml`, and uploads the report to [Codecov](https://codecov.io/gh/liberusoftware/project-crm-laravel-filament). Generate the same report locally with:
 
 ```bash
 php artisan test --coverage-clover=coverage.xml
